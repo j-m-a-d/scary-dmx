@@ -468,7 +468,7 @@ int start_show()
  */
 void _rewind_show(dmx_show_t *show)
 {
-    if(show == NULL) return;
+    if(show == 0) return;
     while((show->currentCue->previousCue)){
         show->currentCue = show->currentCue->previousCue;
     }
