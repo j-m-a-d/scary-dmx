@@ -1,0 +1,148 @@
+cue {
+    analyzer {
+        file:/Volumes/HD2/jason/Desktop/Halloween Tracks/Toccata-ext.m4a;
+        ch:9,4;
+        threshold:0.575;
+        threshold_value:225;
+        bands:7;
+        freq:3;
+        type:0;
+    }
+    oscillator {
+        ch:5;
+        low:10;
+        high:225;
+        speed:50000;
+    }
+    ch1:115;
+    ch2:20;
+}
+   
+cue {
+    analyzer {
+        file:/Volumes/HD2/jason/Desktop/Halloween Tracks/dungeon.m4a;
+        ch:9,4;
+        threshold:0.285;
+        threshold_value:225;
+        bands:7;
+        freq:5;
+        type:0;
+    }
+    oscillator {
+        ch:5;
+        low:5;
+        high:255;
+        speed:50000;
+    }
+    timer {
+        ch:6;
+        dmx-value:255;
+        ontime:750000;
+        offtime:2000000;
+    }
+}
+
+cue {
+    analyzer {
+        file:/Volumes/HD2/jason/Desktop/Halloween Tracks/RiseOfTheDead.aif;
+        ch:9,4;
+        threshold:0.62;
+        threshold_value:195;
+        bands:7;
+        freq:4;
+        type:0;
+    }
+    flicker {
+        ch:6;
+    }
+    ch5:255;
+}
+ 
+cue {
+    analyzer {
+        file:/Volumes/HD2/jason/Desktop/Halloween Tracks/Thunder Symphony.aiff;
+        ch:9,4;
+        threshold:0.750;
+        threshold_value:225;
+        bands:7;
+        freq:3;
+        type:0;
+    }
+    flicker {
+        ch:6;
+    }
+    ch5:255;
+}
+
+cue {
+    analyzer {
+        file:/Volumes/HD2/jason/Desktop/Halloween Tracks/Graveyard Slaughter.mp3;
+        ch:5;
+        threshold:0.0;
+        threshold_value:0;
+        bands:7;
+        freq:5;
+        type:1;
+    }
+    oscillator {
+        ch:6;
+        low:10;
+        high:150;
+        speed:250000;
+    }
+    timer {
+        ch:4;
+        dmx-value:200;
+        ontime:2000000;
+        offtime:10000000;
+    }
+    timer {
+        ch:9;
+        dmx-value:200;
+        ontime:2000000;
+        offtime:10000000;
+    }
+}
+
+cue {
+    analyzer {
+        file:/Volumes/HD2/jason/Desktop/Halloween Tracks/The Beast Lives.mp3;
+        ch:9,4;
+        threshold:0.525;
+        threshold_value:255;
+        bands:7;
+        freq:4;
+        type:0;
+    }
+    oscillator {
+        ch:6;
+        low:10;
+        high:150;
+        speed:50000;
+    }
+    ch5:255;
+}
+
+cue {
+    ch1:255;
+    ch2:14;
+    flicker{
+        ch:6;
+    }
+    analyzer {
+        file:/Volumes/HD2/jason/Desktop/Halloween Tracks/Fright Storm.m4a;
+        ch:9,4;
+        threshold:0.625;
+        threshold_value:245;
+        bands:7;
+        freq:4;
+        type:0;
+    }
+    oscillator {
+        ch:5;
+        low:0;
+        high:255;
+        speed:100000;
+    }
+}
+

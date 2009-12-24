@@ -1,0 +1,432 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 42;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8D11072A0486CEB800E47090 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 29B97318FDCFA39411CA2CEA /* MainMenu.nib */; };
+		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
+		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
+		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		960887640F3CD61D005D8118 /* MainWinController.m in Sources */ = {isa = PBXBuildFile; fileRef = 960887630F3CD61D005D8118 /* MainWinController.m */; };
+		96088EAC0F3CFEA8005D8118 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96088EAB0F3CFEA8005D8118 /* QTKit.framework */; };
+		960CE2B3107FE46A00E301AC /* thunder-only.shw in Resources */ = {isa = PBXBuildFile; fileRef = 960CE2B2107FE46A00E301AC /* thunder-only.shw */; };
+		96138FFC1080CEFD00147788 /* ShowTableViewDS.m in Sources */ = {isa = PBXBuildFile; fileRef = 96138FFB1080CEFD00147788 /* ShowTableViewDS.m */; };
+		962EA6E60F5B0BEA00DCC0C1 /* SoundController.m in Sources */ = {isa = PBXBuildFile; fileRef = 962EA6E50F5B0BEA00DCC0C1 /* SoundController.m */; };
+		9642140310B0783400F9F364 /* OscillatorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9642140210B0783400F9F364 /* OscillatorController.m */; };
+		967B70BA10DEBF6A00318111 /* chaser_handler.c in Sources */ = {isa = PBXBuildFile; fileRef = 967B70B910DEBF6A00318111 /* chaser_handler.c */; };
+		96AF8DF90F2B857300369C1E /* dmx_controller.c in Sources */ = {isa = PBXBuildFile; fileRef = 96AF8DE30F2B857300369C1E /* dmx_controller.c */; };
+		96AF8DFA0F2B857300369C1E /* flicker_effect.c in Sources */ = {isa = PBXBuildFile; fileRef = 96AF8DE50F2B857300369C1E /* flicker_effect.c */; };
+		96AF8DFC0F2B857300369C1E /* libftd2xx.0.1.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 96AF8DE90F2B857300369C1E /* libftd2xx.0.1.4.dylib */; };
+		96AF8DFD0F2B857300369C1E /* libftd2xx.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 96AF8DEA0F2B857300369C1E /* libftd2xx.dylib */; };
+		96AF8DFF0F2B857300369C1E /* oscillator_effect.c in Sources */ = {isa = PBXBuildFile; fileRef = 96AF8DEC0F2B857300369C1E /* oscillator_effect.c */; };
+		96AF8E010F2B857300369C1E /* show_handler.c in Sources */ = {isa = PBXBuildFile; fileRef = 96AF8DEF0F2B857300369C1E /* show_handler.c */; };
+		96AF8E020F2B857300369C1E /* skull.icns in Resources */ = {isa = PBXBuildFile; fileRef = 96AF8DF10F2B857300369C1E /* skull.icns */; };
+		96AF8E030F2B857300369C1E /* sound_analyzer.c in Sources */ = {isa = PBXBuildFile; fileRef = 96AF8DF20F2B857300369C1E /* sound_analyzer.c */; };
+		96AF8E040F2B857300369C1E /* timed_effect.c in Sources */ = {isa = PBXBuildFile; fileRef = 96AF8DF40F2B857300369C1E /* timed_effect.c */; };
+		96AF8E820F2B873800369C1E /* config_parser.tab.c in Sources */ = {isa = PBXBuildFile; fileRef = 96AF8E7F0F2B873800369C1E /* config_parser.tab.c */; };
+		96AF8E830F2B873800369C1E /* config_reader.yy.c in Sources */ = {isa = PBXBuildFile; fileRef = 96AF8E810F2B873800369C1E /* config_reader.yy.c */; };
+		96FE58061079A00900A92124 /* QuickTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96FE58051079A00900A92124 /* QuickTime.framework */; };
+		96FE58151079A0FF00A92124 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8D1107310486CEB800E47090 /* Info.plist */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		29B97319FDCFA39411CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
+		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		32CA4F630368D1EE00C91783 /* Scary DMX_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Scary DMX_Prefix.pch"; sourceTree = "<group>"; };
+		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		8D1107320486CEB800E47090 /* Scary DMX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Scary DMX.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9604ADBC1048611300DD68EB /* halloween.shw */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = halloween.shw; sourceTree = "<group>"; };
+		960887620F3CD61D005D8118 /* MainWinController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MainWinController.h; sourceTree = "<group>"; };
+		960887630F3CD61D005D8118 /* MainWinController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = MainWinController.m; sourceTree = "<group>"; };
+		96088EAB0F3CFEA8005D8118 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
+		960CE2B2107FE46A00E301AC /* thunder-only.shw */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "thunder-only.shw"; sourceTree = "<group>"; };
+		96138FFA1080CEFD00147788 /* ShowTableViewDS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowTableViewDS.h; sourceTree = "<group>"; };
+		96138FFB1080CEFD00147788 /* ShowTableViewDS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowTableViewDS.m; sourceTree = "<group>"; };
+		962EA6E40F5B0BEA00DCC0C1 /* SoundController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SoundController.h; sourceTree = "<group>"; };
+		962EA6E50F5B0BEA00DCC0C1 /* SoundController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = SoundController.m; sourceTree = "<group>"; };
+		9642140110B0783400F9F364 /* OscillatorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OscillatorController.h; sourceTree = "<group>"; };
+		9642140210B0783400F9F364 /* OscillatorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OscillatorController.m; sourceTree = "<group>"; };
+		967B70B810DEBF6A00318111 /* chaser_handler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chaser_handler.h; sourceTree = "<group>"; };
+		967B70B910DEBF6A00318111 /* chaser_handler.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = chaser_handler.c; sourceTree = "<group>"; };
+		96AF8DE10F2B857300369C1E /* config_parser.y */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.yacc; path = config_parser.y; sourceTree = "<group>"; };
+		96AF8DE20F2B857300369C1E /* config_reader.l */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.lex; path = config_reader.l; sourceTree = "<group>"; };
+		96AF8DE30F2B857300369C1E /* dmx_controller.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = dmx_controller.c; sourceTree = "<group>"; };
+		96AF8DE40F2B857300369C1E /* dmx_controller.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = dmx_controller.h; sourceTree = "<group>"; };
+		96AF8DE50F2B857300369C1E /* flicker_effect.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = flicker_effect.c; sourceTree = "<group>"; };
+		96AF8DE60F2B857300369C1E /* flicker_effect.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = flicker_effect.h; sourceTree = "<group>"; };
+		96AF8DE70F2B857300369C1E /* ftd2xx.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ftd2xx.h; sourceTree = "<group>"; };
+		96AF8DE90F2B857300369C1E /* libftd2xx.0.1.4.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libftd2xx.0.1.4.dylib; sourceTree = "<group>"; };
+		96AF8DEA0F2B857300369C1E /* libftd2xx.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libftd2xx.dylib; sourceTree = "<group>"; };
+		96AF8DEB0F2B857300369C1E /* Makefile */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		96AF8DEC0F2B857300369C1E /* oscillator_effect.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = oscillator_effect.c; sourceTree = "<group>"; };
+		96AF8DED0F2B857300369C1E /* oscillator_effect.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = oscillator_effect.h; sourceTree = "<group>"; };
+		96AF8DEF0F2B857300369C1E /* show_handler.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = show_handler.c; sourceTree = "<group>"; };
+		96AF8DF00F2B857300369C1E /* show_handler.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = show_handler.h; sourceTree = "<group>"; };
+		96AF8DF10F2B857300369C1E /* skull.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = skull.icns; sourceTree = "<group>"; };
+		96AF8DF20F2B857300369C1E /* sound_analyzer.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = sound_analyzer.c; sourceTree = "<group>"; };
+		96AF8DF30F2B857300369C1E /* sound_analyzer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = sound_analyzer.h; sourceTree = "<group>"; };
+		96AF8DF40F2B857300369C1E /* timed_effect.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = timed_effect.c; sourceTree = "<group>"; };
+		96AF8DF50F2B857300369C1E /* timed_effect.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = timed_effect.h; sourceTree = "<group>"; };
+		96AF8DF60F2B857300369C1E /* WinTypes.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = WinTypes.h; sourceTree = "<group>"; };
+		96AF8E7F0F2B873800369C1E /* config_parser.tab.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = config_parser.tab.c; sourceTree = "<group>"; };
+		96AF8E800F2B873800369C1E /* config_parser.tab.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = config_parser.tab.h; sourceTree = "<group>"; };
+		96AF8E810F2B873800369C1E /* config_reader.yy.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = config_reader.yy.c; sourceTree = "<group>"; };
+		96FC986210042AA3003691B6 /* short.shw */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = short.shw; sourceTree = "<group>"; };
+		96FE58051079A00900A92124 /* QuickTime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickTime.framework; path = /System/Library/Frameworks/QuickTime.framework; sourceTree = "<absolute>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D11072E0486CEB800E47090 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
+				96AF8DFC0F2B857300369C1E /* libftd2xx.0.1.4.dylib in Frameworks */,
+				96AF8DFD0F2B857300369C1E /* libftd2xx.dylib in Frameworks */,
+				96088EAC0F3CFEA8005D8118 /* QTKit.framework in Frameworks */,
+				96FE58061079A00900A92124 /* QuickTime.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		080E96DDFE201D6D7F000001 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				960887630F3CD61D005D8118 /* MainWinController.m */,
+				962EA6E50F5B0BEA00DCC0C1 /* SoundController.m */,
+				96138FFB1080CEFD00147788 /* ShowTableViewDS.m */,
+				9642140210B0783400F9F364 /* OscillatorController.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				96088EAB0F3CFEA8005D8118 /* QTKit.framework */,
+				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
+				13E42FB307B3F0F600E4EEF1 /* CoreData.framework */,
+				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		19C28FACFE9D520D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D1107320486CEB800E47090 /* Scary DMX.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* Scary DMX */ = {
+			isa = PBXGroup;
+			children = (
+				96C217B410C0E3C200507543 /* src */,
+				96AF8DEB0F2B857300369C1E /* Makefile */,
+				29B97317FDCFA39411CA2CEA /* Resources */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
+			);
+			name = "Scary DMX";
+			sourceTree = "<group>";
+		};
+		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				967B70B910DEBF6A00318111 /* chaser_handler.c */,
+				96AF8E7F0F2B873800369C1E /* config_parser.tab.c */,
+				96AF8E810F2B873800369C1E /* config_reader.yy.c */,
+				96AF8DEF0F2B857300369C1E /* show_handler.c */,
+				96AF8DF20F2B857300369C1E /* sound_analyzer.c */,
+				96AF8DF40F2B857300369C1E /* timed_effect.c */,
+				96AF8DEC0F2B857300369C1E /* oscillator_effect.c */,
+				96AF8DE10F2B857300369C1E /* config_parser.y */,
+				96AF8DE20F2B857300369C1E /* config_reader.l */,
+				96AF8DE30F2B857300369C1E /* dmx_controller.c */,
+				96AF8DE50F2B857300369C1E /* flicker_effect.c */,
+				29B97316FDCFA39411CA2CEA /* main.m */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		29B97317FDCFA39411CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				960CE2B2107FE46A00E301AC /* thunder-only.shw */,
+				96FC986210042AA3003691B6 /* short.shw */,
+				9604ADBC1048611300DD68EB /* halloween.shw */,
+				96AF8DF10F2B857300369C1E /* skull.icns */,
+				8D1107310486CEB800E47090 /* Info.plist */,
+				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
+				29B97318FDCFA39411CA2CEA /* MainMenu.nib */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				96FE58051079A00900A92124 /* QuickTime.framework */,
+				96AF8DE90F2B857300369C1E /* libftd2xx.0.1.4.dylib */,
+				96AF8DEA0F2B857300369C1E /* libftd2xx.dylib */,
+				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
+				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		96AF8EC50F2BA2F700369C1E /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				967B70B810DEBF6A00318111 /* chaser_handler.h */,
+				9642140110B0783400F9F364 /* OscillatorController.h */,
+				32CA4F630368D1EE00C91783 /* Scary DMX_Prefix.pch */,
+				96AF8DE70F2B857300369C1E /* ftd2xx.h */,
+				96138FFA1080CEFD00147788 /* ShowTableViewDS.h */,
+				96AF8E800F2B873800369C1E /* config_parser.tab.h */,
+				96AF8DE40F2B857300369C1E /* dmx_controller.h */,
+				96AF8DE60F2B857300369C1E /* flicker_effect.h */,
+				96AF8DED0F2B857300369C1E /* oscillator_effect.h */,
+				96AF8DF00F2B857300369C1E /* show_handler.h */,
+				96AF8DF30F2B857300369C1E /* sound_analyzer.h */,
+				96AF8DF50F2B857300369C1E /* timed_effect.h */,
+				96AF8DF60F2B857300369C1E /* WinTypes.h */,
+				960887620F3CD61D005D8118 /* MainWinController.h */,
+				962EA6E40F5B0BEA00DCC0C1 /* SoundController.h */,
+			);
+			name = Headers;
+			sourceTree = "<group>";
+		};
+		96C217B410C0E3C200507543 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				080E96DDFE201D6D7F000001 /* Classes */,
+				96AF8EC50F2BA2F700369C1E /* Headers */,
+				29B97315FDCFA39411CA2CEA /* Other Sources */,
+			);
+			name = src;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D1107260486CEB800E47090 /* Scary DMX */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "Scary DMX" */;
+			buildPhases = (
+				96AF8E3F0F2B868C00369C1E /* ShellScript */,
+				8D1107290486CEB800E47090 /* Resources */,
+				8D11072C0486CEB800E47090 /* Sources */,
+				8D11072E0486CEB800E47090 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Scary DMX";
+			productInstallPath = "$(HOME)/Applications";
+			productName = "Scary DMX";
+			productReference = 8D1107320486CEB800E47090 /* Scary DMX.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B97313FDCFA39411CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Scary DMX" */;
+			hasScannedForEncodings = 1;
+			mainGroup = 29B97314FDCFA39411CA2CEA /* Scary DMX */;
+			projectDirPath = "";
+			targets = (
+				8D1107260486CEB800E47090 /* Scary DMX */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D1107290486CEB800E47090 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D11072A0486CEB800E47090 /* MainMenu.nib in Resources */,
+				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
+				96AF8E020F2B857300369C1E /* skull.icns in Resources */,
+				96FE58151079A0FF00A92124 /* Info.plist in Resources */,
+				960CE2B3107FE46A00E301AC /* thunder-only.shw in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		96AF8E3F0F2B868C00369C1E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "make flex";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D11072C0486CEB800E47090 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D11072D0486CEB800E47090 /* main.m in Sources */,
+				96AF8DF90F2B857300369C1E /* dmx_controller.c in Sources */,
+				96AF8DFA0F2B857300369C1E /* flicker_effect.c in Sources */,
+				96AF8DFF0F2B857300369C1E /* oscillator_effect.c in Sources */,
+				96AF8E010F2B857300369C1E /* show_handler.c in Sources */,
+				96AF8E030F2B857300369C1E /* sound_analyzer.c in Sources */,
+				96AF8E040F2B857300369C1E /* timed_effect.c in Sources */,
+				96AF8E820F2B873800369C1E /* config_parser.tab.c in Sources */,
+				96AF8E830F2B873800369C1E /* config_reader.yy.c in Sources */,
+				960887640F3CD61D005D8118 /* MainWinController.m in Sources */,
+				962EA6E60F5B0BEA00DCC0C1 /* SoundController.m in Sources */,
+				96138FFC1080CEFD00147788 /* ShowTableViewDS.m in Sources */,
+				9642140310B0783400F9F364 /* OscillatorController.m in Sources */,
+				967B70BA10DEBF6A00318111 /* chaser_handler.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		089C165CFE840E0CC02AAC07 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				089C165DFE840E0CC02AAC07 /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		29B97318FDCFA39411CA2CEA /* MainMenu.nib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				29B97319FDCFA39411CA2CEA /* English */,
+			);
+			name = MainMenu.nib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C01FCF4B08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					_TRACE_PARSER,
+					_DMX_TRACE_OUTPUT,
+				);
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Applications";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)\"";
+				PRODUCT_NAME = "Scary DMX";
+				WRAPPER_EXTENSION = app;
+				ZERO_LINK = YES;
+			};
+			name = Debug;
+		};
+		C01FCF4C08A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = ppc;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = G5;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Applications";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)\"";
+				PRODUCT_NAME = "Scary DMX";
+				WRAPPER_EXTENSION = app;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		C01FCF4F08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+			};
+			name = Debug;
+		};
+		C01FCF5008A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "Scary DMX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4B08A954540054247B /* Debug */,
+				C01FCF4C08A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Scary DMX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4F08A954540054247B /* Debug */,
+				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+}

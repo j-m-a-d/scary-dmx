@@ -1,0 +1,43 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            ACTIONS = {
+                openShowFile = id; 
+                setShowLoop = id; 
+                startShow = id; 
+                stopShow = id; 
+                toggleDMX = id; 
+                toggleShow = id; 
+                updateChannel = id; 
+            }; 
+            CLASS = MainWinController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                dmxButton = NSButton; 
+                loopShow = NSMenuItem; 
+                progress = NSProgressIndicator; 
+                showButton = NSButton; 
+                showList = NSTableView; 
+                showTable = NSTableView; 
+                soundController = NSObject; 
+                statusText = NSTextField; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {CLASS = NSLevelIndicator; LANGUAGE = ObjC; SUPERCLASS = NSControl; }, 
+        {
+            ACTIONS = {myAction = id; }; 
+            CLASS = NSWindow; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSResponder; 
+        }, 
+        {
+            CLASS = SoundController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {levelViewLeft = NSView; levelViewRight = NSView; }; 
+            SUPERCLASS = NSObject; 
+        }
+    ); 
+    IBVersion = 1; 
+}
