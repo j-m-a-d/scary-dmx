@@ -309,11 +309,13 @@ void stop_show()
 {
     pthread_mutex_lock(&show_mutex);   
         showing = 0;
-        // The show thread is only 'alive' during
-        // the setup of a cue.  It exits immediately
-        // but in case a call to stop_show comes immediately
-        // after a call to start_show we'll wait for the show
-        // thread to exit first.
+        /*
+         The show thread is only 'alive' during
+         the setup of a cue.  It exits immediately
+         but in case a call to stop_show comes immediately
+         after a call to start_show we'll wait for the show
+         thread to exit first.
+         */
         if(0 != show_pt){
             pthread_join(show_pt, NULL);
             show_pt = 0;
@@ -370,7 +372,7 @@ static void *next_step(void *data_in)
         while(NULL != tdata){
             timed_effect_handle *timer = 0;
             if(!tdata->timer_handle){
-                printf("Allocating new timer handler for cue.\n");
+                //printf("Allocating new timer handler for cue.\n");
                 timer = malloc(sizeof(timed_effect_handle));
                 new_timed_effect(tdata, timer);
                 tdata->timer_handle = timer;

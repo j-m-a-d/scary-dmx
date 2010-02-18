@@ -11,6 +11,7 @@
 #include "sound_analyzer.h"
 #include "timed_effect.h"
 #include "dmx_controller.h"
+#include "utils.h"
 
 #include <stdio.h>
 

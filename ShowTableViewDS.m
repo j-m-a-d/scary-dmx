@@ -151,11 +151,18 @@ NSString *getHeaderNameForColumn(int index)
     }
 }
 
-- (void) dealloc {
+- (void) dealloc 
+{
     if(showDataIndex){
         free(showDataIndex);
     }
     [super dealloc];
+}
+
+- (void) init
+{
+    showDataIndex = 0;
+    [super init];
 }
 
 @end

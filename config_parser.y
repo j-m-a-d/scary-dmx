@@ -209,13 +209,9 @@ bands freq analyzer_type RBRACE
     printf("threshold value: %d ,", $6);
     printf("bands: %d\n", $7);
 #endif
-    analyzer_data_t *aData = malloc(sizeof(analyzer_data_t));
-    memset(aData, 0, sizeof(analyzer_data_t));
+    analyzer_data_t *aData = NEW_ANALYZER_DATA_T(aData);
     aData->movieFile = $3;
-    int length = sizeof(int) * ($4.count + 1);
-    aData->dmxChannelList = malloc(length);
-    memset(aData->dmxChannelList, 0, length);
-    memcpy(aData->dmxChannelList, $4.channels, length-(sizeof (int)));
+    aData->dmxChannelList = COPY_CHANNEL_LIST(aData->dmxChannelList, $4.channels, $4.count);
     aData->threshold = $5;
     aData->dmxValue = $6;
     aData->numberOfBandLevels = $7;
@@ -235,12 +231,11 @@ bands freq analyzer_type RBRACE
     printf("threshold value: %d ,", $6);
     printf("bands: %d\n", $7);
 #endif
-    analyzer_data_t *aData = malloc(sizeof(analyzer_data_t));
-    memset(aData, 0, sizeof(analyzer_data_t));
+    analyzer_data_t *aData = NEW_ANALYZER_DATA_T(aData);
     aData->movieFile = $3;
     int length = sizeof(int) * ( 1 + 1);
     aData->dmxChannelList = malloc(length);
-    memset(aData->dmxChannelList, 0, length);
+    aData->dmxChannelList[1] = 0;
     aData->dmxChannelList[0] = $4;
     aData->threshold = $5;
     aData->dmxValue = $6;
@@ -257,8 +252,7 @@ OSCILLATOR LBRACE chan low_value high_value speed_value RBRACE
 #ifdef _TRACE_PARSER
     printf("Oscillator setting: ch-- %d, low-- %d, high-- %d, speed-- %d\n", $3, $4, $5, $6 );
 #endif
-    oscillator_data_t* oData = malloc(ODT_SIZE);
-    memset(oData, 0, ODT_SIZE);
+    oscillator_data_t* oData = NEW_OSCILLATOR_DATA_T(oData);
     oData->channel = $3;
     oData->lowThreshold = $4;
     oData->highThreshold = $5;

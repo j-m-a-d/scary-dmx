@@ -6,6 +6,12 @@
  *  Copyright 2008 __MyCompanyName__. All rights reserved.
  *
  */
+ 
+#define ODT_SIZE sizeof(oscillator_data_t)
+
+#define NEW_OSCILLATOR_DATA_T(data) \
+        malloc(ODT_SIZE); \
+        memset(data, 0, ODT_SIZE);
 
 enum {
     OSCILLATOR_OK,
@@ -22,7 +28,6 @@ typedef struct _oscillator_data_t{
     int speed;
 } oscillator_data_t;
 //
-#define ODT_SIZE sizeof(oscillator_data_t)
 
 void copy_oscillator_data(oscillator_data_t *, const oscillator_data_t *);
 

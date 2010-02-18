@@ -289,7 +289,7 @@ short *yyss;
 short *yysslim;
 YYSTYPE *yyvs;
 int yystacksize;
-#line 385 "config_parser.y"
+#line 379 "config_parser.y"
 
 #line 295 "config_parser.tab.c"
 /* allocate initial stack or double stack size, up to YYMAXDEPTH */
@@ -529,13 +529,9 @@ case 16:
     printf("threshold value: %d ,", yyvsp[-4].val);
     printf("bands: %d\n", yyvsp[-3].val);
 #endif
-    analyzer_data_t *aData = malloc(sizeof(analyzer_data_t));
-    memset(aData, 0, sizeof(analyzer_data_t));
+    analyzer_data_t *aData = NEW_ANALYZER_DATA_T(aData);
     aData->movieFile = yyvsp[-7].text;
-    int length = sizeof(int) * (yyvsp[-6].chan_list.count + 1);
-    aData->dmxChannelList = malloc(length);
-    memset(aData->dmxChannelList, 0, length);
-    memcpy(aData->dmxChannelList, yyvsp[-6].chan_list.channels, length-(sizeof (int)));
+    aData->dmxChannelList = COPY_CHANNEL_LIST(aData->dmxChannelList, yyvsp[-6].chan_list.channels, yyvsp[-6].chan_list.count);
     aData->threshold = yyvsp[-5].dval;
     aData->dmxValue = yyvsp[-4].val;
     aData->numberOfBandLevels = yyvsp[-3].val;
@@ -545,7 +541,7 @@ case 16:
 }
 break;
 case 17:
-#line 229 "config_parser.y"
+#line 225 "config_parser.y"
 {
 #ifdef _TRACE_PARSER
     printf("analyzer setting: %s ,", yyvsp[-7].text);
@@ -555,12 +551,11 @@ case 17:
     printf("threshold value: %d ,", yyvsp[-4].val);
     printf("bands: %d\n", yyvsp[-3].val);
 #endif
-    analyzer_data_t *aData = malloc(sizeof(analyzer_data_t));
-    memset(aData, 0, sizeof(analyzer_data_t));
+    analyzer_data_t *aData = NEW_ANALYZER_DATA_T(aData);
     aData->movieFile = yyvsp[-7].text;
     int length = sizeof(int) * ( 1 + 1);
     aData->dmxChannelList = malloc(length);
-    memset(aData->dmxChannelList, 0, length);
+    aData->dmxChannelList[1] = 0;
     aData->dmxChannelList[0] = yyvsp[-6].val;
     aData->threshold = yyvsp[-5].dval;
     aData->dmxValue = yyvsp[-4].val;
@@ -571,13 +566,12 @@ case 17:
 }
 break;
 case 18:
-#line 256 "config_parser.y"
+#line 251 "config_parser.y"
 {
 #ifdef _TRACE_PARSER
     printf("Oscillator setting: ch-- %d, low-- %d, high-- %d, speed-- %d\n", yyvsp[-4].val, yyvsp[-3].val, yyvsp[-2].val, yyvsp[-1].val );
 #endif
-    oscillator_data_t* oData = malloc(ODT_SIZE);
-    memset(oData, 0, ODT_SIZE);
+    oscillator_data_t* oData = NEW_OSCILLATOR_DATA_T(oData);
     oData->channel = yyvsp[-4].val;
     oData->lowThreshold = yyvsp[-3].val;
     oData->highThreshold = yyvsp[-2].val;
@@ -586,7 +580,7 @@ case 18:
 }
 break;
 case 19:
-#line 272 "config_parser.y"
+#line 266 "config_parser.y"
 {
 #ifdef _TRACE_PARSER
     printf("Timer setting channel-- %d, on-- %d, off-- %d\n",yyvsp[-4].val, yyvsp[-2].val, yyvsp[-1].val);
@@ -602,102 +596,102 @@ case 19:
 }
 break;
 case 20:
-#line 289 "config_parser.y"
+#line 283 "config_parser.y"
 {
     yyval.val = yyvsp[0].val;
 }
 break;
 case 21:
-#line 296 "config_parser.y"
+#line 290 "config_parser.y"
 {
     yyval.val = yyvsp[0].val;
 }
 break;
 case 22:
-#line 302 "config_parser.y"
+#line 296 "config_parser.y"
 {
     yyval.val = yyvsp[0].val;
 }
 break;
 case 23:
-#line 308 "config_parser.y"
+#line 302 "config_parser.y"
 {
     yyval.dval = yyvsp[0].dval;
 }
 break;
 case 24:
-#line 314 "config_parser.y"
+#line 308 "config_parser.y"
 {
     yyval.val = yyvsp[0].val;
 }
 break;
 case 25:
-#line 320 "config_parser.y"
+#line 314 "config_parser.y"
 {
     yyval.val = yyvsp[0].val;
 }
 break;
 case 26:
-#line 326 "config_parser.y"
+#line 320 "config_parser.y"
 {
     yyval.val = yyvsp[0].val;
 }
 break;
 case 27:
-#line 332 "config_parser.y"
+#line 326 "config_parser.y"
 {
     yyval.val = yyvsp[0].val;
 }
 break;
 case 28:
-#line 338 "config_parser.y"
+#line 332 "config_parser.y"
 {
     yyval.val = yyvsp[0].val;
 }
 break;
 case 29:
-#line 344 "config_parser.y"
+#line 338 "config_parser.y"
 {
     yyval.val = yyvsp[0].val;
 }
 break;
 case 30:
-#line 350 "config_parser.y"
+#line 344 "config_parser.y"
 {
     yyval.val = yyvsp[0].val;
 }
 break;
 case 31:
-#line 356 "config_parser.y"
+#line 350 "config_parser.y"
 {
     yyval.val = yyvsp[0].val;
 }
 break;
 case 32:
-#line 362 "config_parser.y"
+#line 356 "config_parser.y"
 {
     yyval.val = yyvsp[-1].val;
 }
 break;
 case 33:
-#line 368 "config_parser.y"
+#line 362 "config_parser.y"
 {   
     yyval.dval = yyvsp[-1].dval;
 }
 break;
 case 34:
-#line 374 "config_parser.y"
+#line 368 "config_parser.y"
 {
     yyval.text = yyvsp[-1].text;
 }
 break;
 case 35:
-#line 380 "config_parser.y"
+#line 374 "config_parser.y"
 {
     yyval.chan_list = yyvsp[-1].chan_list;
 }
 break;
-#line 701 "config_parser.tab.c"
+#line 695 "config_parser.tab.c"
     }
     yyssp -= yym;
     yystate = *yyssp;

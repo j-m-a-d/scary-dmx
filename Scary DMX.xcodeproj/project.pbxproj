@@ -57,6 +57,7 @@
 		9642140210B0783400F9F364 /* OscillatorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OscillatorController.m; sourceTree = "<group>"; };
 		967B70B810DEBF6A00318111 /* chaser_handler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chaser_handler.h; sourceTree = "<group>"; };
 		967B70B910DEBF6A00318111 /* chaser_handler.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = chaser_handler.c; sourceTree = "<group>"; };
+		96AE8B2510E813DC00210B82 /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
 		96AF8DE10F2B857300369C1E /* config_parser.y */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.yacc; path = config_parser.y; sourceTree = "<group>"; };
 		96AF8DE20F2B857300369C1E /* config_reader.l */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.lex; path = config_reader.l; sourceTree = "<group>"; };
 		96AF8DE30F2B857300369C1E /* dmx_controller.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = dmx_controller.c; sourceTree = "<group>"; };
@@ -198,6 +199,7 @@
 		96AF8EC50F2BA2F700369C1E /* Headers */ = {
 			isa = PBXGroup;
 			children = (
+				96AE8B2510E813DC00210B82 /* utils.h */,
 				967B70B810DEBF6A00318111 /* chaser_handler.h */,
 				9642140110B0783400F9F364 /* OscillatorController.h */,
 				32CA4F630368D1EE00C91783 /* Scary DMX_Prefix.pch */,

@@ -7,9 +7,11 @@
  *
  */
 #include <QuickTime/QuickTime.h>
+#include "utils.h"
 
 #define MAX_ANALYZE_CHANNELS 2
 #define MAX_ANALYZE_BANDS 10
+
 //
 enum  {
     ANALYZE_OK,
@@ -28,8 +30,6 @@ enum {
 //
 QTAudioFrequencyLevels *freqResults; 
 //
-typedef int *channel_list_t;
-
 typedef struct _analyzer_data_t {
     char *movieFile;
     channel_list_t dmxChannelList;
@@ -39,6 +39,11 @@ typedef struct _analyzer_data_t {
     float threshold;
     int flags;
 } analyzer_data_t;
+//
+#define NEW_ANALYZER_DATA_T(data) \
+malloc(sizeof(analyzer_data_t)); \
+memset(data, 0, sizeof(analyzer_data_t))
+//
 
 #ifndef pascal
 #define pascal

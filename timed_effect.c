@@ -29,6 +29,7 @@ static pthread_cond_t wait_cond = PTHREAD_COND_INITIALIZER;
 typedef struct _timed_effect_t {
     void *handle;
     timed_effect_data_t *data;
+    int run_flag;
 } timed_effect_t;
 
 void free_timed_effect(timed_effect_data_t * data)
@@ -127,7 +128,10 @@ int cue_timed_effect(timed_effect_handle *timer)
     result = pthread_mutex_unlock(&wait_mutex);
 
     timed_effect_t *_timer = (timed_effect_t*)timer;
-    result = pthread_create(_timer->handle, NULL, do_timed_effect, (void*)(_timer->data) );
+    pthread_attr_t attr;
+    result = pthread_attr_init(&attr);
+    result = pthread_attr_setstacksize(&attr, 512);
+    result = pthread_create(_timer->handle, &attr, do_timed_effect, (void*)(_timer->data) );
     //check result   
     if(result){}
     
