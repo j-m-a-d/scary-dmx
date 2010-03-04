@@ -168,9 +168,12 @@ static void printAnalyzer(analyzer_data_t *data, FILE *showFile)
     fprintf(showFile, "\t\t file:%s;\n", data->movieFile);
     int *tmp;
     tmp = data->dmxChannelList;
-    //while(*tmp){
-        fprintf(showFile, "\t\t ch:%d;\n", *tmp);
-    //}
+    fprintf(showFile, "\t\t ch:%d", *tmp++);
+    while(*tmp){
+        fprintf(showFile, ",%d", *tmp);
+        tmp++;
+    }
+    fprintf(showFile, ";\n");
     fprintf(showFile, "\t\t threshold:%6.3f;\n", data->threshold);
     fprintf(showFile, "\t\t threshold_value:%d;\n", data->dmxValue);
     fprintf(showFile, "\t\t bands:%d;\n", data->numberOfBandLevels);
@@ -210,7 +213,7 @@ static void printTimerData(timed_effect_data_t *data, FILE *showFile)
  */
 static void printFlickerChannel(int channel, FILE *showFile)
 {
-    fprintf(showFile, "\tflicker:%d\n", channel);
+    fprintf(showFile, "\tflicker {\n\t\tch:%d;\n\t}\n", channel);
 }
 
 /*
