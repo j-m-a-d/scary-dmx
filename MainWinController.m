@@ -54,7 +54,7 @@
             [ds setShow:newShow];
             [showTable reloadData];
         }else{
-            NSAlert* alert = [[NSAlert alloc] init];
+            NSAlert *alert = [[NSAlert alloc] init];
             [alert addButtonWithTitle:@"OK"];
             [alert setMessageText:@"Error loading show file."];
             [alert setAlertStyle:NSWarningAlertStyle];
