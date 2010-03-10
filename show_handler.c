@@ -64,11 +64,17 @@ int free_show(dmx_show_t *show)
     while(show->currentCue){
         cue_node_t *tmp = show->currentCue;
         show->currentCue = tmp->previousCue;
-        free(tmp->cue->channelValues);
-        free_analyzer_data(tmp->cue->aData);
-        free(tmp->cue->oData);
-        free_timed_effects(tmp->cue->timer);
+        if(tmp->cue){
+        if(tmp->cue->channelValues)
+            free(tmp->cue->channelValues);
+        if(tmp->cue->aData)
+            free_analyzer_data(tmp->cue->aData);
+        if(tmp->cue->oData)
+            free(tmp->cue->oData);
+        if(tmp->cue->timer)
+            free_timed_effects(tmp->cue->timer);            
         free(tmp->cue);
+        }
         memset(tmp, 0, sizeof(cue_node_t));//<<<----
         free(tmp);
         tmp = 0;
@@ -135,6 +141,7 @@ int init_show(dmx_show_t **show)
     }
     (*show)->showName = "Default Show";
     (*show)->cueCount = 0;
+    (*show)->currentCue = 0;
     if(create_cue_node(&((*show)->currentCue))){
         free( *show );
         *show = 0;
