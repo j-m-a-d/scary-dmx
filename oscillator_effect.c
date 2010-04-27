@@ -29,17 +29,19 @@ static int oscillating = 0;
 static pthread_t oscillator_pt = 0;
 static pthread_mutex_t oscillator_mutex = PTHREAD_MUTEX_INITIALIZER;
 
-void copy_oscillator_data(oscillator_data_t *to, const oscillator_data_t *from)
+inline void copy_oscillator_data(oscillator_data_t *to, const oscillator_data_t *from)
 {
     memset(to, 0, ODT_SIZE);
     memcpy(to, from, ODT_SIZE);
 }
 
-void free_oscillator_data(oscillator_data_t *tdata)
+inline void free_oscillator_data(oscillator_data_t *tdata)
 {
-    memset(tdata, 0, ODT_SIZE);
-    free(tdata);
-    tdata = 0;
+    if(tdata){
+        memset(tdata, 0, ODT_SIZE);
+        free(tdata);
+        tdata = 0;
+    }
 }
 /*
  *  This thread will update channels like a chaser that

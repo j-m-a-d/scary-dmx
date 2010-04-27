@@ -29,7 +29,8 @@ typedef struct _oscillator_data_t{
 } oscillator_data_t;
 //
 
-void copy_oscillator_data(oscillator_data_t *, const oscillator_data_t *);
+inline void copy_oscillator_data(oscillator_data_t *, const oscillator_data_t *);
+inline void free_oscillator_data(oscillator_data_t *);
 
 // Start the oscillating effect thread on a channel.
 int start_oscillating(const oscillator_data_t *);
