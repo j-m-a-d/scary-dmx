@@ -8,7 +8,9 @@
 
 #import <Cocoa/Cocoa.h>
 
+#ifndef _CLI_MAIN
 int main(int argc, char *argv[])
 {
-    return NSApplicationMain(argc,  (const char **) argv);
+  return NSApplicationMain(argc,  (const char **) argv);
 }
+#endif

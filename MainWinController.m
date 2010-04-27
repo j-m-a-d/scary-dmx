@@ -178,6 +178,7 @@ void show_next_step(void *objRef, cue_node_t *cueData)
         }
         [alert setAlertStyle:NSWarningAlertStyle];
         [alert runModal];
+        /* TODO create a way to run the app even if no device was configured. */
     }
     EnterMovies();
     // Setup show table
