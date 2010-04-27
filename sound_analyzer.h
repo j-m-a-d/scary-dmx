@@ -27,8 +27,7 @@ enum {
     analyzeSingleChannel       = 0 << 1,
     analyzeMultiChannel        = 1 << 1
 };
-//
-QTAudioFrequencyLevels *freqResults; 
+ 
 //
 typedef struct _analyzer_data_t {
     char *movieFile;

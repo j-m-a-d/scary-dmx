@@ -20,6 +20,7 @@ static pthread_t show_pt = 0;
 static int showing = 0;
 //
 static pthread_mutex_t show_mutex = PTHREAD_MUTEX_INITIALIZER;
+static pthread_mutex_t control_mutex = PTHREAD_MUTEX_INITIALIZER;
 //
 static void(*call_show_end)(void*) = 0;
 static void *show_end_obj = 0;
@@ -67,12 +68,10 @@ int free_show(dmx_show_t *show)
         if(tmp->cue){
         if(tmp->cue->channelValues)
             free(tmp->cue->channelValues);
-        if(tmp->cue->aData)
-            free_analyzer_data(tmp->cue->aData);
-        if(tmp->cue->oData)
-            free(tmp->cue->oData);
-        if(tmp->cue->timer)
-            free_timed_effects(tmp->cue->timer);            
+
+        free_analyzer_data(tmp->cue->aData);
+        free_oscillator_data((tmp->cue->oData));
+        free_timed_effects(tmp->cue->timer);            
         free(tmp->cue);
         }
         memset(tmp, 0, sizeof(cue_node_t));//<<<----
@@ -349,7 +348,8 @@ static void *next_step(void *data_in)
         pthread_mutex_unlock(&show_mutex);
         pthread_exit(NULL);     
     }
-        
+
+    //stop_analyze();
     stop_oscillating();
     stop_flicker();
     stop_timed_effects();
@@ -394,9 +394,11 @@ static void *next_step(void *data_in)
         start_timed_effects();
     }
     pthread_mutex_unlock(&show_mutex);
-    //
-    //advance_cue(live_show);
+    
+die_now:
+
     pthread_exit(NULL);
+
 }
 
 /*
@@ -418,7 +420,7 @@ void go_to_next_step()
                 pthread_create(&show_pt, NULL, &next_step, NULL);
                 call_show_next_step(show_next_step_obj, live_show->currentCue);
             }
-            pthread_mutex_unlock(&show_mutex);
+            //pthread_mutex_unlock(&show_mutex);
         } else {
             pthread_mutex_unlock(&show_mutex);
             stop_show();
@@ -491,6 +493,7 @@ void _rewind_show(dmx_show_t *show)
  */
 void rewind_show()
 {
+    pthread_mutex_lock(&control_mutex);
     pthread_mutex_lock(&show_mutex);   
     if(!showing){
         _rewind_show(live_show);
@@ -499,10 +502,10 @@ void rewind_show()
     }
     pthread_mutex_unlock(&show_mutex);
     
+    _rewind_show(live_show);   
     stop_show();
-    _rewind_show(live_show);    
     start_show();
-    
+    pthread_mutex_unlock(&control_mutex);
 }
 
 /*
@@ -510,16 +513,15 @@ void rewind_show()
  */
 int skip_cue()
 {
+    pthread_mutex_lock(&control_mutex);
     pthread_mutex_lock(&show_mutex);
     if(showing){
         skip_movie();
     } else if(live_show && live_show->currentCue->nextCue){
-            live_show->currentCue = live_show->currentCue->nextCue;
-    } else {
-        pthread_mutex_unlock(&show_mutex);
-        return 1;
+        live_show->currentCue = live_show->currentCue->nextCue;
     }
     pthread_mutex_unlock(&show_mutex);
+    pthread_mutex_unlock(&control_mutex);
     return 0;
 }
 

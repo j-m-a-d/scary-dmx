@@ -24,6 +24,8 @@ static pthread_mutex_t analyze_mutex = PTHREAD_MUTEX_INITIALIZER;
 static void(*_listenerFunction)(void*, QTAudioFrequencyLevels*) = 0;
 //
 static void *_callbackRef = 0;
+//
+static QTAudioFrequencyLevels *freqResults;
 
 /*
     Structure for thread creation.
@@ -59,8 +61,9 @@ void free_analyzer_data(analyzer_data_t * adata)
  */
 void skip_movie()
 {
-    if(movie)
+    if(movie){
         GoToEndOfMovie(*movie);
+    }
 }
 
 /*
@@ -157,11 +160,6 @@ cleanup:
         StopMovie(*movie);           
     }
 
-    //we aren't playing anymore.
-    pthread_mutex_lock(&analyze_mutex);
-        monitoring = 0;
-    pthread_mutex_unlock(&analyze_mutex);
-    
     //Free up these resources now.
     free(freqResults);
     freqResults = 0;
@@ -174,9 +172,15 @@ cleanup:
     update_channel_list(data.dmxChannelList, CHANNEL_RESET);
     
     //Let our listener(s) know
-    if(callback){
+    if(callback && monitoring){
         pthread_create(&CallbackThread, NULL, do_callback, (void*)callback);
     }   
+    
+    //we aren't playing anymore.
+    pthread_mutex_lock(&analyze_mutex);
+    monitoring = 0;
+    pthread_mutex_unlock(&analyze_mutex);
+    
     //Knock down QT and quit.
     ExitMoviesOnThread();
     pthread_exit(NULL);
@@ -231,11 +235,6 @@ cleanup:
     if(movie){// && !IsMovieDone(*movie)){
         StopMovie(*movie);           
     }
-
-    //Signal we aren't playing anymore.
-    pthread_mutex_lock(&analyze_mutex);
-        monitoring = 0;
-    pthread_mutex_unlock(&analyze_mutex);
     
     //Free up these resources now.
     free(freqResults);
@@ -249,9 +248,14 @@ cleanup:
     update_channel_list(data.dmxChannelList, CHANNEL_RESET);
       
     //Let our listener(s) know
-    if(callback){
+    if(callback && monitoring){
         pthread_create(&CallbackThread, NULL, do_callback, (void*)callback);
     }
+    //Signal we aren't playing anymore.
+    pthread_mutex_lock(&analyze_mutex);
+    monitoring = 0;
+    pthread_mutex_unlock(&analyze_mutex);
+    
     //Knock down QT and quit.
     ExitMoviesOnThread();    
     pthread_exit(NULL);
@@ -285,7 +289,9 @@ int open_movie_file(const unsigned char *fileName, Movie **newMovie, short *refI
     StringPtr resName;
     
     //Make some space for our new movie.
-    *newMovie = malloc(sizeof(Movie));
+    if(!*newMovie){
+        *newMovie = malloc(sizeof(Movie));
+    }
     err = NewMovieFromFile(*newMovie, *refId, &resId, resName, newMovieActive, &bWasChanged);
     if(err){
         free(*newMovie);
@@ -320,7 +326,6 @@ int start_analyze(analyzer_data_t *data_in, void(*callback)() __attribute__((pas
     short refId = 0;
     open_movie_file(fileName,&movie, &refId);    
 
-    //TODO:  see about using one channel regardless of how many are present in the movie.
     err = SetMovieAudioFrequencyMeteringNumBands(*movie, kQTAudioMeter_StereoMix, &numberOfBandLevels);
     
     //Create some space for the frequency buffer.
@@ -328,6 +333,7 @@ int start_analyze(analyzer_data_t *data_in, void(*callback)() __attribute__((pas
                                   level[numberOfBandLevels * numberOfChannels]));
     if (!freqResults) {
         err = memFullErr;
+        //TODO clean up and return error
     }
   
     freqResults->numChannels = numberOfChannels;

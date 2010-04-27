@@ -99,22 +99,27 @@ NSString *formatDuration(long duration)
         TimeScale s = 0;
         if(aData){
             const unsigned char *fileName = (unsigned char *)aCue->cue->aData->movieFile;
-            open_movie_file(fileName, &movie, &refId);
+            if(open_movie_file(fileName, &movie, &refId)){
+                continue;
+            }
             if(movie){
                 v = GetMovieDuration(*movie);
                 s = GetMovieTimeScale(*movie);
                 CloseMovieFile(refId);
                 DisposeMovie(*movie);
+                duration = v / s;
             } else{
                 printf("Could not open movie to get duration: %s\n", fileName);
             }  
-            duration = v / s;
         }
         NSString *length = formatDuration(duration);
         if(length)
             [durations addObject:length];        
         //move to the next node in the list
         aCue = aCue->nextCue;
+    }
+    if(movie){
+        free(movie);
     }
 }
 
