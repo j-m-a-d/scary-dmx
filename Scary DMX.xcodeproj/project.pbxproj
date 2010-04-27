@@ -12,7 +12,6 @@
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		960887640F3CD61D005D8118 /* MainWinController.m in Sources */ = {isa = PBXBuildFile; fileRef = 960887630F3CD61D005D8118 /* MainWinController.m */; };
-		96088EAC0F3CFEA8005D8118 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96088EAB0F3CFEA8005D8118 /* QTKit.framework */; };
 		960CE2B3107FE46A00E301AC /* thunder-only.shw in Resources */ = {isa = PBXBuildFile; fileRef = 960CE2B2107FE46A00E301AC /* thunder-only.shw */; };
 		96138FFC1080CEFD00147788 /* ShowTableViewDS.m in Sources */ = {isa = PBXBuildFile; fileRef = 96138FFB1080CEFD00147788 /* ShowTableViewDS.m */; };
 		962EA6E60F5B0BEA00DCC0C1 /* SoundController.m in Sources */ = {isa = PBXBuildFile; fileRef = 962EA6E50F5B0BEA00DCC0C1 /* SoundController.m */; };
@@ -47,7 +46,6 @@
 		9604ADBC1048611300DD68EB /* halloween.shw */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = halloween.shw; sourceTree = "<group>"; };
 		960887620F3CD61D005D8118 /* MainWinController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MainWinController.h; sourceTree = "<group>"; };
 		960887630F3CD61D005D8118 /* MainWinController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = MainWinController.m; sourceTree = "<group>"; };
-		96088EAB0F3CFEA8005D8118 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
 		960CE2B2107FE46A00E301AC /* thunder-only.shw */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "thunder-only.shw"; sourceTree = "<group>"; };
 		96138FFA1080CEFD00147788 /* ShowTableViewDS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowTableViewDS.h; sourceTree = "<group>"; };
 		96138FFB1080CEFD00147788 /* ShowTableViewDS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowTableViewDS.m; sourceTree = "<group>"; };
@@ -93,7 +91,6 @@
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				96AF8DFC0F2B857300369C1E /* libftd2xx.0.1.4.dylib in Frameworks */,
 				96AF8DFD0F2B857300369C1E /* libftd2xx.dylib in Frameworks */,
-				96088EAC0F3CFEA8005D8118 /* QTKit.framework in Frameworks */,
 				96FE58061079A00900A92124 /* QuickTime.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -115,7 +112,6 @@
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				96088EAB0F3CFEA8005D8118 /* QTKit.framework */,
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
 			);
 			name = "Linked Frameworks";
