@@ -70,6 +70,10 @@ int main(int argc, char **argv)
         fprintf(stderr, "Failed to initialize show.");
     }
     i = yyparse();
+    if(i){
+        fprintf(stderr, "Parse error.");
+        return i;
+    }
     _rewind_show(resultShow);    
     /**/
     FILE *outFile = fopen("./outshow.shw", "w+");
@@ -84,7 +88,57 @@ int main(int argc, char **argv)
 }
 #endif
 
-#line 71 "config_parser.y"
+#ifdef _CLI_MAIN
+#include <signal.h>
+#include <unistd.h>
+#include <QuickTime/QuickTime.h>
+
+void sig_all(int signal)
+{
+    stop_show();
+    free_all_show();
+    destroy_dmx();
+    ExitMovies();
+    fprintf(stderr, "Shutdown finished.\n");
+    exit(0);
+}
+int main(int argc, char **argv)
+{
+    (void)signal(SIGINT, &sig_all);
+
+    EnterMovies();
+        
+    dmx_show_t *newShow;
+    char *showFile;
+    /*showFile = argv[1];*/
+    showFile = "/Volumes/HD2/jason/Projects/Scary DMX/halloween.shw";
+    if(NULL == showFile){
+        fprintf(stderr, "Usage: %s showfile\n", argv[0]);
+        return 1;
+    }
+    if(load_show_from_file(showFile, &newShow )){
+        fprintf(stderr, "Show not found or invalid show.\n");
+        return 2;
+    }
+
+    if(DMX_INIT_OK != init_dmx()){
+        fprintf(stderr, "Failed to open DMX device.\n");
+        return 3;
+    }
+    
+    start_dmx();
+    fprintf(stdout, "Starting show.\n");
+    start_show();
+    fprintf(stdout, "Running....");
+    while(1){
+        usleep(100000);
+    }
+    
+    return 0;
+}
+#endif
+
+#line 125 "config_parser.y"
 typedef union {
     int     val;
     double  dval;
@@ -94,49 +148,50 @@ typedef union {
         int channels[512];
     } chan_list;
 } YYSTYPE;
-#line 98 "config_parser.tab.c"
+#line 152 "config_parser.tab.c"
 #define VALUE 257
 #define CHANNEL 258
 #define CHANNEL_LIST 259
 #define FLOAT_VALUE 260
 #define FILE_SPEC 261
-#define CUE 262
-#define CHAN 263
-#define FLICKER 264
-#define OSCILLATOR 265
-#define ANALYZER 266
-#define TIMER 267
-#define SPEED 268
-#define LOW 269
-#define HIGH 270
-#define FILENAME 271
-#define TYPE 272
-#define FREQ 273
-#define THRESHOLD 274
-#define BANDS 275
-#define THRESHOLD_VALUE 276
-#define DMX_VALUE 277
-#define ONTIME 278
-#define OFFTIME 279
-#define LPAREN 280
-#define RPAREN 281
-#define LBRACE 282
-#define RBRACE 283
-#define SEMICOLON 284
-#define DASH 285
-#define UNKNOWN 286
+#define ERROR 262
+#define CUE 263
+#define CHAN 264
+#define FLICKER 265
+#define OSCILLATOR 266
+#define ANALYZER 267
+#define TIMER 268
+#define SPEED 269
+#define LOW 270
+#define HIGH 271
+#define FILENAME 272
+#define TYPE 273
+#define FREQ 274
+#define THRESHOLD 275
+#define BANDS 276
+#define THRESHOLD_VALUE 277
+#define DMX_VALUE 278
+#define ONTIME 279
+#define OFFTIME 280
+#define LPAREN 281
+#define RPAREN 282
+#define LBRACE 283
+#define RBRACE 284
+#define SEMICOLON 285
+#define DASH 286
+#define UNKNOWN 287
 #define YYERRCODE 256
 short yylhs[] = {                                        -1,
     0,   17,   17,   18,   18,   18,   19,   19,   20,   20,
    20,   20,   20,   21,   22,   23,   23,   24,   25,    5,
     9,   10,    6,    7,    8,   14,   11,   12,   13,   15,
-   16,    1,    2,    4,    3,
+   16,    1,    2,    4,    3,   26,
 };
 short yylen[] = {                                         2,
     1,    1,    2,    3,    4,    7,    1,    2,    1,    1,
     1,    1,    1,    2,    5,   10,   10,    7,    7,    2,
     2,    2,    2,    2,    2,    2,    2,    2,    2,    2,
-    2,    2,    2,    3,    3,
+    2,    2,    2,    3,    3,    1,
 };
 short yydefred[] = {                                      0,
     0,    0,    0,    2,    0,    0,    3,    0,    0,    0,
@@ -153,22 +208,22 @@ short yydefred[] = {                                      0,
 short yydgoto[] = {                                       2,
    41,   68,   46,   37,   90,   58,   70,   80,   86,   35,
    43,   54,   65,   49,   62,   74,    3,    4,   15,   16,
-   17,   18,   19,   20,   21,
+   17,   18,   19,   20,   21,    0,
 };
-short yysindex[] = {                                   -245,
- -278,    0, -245,    0, -238, -257,    0, -261, -236, -260,
- -259, -251, -250,    0, -253,    0,    0,    0,    0,    0,
-    0, -244, -255,    0, -222, -221, -246, -221,    0,    0,
- -218,    0, -236, -236, -226, -216, -213, -223, -230, -232,
-    0, -236, -214, -227, -241, -215, -215, -236, -220,    0,
-    0,    0, -236, -207,    0, -219, -198, -210, -210,    0,
- -236, -212,    0, -236, -211,    0, -209,    0, -236, -206,
- -206,    0, -236, -205,    0,    0,    0,    0, -236, -202,
- -202,    0,    0,    0, -236, -204, -204,    0, -236, -201,
- -200,    0,    0,    0,
+short yysindex[] = {                                   -260,
+ -277,    0, -260,    0, -239, -257,    0, -262, -236, -261,
+ -258, -254, -251,    0, -253,    0,    0,    0,    0,    0,
+    0, -249, -255,    0, -241, -223, -229, -223,    0,    0,
+ -218,    0, -236, -236, -228, -216, -213, -232, -230, -231,
+    0, -236, -215, -227, -240, -214, -214, -236, -222,    0,
+    0,    0, -236, -210,    0, -220, -198, -211, -211,    0,
+ -236, -217,    0, -236, -212,    0, -208,    0, -236, -209,
+ -209,    0, -236, -206,    0,    0,    0,    0, -236, -205,
+ -205,    0,    0,    0, -236, -202, -202,    0, -236, -203,
+ -201,    0,    0,    0,
 };
 short yyrindex[] = {                                      0,
-    0,    0,   63,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,   68,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
@@ -180,38 +235,38 @@ short yyrindex[] = {                                      0,
     0,    0,    0,    0,
 };
 short yygindex[] = {                                      0,
-   -9,    0,    0,    0,  -14,   27,   18,    8,    3,  -22,
-    0,    0,    0,    0,    0,    0,    0,   78,   54,  -12,
-    0,    0,    0,    0,    0,
+   -9,    0,    0,    0,  -14,   27,   16,    8,    1,  -21,
+    0,    0,    0,    0,    0,    0,    0,   81,   54,  -13,
+    0,    0,    0,    0,    0,    0,
 };
 #define YYTABLESIZE 85
 short yytable[] = {                                      24,
-    9,    5,   30,    6,    9,   38,   10,   11,   12,   13,
-   10,   11,   12,   13,   47,   23,    1,   56,    8,   22,
-   23,   25,   26,   40,   36,   14,   30,    9,   32,   29,
-   27,   28,   52,   10,   11,   12,   13,   31,   60,    9,
-   33,   34,   42,   63,   44,   10,   11,   12,   13,   45,
-   51,   72,   50,   48,   75,   53,   55,   61,   57,   78,
-   64,   67,    1,   82,   66,   69,   73,   89,   79,   84,
-   85,   76,   91,   59,   77,   88,   71,   83,   81,   92,
-    7,   93,   94,   87,   39,
+    9,   30,    1,    5,    9,    6,   38,   10,   11,   12,
+   13,   10,   11,   12,   13,   47,   23,    8,   56,   22,
+   23,   25,   33,   40,   26,   30,   14,    9,   27,   32,
+   29,   28,   52,   31,   10,   11,   12,   13,   60,    9,
+   34,   42,   36,   63,   44,   48,   10,   11,   12,   13,
+   45,   72,   51,   50,   75,   53,   61,   55,   64,   78,
+   57,   67,   73,   82,   66,   69,   79,    1,   85,   84,
+   89,   76,   91,   59,   71,   88,   77,   83,   81,   92,
+   93,   87,   94,    7,   39,
 };
 short yycheck[] = {                                       9,
-  258,  280,   15,  282,  258,   28,  264,  265,  266,  267,
-  264,  265,  266,  267,   37,  257,  262,  259,  257,  281,
-  257,  282,  282,   33,  271,  283,   39,  258,  284,  283,
-  282,  282,   42,  264,  265,  266,  267,  282,   48,  258,
-  263,  263,  269,   53,  261,  264,  265,  266,  267,  263,
-  283,   61,  283,  277,   64,  270,  284,  278,  274,   69,
-  268,  260,    0,   73,  284,  276,  279,  272,  275,   79,
-  273,  283,   87,   47,  284,   85,   59,  283,   71,   89,
-    3,  283,  283,   81,   31,
+  258,   15,  263,  281,  258,  283,   28,  265,  266,  267,
+  268,  265,  266,  267,  268,   37,  257,  257,  259,  282,
+  257,  283,  264,   33,  283,   39,  284,  258,  283,  285,
+  284,  283,   42,  283,  265,  266,  267,  268,   48,  258,
+  264,  270,  272,   53,  261,  278,  265,  266,  267,  268,
+  264,   61,  284,  284,   64,  271,  279,  285,  269,   69,
+  275,  260,  280,   73,  285,  277,  276,    0,  274,   79,
+  273,  284,   87,   47,   59,   85,  285,  284,   71,   89,
+  284,   81,  284,    3,   31,
 };
 #define YYFINAL 2
 #ifndef YYDEBUG
 #define YYDEBUG 0
 #endif
-#define YYMAXTOKEN 286
+#define YYMAXTOKEN 287
 #if YYDEBUG
 char *yyname[] = {
 "end-of-file",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -221,10 +276,10 @@ char *yyname[] = {
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"VALUE","CHANNEL","CHANNEL_LIST",
-"FLOAT_VALUE","FILE_SPEC","CUE","CHAN","FLICKER","OSCILLATOR","ANALYZER",
-"TIMER","SPEED","LOW","HIGH","FILENAME","TYPE","FREQ","THRESHOLD","BANDS",
-"THRESHOLD_VALUE","DMX_VALUE","ONTIME","OFFTIME","LPAREN","RPAREN","LBRACE",
-"RBRACE","SEMICOLON","DASH","UNKNOWN",
+"FLOAT_VALUE","FILE_SPEC","ERROR","CUE","CHAN","FLICKER","OSCILLATOR",
+"ANALYZER","TIMER","SPEED","LOW","HIGH","FILENAME","TYPE","FREQ","THRESHOLD",
+"BANDS","THRESHOLD_VALUE","DMX_VALUE","ONTIME","OFFTIME","LPAREN","RPAREN",
+"LBRACE","RBRACE","SEMICOLON","DASH","UNKNOWN",
 };
 char *yyrule[] = {
 "$accept : show",
@@ -263,6 +318,7 @@ char *yyrule[] = {
 "float_value : FLOAT_VALUE SEMICOLON",
 "file_spec : FILENAME FILE_SPEC SEMICOLON",
 "channel_list : CHAN CHANNEL_LIST SEMICOLON",
+"err : ERROR",
 };
 #endif
 #ifdef YYSTACKSIZE
@@ -289,9 +345,9 @@ short *yyss;
 short *yysslim;
 YYSTYPE *yyvs;
 int yystacksize;
-#line 379 "config_parser.y"
+#line 443 "config_parser.y"
 
-#line 295 "config_parser.tab.c"
+#line 351 "config_parser.tab.c"
 /* allocate initial stack or double stack size, up to YYMAXDEPTH */
 int yyparse __P((void));
 static int yygrowstack __P((void));
@@ -458,7 +514,7 @@ yyreduce:
     switch (yyn)
     {
 case 1:
-#line 115 "config_parser.y"
+#line 170 "config_parser.y"
 {
 #ifdef _TRACE_PARSER
     printf("Show def.\n");
@@ -466,7 +522,7 @@ case 1:
 }
 break;
 case 4:
-#line 130 "config_parser.y"
+#line 185 "config_parser.y"
 {
 #ifdef _TRACE_PARSER
     printf("Empty Cue def.\n");
@@ -474,7 +530,7 @@ case 4:
 }
 break;
 case 5:
-#line 137 "config_parser.y"
+#line 192 "config_parser.y"
 {
 #ifdef _TRACE_PARSER
     printf("Cue def.\n");
@@ -485,7 +541,7 @@ case 5:
 }
 break;
 case 6:
-#line 147 "config_parser.y"
+#line 202 "config_parser.y"
 {
 #ifdef _TRACE_PARSER
     printf("Cue def with duration time: %d\n", yyvsp[-4].val);
@@ -496,7 +552,7 @@ case 6:
 }
 break;
 case 14:
-#line 177 "config_parser.y"
+#line 232 "config_parser.y"
 {
 #ifdef _TRACE_PARSER
     printf("set channel %d : %d\n", yyvsp[-1].val, yyvsp[0].val);
@@ -505,7 +561,7 @@ case 14:
 }
 break;
 case 15:
-#line 187 "config_parser.y"
+#line 242 "config_parser.y"
 {
 #ifdef _TRACE_PARSER
     printf("flicker setting: %d\n", yyvsp[-1].val);
@@ -514,7 +570,7 @@ case 15:
 }
 break;
 case 16:
-#line 198 "config_parser.y"
+#line 253 "config_parser.y"
 {
 #ifdef _TRACE_PARSER
     printf("analyzer setting: %s ,", yyvsp[-7].text);
@@ -541,7 +597,7 @@ case 16:
 }
 break;
 case 17:
-#line 225 "config_parser.y"
+#line 280 "config_parser.y"
 {
 #ifdef _TRACE_PARSER
     printf("analyzer setting: %s ,", yyvsp[-7].text);
@@ -566,7 +622,7 @@ case 17:
 }
 break;
 case 18:
-#line 251 "config_parser.y"
+#line 306 "config_parser.y"
 {
 #ifdef _TRACE_PARSER
     printf("Oscillator setting: ch-- %d, low-- %d, high-- %d, speed-- %d\n", yyvsp[-4].val, yyvsp[-3].val, yyvsp[-2].val, yyvsp[-1].val );
@@ -580,7 +636,7 @@ case 18:
 }
 break;
 case 19:
-#line 266 "config_parser.y"
+#line 321 "config_parser.y"
 {
 #ifdef _TRACE_PARSER
     printf("Timer setting channel-- %d, on-- %d, off-- %d\n",yyvsp[-4].val, yyvsp[-2].val, yyvsp[-1].val);
@@ -596,102 +652,110 @@ case 19:
 }
 break;
 case 20:
-#line 283 "config_parser.y"
-{
-    yyval.val = yyvsp[0].val;
-}
-break;
-case 21:
-#line 290 "config_parser.y"
-{
-    yyval.val = yyvsp[0].val;
-}
-break;
-case 22:
-#line 296 "config_parser.y"
-{
-    yyval.val = yyvsp[0].val;
-}
-break;
-case 23:
-#line 302 "config_parser.y"
-{
-    yyval.dval = yyvsp[0].dval;
-}
-break;
-case 24:
-#line 308 "config_parser.y"
-{
-    yyval.val = yyvsp[0].val;
-}
-break;
-case 25:
-#line 314 "config_parser.y"
-{
-    yyval.val = yyvsp[0].val;
-}
-break;
-case 26:
-#line 320 "config_parser.y"
-{
-    yyval.val = yyvsp[0].val;
-}
-break;
-case 27:
-#line 326 "config_parser.y"
-{
-    yyval.val = yyvsp[0].val;
-}
-break;
-case 28:
-#line 332 "config_parser.y"
-{
-    yyval.val = yyvsp[0].val;
-}
-break;
-case 29:
 #line 338 "config_parser.y"
 {
     yyval.val = yyvsp[0].val;
 }
 break;
+case 21:
+#line 345 "config_parser.y"
+{
+    yyval.val = yyvsp[0].val;
+}
+break;
+case 22:
+#line 351 "config_parser.y"
+{
+    yyval.val = yyvsp[0].val;
+}
+break;
+case 23:
+#line 357 "config_parser.y"
+{
+    yyval.dval = yyvsp[0].dval;
+}
+break;
+case 24:
+#line 363 "config_parser.y"
+{
+    yyval.val = yyvsp[0].val;
+}
+break;
+case 25:
+#line 369 "config_parser.y"
+{
+    yyval.val = yyvsp[0].val;
+}
+break;
+case 26:
+#line 375 "config_parser.y"
+{
+    yyval.val = yyvsp[0].val;
+}
+break;
+case 27:
+#line 381 "config_parser.y"
+{
+    yyval.val = yyvsp[0].val;
+}
+break;
+case 28:
+#line 387 "config_parser.y"
+{
+    yyval.val = yyvsp[0].val;
+}
+break;
+case 29:
+#line 393 "config_parser.y"
+{
+    yyval.val = yyvsp[0].val;
+}
+break;
 case 30:
-#line 344 "config_parser.y"
+#line 399 "config_parser.y"
 {
     yyval.val = yyvsp[0].val;
 }
 break;
 case 31:
-#line 350 "config_parser.y"
+#line 405 "config_parser.y"
 {
     yyval.val = yyvsp[0].val;
 }
 break;
 case 32:
-#line 356 "config_parser.y"
+#line 411 "config_parser.y"
 {
     yyval.val = yyvsp[-1].val;
 }
 break;
 case 33:
-#line 362 "config_parser.y"
+#line 417 "config_parser.y"
 {   
     yyval.dval = yyvsp[-1].dval;
 }
 break;
 case 34:
-#line 368 "config_parser.y"
+#line 423 "config_parser.y"
 {
     yyval.text = yyvsp[-1].text;
 }
 break;
 case 35:
-#line 374 "config_parser.y"
+#line 429 "config_parser.y"
 {
     yyval.chan_list = yyvsp[-1].chan_list;
 }
 break;
-#line 695 "config_parser.tab.c"
+case 36:
+#line 435 "config_parser.y"
+{
+    fprintf(stderr, "%s not recognized.\n", yyvsp[0].text);
+    free(yyvsp[0].text);
+    /*free_show(resultShow);    */
+}
+break;
+#line 759 "config_parser.tab.c"
     }
     yyssp -= yym;
     yystate = *yyssp;

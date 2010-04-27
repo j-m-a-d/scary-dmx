@@ -882,16 +882,17 @@ case 31:
 YY_RULE_SETUP
 #line 81 "config_reader.l"
 {
+                                //printf("Warning: unknown character '%s' (line: %d)\n", yytext, lines); 
                                 yylval.text = strdup(yytext);
-                                printf("Warning: unknown character '%s' (line: %d)\n", yytext, lines);                                
+                                return ERROR;                              
                             }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 85 "config_reader.l"
+#line 86 "config_reader.l"
 ECHO;
 	YY_BREAK
-#line 895 "config_reader.yy.c"
+#line 896 "config_reader.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1777,6 +1778,6 @@ int main()
 	return 0;
 	}
 #endif
-#line 85 "config_reader.l"
+#line 86 "config_reader.l"
 
 

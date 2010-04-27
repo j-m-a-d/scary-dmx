@@ -52,6 +52,10 @@ int main(int argc, char **argv)
         fprintf(stderr, "Failed to initialize show.");
     }
     i = yyparse();
+    if(i){
+        fprintf(stderr, "Parse error.");
+        return i;
+    }
     _rewind_show(resultShow);    
     //
     FILE *outFile = fopen("./outshow.shw", "w+");
@@ -63,6 +67,56 @@ int main(int argc, char **argv)
     //
     free_show(resultShow);
     return i;
+}
+#endif
+
+#ifdef _CLI_MAIN
+#include <signal.h>
+#include <unistd.h>
+#include <QuickTime/QuickTime.h>
+
+void sig_all(int signal)
+{
+    stop_show();
+    free_all_show();
+    destroy_dmx();
+    ExitMovies();
+    fprintf(stderr, "Shutdown finished.\n");
+    exit(0);
+}
+int main(int argc, char **argv)
+{
+    (void)signal(SIGINT, &sig_all);
+
+    EnterMovies();
+        
+    dmx_show_t *newShow;
+    char *showFile;
+    //showFile = argv[1];
+    showFile = "/Volumes/HD2/jason/Projects/Scary DMX/halloween.shw";
+    if(NULL == showFile){
+        fprintf(stderr, "Usage: %s showfile\n", argv[0]);
+        return 1;
+    }
+    if(load_show_from_file(showFile, &newShow )){
+        fprintf(stderr, "Show not found or invalid show.\n");
+        return 2;
+    }
+
+    if(DMX_INIT_OK != init_dmx()){
+        fprintf(stderr, "Failed to open DMX device.\n");
+        return 3;
+    }
+    
+    start_dmx();
+    fprintf(stdout, "Starting show.\n");
+    start_show();
+    fprintf(stdout, "Running....");
+    while(1){
+        usleep(100000);
+    }
+    
+    return 0;
 }
 #endif
 
@@ -100,6 +154,7 @@ int main(int argc, char **argv)
 %token <chan_list>  CHANNEL_LIST
 %token <dval>       FLOAT_VALUE
 %token <text>       FILE_SPEC
+%token <text>       ERROR
 
 %token CUE CHAN FLICKER OSCILLATOR ANALYZER 
 %token TIMER SPEED LOW HIGH FILENAME TYPE FREQ THRESHOLD BANDS
@@ -374,6 +429,15 @@ channel_list:   CHAN CHANNEL_LIST SEMICOLON
 {
     $$ = $2;
 }
+;
+
+err : ERROR
+{
+    fprintf(stderr, "%s not recognized.\n", $1);
+    free($1);
+    //free_show(resultShow);    
+}
+;
 
 %%
 
