@@ -7,7 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "oscillator_effect.c"
+#import "oscillator_effect.h"
 
 @interface OscillatorController : NSObject
 {

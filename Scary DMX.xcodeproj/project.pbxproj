@@ -19,7 +19,6 @@
 		967B70BA10DEBF6A00318111 /* chaser_handler.c in Sources */ = {isa = PBXBuildFile; fileRef = 967B70B910DEBF6A00318111 /* chaser_handler.c */; };
 		96AF8DF90F2B857300369C1E /* dmx_controller.c in Sources */ = {isa = PBXBuildFile; fileRef = 96AF8DE30F2B857300369C1E /* dmx_controller.c */; };
 		96AF8DFA0F2B857300369C1E /* flicker_effect.c in Sources */ = {isa = PBXBuildFile; fileRef = 96AF8DE50F2B857300369C1E /* flicker_effect.c */; };
-		96AF8DFC0F2B857300369C1E /* libftd2xx.0.1.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 96AF8DE90F2B857300369C1E /* libftd2xx.0.1.4.dylib */; };
 		96AF8DFD0F2B857300369C1E /* libftd2xx.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 96AF8DEA0F2B857300369C1E /* libftd2xx.dylib */; };
 		96AF8DFF0F2B857300369C1E /* oscillator_effect.c in Sources */ = {isa = PBXBuildFile; fileRef = 96AF8DEC0F2B857300369C1E /* oscillator_effect.c */; };
 		96AF8E010F2B857300369C1E /* show_handler.c in Sources */ = {isa = PBXBuildFile; fileRef = 96AF8DEF0F2B857300369C1E /* show_handler.c */; };
@@ -29,7 +28,6 @@
 		96AF8E820F2B873800369C1E /* config_parser.tab.c in Sources */ = {isa = PBXBuildFile; fileRef = 96AF8E7F0F2B873800369C1E /* config_parser.tab.c */; };
 		96AF8E830F2B873800369C1E /* config_reader.yy.c in Sources */ = {isa = PBXBuildFile; fileRef = 96AF8E810F2B873800369C1E /* config_reader.yy.c */; };
 		96FE58061079A00900A92124 /* QuickTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96FE58051079A00900A92124 /* QuickTime.framework */; };
-		96FE58151079A0FF00A92124 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8D1107310486CEB800E47090 /* Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,7 +61,6 @@
 		96AF8DE50F2B857300369C1E /* flicker_effect.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = flicker_effect.c; sourceTree = "<group>"; };
 		96AF8DE60F2B857300369C1E /* flicker_effect.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = flicker_effect.h; sourceTree = "<group>"; };
 		96AF8DE70F2B857300369C1E /* ftd2xx.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ftd2xx.h; sourceTree = "<group>"; };
-		96AF8DE90F2B857300369C1E /* libftd2xx.0.1.4.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libftd2xx.0.1.4.dylib; sourceTree = "<group>"; };
 		96AF8DEA0F2B857300369C1E /* libftd2xx.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libftd2xx.dylib; sourceTree = "<group>"; };
 		96AF8DEB0F2B857300369C1E /* Makefile */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		96AF8DEC0F2B857300369C1E /* oscillator_effect.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = oscillator_effect.c; sourceTree = "<group>"; };
@@ -89,7 +86,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
-				96AF8DFC0F2B857300369C1E /* libftd2xx.0.1.4.dylib in Frameworks */,
 				96AF8DFD0F2B857300369C1E /* libftd2xx.dylib in Frameworks */,
 				96FE58061079A00900A92124 /* QuickTime.framework in Frameworks */,
 			);
@@ -184,7 +180,6 @@
 			isa = PBXGroup;
 			children = (
 				96FE58051079A00900A92124 /* QuickTime.framework */,
-				96AF8DE90F2B857300369C1E /* libftd2xx.0.1.4.dylib */,
 				96AF8DEA0F2B857300369C1E /* libftd2xx.dylib */,
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
@@ -253,9 +248,11 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Scary DMX" */;
+			compatibilityVersion = "Xcode 2.4";
 			hasScannedForEncodings = 1;
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Scary DMX */;
 			projectDirPath = "";
+			projectRoot = "";
 			targets = (
 				8D1107260486CEB800E47090 /* Scary DMX */,
 			);
@@ -270,7 +267,6 @@
 				8D11072A0486CEB800E47090 /* MainMenu.nib in Resources */,
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				96AF8E020F2B857300369C1E /* skull.icns in Resources */,
-				96FE58151079A0FF00A92124 /* Info.plist in Resources */,
 				960CE2B3107FE46A00E301AC /* thunder-only.shw in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

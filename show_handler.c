@@ -182,7 +182,7 @@ static void printAnalyzer(analyzer_data_t *data, FILE *showFile)
     fprintf(showFile, ";\n");
     fprintf(showFile, "\t\t threshold:%6.3f;\n", data->threshold);
     fprintf(showFile, "\t\t threshold_value:%d;\n", data->dmxValue);
-    fprintf(showFile, "\t\t bands:%d;\n", data->numberOfBandLevels);
+    fprintf(showFile, "\t\t bands:%lu;\n", data->numberOfBandLevels);
     fprintf(showFile, "\t\t freq:%d;\n", data->frequency);
     fprintf(showFile, "\t\t type:%d;\n", data->flags);
     fprintf(showFile, "\t}\n");
@@ -209,8 +209,8 @@ static void printTimerData(timed_effect_data_t *data, FILE *showFile)
     fprintf(showFile, "\ttimer {\n");
     fprintf(showFile, "\t\t ch:%d;\n", data->channel);
     fprintf(showFile, "\t\t dmx-value:%d;\n", data->value);
-    fprintf(showFile, "\t\t ontime:%d;\n", data->on_time);
-    fprintf(showFile, "\t\t offtime:%d;\n", data->off_time);
+    fprintf(showFile, "\t\t ontime:%ld\n", data->on_time);
+    fprintf(showFile, "\t\t offtime:%ld\n", data->off_time);
     fprintf(showFile, "\t}\n");
 }
 

@@ -280,7 +280,7 @@ int open_movie_file(const unsigned char *fileName, Movie **newMovie, short *refI
   
     err = OpenMovieFile(&file, refId, fsRdPerm);
     if(err){
-        printf("movie err %d\n", err);
+        printf("movie err %d\n", (int)err);
         return ANALYZE_MOVIE_NOT_FOUND;
     }
     

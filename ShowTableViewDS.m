@@ -164,10 +164,10 @@ NSString *getHeaderNameForColumn(int index)
     [super dealloc];
 }
 
-- (void) init
+- (id) init
 {
     showDataIndex = 0;
-    [super init];
+    return [super init];
 }
 
 @end

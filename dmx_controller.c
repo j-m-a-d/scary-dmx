@@ -85,7 +85,7 @@ void *Write_Buffer(){
         FT_W32_ClearCommBreak(dmxDevice);
         FT_Write(dmxDevice, 0, 1, &dwBytesWritten);
         if((ftStatus = FT_Write(dmxDevice, outputBuffer, DMX_CHANNELS, &dwBytesWritten)) != FT_OK) {
-            printf("Error FT_Write(%d)\n", ftStatus);
+            printf("Error FT_Write(%d)\n", (int)ftStatus);
             break;
         }
         usleep(seconds);	
@@ -147,7 +147,7 @@ int init_dmx()
     printf("Number of devices(%d)\n", iNumDevs);
 
     if(0==iNumDevs || ftStatus != FT_OK) {
-        fprintf(stderr, "Error: FT_ListDevices(%d)\n", ftStatus);
+        fprintf(stderr, "Error: FT_ListDevices(%d)\n", (int)ftStatus);
         return DMX_INIT_NO_DEVICES;
     }
 
@@ -162,7 +162,7 @@ int init_dmx()
            use lsmod to check this and rmmod ftdi_sio to remove
            also rmmod usbserial
          */
-        fprintf(stderr, "Error FT_Open(%d), device: %d\n", ftStatus, i);
+        fprintf(stderr, "Error FT_Open(%d), device: %d\n", (int)ftStatus, i);
         return DMX_INIT_OPEN_FAIL;
     }
 
@@ -170,7 +170,7 @@ int init_dmx()
     
     iDevicesOpen++;
     if((ftStatus = FT_SetBaudRate(dmxDevice, 250000)) != FT_OK) {
-        fprintf(stderr, "Error FT_SetBaudRate(%d), cBufLD[0] = %s\n", ftStatus, cBufLD[0]);
+        fprintf(stderr, "Error FT_SetBaudRate(%d), cBufLD[0] = %s\n", (int)ftStatus, cBufLD[0]);
         return DMX_INIT_SET_BAUD_FAIL;
     }
 
