@@ -6,7 +6,7 @@
 #include "show_handler.h"
 #endif 
 
-@interface MainWinController : NSObject
+@interface MainWinController : NSObject <NSOpenSavePanelDelegate>
 {
     IBOutlet NSButton *dmxButton;
     IBOutlet NSButton *showButton;

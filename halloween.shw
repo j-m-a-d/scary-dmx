@@ -1,6 +1,6 @@
 cue {
     analyzer {
-        file:/Volumes/HD2/jason/Desktop/Halloween Tracks/Toccata-ext.m4a;
+        file:/Users/jason/Desktop/Halloween Tracks/Toccata-ext.m4a;
         ch:9,4;
         threshold:0.575;
         threshold_value:225;
@@ -20,7 +20,7 @@ cue {
    
 cue {
     analyzer {
-        file:/Volumes/HD2/jason/Desktop/Halloween Tracks/dungeon.m4a;
+        file:/Users/jason/Desktop/Halloween Tracks/dungeon.m4a;
         ch:9,4;
         threshold:0.285;
         threshold_value:225;
@@ -44,7 +44,7 @@ cue {
 
 cue {
     analyzer {
-        file:/Volumes/HD2/jason/Desktop/Halloween Tracks/RiseOfTheDead.aif;
+        file:/Users/jason/Desktop/Halloween Tracks/RiseOfTheDead.aif;
         ch:9,4;
         threshold:0.62;
         threshold_value:195;
@@ -60,7 +60,7 @@ cue {
  
 cue {
     analyzer {
-        file:/Volumes/HD2/jason/Desktop/Halloween Tracks/Thunder Symphony.aiff;
+        file:/Users/jason/Desktop/Halloween Tracks/Thunder Symphony.aiff;
         ch:9,4;
         threshold:0.750;
         threshold_value:225;
@@ -76,7 +76,7 @@ cue {
 
 cue {
     analyzer {
-        file:/Volumes/HD2/jason/Desktop/Halloween Tracks/Graveyard Slaughter.mp3;
+        file:/Users/jason/Desktop/Halloween Tracks/Graveyard Slaughter.mp3;
         ch:5;
         threshold:0.0;
         threshold_value:0;
@@ -106,7 +106,7 @@ cue {
 
 cue {
     analyzer {
-        file:/Volumes/HD2/jason/Desktop/Halloween Tracks/The Beast Lives.mp3;
+        file:/Users/jason/Desktop/Halloween Tracks/The Beast Lives.mp3;
         ch:9,4;
         threshold:0.525;
         threshold_value:255;
@@ -130,7 +130,7 @@ cue {
         ch:6;
     }
     analyzer {
-        file:/Volumes/HD2/jason/Desktop/Halloween Tracks/Fright Storm.m4a;
+        file:/Users/jason/Desktop/Halloween Tracks/Fright Storm.m4a;
         ch:9,4;
         threshold:0.625;
         threshold_value:245;

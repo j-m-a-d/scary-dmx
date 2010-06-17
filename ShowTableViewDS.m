@@ -3,12 +3,11 @@
 //  Scary DMX
 //
 //  Created by Jason DiPrinzio on 10/10/09.
-//  Copyright 2009 __MyCompanyName__. All rights reserved.
+//  Copyright 2009 Inspirotech Inc. All rights reserved.
 //
 
 #import "ShowTableViewDS.h"
 #import <QuickTime/QuickTime.h>
-//#import "QTKit/QTMovie.h"
 
 @implementation ShowTableViewDS
 
@@ -23,7 +22,7 @@ NSString *formatDuration(long duration)
     return ret;
 }
 
--(int)numberOfRowsInTableView:(NSTableView *)aTableView
+-(NSInteger)numberOfRowsInTableView:(NSTableView *)aTableView
 {
     if(showData){
         return numberOfRows;
@@ -32,14 +31,13 @@ NSString *formatDuration(long duration)
     }
 }
 
--(id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex
+-(id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex
 {
     if(showData){
         NSString *col = [aTableColumn identifier];
         if(![col compare:@"0"]){
             return @"";
-        }
-        if(![col compare:@"1"]){
+        }else if(![col compare:@"1"]){
             id ret = nil;
             @try{
                 ret = [durations objectAtIndex:rowIndex];
@@ -47,15 +45,13 @@ NSString *formatDuration(long duration)
                 NSLog(@"ShowTableViewDS::objectValueForTableColumn: %@, because %@", [e name], [e reason]);
             }
             return ret;
-        }
-        if(![col compare:@"2"]){
+        }else if(![col compare:@"2"]){
             if(showDataIndex[rowIndex]->cue->aData){
-                return [NSString stringWithCString: showDataIndex[rowIndex]->cue->aData->movieFile];
+				return [NSString stringWithCString:showDataIndex[rowIndex]->cue->aData->movieFile encoding:NSUTF8StringEncoding];
             }else {
                 return @"No sound effect";
             }
-        }
-        if(![col compare:@"3"]){
+        }else if(![col compare:@"3"]){
             return @"";
         }
         return @"";
@@ -64,9 +60,32 @@ NSString *formatDuration(long duration)
     }
 }
 
--(void)tableView:(NSTableView *)aTableView setObjectValue:(id)anObject forTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex
+-(void)tableView:(NSTableView *)aTableView setObjectValue:(id)anObject forTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex
 {
+}
 
+-(BOOL)tableView:(NSTableView *)aTableView acceptDrop:(id < NSDraggingInfo >)info row:(NSInteger)row dropOperation:(NSTableViewDropOperation)operation
+{
+	return FALSE;
+}
+
+-(NSArray *)tableView:(NSTableView *)aTableView namesOfPromisedFilesDroppedAtDestination:(NSURL *)dropDestination forDraggedRowsWithIndexes:(NSIndexSet *)indexSet
+{
+	return nil;
+}
+
+-(void)tableView:(NSTableView *)aTableView sortDescriptorsDidChange:(NSArray *)oldDescriptors
+{
+}
+
+-(NSDragOperation)tableView:(NSTableView *)aTableView validateDrop:(id < NSDraggingInfo >)info proposedRow:(NSInteger)row proposedDropOperation:(NSTableViewDropOperation)operation
+{
+	return FALSE;
+}
+
+-(BOOL)tableView:(NSTableView *)aTableView writeRowsWithIndexes:(NSIndexSet *)rowIndexes toPasteboard:(NSPasteboard *)pboard
+{
+	return FALSE;
 }
 
 -(void)setShow:(dmx_show_t *) newShow
@@ -86,8 +105,10 @@ NSString *formatDuration(long duration)
     Movie *movie = 0;
     long duration = 0;
     //
+	[durations release];
     [durations dealloc];
     durations = [[NSMutableArray alloc] init];
+	[durations retain];
     //
     int i =0;
     for(i=0; i< numberOfRows; i++){

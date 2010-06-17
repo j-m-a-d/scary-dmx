@@ -3,7 +3,7 @@
  *  Scary DMX
  *
  *  Created by Jason DiPrinzio on 9/21/08.
- *  Copyright 2008 __MyCompanyName__. All rights reserved.
+ *  Copyright 2008 Inspirotech Inc. All rights reserved.
  *
  */
 #include "oscillator_effect.h"

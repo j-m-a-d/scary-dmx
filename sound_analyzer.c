@@ -3,7 +3,7 @@
  *  Effects Controller
  *
  *  Created by Jason DiPrinzio on 9/15/08.
- *  Copyright 2008 __MyCompanyName__. All rights reserved.
+ *  Copyright 2008 Inspirotech Inc. All rights reserved.
  *
  */
 
@@ -324,7 +324,9 @@ int start_analyze(analyzer_data_t *data_in, void(*callback)() __attribute__((pas
  
     const unsigned char* fileName = (unsigned char *) data_in->movieFile;
     short refId = 0;
-    open_movie_file(fileName,&movie, &refId);    
+    if(open_movie_file(fileName,&movie, &refId)){
+		return ANALYZE_FILE_NOT_FOUND;
+	}
 
     err = SetMovieAudioFrequencyMeteringNumBands(*movie, kQTAudioMeter_StereoMix, &numberOfBandLevels);
     

@@ -44,8 +44,8 @@
         [self stopShow: self];
         NSString *newFile = [oPanel filename];
         [defaults setObject:[newFile stringByDeletingLastPathComponent] forKey:LAST_OPENED_SHOW_DIR];
-        dmx_show_t *newShow;
-        result = load_show_from_file([newFile cString], &newShow );
+        dmx_show_t *newShow = 0;
+        result = load_show_from_file([newFile cStringUsingEncoding:NSUTF8StringEncoding], &newShow );
         if(!result){
             [statusText setStringValue:[newFile lastPathComponent]];
             NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
@@ -59,6 +59,7 @@
             [alert setMessageText:@"Error loading show file."];
             [alert setAlertStyle:NSWarningAlertStyle];
             [alert runModal];
+			[alert release];
         }
     }
 }
@@ -178,6 +179,7 @@ void show_next_step(void *objRef, cue_node_t *cueData)
         }
         [alert setAlertStyle:NSWarningAlertStyle];
         [alert runModal];
+		[alert release];
         /* TODO create a way to run the app even if no device was configured. */
     }
     EnterMovies();
@@ -190,7 +192,7 @@ void show_next_step(void *objRef, cue_node_t *cueData)
     NSString *lastShow = (NSString*)[defaults objectForKey:LAST_OPENED_SHOW];
     dmx_show_t *newShow;
     if(nil != lastShow){
-        int result = load_show_from_file([lastShow cString], &newShow);
+        int result = load_show_from_file([lastShow cStringUsingEncoding:NSUTF8StringEncoding], &newShow);
         if(!result){
             [statusText setStringValue:[lastShow lastPathComponent]];
             [ds setShow:newShow];

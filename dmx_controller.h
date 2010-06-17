@@ -3,7 +3,7 @@
  *  Effects Controller
  *
  *  Created by Jason DiPrinzio on 9/13/08.
- *  Copyright 2008 __MyCompanyName__. All rights reserved.
+ *  Copyright 2008 Inspirotech Inc. All rights reserved.
  *
  */
 
