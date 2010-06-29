@@ -20,7 +20,7 @@
 // Globals
 static FT_HANDLE    dmxDevice = 0;
 //
-static unsigned char* outputBuffer = 0;
+static unsigned char *outputBuffer = 0;
 //
 static pthread_t dmx_writer_pt = 0;
 //
@@ -32,7 +32,7 @@ static int allowWrite = 0;
  */
 void stop_dmx()
 {  
-    if( !writing ){
+    if( !writing || !outputBuffer ){
         return;
     }
 
@@ -78,7 +78,9 @@ void *Write_Buffer(){
     FT_STATUS ftStatus;
     useconds_t seconds;
     seconds=10000;
-
+	
+	if(!outputBuffer) pthread_exit(NULL);
+	
     /* Write */
     while(writing && dmxDevice){
         FT_W32_SetCommBreak(dmxDevice);
@@ -98,7 +100,7 @@ void *Write_Buffer(){
  */
 void update_channel(int ch, short val)
 {
-    if(!allowWrite) return;
+    if(!allowWrite || !outputBuffer) return;
     outputBuffer[ch] = val;
 #ifdef _DMX_TRACE_OUTPUT
     printf("setting channel %d=%d\n", ch, val);
@@ -110,7 +112,7 @@ void update_channel(int ch, short val)
  */
 void bulk_update(unsigned char* newVals)
 {
-    if(!allowWrite || !newVals) return;    
+    if(!allowWrite || !outputBuffer || !newVals) return;    
     memcpy(outputBuffer, newVals, DMX_CHANNELS);    
 }
 
@@ -118,7 +120,7 @@ void bulk_update(unsigned char* newVals)
    Get the current value for the channel.
  */
 int get_channel_value(int ch){
-    return outputBuffer[ch];
+    return outputBuffer ? outputBuffer[ch] : 0;
 }
 
 /*
@@ -208,10 +210,8 @@ void start_dmx()
 {
     //If the DMX device is not initialized try
     // initializing then try running.  
-    int err = 0;
     if(!dmxDevice){
-        err = init_dmx();
-        if(err == DMX_INIT_FAIL){
+        if(DMX_INIT_OK != init_dmx()){
             return;
         }
     }
