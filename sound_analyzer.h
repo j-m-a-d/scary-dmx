@@ -43,12 +43,7 @@ typedef struct _analyzer_data_t {
 malloc(sizeof(analyzer_data_t)); \
 memset(data, 0, sizeof(analyzer_data_t))
 //
-
-#ifndef pascal
-#define pascal
-#endif
-//
-int start_analyze(analyzer_data_t *data_in, void(*callback)() __attribute__((pascal)));
+int start_analyze(analyzer_data_t *data_in, void(*callback)());
 //
 void stop_analyze();
 //

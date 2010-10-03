@@ -304,7 +304,7 @@ int open_movie_file(const unsigned char *fileName, Movie **newMovie, short *refI
 /*
     Initialize and start the audio thread.
 */
-int start_analyze(analyzer_data_t *data_in, void(*callback)() __attribute__((pascal)))
+int start_analyze(analyzer_data_t *data_in, void(*callback)())
 {
     pthread_mutex_lock(&analyze_mutex);
     if(monitoring){
