@@ -70,14 +70,11 @@ int free_show(dmx_show_t *show)
                 free(tmp->cue->channelValues);
             tmp->cue->channelValues = 0;
             
-            free_analyzer_data(tmp->cue->aData);
-            tmp->cue->aData = 0;
+            FREE_ANALYZER_DATA (tmp->cue->aData);
             
-            free_oscillator_data((tmp->cue->oData));
-            tmp->cue->oData = 0;
+            FREE_OSCILLATOR_DATA (tmp->cue->oData);
             
-            free_timed_effects(tmp->cue->timer);
-            tmp->cue->timer = 0;
+            FREE_TIMED_EFFECT (tmp->cue->timer);
             
             free(tmp->cue);
             tmp->cue = 0;

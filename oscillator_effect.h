@@ -13,6 +13,10 @@
         malloc(ODT_SIZE); \
         memset(data, 0, ODT_SIZE);
 
+#define FREE_OSCILLATOR_DATA(data) \
+        free_oscillator_data(data); \
+        data = 0;
+
 enum {
     OSCILLATOR_OK,
     OSCILLATOR_IN_PROGRESS,

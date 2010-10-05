@@ -7,6 +7,10 @@
  *
  */
 
+#define FREE_TIMED_EFFECT(data) \
+    free_timed_effect(data); \
+    data = 0;
+
 typedef struct timed_effect_t *timed_effect_handle;
 
 typedef struct _timed_effect_data_t {
