@@ -38,7 +38,7 @@ void stop_dmx()
 
     printf("Stopping DMX transmission.\n");
 
-    int j;
+    register int j;
     allowWrite = 0;
 
     if(dmxDevice) {

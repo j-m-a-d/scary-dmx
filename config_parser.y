@@ -66,7 +66,7 @@ int main(int argc, char **argv)
     printShow(resultShow, outFile);
     fclose(outFile);
     //
-    free_show(resultShow);
+    FREE_SHOW (resultShow);
     return i;
 }
 #endif

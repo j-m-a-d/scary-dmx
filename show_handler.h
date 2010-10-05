@@ -18,6 +18,10 @@
 #ifndef SHOW_HANLDER_H
 #define SHOW_HANDLER_H
 
+#define FREE_SHOW(show) \
+    free_show(show); \
+    show = 0;
+
 enum {
     DMX_SHOW_OK,
     DMX_SHOW_NOT_LOADED

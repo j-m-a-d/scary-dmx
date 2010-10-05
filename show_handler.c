@@ -94,7 +94,7 @@ int free_show(dmx_show_t *show)
 
 int free_all_show()
 {
-    return free_show(live_show);
+    return FREE_SHOW(live_show);
 }
 
 /*
@@ -167,7 +167,7 @@ int init_show(dmx_show_t **show)
 static void printCueChannels(unsigned char *channels, FILE *showFile)
 {
     unsigned char *cv = channels;
-    int i;
+    register int i;
     for(i=0; i< DMX_CHANNELS+1; i++){
         if(*cv){
             fprintf(showFile, "\tch%d:%d;\n", i, (int)(*cv));
@@ -456,7 +456,7 @@ int load_show_from_file(const char *show_file, dmx_show_t **out_show)
     int result = parse_show_file(show_file, &newShow);
     if(!result && NULL != newShow){
         if(live_show != NULL) {
-            free_show(live_show);
+            FREE_SHOW(live_show);
         }
         live_show = newShow;
         *out_show = live_show;

@@ -40,8 +40,8 @@ typedef struct _analyzer_data_t {
 } analyzer_data_t;
 //
 #define NEW_ANALYZER_DATA_T(data) \
-malloc(sizeof(analyzer_data_t)); \
-memset(data, 0, sizeof(analyzer_data_t))
+    malloc(sizeof(analyzer_data_t)); \
+    memset(data, 0, sizeof(analyzer_data_t))
 //
 int start_analyze(analyzer_data_t *data_in, void(*callback)());
 //

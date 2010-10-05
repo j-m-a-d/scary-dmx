@@ -8,7 +8,7 @@ int _numberOfBands;
 {
     [levelViewLeft setFrameRotation:90.0];
     [levelViewRight setFrameRotation:90.0];
-    int i;
+    register int i;
     for(i=0; i<7; i++){
         id li = [levelViewLeft viewWithTag:i];
         [li setEnabled:FALSE];
@@ -26,7 +26,7 @@ int _numberOfBands;
 -(void) monitorFrequencies:(QTAudioFrequencyLevels*)levels
 {
     if(!levels) return;
-    int i;
+    register int i;
     for(i=0; i<_numberOfBands; i++){ 
         [levelIndicators[i] setFloatValue:((float)levels->level[i])*100.0];
         [levelIndicators[i+_numberOfBands] setFloatValue:((float)levels->level[i+_numberOfBands])*100.0];   
@@ -49,7 +49,7 @@ void freqCallback(void* objRef, QTAudioFrequencyLevels* levels)
 
 -(void) stopMonitor
 {
-    int i;
+    register int i;
     for(i=0; i< _numberOfBands; i++){
         [levelIndicators[i] setFloatValue:0.0];
         [levelIndicators[i+_numberOfBands] setFloatValue:0.0];
