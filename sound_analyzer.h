@@ -12,6 +12,10 @@
 #define MAX_ANALYZE_CHANNELS 2
 #define MAX_ANALYZE_BANDS 10
 
+#define FREE_ANALYZER_DATA(data) \
+    free_analyzer_data(data); \
+    data = 0;
+
 //
 enum  {
     ANALYZE_OK,
