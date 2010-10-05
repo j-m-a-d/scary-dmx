@@ -40,7 +40,7 @@ typedef struct _monitor_data_t {
     short frequency;
     Float32 threshold;
     int flags;
-    void(*callback)() __attribute__((pascal));
+    void(*callback)();
     void *callback_data;
 } monitor_data_t;
 
