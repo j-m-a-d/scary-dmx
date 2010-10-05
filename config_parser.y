@@ -37,6 +37,7 @@ int parse_show_file(const char *filename, dmx_show_t **show)
     fclose(showFile);
     //
     *show = resultShow;
+    resultShow = 0;
     //
     return 0; 
 }

@@ -73,7 +73,7 @@ NSString *formatDuration(long duration)
 				NSString *rVal = [NSString stringWithCString:showDataIndex[rowIndex]->cue->aData->movieFile encoding:NSUTF8StringEncoding];
 				NSString *dur = [durations objectAtIndex:rowIndex];
 				if(![dur compare:NO_SOUND_FILE])
-					rVal = [rVal stringByAppendingString:@" (File Not Found)"];
+					rVal = [rVal stringByAppendingString:@" (File Not Found!!)"];
 				return rVal;
             }else {
                 return @"No sound effect";

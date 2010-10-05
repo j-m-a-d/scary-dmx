@@ -66,18 +66,29 @@ int free_show(dmx_show_t *show)
         cue_node_t *tmp = show->currentCue;
         show->currentCue = tmp->previousCue;
         if(tmp->cue){
-        if(tmp->cue->channelValues)
-            free(tmp->cue->channelValues);
-
-        free_analyzer_data(tmp->cue->aData);
-        free_oscillator_data((tmp->cue->oData));
-        free_timed_effects(tmp->cue->timer);            
-        free(tmp->cue);
+            if(tmp->cue->channelValues)
+                free(tmp->cue->channelValues);
+            tmp->cue->channelValues = 0;
+            
+            free_analyzer_data(tmp->cue->aData);
+            tmp->cue->aData = 0;
+            
+            free_oscillator_data((tmp->cue->oData));
+            tmp->cue->oData = 0;
+            
+            free_timed_effects(tmp->cue->timer);
+            tmp->cue->timer = 0;
+            
+            free(tmp->cue);
+            tmp->cue = 0;
         }
         memset(tmp, 0, sizeof(cue_node_t));//<<<----
         free(tmp);
         tmp = 0;
     }
+    memset(show, 0, sizeof(show));
+    free(show);
+    show = 0;
     return 0;
 }
 
@@ -348,7 +359,7 @@ static void *next_step(void *data_in)
         pthread_mutex_unlock(&show_mutex);
         pthread_exit(NULL);     
     }
-
+	int result = 0;
     //stop_analyze();
     stop_oscillating();
     stop_flicker();
@@ -362,7 +373,11 @@ static void *next_step(void *data_in)
     // 
     if(cue->aData && !cue->stepDuration){
         //printAnalyzer(cue->aData, stdout);
-        start_analyze(cue->aData, &go_to_next_step);
+        result = start_analyze(cue->aData, &go_to_next_step);
+		if(result){
+			//fprintf(stderr, "start analyzer result: %d\n", result);
+			goto die_now;
+		}
     }
     // 
     if(cue->flickerChannel){
@@ -382,7 +397,6 @@ static void *next_step(void *data_in)
         while(NULL != tdata){
             timed_effect_handle *timer = 0;
             if(!tdata->timer_handle){
-                //printf("Allocating new timer handler for cue.\n");
                 timer = malloc(sizeof(timed_effect_handle));
                 new_timed_effect(tdata, timer);
                 tdata->timer_handle = timer;
@@ -393,11 +407,9 @@ static void *next_step(void *data_in)
         //now start them all at once
         start_timed_effects();
     }
-    pthread_mutex_unlock(&show_mutex);
-    
 die_now:
-
-    pthread_exit(NULL);
+	pthread_mutex_unlock(&show_mutex);
+	pthread_exit(NULL);
 
 }
 
@@ -417,7 +429,7 @@ void go_to_next_step()
         if(!showOver){        
             pthread_create(&show_pt, NULL, &next_step, NULL);
             if(call_show_next_step){
-                pthread_create(&show_pt, NULL, &next_step, NULL);
+                //pthread_create(&show_pt, NULL, &next_step, NULL);
                 call_show_next_step(show_next_step_obj, live_show->currentCue);
             }
             //pthread_mutex_unlock(&show_mutex);
