@@ -29,7 +29,7 @@ static pthread_cond_t wait_cond = PTHREAD_COND_INITIALIZER;
 typedef struct _timed_effect_t {
     void *handle;
     timed_effect_data_t *data;
-    int run_flag;
+    volatile int run_flag;
 } timed_effect_t;
 
 void free_timed_effect(timed_effect_data_t * data)
