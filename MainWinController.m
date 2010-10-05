@@ -186,6 +186,7 @@ void show_next_step(void *objRef, cue_node_t *cueData)
     // Setup show table
     ShowTableViewDS *ds = [[ShowTableViewDS alloc] init];
     [showTable setDataSource:ds];
+	[showTable setDelegate:ds];
     [ds setColumnHeaders:[showTable tableColumns]];
     // Load a show if we can find the last show opened.
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];

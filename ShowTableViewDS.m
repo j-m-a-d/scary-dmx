@@ -11,6 +11,8 @@
 
 @implementation ShowTableViewDS
 
+#define NO_SOUND_FILE @"N/A"
+
 NSString *formatDuration(long duration)
 {
     short left = 0;
@@ -31,6 +33,27 @@ NSString *formatDuration(long duration)
     }
 }
 
+- (void)tableView:(NSTableView *)aTableView willDisplayCell:(id)aCell forTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex{
+	if ([aCell respondsToSelector:@selector(setTextColor:)]){
+		NSString *col = [aTableColumn identifier];
+		NSString *dur = [durations objectAtIndex:rowIndex];
+		if (![col compare:@"2"] && ![dur compare:NO_SOUND_FILE] ){
+			[aCell setTextColor:[NSColor redColor]];
+		}
+		else{ 
+			[aCell setTextColor:[NSColor blackColor]];
+		}
+	}
+}
+
+-(BOOL)tableView:(NSTableView *)tableView shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row{
+	return FALSE;
+}
+
+-(BOOL)selectionShouldChangeInTableView:(NSTableView *)tableView{
+	return FALSE;
+}
+
 -(id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex
 {
     if(showData){
@@ -47,7 +70,11 @@ NSString *formatDuration(long duration)
             return ret;
         }else if(![col compare:@"2"]){
             if(showDataIndex[rowIndex]->cue->aData){
-				return [NSString stringWithCString:showDataIndex[rowIndex]->cue->aData->movieFile encoding:NSUTF8StringEncoding];
+				NSString *rVal = [NSString stringWithCString:showDataIndex[rowIndex]->cue->aData->movieFile encoding:NSUTF8StringEncoding];
+				NSString *dur = [durations objectAtIndex:rowIndex];
+				if(![dur compare:NO_SOUND_FILE])
+					rVal = [rVal stringByAppendingString:@" (File Not Found)"];
+				return rVal;
             }else {
                 return @"No sound effect";
             }
@@ -121,6 +148,7 @@ NSString *formatDuration(long duration)
         if(aData){
             const unsigned char *fileName = (unsigned char *)aCue->cue->aData->movieFile;
             if(open_movie_file(fileName, &movie, &refId)){
+				[durations addObject:NO_SOUND_FILE];
                 continue;
             }
             if(movie){

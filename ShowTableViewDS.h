@@ -12,13 +12,17 @@
 #endif
 
 
-@interface ShowTableViewDS :NSObject <NSTableViewDataSource> {
+@interface ShowTableViewDS :NSObject <NSTableViewDelegate, NSTableViewDataSource> {
     int numberOfRows;
     dmx_show_t *showData;
     cue_node_t **showDataIndex;
     NSMutableArray *durations;
 }
 
+-(void)setShow:(dmx_show_t *)newShow;
+-(void)setColumnHeaders:(NSArray *)columns;
+
+/* NSTableViewDataSource */
 -(int)numberOfRowsInTableView:(NSTableView *)aTableView;
 -(id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex;
 -(void)tableView:(NSTableView *)aTableView setObjectValue:(id)anObject forTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex;
@@ -28,6 +32,8 @@
 -(NSDragOperation)tableView:(NSTableView *)aTableView validateDrop:(id < NSDraggingInfo >)info proposedRow:(NSInteger)row proposedDropOperation:(NSTableViewDropOperation)operation;
 -(BOOL)tableView:(NSTableView *)aTableView writeRowsWithIndexes:(NSIndexSet *)rowIndexes toPasteboard:(NSPasteboard *)pboard;
 
--(void)setShow:(dmx_show_t *)newShow;
--(void)setColumnHeaders:(NSArray *)columns;
+/* NSTableViewDelegate */
+-(void)tableView:(NSTableView *)aTableView willDisplayCell:(id)aCell forTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex;
+
+
 @end
