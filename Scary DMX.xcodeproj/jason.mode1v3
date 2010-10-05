@@ -305,6 +305,8 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -322,7 +324,7 @@
 										<key>_historyCapacity</key>
 										<integer>40</integer>
 										<key>bookmark</key>
-										<string>967F3DD8125ADD6E0076A99E</string>
+										<string>967F3DE9125ADDE40076A99E</string>
 										<key>history</key>
 										<array>
 											<string>961C1C0A124FAD64005DBC83</string>
@@ -372,8 +374,6 @@
 							<string>477pt</string>
 						</dict>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -550,12 +550,12 @@
 	<array>
 		<string>967F3C5E125AB8870076A99E</string>
 		<string>967F3C5F125AB8870076A99E</string>
+		<string>9662722C1187B0BF00CF8CBB</string>
 		<string>1C530D57069F1CE1000CFCEE</string>
 		<string>966271DF1187AE5600CF8CBB</string>
 		<string>1CD10A99069EF8BA00B06720</string>
 		<string>1C78EAAD065D492600B07095</string>
 		<string>/Users/jason/Projects/Scary DMX/Scary DMX.xcodeproj</string>
-		<string>9662722C1187B0BF00CF8CBB</string>
 	</array>
 	<key>WindowString</key>
 	<string>81 107 1068 771 0 0 1440 878 </string>
@@ -1103,7 +1103,7 @@
 			<key>WindowToolGUID</key>
 			<string>9662722C1187B0BF00CF8CBB</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>
