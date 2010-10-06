@@ -101,7 +101,7 @@ static unsigned int _current_cue_index = 0;
 
 - (void)setPlayingCueTableRow
 {
-    ShowTableViewDS *ds = [showTable dataSource];
+    ShowTableViewDS *ds = (ShowTableViewDS*)[showTable dataSource];
     if(_current_cue_index >= [ds numberOfRowsInTableView:showTable] -1)
         _current_cue_index = -1;
     NSIndexSet *row = [NSIndexSet indexSetWithIndex:++_current_cue_index];
