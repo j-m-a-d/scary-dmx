@@ -276,31 +276,31 @@ int add_cue(dmx_show_t* show)
     return 0;
 }
 
-void set_channel_value_for_current_cue(dmx_show_t *show, int ch, int val)
+inline void set_channel_value_for_current_cue(dmx_show_t *show, int ch, int val)
 {
     show->currentCue->cue->empty = 0;
     show->currentCue->cue->channelValues[ch]=val;
 }
 
-void set_step_duration_for_current_cue(dmx_show_t *show, int duration)
+inline void set_step_duration_for_current_cue(dmx_show_t *show, int duration)
 {
     show->currentCue->cue->empty = 0;
     show->currentCue->cue->stepDuration = duration;
 }
 
-void set_flicker_channel_for_current_cue(dmx_show_t *show, int ch)
+inline void set_flicker_channel_for_current_cue(dmx_show_t *show, int ch)
 {
     show->currentCue->cue->empty = 0;
     show->currentCue->cue->flickerChannel = ch;
 }
 
-void set_oscillator_data_for_current_cue(dmx_show_t *show, oscillator_data_t *oData)
+inline void set_oscillator_data_for_current_cue(dmx_show_t *show, oscillator_data_t *oData)
 {
     show->currentCue->cue->empty = 0;
     show->currentCue->cue->oData = oData;
 }
 
-void set_timer_data_for_current_cue(dmx_show_t *show, analyzer_data_t *aData)
+inline void set_timer_data_for_current_cue(dmx_show_t *show, analyzer_data_t *aData)
 {
     show->currentCue->cue->empty = 0;
     show->currentCue->cue->aData = aData;
@@ -525,6 +525,7 @@ int skip_cue()
     pthread_mutex_lock(&control_mutex);
     pthread_mutex_lock(&show_mutex);
     if(showing){
+        //live_show->currentCue->cue->stepDuration
         skip_movie();
     } else if(live_show && live_show->currentCue->nextCue){
         live_show->currentCue = live_show->currentCue->nextCue;
