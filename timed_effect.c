@@ -116,7 +116,6 @@ int new_timed_effect(timed_effect_data_t *data, timed_effect_handle *newTimer)
     timer->data = malloc(sizeof(timed_effect_data_t));
     memcpy(timer->data, data, sizeof(timed_effect_data_t));
     timer->handle = malloc(sizeof(pthread_t));
-    newTimer = (timed_effect_handle*)timer;
     
     return TIMED_EFFECT_OK;
 }
@@ -124,14 +123,14 @@ int new_timed_effect(timed_effect_data_t *data, timed_effect_handle *newTimer)
 
 int cue_timed_effect(timed_effect_handle *timer)
 {   
-    int result = pthread_mutex_lock(&wait_mutex);
-    result = pthread_mutex_unlock(&wait_mutex);
+    pthread_mutex_lock(&wait_mutex);
+    pthread_mutex_unlock(&wait_mutex);
 
     timed_effect_t *_timer = (timed_effect_t*)timer;
     pthread_attr_t attr;
-    result = pthread_attr_init(&attr);
-    result = pthread_attr_setstacksize(&attr, 512);
-    result = pthread_create(_timer->handle, &attr, do_timed_effect, (void*)(_timer->data) );
+    pthread_attr_init(&attr);
+    pthread_attr_setstacksize(&attr, 512);
+    int result = pthread_create(_timer->handle, &attr, do_timed_effect, (void*)(_timer->data) );
     //check result   
     if(result){}
     
