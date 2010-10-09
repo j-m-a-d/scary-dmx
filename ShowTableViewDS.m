@@ -125,6 +125,7 @@ NSString *formatDuration(long duration)
     showDataIndex = malloc(numberOfRows * (sizeof (cue_node_t *)));
     if(!showDataIndex){
         NSLog(@"Memory allocation failure.  Cannot allocate memory for show listing.");
+        return;
     }
     cue_node_t *aCue = showData->currentCue;
     //

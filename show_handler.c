@@ -91,7 +91,8 @@ int free_show(dmx_show_t *show)
 
 int free_all_show()
 {
-    return FREE_SHOW(live_show);
+    FREE_SHOW(live_show);
+    return 0;
 }
 
 /*
@@ -127,7 +128,7 @@ int create_cue_node(cue_node_t **cueNode)
         fprintf(stderr, "Could not allocate memory for channel settings.\n");
         free( (*cueNode)->cue );
         (*cueNode)->cue = 0;
-        (*cueNode)->cue->channelValues = 0;
+        //(*cueNode)->cue->channelValues = 0;
         return 1;
     }
     memset((*cueNode)->cue->channelValues, 0, DMX_CHANNELS);
@@ -364,9 +365,6 @@ static void *next_step(void *data_in)
     //    
     cue_node_t *cueNode = live_show->currentCue;
     cue_t *cue = cueNode->cue;
-    //
-    //printCueChannels(cue->channelValues, stdout);
-    bulk_update(cue->channelValues);
     // 
     if(cue->aData && !cue->stepDuration){
         //printAnalyzer(cue->aData, stdout);
@@ -376,6 +374,9 @@ static void *next_step(void *data_in)
 			goto die_now;
 		}
     }
+    //
+    //printCueChannels(cue->channelValues, stdout);
+    bulk_update(cue->channelValues);
     // 
     if(cue->flickerChannel){
         //printFlickerChannel(cue->flickerChannel, stdout);

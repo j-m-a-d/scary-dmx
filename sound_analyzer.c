@@ -271,7 +271,7 @@ int open_movie_file(const unsigned char *fileName, Movie **newMovie, short *refI
         return ANALYZE_FILE_NOT_FOUND;
     }
     
-    FSCatalogInfoBitmap pInfo;
+    FSCatalogInfoBitmap pInfo = 0;
     FSSpec file;
     err = FSGetCatalogInfo(&fsRef, pInfo,NULL, NULL, &file, NULL);
     if(err){
@@ -286,7 +286,7 @@ int open_movie_file(const unsigned char *fileName, Movie **newMovie, short *refI
     
     Boolean bWasChanged;
     short resId = 0;
-    StringPtr resName;
+    StringPtr resName = 0;
     
     //Make some space for our new movie.
     if(!*newMovie){
@@ -328,14 +328,16 @@ int start_analyze(analyzer_data_t *data_in, void(*callback)())
 		return ANALYZE_FILE_NOT_FOUND;
 	}
 
-    err = SetMovieAudioFrequencyMeteringNumBands(*movie, kQTAudioMeter_StereoMix, &numberOfBandLevels);
+    SetMovieAudioFrequencyMeteringNumBands(*movie, kQTAudioMeter_StereoMix, &numberOfBandLevels);
     
     //Create some space for the frequency buffer.
     freqResults = malloc(offsetof(QTAudioFrequencyLevels,
                                   level[numberOfBandLevels * numberOfChannels]));
     if (!freqResults) {
+        //TODO clean up
         err = memFullErr;
-        //TODO clean up and return error
+        return err;
+    
     }
   
     freqResults->numChannels = numberOfChannels;

@@ -133,7 +133,7 @@ int init_dmx()
 
     FT_STATUS	ftStatus;
     //FT_HANDLE	dmxDevice;
-    int	iDevicesOpen = 0;
+
     int iNumDevs = 0;
     int i;
 
@@ -169,8 +169,7 @@ int init_dmx()
     }
 
     printf("Opened device %s\n", pcBufLD[0]);
-    
-    iDevicesOpen++;
+
     if((ftStatus = FT_SetBaudRate(dmxDevice, 250000)) != FT_OK) {
         fprintf(stderr, "Error FT_SetBaudRate(%d), cBufLD[0] = %s\n", (int)ftStatus, cBufLD[0]);
         return DMX_INIT_SET_BAUD_FAIL;

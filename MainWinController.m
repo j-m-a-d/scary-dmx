@@ -31,6 +31,7 @@
     [oPanel setTitle:@"Choose File"];
     [oPanel setMessage:@"Choose show file to open."];
     [oPanel setDelegate:self];
+
     // Go to the last opend directory if there was one.
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *lastShowDir = (NSString*)[defaults objectForKey:LAST_OPENED_SHOW_DIR];
@@ -48,9 +49,7 @@
         result = load_show_from_file([newFile cStringUsingEncoding:NSUTF8StringEncoding], &newShow );
         if(!result){
             [statusText setStringValue:[newFile lastPathComponent]];
-            NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
             [defaults setObject:newFile forKey:LAST_OPENED_SHOW];
-            ShowTableViewDS *ds = (ShowTableViewDS *)[showTable dataSource];
             [ds setShow:newShow];
             [showTable reloadData];
         }else{
@@ -101,14 +100,15 @@ static unsigned int _current_cue_index = 0;
 
 - (void)setPlayingCueTableRow
 {
-    ShowTableViewDS *ds = (ShowTableViewDS*)[showTable dataSource];
     if(_current_cue_index >= [ds numberOfRowsInTableView:showTable] -1)
         _current_cue_index = -1;
     NSIndexSet *row = [NSIndexSet indexSetWithIndex:++_current_cue_index];
+    [row retain];
     [showTable selectRowIndexes:row byExtendingSelection:NO];
+    [row release];
 }
 
-- (void)doNextStep 
+- (void)doNextStep
 {
     [self setPlayingCueTableRow];
 }
@@ -182,14 +182,19 @@ void show_next_step(void *objRef, cue_node_t *cueData)
 		[alert release];
         /* TODO create a way to run the app even if no device was configured. */
     }
+    
     EnterMovies();
+    
     // Setup show table
-    ShowTableViewDS *ds = [[ShowTableViewDS alloc] init];
+    ds = [[ShowTableViewDS alloc] init];
+    [ds retain];
     [showTable setDataSource:ds];
 	[showTable setDelegate:ds];
     [ds setColumnHeaders:[showTable tableColumns]];
+    
     // Load a show if we can find the last show opened.
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults retain];
     NSString *lastShow = (NSString*)[defaults objectForKey:LAST_OPENED_SHOW];
     dmx_show_t *newShow;
     if(nil != lastShow){
@@ -202,8 +207,15 @@ void show_next_step(void *objRef, cue_node_t *cueData)
             [defaults removeObjectForKey:LAST_OPENED_SHOW];
         }
     }
+    [defaults release];
     register_show_ended((void *)self, &show_has_ended);
     register_show_next_step((void *)self, &show_next_step);
 }
 
+- (void)dealloc
+{
+    [ds release];
+    [ds dealloc];
+    [super dealloc];
+}
 @end

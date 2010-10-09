@@ -1,6 +1,7 @@
 /* MainWinController */
 
 #import <Cocoa/Cocoa.h>
+#import "ShowTableViewDS.h"
 
 #ifndef SHOW_HANDLER_H
 #include "show_handler.h"
@@ -16,6 +17,7 @@
     IBOutlet NSObject *soundController;
     IBOutlet NSMenuItem *loopShow;
     IBOutlet NSTableView *showTable;
+    ShowTableViewDS *ds;
     NSString *showFile;
 }
 
