@@ -17,7 +17,7 @@
     IBOutlet NSObject *soundController;
     IBOutlet NSMenuItem *loopShow;
     IBOutlet NSTableView *showTable;
-    ShowTableViewDS *ds;
+    IBOutlet ShowTableViewDS *ds;
     NSString *showFile;
 }
 
@@ -34,5 +34,6 @@
 - (void)setPlayingCueTableRow;
 - (void)nextCue:(id)sender;
 - (void)rewindShow:(id)sender;
+- (void)doNextStep;
 
 @end

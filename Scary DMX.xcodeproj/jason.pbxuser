@@ -21,9 +21,9 @@
 		breakpoints = (
 			960402F90FBDE6B40068BA83 /* asm __dyld__ZN4dyld14bindLazySymbolEPK11mach_headerPm  0x8fe056c4:1 */,
 			96740B1F1260778900247786 /* dmx_controller.c:89 */,
-			96740BF81260CD7300247786 /* MainWinController.m:140 */,
-			96740C221260E67E00247786 /* MainWinController.m:212 */,
-			96740CB41260F1E700247786 /* MainWinController.m:130 */,
+			96740BF81260CD7300247786 /* MainWinController.m:137 */,
+			96740C221260E67E00247786 /* MainWinController.m:205 */,
+			96740CB41260F1E700247786 /* MainWinController.m:127 */,
 		);
 		codeSenseManager = 96AF8DDE0F2B838600369C1E /* Code sense */;
 		executables = (
@@ -284,6 +284,26 @@
 			96740D191260F86C00247786 /* PBXTextBookmark */ = 96740D191260F86C00247786 /* PBXTextBookmark */;
 			96740D1A1260F86C00247786 /* PBXTextBookmark */ = 96740D1A1260F86C00247786 /* PBXTextBookmark */;
 			96740D261260F8CC00247786 /* PBXTextBookmark */ = 96740D261260F8CC00247786 /* PBXTextBookmark */;
+			96740D291260F92200247786 /* PBXTextBookmark */ = 96740D291260F92200247786 /* PBXTextBookmark */;
+			96740D2A1260F92200247786 /* PBXTextBookmark */ = 96740D2A1260F92200247786 /* PBXTextBookmark */;
+			96740D2B1260F92200247786 /* PBXTextBookmark */ = 96740D2B1260F92200247786 /* PBXTextBookmark */;
+			96740D2C1260F92200247786 /* PBXTextBookmark */ = 96740D2C1260F92200247786 /* PBXTextBookmark */;
+			96740D2D1260F92200247786 /* PBXTextBookmark */ = 96740D2D1260F92200247786 /* PBXTextBookmark */;
+			96740D2E1260F92200247786 /* PBXTextBookmark */ = 96740D2E1260F92200247786 /* PBXTextBookmark */;
+			96740D2F1260F92200247786 /* PBXTextBookmark */ = 96740D2F1260F92200247786 /* PBXTextBookmark */;
+			96740D301260F92200247786 /* PBXTextBookmark */ = 96740D301260F92200247786 /* PBXTextBookmark */;
+			96740D311260F92200247786 /* PBXTextBookmark */ = 96740D311260F92200247786 /* PBXTextBookmark */;
+			96740D321260F93500247786 /* PBXTextBookmark */ = 96740D321260F93500247786 /* PBXTextBookmark */;
+			96740D4B1260FACB00247786 /* PBXTextBookmark */ = 96740D4B1260FACB00247786 /* PBXTextBookmark */;
+			96740D4C1260FACB00247786 /* PBXTextBookmark */ = 96740D4C1260FACB00247786 /* PBXTextBookmark */;
+			96740D4E1260FACB00247786 /* PBXTextBookmark */ = 96740D4E1260FACB00247786 /* PBXTextBookmark */;
+			96740D4F1260FACB00247786 /* PBXTextBookmark */ = 96740D4F1260FACB00247786 /* PBXTextBookmark */;
+			96740D501260FACB00247786 /* PBXTextBookmark */ = 96740D501260FACB00247786 /* PBXTextBookmark */;
+			96740D531260FB9F00247786 /* PBXTextBookmark */ = 96740D531260FB9F00247786 /* PBXTextBookmark */;
+			96740D571260FBC800247786 /* PBXTextBookmark */ = 96740D571260FBC800247786 /* PBXTextBookmark */;
+			96740D591260FBE800247786 /* PBXTextBookmark */ = 96740D591260FBE800247786 /* PBXTextBookmark */;
+			96740D661260FCAE00247786 /* PBXTextBookmark */ = 96740D661260FCAE00247786 /* PBXTextBookmark */;
+			96740D671260FCAE00247786 /* PBXTextBookmark */ = 96740D671260FCAE00247786 /* PBXTextBookmark */;
 			967F3B201259923C0076A99E = 967F3B201259923C0076A99E /* PBXTextBookmark */;
 			967F3B241259923C0076A99E = 967F3B241259923C0076A99E /* PBXTextBookmark */;
 			967F3B261259923C0076A99E = 967F3B261259923C0076A99E /* PBXTextBookmark */;
@@ -326,7 +346,7 @@
 	29B97316FDCFA39411CA2CEA /* main.m */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {809, 356}}";
-			sepNavSelRange = "{347, 0}";
+			sepNavSelRange = "{295, 17}";
 			sepNavVisRange = "{0, 391}";
 			sepNavVisRect = "{{0, 0}, {686, 1020}}";
 			sepNavWindowFrame = "{{606, 68}, {731, 1093}}";
@@ -374,7 +394,7 @@
 		hitCount = 0;
 		ignoreCount = 0;
 		lineNumber = 1;
-		modificationTime = 308343991.991795;
+		modificationTime = 308346029.989444;
 		originalNumberOfMultipleMatches = 0;
 		state = 1;
 	};
@@ -388,18 +408,18 @@
 	};
 	960887620F3CD61D005D8118 /* MainWinController.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {669, 520}}";
-			sepNavSelRange = "{76, 0}";
-			sepNavVisRange = "{0, 662}";
+			sepNavIntBoundsRect = "{{0, 0}, {809, 520}}";
+			sepNavSelRange = "{516, 0}";
+			sepNavVisRange = "{273, 753}";
 			sepNavVisRect = "{{0, 0}, {797, 633}}";
 			sepNavWindowFrame = "{{623, 575}, {609, 603}}";
 		};
 	};
 	960887630F3CD61D005D8118 /* MainWinController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {809, 2925}}";
-			sepNavSelRange = "{311, 0}";
-			sepNavVisRange = "{3410, 565}";
+			sepNavIntBoundsRect = "{{0, 0}, {809, 2860}}";
+			sepNavSelRange = "{5007, 0}";
+			sepNavVisRange = "{4971, 928}";
 			sepNavVisRect = "{{0, 1360}, {797, 488}}";
 			sepNavWindowFrame = "{{500, 145}, {866, 1013}}";
 		};
@@ -519,7 +539,7 @@
 		ignoreCount = 0;
 		lineNumber = 89;
 		location = "Scary DMX";
-		modificationTime = 308343991.991849;
+		modificationTime = 308346029.989487;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -826,7 +846,7 @@
 		fRef = 960887630F3CD61D005D8118 /* MainWinController.m */;
 		name = "MainWinController.m: 205";
 		rLen = 0;
-		rLoc = 5789;
+		rLoc = 5593;
 		rType = 0;
 		vrLen = 1147;
 		vrLoc = 4886;
@@ -965,8 +985,8 @@
 		comments = "Method returns an Objective-C object with a +1 retain count (owning reference)";
 		fRef = 960887630F3CD61D005D8118 /* MainWinController.m */;
 		fallbackIsa = XCBuildMessageTextBookmark;
-		rLen = 1;
-		rLoc = 190;
+		rLen = 0;
+		rLoc = 185;
 		rType = 1;
 	};
 	96740BDD1260C8D900247786 /* PBXTextBookmark */ = {
@@ -974,7 +994,7 @@
 		fRef = 960887630F3CD61D005D8118 /* MainWinController.m */;
 		name = "MainWinController.m: 205";
 		rLen = 0;
-		rLoc = 5784;
+		rLoc = 5588;
 		rType = 0;
 		vrLen = 1635;
 		vrLoc = 4416;
@@ -1024,7 +1044,7 @@
 		fRef = 960887630F3CD61D005D8118 /* MainWinController.m */;
 		name = "MainWinController.m: 205";
 		rLen = 0;
-		rLoc = 5784;
+		rLoc = 5588;
 		rType = 0;
 		vrLen = 955;
 		vrLoc = 5098;
@@ -1034,7 +1054,7 @@
 		fRef = 960887620F3CD61D005D8118 /* MainWinController.h */;
 		name = "MainWinController.h: 18";
 		rLen = 0;
-		rLoc = 527;
+		rLoc = 536;
 		rType = 0;
 		vrLen = 734;
 		vrLoc = 210;
@@ -1053,7 +1073,7 @@
 		isa = PBXTextBookmark;
 		fRef = 960887630F3CD61D005D8118 /* MainWinController.m */;
 		rLen = 1;
-		rLoc = 137;
+		rLoc = 134;
 		rType = 1;
 	};
 	96740BF61260CD1000247786 /* PBXTextBookmark */ = {
@@ -1061,12 +1081,12 @@
 		fRef = 960887630F3CD61D005D8118 /* MainWinController.m */;
 		name = "MainWinController.m: 206";
 		rLen = 0;
-		rLoc = 5784;
+		rLoc = 5588;
 		rType = 0;
 		vrLen = 989;
 		vrLoc = 5073;
 	};
-	96740BF81260CD7300247786 /* MainWinController.m:140 */ = {
+	96740BF81260CD7300247786 /* MainWinController.m:137 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -1078,18 +1098,18 @@
 		functionName = "show_next_step()";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 140;
+		lineNumber = 137;
 		location = "Scary DMX";
-		modificationTime = 308343991.991876;
+		modificationTime = 308346030.216405;
 		originalNumberOfMultipleMatches = 1;
-		state = 2;
+		state = 1;
 	};
 	96740C161260D27A00247786 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 960887630F3CD61D005D8118 /* MainWinController.m */;
 		name = "MainWinController.m: 146";
 		rLen = 0;
-		rLoc = 3907;
+		rLoc = 3832;
 		rType = 0;
 		vrLen = 519;
 		vrLoc = 3836;
@@ -1119,7 +1139,7 @@
 		fRef = 960887630F3CD61D005D8118 /* MainWinController.m */;
 		name = "MainWinController.m: 206";
 		rLen = 0;
-		rLoc = 5784;
+		rLoc = 5588;
 		rType = 0;
 		vrLen = 1602;
 		vrLoc = 4195;
@@ -1163,7 +1183,7 @@
 		vrLen = 951;
 		vrLoc = 3852;
 	};
-	96740C221260E67E00247786 /* MainWinController.m:212 */ = {
+	96740C221260E67E00247786 /* MainWinController.m:205 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -1175,9 +1195,9 @@
 		functionName = "-awakeFromNib";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 212;
+		lineNumber = 205;
 		location = "Scary DMX";
-		modificationTime = 308343991.992124;
+		modificationTime = 308346029.989747;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -1206,7 +1226,7 @@
 		fRef = 960887630F3CD61D005D8118 /* MainWinController.m */;
 		name = "MainWinController.m: 146";
 		rLen = 0;
-		rLoc = 3907;
+		rLoc = 3832;
 		rType = 0;
 		vrLen = 636;
 		vrLoc = 3778;
@@ -1216,7 +1236,7 @@
 		fRef = 960887620F3CD61D005D8118 /* MainWinController.h */;
 		name = "MainWinController.h: 35";
 		rLen = 0;
-		rLoc = 990;
+		rLoc = 1019;
 		rType = 0;
 		vrLen = 754;
 		vrLoc = 210;
@@ -1226,7 +1246,7 @@
 		fRef = 960887620F3CD61D005D8118 /* MainWinController.h */;
 		name = "MainWinController.h: 34";
 		rLen = 0;
-		rLoc = 990;
+		rLoc = 1019;
 		rType = 0;
 		vrLen = 770;
 		vrLoc = 174;
@@ -1236,7 +1256,7 @@
 		fRef = 960887630F3CD61D005D8118 /* MainWinController.m */;
 		name = "MainWinController.m: 146";
 		rLen = 0;
-		rLoc = 3907;
+		rLoc = 3832;
 		rType = 0;
 		vrLen = 602;
 		vrLoc = 3627;
@@ -1246,7 +1266,7 @@
 		fRef = 960887630F3CD61D005D8118 /* MainWinController.m */;
 		name = "MainWinController.m: 140";
 		rLen = 0;
-		rLoc = 3767;
+		rLoc = 3692;
 		rType = 0;
 		vrLen = 597;
 		vrLoc = 3648;
@@ -1256,7 +1276,7 @@
 		fRef = 960887630F3CD61D005D8118 /* MainWinController.m */;
 		name = "MainWinController.m: 143";
 		rLen = 0;
-		rLoc = 3869;
+		rLoc = 3794;
 		rType = 0;
 		vrLen = 577;
 		vrLoc = 3711;
@@ -1266,7 +1286,7 @@
 		fRef = 960887630F3CD61D005D8118 /* MainWinController.m */;
 		name = "MainWinController.m: 112";
 		rLen = 0;
-		rLoc = 3244;
+		rLoc = 3169;
 		rType = 0;
 		vrLen = 757;
 		vrLoc = 2804;
@@ -1306,7 +1326,7 @@
 		fRef = 960887630F3CD61D005D8118 /* MainWinController.m */;
 		name = "MainWinController.m: 110";
 		rLen = 10;
-		rLoc = 3094;
+		rLoc = 3056;
 		rType = 0;
 		vrLen = 767;
 		vrLoc = 2884;
@@ -1353,7 +1373,7 @@
 		fRef = 960887630F3CD61D005D8118 /* MainWinController.m */;
 		name = "MainWinController.m: 213";
 		rLen = 0;
-		rLoc = 5784;
+		rLoc = 5588;
 		rType = 0;
 		vrLen = 622;
 		vrLoc = 0;
@@ -1413,7 +1433,7 @@
 		fRef = 960887630F3CD61D005D8118 /* MainWinController.m */;
 		fallbackIsa = XCBuildMessageTextBookmark;
 		rLen = 1;
-		rLoc = 209;
+		rLoc = 202;
 		rType = 1;
 	};
 	96740C6B1260ECF600247786 /* PBXTextBookmark */ = {
@@ -1421,7 +1441,7 @@
 		fRef = 960887630F3CD61D005D8118 /* MainWinController.m */;
 		name = "MainWinController.m: 214";
 		rLen = 0;
-		rLoc = 5784;
+		rLoc = 5588;
 		rType = 0;
 		vrLen = 1623;
 		vrLoc = 4627;
@@ -1471,7 +1491,7 @@
 		fRef = 960887630F3CD61D005D8118 /* MainWinController.m */;
 		name = "MainWinController.m: 213";
 		rLen = 0;
-		rLoc = 5784;
+		rLoc = 5588;
 		rType = 0;
 		vrLen = 622;
 		vrLoc = 0;
@@ -1521,7 +1541,7 @@
 		fRef = 960887630F3CD61D005D8118 /* MainWinController.m */;
 		name = "MainWinController.m: 211";
 		rLen = 0;
-		rLoc = 5784;
+		rLoc = 5588;
 		rType = 0;
 		vrLen = 622;
 		vrLoc = 0;
@@ -1531,7 +1551,7 @@
 		fRef = 960887630F3CD61D005D8118 /* MainWinController.m */;
 		name = "MainWinController.m: 142";
 		rLen = 0;
-		rLoc = 3767;
+		rLoc = 3692;
 		rType = 0;
 		vrLen = 542;
 		vrLoc = 3526;
@@ -1541,12 +1561,12 @@
 		fRef = 960887630F3CD61D005D8118 /* MainWinController.m */;
 		name = "MainWinController.m: 142";
 		rLen = 0;
-		rLoc = 3767;
+		rLoc = 3692;
 		rType = 0;
 		vrLen = 542;
 		vrLoc = 3526;
 	};
-	96740CB41260F1E700247786 /* MainWinController.m:130 */ = {
+	96740CB41260F1E700247786 /* MainWinController.m:127 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -1557,9 +1577,9 @@
 		fileReference = 960887630F3CD61D005D8118 /* MainWinController.m */;
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 130;
+		lineNumber = 127;
 		location = "Scary DMX";
-		modificationTime = 308344807.042821;
+		modificationTime = 308346029.989845;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -1568,7 +1588,7 @@
 		fRef = 960887630F3CD61D005D8118 /* MainWinController.m */;
 		name = "MainWinController.m: 142";
 		rLen = 0;
-		rLoc = 3767;
+		rLoc = 3692;
 		rType = 0;
 		vrLen = 542;
 		vrLoc = 3526;
@@ -1578,7 +1598,7 @@
 		fRef = 960887620F3CD61D005D8118 /* MainWinController.h */;
 		name = "MainWinController.h: 19";
 		rLen = 15;
-		rLoc = 507;
+		rLoc = 516;
 		rType = 0;
 		vrLen = 975;
 		vrLoc = 0;
@@ -1637,8 +1657,8 @@
 		isa = PBXTextBookmark;
 		fRef = 960887630F3CD61D005D8118 /* MainWinController.m */;
 		name = "MainWinController.m: 110";
-		rLen = 19;
-		rLoc = 3226;
+		rLen = 1;
+		rLoc = 3169;
 		rType = 0;
 		vrLen = 1193;
 		vrLoc = 2447;
@@ -1648,7 +1668,7 @@
 		fRef = 960887630F3CD61D005D8118 /* MainWinController.m */;
 		name = "MainWinController.m: 108";
 		rLen = 0;
-		rLoc = 3150;
+		rLoc = 3107;
 		rType = 0;
 		vrLen = 1038;
 		vrLoc = 3152;
@@ -1682,7 +1702,7 @@
 		fRef = 960887630F3CD61D005D8118 /* MainWinController.m */;
 		name = "MainWinController.m: 142";
 		rLen = 0;
-		rLoc = 3767;
+		rLoc = 3692;
 		rType = 0;
 		vrLen = 598;
 		vrLoc = 3525;
@@ -1702,7 +1722,7 @@
 		fRef = 960887630F3CD61D005D8118 /* MainWinController.m */;
 		name = "MainWinController.m: 221";
 		rLen = 0;
-		rLoc = 5978;
+		rLoc = 5782;
 		rType = 0;
 		vrLen = 1573;
 		vrLoc = 4527;
@@ -1721,7 +1741,7 @@
 		isa = PBXTextBookmark;
 		fRef = 960887630F3CD61D005D8118 /* MainWinController.m */;
 		rLen = 10;
-		rLoc = 2414;
+		rLoc = 2376;
 		rType = 0;
 	};
 	96740CE11260F3CE00247786 /* PBXTextBookmark */ = {
@@ -1729,7 +1749,7 @@
 		fRef = 960887630F3CD61D005D8118 /* MainWinController.m */;
 		name = "MainWinController.m: 82";
 		rLen = 10;
-		rLoc = 2414;
+		rLoc = 2376;
 		rType = 0;
 		vrLen = 698;
 		vrLoc = 2036;
@@ -1759,7 +1779,7 @@
 		fRef = 960887630F3CD61D005D8118 /* MainWinController.m */;
 		name = "MainWinController.m: 83";
 		rLen = 0;
-		rLoc = 2544;
+		rLoc = 2506;
 		rType = 0;
 		vrLen = 632;
 		vrLoc = 2160;
@@ -1769,7 +1789,7 @@
 		fRef = 960887630F3CD61D005D8118 /* MainWinController.m */;
 		name = "MainWinController.m: 83";
 		rLen = 0;
-		rLoc = 2544;
+		rLoc = 2506;
 		rType = 0;
 		vrLen = 632;
 		vrLoc = 2160;
@@ -1779,7 +1799,7 @@
 		fRef = 960887630F3CD61D005D8118 /* MainWinController.m */;
 		name = "MainWinController.m: 219";
 		rLen = 0;
-		rLoc = 5978;
+		rLoc = 5782;
 		rType = 0;
 		vrLen = 1524;
 		vrLoc = 4541;
@@ -1808,7 +1828,7 @@
 		fRef = 960887630F3CD61D005D8118 /* MainWinController.m */;
 		name = "MainWinController.m: 82";
 		rLen = 10;
-		rLoc = 2414;
+		rLoc = 2376;
 		rType = 0;
 		vrLen = 837;
 		vrLoc = 1296;
@@ -1912,6 +1932,212 @@
 		rType = 0;
 		vrLen = 565;
 		vrLoc = 3410;
+	};
+	96740D291260F92200247786 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 96AF8E810F2B873800369C1E /* config_reader.yy.c */;
+		name = "config_reader.yy.c: 2015";
+		rLen = 0;
+		rLoc = 53501;
+		rType = 0;
+		vrLen = 1350;
+		vrLoc = 33534;
+	};
+	96740D2A1260F92200247786 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 960887630F3CD61D005D8118 /* MainWinController.m */;
+		name = "MainWinController.m: 82";
+		rLen = 10;
+		rLoc = 2376;
+		rType = 0;
+		vrLen = 837;
+		vrLoc = 1107;
+	};
+	96740D2B1260F92200247786 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 960887630F3CD61D005D8118 /* MainWinController.m */;
+		name = "MainWinController.m: 82";
+		rLen = 10;
+		rLoc = 2376;
+		rType = 0;
+		vrLen = 1163;
+		vrLoc = 917;
+	};
+	96740D2C1260F92200247786 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 96138FFB1080CEFD00147788 /* ShowTableViewDS.m */;
+		name = "ShowTableViewDS.m: 113";
+		rLen = 10;
+		rLoc = 3455;
+		rType = 0;
+		vrLen = 709;
+		vrLoc = 2890;
+	};
+	96740D2D1260F92200247786 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 96AF8DE10F2B857300369C1E /* config_parser.y */;
+		name = "config_parser.y: 445";
+		rLen = 0;
+		rLoc = 8014;
+		rType = 0;
+		vrLen = 263;
+		vrLoc = 3409;
+	};
+	96740D2E1260F92200247786 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 96AF8DEF0F2B857300369C1E /* show_handler.c */;
+		name = "show_handler.c: 369";
+		rLen = 0;
+		rLoc = 9877;
+		rType = 0;
+		vrLen = 743;
+		vrLoc = 9608;
+	};
+	96740D2F1260F92200247786 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 96AF8DF40F2B857300369C1E /* timed_effect.c */;
+		name = "timed_effect.c: 123";
+		rLen = 0;
+		rLoc = 2798;
+		rType = 0;
+		vrLen = 646;
+		vrLoc = 2283;
+	};
+	96740D301260F92200247786 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 960887620F3CD61D005D8118 /* MainWinController.h */;
+		name = "MainWinController.h: 4";
+		rLen = 0;
+		rLoc = 76;
+		rType = 0;
+		vrLen = 662;
+		vrLoc = 0;
+	};
+	96740D311260F92200247786 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 960887620F3CD61D005D8118 /* MainWinController.h */;
+		name = "MainWinController.h: 4";
+		rLen = 0;
+		rLoc = 76;
+		rType = 0;
+		vrLen = 662;
+		vrLoc = 0;
+	};
+	96740D321260F93500247786 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 960887630F3CD61D005D8118 /* MainWinController.m */;
+		name = "MainWinController.m: 15";
+		rLen = 0;
+		rLoc = 311;
+		rType = 0;
+		vrLen = 565;
+		vrLoc = 3410;
+	};
+	96740D4B1260FACB00247786 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 29B97316FDCFA39411CA2CEA /* main.m */;
+		name = "main.m: 15";
+		rLen = 17;
+		rLoc = 295;
+		rType = 0;
+		vrLen = 391;
+		vrLoc = 0;
+	};
+	96740D4C1260FACB00247786 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 96740D4D1260FACB00247786 /* NSApplication.h */;
+		name = "NSApplication.h: 412";
+		rLen = 67;
+		rLoc = 18850;
+		rType = 0;
+		vrLen = 1092;
+		vrLoc = 18232;
+	};
+	96740D4D1260FACB00247786 /* NSApplication.h */ = {
+		isa = PBXFileReference;
+		name = NSApplication.h;
+		path = /Developer/SDKs/MacOSX10.6.sdk/System/Library/Frameworks/AppKit.framework/Versions/C/Headers/NSApplication.h;
+		sourceTree = "<absolute>";
+	};
+	96740D4E1260FACB00247786 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 960887630F3CD61D005D8118 /* MainWinController.m */;
+		name = "MainWinController.m: 191";
+		rLen = 0;
+		rLoc = 4871;
+		rType = 0;
+		vrLen = 928;
+		vrLoc = 4971;
+	};
+	96740D4F1260FACB00247786 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 960887620F3CD61D005D8118 /* MainWinController.h */;
+		name = "MainWinController.h: 37";
+		rLen = 10;
+		rLoc = 1008;
+		rType = 0;
+		vrLen = 810;
+		vrLoc = 202;
+	};
+	96740D501260FACB00247786 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 960887620F3CD61D005D8118 /* MainWinController.h */;
+		name = "MainWinController.h: 20";
+		rLen = 0;
+		rLoc = 516;
+		rType = 0;
+		vrLen = 885;
+		vrLoc = 136;
+	};
+	96740D531260FB9F00247786 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 960887620F3CD61D005D8118 /* MainWinController.h */;
+		name = "MainWinController.h: 20";
+		rLen = 0;
+		rLoc = 516;
+		rType = 0;
+		vrLen = 817;
+		vrLoc = 204;
+	};
+	96740D571260FBC800247786 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 960887620F3CD61D005D8118 /* MainWinController.h */;
+		name = "MainWinController.h: 20";
+		rLen = 0;
+		rLoc = 516;
+		rType = 0;
+		vrLen = 753;
+		vrLoc = 273;
+	};
+	96740D591260FBE800247786 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 960887620F3CD61D005D8118 /* MainWinController.h */;
+		name = "MainWinController.h: 20";
+		rLen = 0;
+		rLoc = 516;
+		rType = 0;
+		vrLen = 753;
+		vrLoc = 273;
+	};
+	96740D661260FCAE00247786 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 960887620F3CD61D005D8118 /* MainWinController.h */;
+		name = "MainWinController.h: 20";
+		rLen = 0;
+		rLoc = 516;
+		rType = 0;
+		vrLen = 788;
+		vrLoc = 238;
+	};
+	96740D671260FCAE00247786 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 960887620F3CD61D005D8118 /* MainWinController.h */;
+		name = "MainWinController.h: 20";
+		rLen = 0;
+		rLoc = 516;
+		rType = 0;
+		vrLen = 753;
+		vrLoc = 273;
 	};
 	967B70B810DEBF6A00318111 /* chaser_handler.h */ = {
 		uiCtxt = {
@@ -2300,9 +2526,9 @@
 	};
 	96AF8DF40F2B857300369C1E /* timed_effect.c */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {684, 1911}}";
-			sepNavSelRange = "{3135, 0}";
-			sepNavVisRange = "{2845, 690}";
+			sepNavIntBoundsRect = "{{0, 0}, {669, 1924}}";
+			sepNavSelRange = "{2798, 0}";
+			sepNavVisRange = "{2283, 646}";
 			sepNavVisRect = "{{0, 1481}, {833, 633}}";
 			sepNavWindowFrame = "{{1056, 72}, {737, 1106}}";
 		};
@@ -2343,9 +2569,9 @@
 	};
 	96AF8E810F2B873800369C1E /* config_reader.yy.c */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1070, 25948}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1070, 25870}}";
 			sepNavSelRange = "{53501, 0}";
-			sepNavVisRange = "{33534, 1350}";
+			sepNavVisRange = "{33507, 1296}";
 			sepNavVisRect = "{{0, 3429}, {833, 633}}";
 			sepNavWindowFrame = "{{15, 59}, {781, 1114}}";
 		};
@@ -2385,7 +2611,7 @@
 		fRef = 960887630F3CD61D005D8118 /* MainWinController.m */;
 		name = "MainWinController.m: 149";
 		rLen = 10;
-		rLoc = 3961;
+		rLoc = 3886;
 		rType = 0;
 		vrLen = 703;
 		vrLoc = 3714;
@@ -2532,7 +2758,7 @@
 		fRef = 960887620F3CD61D005D8118 /* MainWinController.h */;
 		name = "MainWinController.h: 18";
 		rLen = 0;
-		rLoc = 527;
+		rLoc = 536;
 		rType = 0;
 		vrLen = 879;
 		vrLoc = 0;

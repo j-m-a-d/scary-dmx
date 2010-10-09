@@ -72,13 +72,12 @@
     }
 }
 
-static unsigned int _current_cue_index = 0;
+static unsigned short _current_cue_index = 0;
 
 - (void)startShow:(id)sender
 {
     [progress startAnimation:sender];
     [showList setEnabled:FALSE];
-    //TODO: highlight first cue in list
     NSIndexSet *row = [NSIndexSet indexSetWithIndex:_current_cue_index];
     [showTable selectRowIndexes:row byExtendingSelection:NO];
     id sc = (SoundController*)soundController;
@@ -103,9 +102,7 @@ static unsigned int _current_cue_index = 0;
     if(_current_cue_index >= [ds numberOfRowsInTableView:showTable] -1)
         _current_cue_index = -1;
     NSIndexSet *row = [NSIndexSet indexSetWithIndex:++_current_cue_index];
-    [row retain];
     [showTable selectRowIndexes:row byExtendingSelection:NO];
-    [row release];
 }
 
 - (void)doNextStep
@@ -186,10 +183,6 @@ void show_next_step(void *objRef, cue_node_t *cueData)
     EnterMovies();
     
     // Setup show table
-    ds = [[ShowTableViewDS alloc] init];
-    [ds retain];
-    [showTable setDataSource:ds];
-	[showTable setDelegate:ds];
     [ds setColumnHeaders:[showTable tableColumns]];
     
     // Load a show if we can find the last show opened.
