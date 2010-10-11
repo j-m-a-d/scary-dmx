@@ -18,7 +18,10 @@ static inline channel_list_t new_channel_list(size_t length)
     memset(v, 0, __chan_legnth_init);
     return v;
 }
-
+//
+#define DELETE_CHANNEL_LIST(in) \
+        free(in); \
+        in = 0;
 //
 #define COPY_CHANNEL_LIST(new, in, length)  \
         new_channel_list(length); \
