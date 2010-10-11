@@ -1,1005 +1,0 @@
-TScary DMX
-v7
-r0
-t308334770.743193
-cCheck dependencies
-cProcessInfoPlistFile "/Users/jason/Projects/Scary DMX/build/Release/Scary DMX.app/Contents/Info.plist" Info.plist
-cPhaseScriptExecution "Run Script" "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Script-96AF8E3F0F2B868C00369C1E.sh"
-cStripNIB "/Users/jason/Projects/Scary DMX/English.lproj/MainMenu.nib"
-cCopyStringsFile "/Users/jason/Projects/Scary DMX/build/Release/Scary DMX.app/Contents/Resources/English.lproj/InfoPlist.strings" English.lproj/InfoPlist.strings
-cCpResource "build/Release/Scary DMX.app/Contents/Resources/skull.icns" skull.icns
-cCompileC "build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/main.o" "/Users/jason/Projects/Scary DMX/main.m" normal i386 objective-c com.apple.compilers.gcc.4_2
-cCompileC "build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/dmx_controller.o" "/Users/jason/Projects/Scary DMX/dmx_controller.c" normal i386 c com.apple.compilers.gcc.4_2
-cCompileC "build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/flicker_effect.o" "/Users/jason/Projects/Scary DMX/flicker_effect.c" normal i386 c com.apple.compilers.gcc.4_2
-cCompileC "build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/oscillator_effect.o" "/Users/jason/Projects/Scary DMX/oscillator_effect.c" normal i386 c com.apple.compilers.gcc.4_2
-cCompileC "build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/show_handler.o" "/Users/jason/Projects/Scary DMX/show_handler.c" normal i386 c com.apple.compilers.gcc.4_2
-cCompileC "build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/sound_analyzer.o" "/Users/jason/Projects/Scary DMX/sound_analyzer.c" normal i386 c com.apple.compilers.gcc.4_2
-cCompileC "build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/timed_effect.o" "/Users/jason/Projects/Scary DMX/timed_effect.c" normal i386 c com.apple.compilers.gcc.4_2
-cCompileC "build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/config_parser.tab.o" "/Users/jason/Projects/Scary DMX/config_parser.tab.c" normal i386 c com.apple.compilers.gcc.4_2
-cCompileC "build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/config_reader.yy.o" "/Users/jason/Projects/Scary DMX/config_reader.yy.c" normal i386 c com.apple.compilers.gcc.4_2
-cCompileC "build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/MainWinController.o" "/Users/jason/Projects/Scary DMX/MainWinController.m" normal i386 objective-c com.apple.compilers.gcc.4_2
-cCompileC "build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/SoundController.o" "/Users/jason/Projects/Scary DMX/SoundController.m" normal i386 objective-c com.apple.compilers.gcc.4_2
-cCompileC "build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/ShowTableViewDS.o" "/Users/jason/Projects/Scary DMX/ShowTableViewDS.m" normal i386 objective-c com.apple.compilers.gcc.4_2
-cCompileC "build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/OscillatorController.o" "/Users/jason/Projects/Scary DMX/OscillatorController.m" normal i386 objective-c com.apple.compilers.gcc.4_2
-cCompileC "build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/chaser_handler.o" "/Users/jason/Projects/Scary DMX/chaser_handler.c" normal i386 c com.apple.compilers.gcc.4_2
-cLd "/Users/jason/Projects/Scary DMX/build/Release/Scary DMX.app/Contents/MacOS/Scary DMX" normal i386
-cTouch "/Users/jason/Projects/Scary DMX/build/Release/Scary DMX.app"
-
-N/Developer/SDKs/MacOSX10.6.sdk
-c000000004BF4701900000000000000EE
-t1274310681
-s238
-
-N/Developer/SDKs/MacOSX10.6.sdk/System/Library/Frameworks/Cocoa.framework/Headers/Cocoa.h
-c0000000040C4AA6800000000000001E5
-t1086630504
-s485
-
-N/Developer/SDKs/MacOSX10.6.sdk/System/Library/Frameworks/QuickTime.framework/Headers/QuickTime.h
-c000000004B4818320000000000000659
-t1263015986
-s1625
-
-N/Developer/SDKs/MacOSX10.6.sdk/usr/include/alloca.h
-c000000004AC59C810000000000000588
-t1254464641
-s1416
-
-N/Developer/SDKs/MacOSX10.6.sdk/usr/include/errno.h
-c000000004AC59C8100000000000003EB
-t1254464641
-s1003
-
-N/Developer/SDKs/MacOSX10.6.sdk/usr/include/inttypes.h
-c000000004AC59C8100000000000027D1
-t1254464641
-s10193
-
-N/Developer/SDKs/MacOSX10.6.sdk/usr/include/pthread.h
-c000000004AC59C8100000000000038F0
-t1254464641
-s14576
-
-N/Developer/SDKs/MacOSX10.6.sdk/usr/include/signal.h
-c000000004AC59C8200000000000014F0
-t1254464642
-s5360
-
-N/Developer/SDKs/MacOSX10.6.sdk/usr/include/stdio.h
-c000000004AC59C820000000000004174
-t1254464642
-s16756
-
-N/Developer/SDKs/MacOSX10.6.sdk/usr/include/stdlib.h
-c000000004AC59C820000000000002DF5
-t1254464642
-s11765
-
-N/Developer/SDKs/MacOSX10.6.sdk/usr/include/string.h
-c000000004AC59C820000000000001731
-t1254464642
-s5937
-
-N/Developer/SDKs/MacOSX10.6.sdk/usr/include/sys/time.h
-c000000004B90BBAA0000000000001E17
-t1267776426
-s7703
-
-N/Developer/SDKs/MacOSX10.6.sdk/usr/include/unistd.h
-c000000004AC59C82000000000000563E
-t1254464642
-s22078
-
-N/Developer/SDKs/MacOSX10.6.sdk/usr/lib/gcc/i686-apple-darwin10/4.2.1/include/stddef.h
-c000000004AC59DB70000000000003197
-t1254464951
-s12695
-
-N/System/Library/Frameworks/Cocoa.framework/Cocoa
-c000000004A1F2D63000000000000A5E0
-t1243557219
-s42464
-
-N/System/Library/Frameworks/QuickTime.framework/QuickTime
-c000000004BF9C9EC0000000000783950
-t1274661356
-s7878992
-
-N/Users/jason/Projects/Scary DMX/English.lproj/InfoPlist.strings
-c000000004C351CEA00000000000000C6
-t1278549226
-s198
-
-N/Users/jason/Projects/Scary DMX/English.lproj/MainMenu.nib
-c000000004BD776D000000000000000CC
-t1272411856
-s204
-
-N/Users/jason/Projects/Scary DMX/MainWinController.h
-c000000004CAA8D6500000000000003B0
-t1286245733
-s944
-i<Cocoa/Cocoa.h>
-i"show_handler.h"
-
-N/Users/jason/Projects/Scary DMX/MainWinController.m
-c000000004CB0958E00000000000017B4
-t1286641038
-s6068
-i"MainWinController.h"
-i"SoundController.h"
-i"ShowTableViewDS.h"
-
-N/Users/jason/Projects/Scary DMX/OscillatorController.h
-c000000004BF367E100000000000002DD
-t1274243041
-s733
-i<Cocoa/Cocoa.h>
-i"oscillator_effect.h"
-
-N/Users/jason/Projects/Scary DMX/OscillatorController.m
-c000000004BF367DD000000000000047A
-t1274243037
-s1146
-i"OscillatorController.h"
-
-N/Users/jason/Projects/Scary DMX/ShowTableViewDS.h
-c000000004CAA849F00000000000006C9
-t1286243487
-s1737
-i<Cocoa/Cocoa.h>
-i"show_handler.h"
-
-N/Users/jason/Projects/Scary DMX/ShowTableViewDS.m
-c000000004CB08F980000000000001882
-t1286639512
-s6274
-i"ShowTableViewDS.h"
-i<QuickTime/QuickTime.h>
-
-N/Users/jason/Projects/Scary DMX/SoundController.h
-c000000004BF367E1000000000000014E
-t1274243041
-s334
-i<Cocoa/Cocoa.h>
-i<Quicktime/Quicktime.h>
-i<sound_analyzer.h>
-
-N/Users/jason/Projects/Scary DMX/SoundController.m
-c000000004CAABCD600000000000005DE
-t1286257878
-s1502
-i"SoundController.h"
-
-N/Users/jason/Projects/Scary DMX/WinTypes.h
-c000000004BF367E100000000000008B6
-t1274243041
-s2230
-i<sys/time.h>
-
-N/Users/jason/Projects/Scary DMX/build/Release/Scary DMX.app
-t1286641970
-s102
-
-N/Users/jason/Projects/Scary DMX/build/Release/Scary DMX.app/Contents/Info.plist
-t1286641968
-s887
-
-N/Users/jason/Projects/Scary DMX/build/Release/Scary DMX.app/Contents/MacOS/Scary DMX
-t1286641970
-s57520
-
-N/Users/jason/Projects/Scary DMX/build/Release/Scary DMX.app/Contents/PkgInfo
-t1286641968
-s8
-
-N/Users/jason/Projects/Scary DMX/build/Release/Scary DMX.app/Contents/Resources/English.lproj/InfoPlist.strings
-t1286641968
-s198
-
-N/Users/jason/Projects/Scary DMX/build/Release/Scary DMX.app/Contents/Resources/English.lproj/MainMenu.nib
-t1286641968
-s50160
-
-N/Users/jason/Projects/Scary DMX/build/Release/Scary DMX.app/Contents/Resources/skull.icns
-t1286641968
-s194611
-
-N/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/MainWinController.o
-t1286641970
-s12256
-
-N/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/OscillatorController.o
-t1286641970
-s4192
-
-N/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/Scary DMX
-t2
-s0
-
-N/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/Scary DMX.LinkFileList
-c000000004CB09930000000000000064F
-t1286641968
-s1615
-
-N/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/ShowTableViewDS.o
-t1286641970
-s13908
-
-N/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/SoundController.o
-t1286641970
-s4168
-
-N/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/chaser_handler.o
-t1286641970
-s152
-
-N/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/config_parser.tab.o
-t1286641969
-s5772
-
-N/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/config_reader.yy.o
-t1286641969
-s14196
-
-N/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/dmx_controller.o
-t1286641968
-s3340
-
-N/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/flicker_effect.o
-t1286641968
-s1860
-
-N/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/main.o
-t1286641969
-s1832
-
-N/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/oscillator_effect.o
-t1286641968
-s1896
-
-N/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/show_handler.o
-t1286641969
-s7236
-
-N/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/sound_analyzer.o
-t1286641969
-s4980
-
-N/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/timed_effect.o
-t1286641968
-s2660
-
-N/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/MainWinController.o
-t1286641871
-s14360
-
-N/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/OscillatorController.o
-t1286641870
-s4620
-
-N/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/Scary DMX
-t2
-s0
-
-N/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/Scary DMX.LinkFileList
-c000000004CB098CC0000000000000641
-t1286641868
-s1601
-
-N/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/ShowTableViewDS.o
-t1286641871
-s15328
-
-N/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/SoundController.o
-t1286641871
-s4744
-
-N/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/chaser_handler.o
-t1286641870
-s220
-
-N/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/config_parser.tab.o
-t1286641870
-s6536
-
-N/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/config_reader.yy.o
-t1286641870
-s20476
-
-N/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/dmx_controller.o
-t1286641868
-s4564
-
-N/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/flicker_effect.o
-t1286641868
-s2216
-
-N/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/main.o
-t1286641869
-s1892
-
-N/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/oscillator_effect.o
-t1286641868
-s2144
-
-N/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/show_handler.o
-t1286641869
-s9592
-
-N/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/sound_analyzer.o
-t1286641869
-s6176
-
-N/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/timed_effect.o
-t1286641869
-s3140
-
-N/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Script-96AF8E3F0F2B868C00369C1E.sh
-c000000004CB099300000000000000014
-t1286641968
-s20
-
-N/Users/jason/Projects/Scary DMX/chaser_handler.c
-c000000004BF367D700000000000000B3
-t1274243031
-s179
-i"chaser_handler.h"
-
-N/Users/jason/Projects/Scary DMX/chaser_handler.h
-c000000004BF367E100000000000001C3
-t1274243041
-s451
-
-N/Users/jason/Projects/Scary DMX/config_parser.tab.c
-c000000004CB09925000000000000DB6C
-t1286641957
-s56172
-i<stdio.h>
-i<string.h>
-i<stdlib.h>
-i"show_handler.h"
-i<signal.h>
-i<unistd.h>
-i<QuickTime/QuickTime.h>
-i<stddef.h>
-i<libintl.h>
-i<alloca.h>
-i<malloc.h>
-i<stdlib.h>
-i<stdlib.h>
-i<stdio.h>
-
-N/Users/jason/Projects/Scary DMX/config_parser.tab.h
-c000000004CB099250000000000000DBE
-t1286641957
-s3518
-
-N/Users/jason/Projects/Scary DMX/config_reader.yy.c
-c000000004CB09925000000000000D0FD
-t1286641957
-s53501
-i<stdio.h>
-i<string.h>
-i<errno.h>
-i<stdlib.h>
-i<inttypes.h>
-i"config_parser.tab.h"
-i<string.h>
-i<stdlib.h>
-i<unistd.h>
-
-N/Users/jason/Projects/Scary DMX/dmx_controller.c
-c000000004CB090E000000000000015C5
-t1286639840
-s5573
-i<stdio.h>
-i<stdlib.h>
-i<unistd.h>
-i<pthread.h>
-i<string.h>
-i"ftd2xx.h"
-i"dmx_controller.h"
-
-N/Users/jason/Projects/Scary DMX/dmx_controller.h
-c000000004BF367E100000000000002AB
-t1274243041
-s683
-
-N/Users/jason/Projects/Scary DMX/flicker_effect.c
-c000000004CB08DBC0000000000000B94
-t1286639036
-s2964
-i"flicker_effect.h"
-i"dmx_controller.h"
-i<stdlib.h>
-i<unistd.h>
-i<pthread.h>
-
-N/Users/jason/Projects/Scary DMX/flicker_effect.h
-c000000004BF367E10000000000000168
-t1274243041
-s360
-
-N/Users/jason/Projects/Scary DMX/ftd2xx.h
-c000000004BF367E10000000000004F01
-t1274243041
-s20225
-i<pthread.h>
-i"WinTypes.h"
-
-N/Users/jason/Projects/Scary DMX/libftd2xx.dylib
-c000000004AE0740A0000000000037500
-t1256223754
-s226560
-
-N/Users/jason/Projects/Scary DMX/main.m
-c000000004BF367DD000000000000018B
-t1274243037
-s395
-i<Cocoa/Cocoa.h>
-
-N/Users/jason/Projects/Scary DMX/oscillator_effect.c
-c000000004BF367D70000000000000A69
-t1274243031
-s2665
-i"oscillator_effect.h"
-i"dmx_controller.h"
-i<pthread.h>
-i<unistd.h>
-i<stdlib.h>
-i<string.h>
-
-N/Users/jason/Projects/Scary DMX/oscillator_effect.h
-c000000004CAAC38000000000000003C1
-t1286259584
-s961
-
-N/Users/jason/Projects/Scary DMX/show_handler.c
-c000000004CB090F70000000000003874
-t1286639863
-s14452
-i"show_handler.h"
-i<string.h>
-i<stdlib.h>
-i<stdio.h>
-i<pthread.h>
-
-N/Users/jason/Projects/Scary DMX/show_handler.h
-c000000004CABED4400000000000009D8
-t1286335812
-s2520
-i"oscillator_effect.h"
-i"flicker_effect.h"
-i"sound_analyzer.h"
-i"timed_effect.h"
-i"dmx_controller.h"
-i"utils.h"
-i<stdio.h>
-
-N/Users/jason/Projects/Scary DMX/skull.icns
-c000000004BD776D0000000000002F833
-t1272411856
-s194611
-
-N/Users/jason/Projects/Scary DMX/sound_analyzer.c
-c000000004CB090060000000000002723
-t1286639622
-s10019
-i"sound_analyzer.h"
-i"dmx_controller.h"
-i<pthread.h>
-i<string.h>
-
-N/Users/jason/Projects/Scary DMX/sound_analyzer.h
-c000000004CAAC43E0000000000000488
-t1286259774
-s1160
-i<QuickTime/QuickTime.h>
-i"utils.h"
-
-N/Users/jason/Projects/Scary DMX/timed_effect.c
-c000000004CA957C90000000000000DF1
-t1286166473
-s3569
-i"timed_effect.h"
-i"dmx_controller.h"
-i<pthread.h>
-i<stdlib.h>
-i<string.h>
-
-N/Users/jason/Projects/Scary DMX/timed_effect.h
-c000000004CAAC49400000000000002DC
-t1286259860
-s732
-
-N/Users/jason/Projects/Scary DMX/utils.h
-c000000004BF367E1000000000000024A
-t1274243041
-s586
-
-NInfo.plist
-c000000004BD776D0000000000000038F
-t1272411856
-s911
-
-CCheck dependencies
-r0
-lSLF07#2@18"Check dependencies308334768#308334768#0(0"0(0#1#0"8625402368#0"0#
-
-CCompileC "build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/MainWinController.o" "/Users/jason/Projects/Scary DMX/MainWinController.m" normal i386 objective-c com.apple.compilers.gcc.4_2
-s308334769.445169
-e308334770.692514
-r1
-xCompileC
-xbuild/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/MainWinController.o
-x/Users/jason/Projects/Scary DMX/MainWinController.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@59"Compile /Users/jason/Projects/Scary DMX/MainWinController.m308334769#308334770#0(0"0(0#0#51"/Users/jason/Projects/Scary DMX/MainWinController.m8614508128#923"    cd "/Users/jason/Projects/Scary DMX"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.6.sdk -fvisibility=hidden -mmacosx-version-min=10.6 "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Scary DMX.hmap" "-F/Users/jason/Projects/Scary DMX/build/Release" "-I/Users/jason/Projects/Scary DMX/build/Release/include" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources/i386" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources" -c "/Users/jason/Projects/Scary DMX/MainWinController.m" -o "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/MainWinController.o"0#
-
-CCompileC "build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/OscillatorController.o" "/Users/jason/Projects/Scary DMX/OscillatorController.m" normal i386 objective-c com.apple.compilers.gcc.4_2
-s308334769.727466
-e308334770.516465
-r1
-xCompileC
-xbuild/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/OscillatorController.o
-x/Users/jason/Projects/Scary DMX/OscillatorController.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@62"Compile /Users/jason/Projects/Scary DMX/OscillatorController.m308334769#308334770#0(0"0(0#0#54"/Users/jason/Projects/Scary DMX/OscillatorController.m8616283776#929"    cd "/Users/jason/Projects/Scary DMX"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.6.sdk -fvisibility=hidden -mmacosx-version-min=10.6 "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Scary DMX.hmap" "-F/Users/jason/Projects/Scary DMX/build/Release" "-I/Users/jason/Projects/Scary DMX/build/Release/include" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources/i386" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources" -c "/Users/jason/Projects/Scary DMX/OscillatorController.m" -o "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/OscillatorController.o"0#
-
-CCompileC "build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/ShowTableViewDS.o" "/Users/jason/Projects/Scary DMX/ShowTableViewDS.m" normal i386 objective-c com.apple.compilers.gcc.4_2
-s308334769.497635
-e308334770.706348
-r1
-xCompileC
-xbuild/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/ShowTableViewDS.o
-x/Users/jason/Projects/Scary DMX/ShowTableViewDS.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@57"Compile /Users/jason/Projects/Scary DMX/ShowTableViewDS.m308334769#308334770#0(0"0(0#0#49"/Users/jason/Projects/Scary DMX/ShowTableViewDS.m8624112960#919"    cd "/Users/jason/Projects/Scary DMX"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.6.sdk -fvisibility=hidden -mmacosx-version-min=10.6 "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Scary DMX.hmap" "-F/Users/jason/Projects/Scary DMX/build/Release" "-I/Users/jason/Projects/Scary DMX/build/Release/include" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources/i386" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources" -c "/Users/jason/Projects/Scary DMX/ShowTableViewDS.m" -o "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/ShowTableViewDS.o"0#
-
-CCompileC "build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/SoundController.o" "/Users/jason/Projects/Scary DMX/SoundController.m" normal i386 objective-c com.apple.compilers.gcc.4_2
-s308334769.496290
-e308334770.643586
-r1
-xCompileC
-xbuild/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/SoundController.o
-x/Users/jason/Projects/Scary DMX/SoundController.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@57"Compile /Users/jason/Projects/Scary DMX/SoundController.m308334769#308334770#0(0"0(0#0#49"/Users/jason/Projects/Scary DMX/SoundController.m8616699328#919"    cd "/Users/jason/Projects/Scary DMX"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.6.sdk -fvisibility=hidden -mmacosx-version-min=10.6 "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Scary DMX.hmap" "-F/Users/jason/Projects/Scary DMX/build/Release" "-I/Users/jason/Projects/Scary DMX/build/Release/include" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources/i386" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources" -c "/Users/jason/Projects/Scary DMX/SoundController.m" -o "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/SoundController.o"0#
-
-CCompileC "build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/chaser_handler.o" "/Users/jason/Projects/Scary DMX/chaser_handler.c" normal i386 c com.apple.compilers.gcc.4_2
-s308334770.516736
-e308334770.541324
-r1
-xCompileC
-xbuild/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/chaser_handler.o
-x/Users/jason/Projects/Scary DMX/chaser_handler.c
-xnormal
-xi386
-xc
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@56"Compile /Users/jason/Projects/Scary DMX/chaser_handler.c308334770#308334770#0(0"0(0#0#48"/Users/jason/Projects/Scary DMX/chaser_handler.c8613943136#907"    cd "/Users/jason/Projects/Scary DMX"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x c -arch i386 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.6.sdk -fvisibility=hidden -mmacosx-version-min=10.6 "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Scary DMX.hmap" "-F/Users/jason/Projects/Scary DMX/build/Release" "-I/Users/jason/Projects/Scary DMX/build/Release/include" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources/i386" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources" -c "/Users/jason/Projects/Scary DMX/chaser_handler.c" -o "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/chaser_handler.o"0#
-
-CCompileC "build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/config_parser.tab.o" "/Users/jason/Projects/Scary DMX/config_parser.tab.c" normal i386 c com.apple.compilers.gcc.4_2
-s308334768.635973
-e308334769.497525
-r1
-xCompileC
-xbuild/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/config_parser.tab.o
-x/Users/jason/Projects/Scary DMX/config_parser.tab.c
-xnormal
-xi386
-xc
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@59"Compile /Users/jason/Projects/Scary DMX/config_parser.tab.c308334768#308334769#0(0"0(0#0#51"/Users/jason/Projects/Scary DMX/config_parser.tab.c8613810912#913"    cd "/Users/jason/Projects/Scary DMX"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x c -arch i386 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.6.sdk -fvisibility=hidden -mmacosx-version-min=10.6 "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Scary DMX.hmap" "-F/Users/jason/Projects/Scary DMX/build/Release" "-I/Users/jason/Projects/Scary DMX/build/Release/include" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources/i386" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources" -c "/Users/jason/Projects/Scary DMX/config_parser.tab.c" -o "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/config_parser.tab.o"0#
-
-CCompileC "build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/config_reader.yy.o" "/Users/jason/Projects/Scary DMX/config_reader.yy.c" normal i386 c com.apple.compilers.gcc.4_2
-s308334769.311648
-e308334769.727295
-r1
-xCompileC
-xbuild/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/config_reader.yy.o
-x/Users/jason/Projects/Scary DMX/config_reader.yy.c
-xnormal
-xi386
-xc
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@58"Compile /Users/jason/Projects/Scary DMX/config_reader.yy.c308334769#308334769#0(0"0(0#0#50"/Users/jason/Projects/Scary DMX/config_reader.yy.c8615603072#911"    cd "/Users/jason/Projects/Scary DMX"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x c -arch i386 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.6.sdk -fvisibility=hidden -mmacosx-version-min=10.6 "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Scary DMX.hmap" "-F/Users/jason/Projects/Scary DMX/build/Release" "-I/Users/jason/Projects/Scary DMX/build/Release/include" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources/i386" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources" -c "/Users/jason/Projects/Scary DMX/config_reader.yy.c" -o "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/config_reader.yy.o"0#
-
-CCompileC "build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/dmx_controller.o" "/Users/jason/Projects/Scary DMX/dmx_controller.c" normal i386 c com.apple.compilers.gcc.4_2
-s308334768.434559
-e308334768.551594
-r1
-xCompileC
-xbuild/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/dmx_controller.o
-x/Users/jason/Projects/Scary DMX/dmx_controller.c
-xnormal
-xi386
-xc
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@56"Compile /Users/jason/Projects/Scary DMX/dmx_controller.c308334768#308334768#0(0"0(0#0#48"/Users/jason/Projects/Scary DMX/dmx_controller.c8616109184#907"    cd "/Users/jason/Projects/Scary DMX"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x c -arch i386 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.6.sdk -fvisibility=hidden -mmacosx-version-min=10.6 "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Scary DMX.hmap" "-F/Users/jason/Projects/Scary DMX/build/Release" "-I/Users/jason/Projects/Scary DMX/build/Release/include" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources/i386" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources" -c "/Users/jason/Projects/Scary DMX/dmx_controller.c" -o "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/dmx_controller.o"0#
-
-CCompileC "build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/flicker_effect.o" "/Users/jason/Projects/Scary DMX/flicker_effect.c" normal i386 c com.apple.compilers.gcc.4_2
-s308334768.435469
-e308334768.518095
-r1
-xCompileC
-xbuild/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/flicker_effect.o
-x/Users/jason/Projects/Scary DMX/flicker_effect.c
-xnormal
-xi386
-xc
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@56"Compile /Users/jason/Projects/Scary DMX/flicker_effect.c308334768#308334768#0(0"0(0#0#48"/Users/jason/Projects/Scary DMX/flicker_effect.c8615461024#907"    cd "/Users/jason/Projects/Scary DMX"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x c -arch i386 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.6.sdk -fvisibility=hidden -mmacosx-version-min=10.6 "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Scary DMX.hmap" "-F/Users/jason/Projects/Scary DMX/build/Release" "-I/Users/jason/Projects/Scary DMX/build/Release/include" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources/i386" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources" -c "/Users/jason/Projects/Scary DMX/flicker_effect.c" -o "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/flicker_effect.o"0#
-
-CCompileC "build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/main.o" "/Users/jason/Projects/Scary DMX/main.m" normal i386 objective-c com.apple.compilers.gcc.4_2
-s308334768.433703
-e308334769.311505
-r1
-xCompileC
-xbuild/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/main.o
-x/Users/jason/Projects/Scary DMX/main.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@46"Compile /Users/jason/Projects/Scary DMX/main.m308334768#308334769#0(0"0(0#0#38"/Users/jason/Projects/Scary DMX/main.m8616701376#897"    cd "/Users/jason/Projects/Scary DMX"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.6.sdk -fvisibility=hidden -mmacosx-version-min=10.6 "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Scary DMX.hmap" "-F/Users/jason/Projects/Scary DMX/build/Release" "-I/Users/jason/Projects/Scary DMX/build/Release/include" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources/i386" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources" -c "/Users/jason/Projects/Scary DMX/main.m" -o "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/main.o"0#
-
-CCompileC "build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/oscillator_effect.o" "/Users/jason/Projects/Scary DMX/oscillator_effect.c" normal i386 c com.apple.compilers.gcc.4_2
-s308334768.436549
-e308334768.525831
-r1
-xCompileC
-xbuild/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/oscillator_effect.o
-x/Users/jason/Projects/Scary DMX/oscillator_effect.c
-xnormal
-xi386
-xc
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@59"Compile /Users/jason/Projects/Scary DMX/oscillator_effect.c308334768#308334768#0(0"0(0#0#51"/Users/jason/Projects/Scary DMX/oscillator_effect.c8615097600#913"    cd "/Users/jason/Projects/Scary DMX"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x c -arch i386 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.6.sdk -fvisibility=hidden -mmacosx-version-min=10.6 "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Scary DMX.hmap" "-F/Users/jason/Projects/Scary DMX/build/Release" "-I/Users/jason/Projects/Scary DMX/build/Release/include" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources/i386" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources" -c "/Users/jason/Projects/Scary DMX/oscillator_effect.c" -o "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/oscillator_effect.o"0#
-
-CCompileC "build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/show_handler.o" "/Users/jason/Projects/Scary DMX/show_handler.c" normal i386 c com.apple.compilers.gcc.4_2
-s308334768.518260
-e308334769.496168
-r1
-xCompileC
-xbuild/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/show_handler.o
-x/Users/jason/Projects/Scary DMX/show_handler.c
-xnormal
-xi386
-xc
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@54"Compile /Users/jason/Projects/Scary DMX/show_handler.c308334768#308334769#0(0"0(0#0#46"/Users/jason/Projects/Scary DMX/show_handler.c8624169664#903"    cd "/Users/jason/Projects/Scary DMX"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x c -arch i386 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.6.sdk -fvisibility=hidden -mmacosx-version-min=10.6 "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Scary DMX.hmap" "-F/Users/jason/Projects/Scary DMX/build/Release" "-I/Users/jason/Projects/Scary DMX/build/Release/include" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources/i386" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources" -c "/Users/jason/Projects/Scary DMX/show_handler.c" -o "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/show_handler.o"0#
-
-CCompileC "build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/sound_analyzer.o" "/Users/jason/Projects/Scary DMX/sound_analyzer.c" normal i386 c com.apple.compilers.gcc.4_2
-s308334768.525978
-e308334769.445032
-r1
-xCompileC
-xbuild/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/sound_analyzer.o
-x/Users/jason/Projects/Scary DMX/sound_analyzer.c
-xnormal
-xi386
-xc
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@56"Compile /Users/jason/Projects/Scary DMX/sound_analyzer.c308334768#308334769#0(0"0(0#0#48"/Users/jason/Projects/Scary DMX/sound_analyzer.c8622480384#907"    cd "/Users/jason/Projects/Scary DMX"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x c -arch i386 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.6.sdk -fvisibility=hidden -mmacosx-version-min=10.6 "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Scary DMX.hmap" "-F/Users/jason/Projects/Scary DMX/build/Release" "-I/Users/jason/Projects/Scary DMX/build/Release/include" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources/i386" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources" -c "/Users/jason/Projects/Scary DMX/sound_analyzer.c" -o "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/sound_analyzer.o"0#
-
-CCompileC "build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/timed_effect.o" "/Users/jason/Projects/Scary DMX/timed_effect.c" normal i386 c com.apple.compilers.gcc.4_2
-s308334768.551728
-e308334768.635827
-r1
-xCompileC
-xbuild/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/timed_effect.o
-x/Users/jason/Projects/Scary DMX/timed_effect.c
-xnormal
-xi386
-xc
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@54"Compile /Users/jason/Projects/Scary DMX/timed_effect.c308334768#308334768#0(0"0(0#0#46"/Users/jason/Projects/Scary DMX/timed_effect.c8615747584#903"    cd "/Users/jason/Projects/Scary DMX"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x c -arch i386 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.6.sdk -fvisibility=hidden -mmacosx-version-min=10.6 "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Scary DMX.hmap" "-F/Users/jason/Projects/Scary DMX/build/Release" "-I/Users/jason/Projects/Scary DMX/build/Release/include" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources/i386" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources" -c "/Users/jason/Projects/Scary DMX/timed_effect.c" -o "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/timed_effect.o"0#
-
-CCompileC "build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/MainWinController.o" "/Users/jason/Projects/Scary DMX/MainWinController.m" normal ppc objective-c com.apple.compilers.gcc.4_2
-s308334669.918700
-e308334671.056444
-r1
-xCompileC
-xbuild/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/MainWinController.o
-x/Users/jason/Projects/Scary DMX/MainWinController.m
-xnormal
-xppc
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@59"Compile /Users/jason/Projects/Scary DMX/MainWinController.m308334669#308334671#0(0"0(0#0#51"/Users/jason/Projects/Scary DMX/MainWinController.m8624602720#930"    cd "/Users/jason/Projects/Scary DMX"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x objective-c -arch ppc -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.6.sdk -mtune=G5 -fvisibility=hidden -mmacosx-version-min=10.6 "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Scary DMX.hmap" "-F/Users/jason/Projects/Scary DMX/build/Release" "-I/Users/jason/Projects/Scary DMX/build/Release/include" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources/ppc" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources" -c "/Users/jason/Projects/Scary DMX/MainWinController.m" -o "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/MainWinController.o"0#
-
-CCompileC "build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/OscillatorController.o" "/Users/jason/Projects/Scary DMX/OscillatorController.m" normal ppc objective-c com.apple.compilers.gcc.4_2
-s308334670.148560
-e308334670.896952
-r1
-xCompileC
-xbuild/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/OscillatorController.o
-x/Users/jason/Projects/Scary DMX/OscillatorController.m
-xnormal
-xppc
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@62"Compile /Users/jason/Projects/Scary DMX/OscillatorController.m308334670#308334670#0(0"0(0#0#54"/Users/jason/Projects/Scary DMX/OscillatorController.m8602228832#936"    cd "/Users/jason/Projects/Scary DMX"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x objective-c -arch ppc -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.6.sdk -mtune=G5 -fvisibility=hidden -mmacosx-version-min=10.6 "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Scary DMX.hmap" "-F/Users/jason/Projects/Scary DMX/build/Release" "-I/Users/jason/Projects/Scary DMX/build/Release/include" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources/ppc" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources" -c "/Users/jason/Projects/Scary DMX/OscillatorController.m" -o "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/OscillatorController.o"0#
-
-CCompileC "build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/ShowTableViewDS.o" "/Users/jason/Projects/Scary DMX/ShowTableViewDS.m" normal ppc objective-c com.apple.compilers.gcc.4_2
-s308334670.044094
-e308334671.139966
-r1
-xCompileC
-xbuild/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/ShowTableViewDS.o
-x/Users/jason/Projects/Scary DMX/ShowTableViewDS.m
-xnormal
-xppc
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@57"Compile /Users/jason/Projects/Scary DMX/ShowTableViewDS.m308334670#308334671#0(0"0(0#0#49"/Users/jason/Projects/Scary DMX/ShowTableViewDS.m8611383776#926"    cd "/Users/jason/Projects/Scary DMX"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x objective-c -arch ppc -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.6.sdk -mtune=G5 -fvisibility=hidden -mmacosx-version-min=10.6 "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Scary DMX.hmap" "-F/Users/jason/Projects/Scary DMX/build/Release" "-I/Users/jason/Projects/Scary DMX/build/Release/include" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources/ppc" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources" -c "/Users/jason/Projects/Scary DMX/ShowTableViewDS.m" -o "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/ShowTableViewDS.o"0#
-
-CCompileC "build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/SoundController.o" "/Users/jason/Projects/Scary DMX/SoundController.m" normal ppc objective-c com.apple.compilers.gcc.4_2
-s308334669.981339
-e308334671.022235
-r1
-xCompileC
-xbuild/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/SoundController.o
-x/Users/jason/Projects/Scary DMX/SoundController.m
-xnormal
-xppc
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@57"Compile /Users/jason/Projects/Scary DMX/SoundController.m308334669#308334671#0(0"0(0#0#49"/Users/jason/Projects/Scary DMX/SoundController.m8623702016#926"    cd "/Users/jason/Projects/Scary DMX"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x objective-c -arch ppc -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.6.sdk -mtune=G5 -fvisibility=hidden -mmacosx-version-min=10.6 "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Scary DMX.hmap" "-F/Users/jason/Projects/Scary DMX/build/Release" "-I/Users/jason/Projects/Scary DMX/build/Release/include" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources/ppc" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources" -c "/Users/jason/Projects/Scary DMX/SoundController.m" -o "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/SoundController.o"0#
-
-CCompileC "build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/chaser_handler.o" "/Users/jason/Projects/Scary DMX/chaser_handler.c" normal ppc c com.apple.compilers.gcc.4_2
-s308334670.897217
-e308334670.920654
-r1
-xCompileC
-xbuild/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/chaser_handler.o
-x/Users/jason/Projects/Scary DMX/chaser_handler.c
-xnormal
-xppc
-xc
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@56"Compile /Users/jason/Projects/Scary DMX/chaser_handler.c308334670#308334670#0(0"0(0#0#48"/Users/jason/Projects/Scary DMX/chaser_handler.c8633438528#914"    cd "/Users/jason/Projects/Scary DMX"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x c -arch ppc -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.6.sdk -mtune=G5 -fvisibility=hidden -mmacosx-version-min=10.6 "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Scary DMX.hmap" "-F/Users/jason/Projects/Scary DMX/build/Release" "-I/Users/jason/Projects/Scary DMX/build/Release/include" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources/ppc" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources" -c "/Users/jason/Projects/Scary DMX/chaser_handler.c" -o "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/chaser_handler.o"0#
-
-CCompileC "build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/config_parser.tab.o" "/Users/jason/Projects/Scary DMX/config_parser.tab.c" normal ppc c com.apple.compilers.gcc.4_2
-s308334669.085787
-e308334670.043947
-r1
-xCompileC
-xbuild/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/config_parser.tab.o
-x/Users/jason/Projects/Scary DMX/config_parser.tab.c
-xnormal
-xppc
-xc
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@59"Compile /Users/jason/Projects/Scary DMX/config_parser.tab.c308334669#308334670#0(0"0(0#0#51"/Users/jason/Projects/Scary DMX/config_parser.tab.c8625926208#920"    cd "/Users/jason/Projects/Scary DMX"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x c -arch ppc -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.6.sdk -mtune=G5 -fvisibility=hidden -mmacosx-version-min=10.6 "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Scary DMX.hmap" "-F/Users/jason/Projects/Scary DMX/build/Release" "-I/Users/jason/Projects/Scary DMX/build/Release/include" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources/ppc" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources" -c "/Users/jason/Projects/Scary DMX/config_parser.tab.c" -o "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/config_parser.tab.o"0#
-
-CCompileC "build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/config_reader.yy.o" "/Users/jason/Projects/Scary DMX/config_reader.yy.c" normal ppc c com.apple.compilers.gcc.4_2
-s308334669.679322
-e308334670.148408
-r1
-xCompileC
-xbuild/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/config_reader.yy.o
-x/Users/jason/Projects/Scary DMX/config_reader.yy.c
-xnormal
-xppc
-xc
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@58"Compile /Users/jason/Projects/Scary DMX/config_reader.yy.c308334669#308334670#0(0"0(0#0#50"/Users/jason/Projects/Scary DMX/config_reader.yy.c8622886144#918"    cd "/Users/jason/Projects/Scary DMX"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x c -arch ppc -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.6.sdk -mtune=G5 -fvisibility=hidden -mmacosx-version-min=10.6 "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Scary DMX.hmap" "-F/Users/jason/Projects/Scary DMX/build/Release" "-I/Users/jason/Projects/Scary DMX/build/Release/include" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources/ppc" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources" -c "/Users/jason/Projects/Scary DMX/config_reader.yy.c" -o "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/config_reader.yy.o"0#
-
-CCompileC "build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/dmx_controller.o" "/Users/jason/Projects/Scary DMX/dmx_controller.c" normal ppc c com.apple.compilers.gcc.4_2
-s308334668.866208
-e308334668.984994
-r1
-xCompileC
-xbuild/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/dmx_controller.o
-x/Users/jason/Projects/Scary DMX/dmx_controller.c
-xnormal
-xppc
-xc
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@56"Compile /Users/jason/Projects/Scary DMX/dmx_controller.c308334668#308334668#0(0"0(0#0#48"/Users/jason/Projects/Scary DMX/dmx_controller.c8606090304#914"    cd "/Users/jason/Projects/Scary DMX"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x c -arch ppc -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.6.sdk -mtune=G5 -fvisibility=hidden -mmacosx-version-min=10.6 "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Scary DMX.hmap" "-F/Users/jason/Projects/Scary DMX/build/Release" "-I/Users/jason/Projects/Scary DMX/build/Release/include" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources/ppc" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources" -c "/Users/jason/Projects/Scary DMX/dmx_controller.c" -o "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/dmx_controller.o"0#
-
-CCompileC "build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/flicker_effect.o" "/Users/jason/Projects/Scary DMX/flicker_effect.c" normal ppc c com.apple.compilers.gcc.4_2
-s308334668.867266
-e308334668.969910
-r1
-xCompileC
-xbuild/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/flicker_effect.o
-x/Users/jason/Projects/Scary DMX/flicker_effect.c
-xnormal
-xppc
-xc
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@56"Compile /Users/jason/Projects/Scary DMX/flicker_effect.c308334668#308334668#0(0"0(0#0#48"/Users/jason/Projects/Scary DMX/flicker_effect.c8600494496#914"    cd "/Users/jason/Projects/Scary DMX"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x c -arch ppc -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.6.sdk -mtune=G5 -fvisibility=hidden -mmacosx-version-min=10.6 "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Scary DMX.hmap" "-F/Users/jason/Projects/Scary DMX/build/Release" "-I/Users/jason/Projects/Scary DMX/build/Release/include" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources/ppc" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources" -c "/Users/jason/Projects/Scary DMX/flicker_effect.c" -o "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/flicker_effect.o"0#
-
-CCompileC "build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/main.o" "/Users/jason/Projects/Scary DMX/main.m" normal ppc objective-c com.apple.compilers.gcc.4_2
-s308334668.865141
-e308334669.679177
-r1
-xCompileC
-xbuild/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/main.o
-x/Users/jason/Projects/Scary DMX/main.m
-xnormal
-xppc
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@46"Compile /Users/jason/Projects/Scary DMX/main.m308334668#308334669#0(0"0(0#0#38"/Users/jason/Projects/Scary DMX/main.m8610799936#904"    cd "/Users/jason/Projects/Scary DMX"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x objective-c -arch ppc -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.6.sdk -mtune=G5 -fvisibility=hidden -mmacosx-version-min=10.6 "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Scary DMX.hmap" "-F/Users/jason/Projects/Scary DMX/build/Release" "-I/Users/jason/Projects/Scary DMX/build/Release/include" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources/ppc" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources" -c "/Users/jason/Projects/Scary DMX/main.m" -o "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/main.o"0#
-
-CCompileC "build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/oscillator_effect.o" "/Users/jason/Projects/Scary DMX/oscillator_effect.c" normal ppc c com.apple.compilers.gcc.4_2
-s308334668.868311
-e308334668.964806
-r1
-xCompileC
-xbuild/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/oscillator_effect.o
-x/Users/jason/Projects/Scary DMX/oscillator_effect.c
-xnormal
-xppc
-xc
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@59"Compile /Users/jason/Projects/Scary DMX/oscillator_effect.c308334668#308334668#0(0"0(0#0#51"/Users/jason/Projects/Scary DMX/oscillator_effect.c8628674112#920"    cd "/Users/jason/Projects/Scary DMX"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x c -arch ppc -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.6.sdk -mtune=G5 -fvisibility=hidden -mmacosx-version-min=10.6 "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Scary DMX.hmap" "-F/Users/jason/Projects/Scary DMX/build/Release" "-I/Users/jason/Projects/Scary DMX/build/Release/include" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources/ppc" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources" -c "/Users/jason/Projects/Scary DMX/oscillator_effect.c" -o "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/oscillator_effect.o"0#
-
-CCompileC "build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/show_handler.o" "/Users/jason/Projects/Scary DMX/show_handler.c" normal ppc c com.apple.compilers.gcc.4_2
-s308334668.964961
-e308334669.981199
-r1
-xCompileC
-xbuild/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/show_handler.o
-x/Users/jason/Projects/Scary DMX/show_handler.c
-xnormal
-xppc
-xc
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@54"Compile /Users/jason/Projects/Scary DMX/show_handler.c308334668#308334669#0(0"0(0#0#46"/Users/jason/Projects/Scary DMX/show_handler.c8624584256#910"    cd "/Users/jason/Projects/Scary DMX"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x c -arch ppc -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.6.sdk -mtune=G5 -fvisibility=hidden -mmacosx-version-min=10.6 "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Scary DMX.hmap" "-F/Users/jason/Projects/Scary DMX/build/Release" "-I/Users/jason/Projects/Scary DMX/build/Release/include" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources/ppc" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources" -c "/Users/jason/Projects/Scary DMX/show_handler.c" -o "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/show_handler.o"0#
-
-CCompileC "build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/sound_analyzer.o" "/Users/jason/Projects/Scary DMX/sound_analyzer.c" normal ppc c com.apple.compilers.gcc.4_2
-s308334668.970037
-e308334669.918560
-r1
-xCompileC
-xbuild/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/sound_analyzer.o
-x/Users/jason/Projects/Scary DMX/sound_analyzer.c
-xnormal
-xppc
-xc
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@56"Compile /Users/jason/Projects/Scary DMX/sound_analyzer.c308334668#308334669#0(0"0(0#0#48"/Users/jason/Projects/Scary DMX/sound_analyzer.c8619645600#914"    cd "/Users/jason/Projects/Scary DMX"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x c -arch ppc -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.6.sdk -mtune=G5 -fvisibility=hidden -mmacosx-version-min=10.6 "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Scary DMX.hmap" "-F/Users/jason/Projects/Scary DMX/build/Release" "-I/Users/jason/Projects/Scary DMX/build/Release/include" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources/ppc" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources" -c "/Users/jason/Projects/Scary DMX/sound_analyzer.c" -o "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/sound_analyzer.o"0#
-
-CCompileC "build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/timed_effect.o" "/Users/jason/Projects/Scary DMX/timed_effect.c" normal ppc c com.apple.compilers.gcc.4_2
-s308334668.985132
-e308334669.085638
-r1
-xCompileC
-xbuild/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/timed_effect.o
-x/Users/jason/Projects/Scary DMX/timed_effect.c
-xnormal
-xppc
-xc
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@54"Compile /Users/jason/Projects/Scary DMX/timed_effect.c308334668#308334669#0(0"0(0#0#46"/Users/jason/Projects/Scary DMX/timed_effect.c8616210944#910"    cd "/Users/jason/Projects/Scary DMX"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x c -arch ppc -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.6.sdk -mtune=G5 -fvisibility=hidden -mmacosx-version-min=10.6 "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Scary DMX.hmap" "-F/Users/jason/Projects/Scary DMX/build/Release" "-I/Users/jason/Projects/Scary DMX/build/Release/include" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources/ppc" "-I/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources" -c "/Users/jason/Projects/Scary DMX/timed_effect.c" -o "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/timed_effect.o"0#
-
-CCopyStringsFile "/Users/jason/Projects/Scary DMX/build/Release/Scary DMX.app/Contents/Resources/English.lproj/InfoPlist.strings" English.lproj/InfoPlist.strings
-s308334768.342935
-e308334768.365005
-r1
-xCopyStringsFile
-x/Users/jason/Projects/Scary DMX/build/Release/Scary DMX.app/Contents/Resources/English.lproj/InfoPlist.strings
-xEnglish.lproj/InfoPlist.strings
-lSLF07#2@36"Copy English.lproj/InfoPlist.strings308334768#308334768#0(0"0(0#0#63"/Users/jason/Projects/Scary DMX/English.lproj/InfoPlist.strings8624952576#360"    cd "/Users/jason/Projects/Scary DMX"    setenv ICONV /usr/bin/iconv    /Developer/Library/Xcode/Plug-ins/CoreBuildTasks.xcplugin/Contents/Resources/copystrings --validate --inputencoding utf-16 --outputencoding UTF-16 English.lproj/InfoPlist.strings --outdir "/Users/jason/Projects/Scary DMX/build/Release/Scary DMX.app/Contents/Resources/English.lproj"0#
-
-CCpResource "build/Release/Scary DMX.app/Contents/Resources/skull.icns" skull.icns
-s308334768.343493
-e308334768.348786
-r1
-xCpResource
-xbuild/Release/Scary DMX.app/Contents/Resources/skull.icns
-xskull.icns
-lSLF07#2@15"Copy skull.icns308334768#308334768#0(0"0(0#0#42"/Users/jason/Projects/Scary DMX/skull.icns8624489824#336"    cd "/Users/jason/Projects/Scary DMX"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -strip-debug-symbols -resolve-src-symlinks "/Users/jason/Projects/Scary DMX/skull.icns" "/Users/jason/Projects/Scary DMX/build/Release/Scary DMX.app/Contents/Resources"0#
-
-CCreateUniversalBinary "/Users/jason/Projects/Scary DMX/build/Release/Scary DMX.app/Contents/MacOS/Scary DMX" normal "i386 ppc"
-r0
-
-CLd "/Users/jason/Projects/Scary DMX/build/Release/Scary DMX.app/Contents/MacOS/Scary DMX" normal i386
-s308334770.706446
-e308334770.740771
-r1
-xLd
-x/Users/jason/Projects/Scary DMX/build/Release/Scary DMX.app/Contents/MacOS/Scary DMX
-xnormal
-xi386
-lSLF07#2@89"Link /Users/jason/Projects/Scary DMX/build/Release/Scary DMX.app/Contents/MacOS/Scary DMX308334770#308334770#0(0"0(0#0#0"8625958688#597"    cd "/Users/jason/Projects/Scary DMX"    setenv MACOSX_DEPLOYMENT_TARGET 10.6    /Developer/usr/bin/gcc-4.2 -arch i386 -isysroot /Developer/SDKs/MacOSX10.6.sdk "-L/Users/jason/Projects/Scary DMX/build/Release" "-L/Users/jason/Projects/Scary DMX" "-F/Users/jason/Projects/Scary DMX/build/Release" -filelist "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/Scary DMX.LinkFileList" -mmacosx-version-min=10.6 -framework Cocoa -lftd2xx -framework QuickTime -o "/Users/jason/Projects/Scary DMX/build/Release/Scary DMX.app/Contents/MacOS/Scary DMX"0#
-
-CLd "/Users/jason/Projects/Scary DMX/build/Release/Scary DMX.app/Contents/MacOS/Scary DMX" normal ppc
-s308334671.140057
-e308334671.170063
-r0
-xLd
-x/Users/jason/Projects/Scary DMX/build/Release/Scary DMX.app/Contents/MacOS/Scary DMX
-xnormal
-xppc
-old: warning: in /Users/jason/Projects/Scary DMX/libftd2xx.dylib, missing required architecture ppc in file
-oUndefined symbols:
-o  "_FT_W32_GetCommState", referenced from:
-o      _init_dmx in dmx_controller.o
-o  "_FT_W32_ClearCommBreak", referenced from:
-o      _Write_Buffer in dmx_controller.o
-o  "_FT_W32_SetCommBreak", referenced from:
-o      _Write_Buffer in dmx_controller.o
-o  "_FT_W32_SetCommState", referenced from:
-o      _init_dmx in dmx_controller.o
-o  "_FT_Close", referenced from:
-o      _destroy_dmx in dmx_controller.o
-o  "_FT_Write", referenced from:
-o      _Write_Buffer in dmx_controller.o
-o      _Write_Buffer in dmx_controller.o
-o  "_FT_OpenEx", referenced from:
-o      _init_dmx in dmx_controller.o
-o  "_FT_SetBaudRate", referenced from:
-o      _init_dmx in dmx_controller.o
-o  "_FT_W32_PurgeComm", referenced from:
-o      _init_dmx in dmx_controller.o
-o  "_FT_ListDevices", referenced from:
-o      _init_dmx in dmx_controller.o
-old: symbol(s) not found
-ocollect2: ld returned 1 exit status
-lSLF07#2@89"Link /Users/jason/Projects/Scary DMX/build/Release/Scary DMX.app/Contents/MacOS/Scary DMX308334671#308334671#0(988"ld: warning: in /Users/jason/Projects/Scary DMX/libftd2xx.dylib, missing required architecture ppc in fileUndefined symbols:  "_FT_W32_GetCommState", referenced from:      _init_dmx in dmx_controller.o  "_FT_W32_ClearCommBreak", referenced from:      _Write_Buffer in dmx_controller.o  "_FT_W32_SetCommBreak", referenced from:      _Write_Buffer in dmx_controller.o  "_FT_W32_SetCommState", referenced from:      _init_dmx in dmx_controller.o  "_FT_Close", referenced from:      _destroy_dmx in dmx_controller.o  "_FT_Write", referenced from:      _Write_Buffer in dmx_controller.o      _Write_Buffer in dmx_controller.o  "_FT_OpenEx", referenced from:      _init_dmx in dmx_controller.o  "_FT_SetBaudRate", referenced from:      _init_dmx in dmx_controller.o  "_FT_W32_PurgeComm", referenced from:      _init_dmx in dmx_controller.o  "_FT_ListDevices", referenced from:      _init_dmx in dmx_controller.old: symbol(s) not foundcollect2: ld returned 1 exit status24(22@93"In /Users/jason/Projects/Scary DMX/libftd2xx.dylib, missing required architecture ppc in file308334671#0#107#0(6@0"308334671#0#0#0#0#0"0(4@40""_FT_W32_GetCommState", referenced from:308334671#126#43#0(6@0"308334671#0#0#0#0#0"0(13@29"_init_dmx in dmx_controller.o308334671#169#36#0(6@0"308334671#0#0#0#0#0"0(4@42""_FT_W32_ClearCommBreak", referenced from:308334671#205#45#0(6@0"308334671#0#0#0#0#0"0(13@33"_Write_Buffer in dmx_controller.o308334671#250#40#0(6@0"308334671#0#0#0#0#0"0(4@40""_FT_W32_SetCommBreak", referenced from:308334671#290#43#0(6@0"308334671#0#0#0#0#0"0(13@33"_Write_Buffer in dmx_controller.o308334671#333#40#0(6@0"308334671#0#0#0#0#0"0(4@40""_FT_W32_SetCommState", referenced from:308334671#373#43#0(6@0"308334671#0#0#0#0#0"0(13@29"_init_dmx in dmx_controller.o308334671#416#36#0(6@0"308334671#0#0#0#0#0"0(4@29""_FT_Close", referenced from:308334671#452#32#0(6@0"308334671#0#0#0#0#0"0(13@32"_destroy_dmx in dmx_controller.o308334671#484#39#0(6@0"308334671#0#0#0#0#0"0(4@29""_FT_Write", referenced from:308334671#523#32#0(6@0"308334671#0#0#0#0#0"0(13@33"_Write_Buffer in dmx_controller.o308334671#555#40#0(6@0"308334671#0#0#0#0#0"0(13@33"_Write_Buffer in dmx_controller.o308334671#595#40#0(6@0"308334671#0#0#0#0#0"0(4@30""_FT_OpenEx", referenced from:308334671#635#33#0(6@0"308334671#0#0#0#0#0"0(13@29"_init_dmx in dmx_controller.o308334671#668#36#0(6@0"308334671#0#0#0#0#0"0(4@35""_FT_SetBaudRate", referenced from:308334671#704#38#0(6@0"308334671#0#0#0#0#0"0(13@29"_init_dmx in dmx_controller.o308334671#742#36#0(6@0"308334671#0#0#0#0#0"0(4@37""_FT_W32_PurgeComm", referenced from:308334671#778#40#0(6@0"308334671#0#0#0#0#0"0(13@29"_init_dmx in dmx_controller.o308334671#818#36#0(6@0"308334671#0#0#0#0#0"0(4@35""_FT_ListDevices", referenced from:308334671#854#38#0(6@0"308334671#0#0#0#0#0"0(13@29"_init_dmx in dmx_controller.o308334671#892#36#0(6@0"308334671#0#0#0#0#0"0(13@19"Symbol(s) not found308334671#928#24#0(6@0"308334671#0#0#0#0#0"0(13@35"Collect2: ld returned 1 exit status308334671#952#36#0(6@0"308334671#0#0#0#0#0"0(0#0#0"8613131744#595"    cd "/Users/jason/Projects/Scary DMX"    setenv MACOSX_DEPLOYMENT_TARGET 10.6    /Developer/usr/bin/gcc-4.2 -arch ppc -isysroot /Developer/SDKs/MacOSX10.6.sdk "-L/Users/jason/Projects/Scary DMX/build/Release" "-L/Users/jason/Projects/Scary DMX" "-F/Users/jason/Projects/Scary DMX/build/Release" -filelist "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/Scary DMX.LinkFileList" -mmacosx-version-min=10.6 -framework Cocoa -lftd2xx -framework QuickTime -o "/Users/jason/Projects/Scary DMX/build/Release/Scary DMX.app/Contents/MacOS/Scary DMX"1#
-
-CLd "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/Scary DMX" normal i386
-r0
-
-CLd "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/ppc/Scary DMX" normal ppc
-r0
-
-CPhaseScriptExecution "Run Script" "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Script-96AF8E3F0F2B868C00369C1E.sh"
-s308334768.282243
-e308334768.342166
-r1
-xPhaseScriptExecution
-xRun Script
-x/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Script-96AF8E3F0F2B868C00369C1E.sh
-oyacc -d -b config_parser config_parser.y
-o1 rule never reduced
-oconfig_parser.y: warning: 1 useless nonterminal and 1 useless rule
-oconfig_parser.y:435.1-3: warning: useless nonterminal: err
-oconfig_parser.y:435.7-440.1: warning: useless rule: err: ERROR
-oflex -oconfig_reader.yy.c config_reader.l
-lSLF07#2@36"Run custom shell script 'Run Script'308334768#308334768#0(293"yacc -d -b config_parser config_parser.y1 rule never reducedconfig_parser.y: warning: 1 useless nonterminal and 1 useless ruleconfig_parser.y:435.1-3: warning: useless nonterminal: errconfig_parser.y:435.7-440.1: warning: useless rule: err: ERRORflex -oconfig_reader.yy.c config_reader.l6(13@41"yacc -d -b config_parser config_parser.y308334768#0#41#0(1@0"0(13@21"1 rule never reduced308334768#41#21#0(1@0"0(13@67"config_parser.y: warning: 1 useless nonterminal and 1 useless rule308334768#62#67#0(1@0"0(13@59"config_parser.y:435.1-3: warning: useless nonterminal: err308334768#129#59#0(1@0"0(13@63"config_parser.y:435.7-440.1: warning: useless rule: err: ERROR308334768#188#63#0(1@0"0(13@42"flex -oconfig_reader.yy.c config_reader.l308334768#251#42#0(1@0"0(0#0#0"8614342528#15768"    cd "/Users/jason/Projects/Scary DMX"    setenv ACTION build    setenv ALTERNATE_GROUP staff    setenv ALTERNATE_MODE u+w,go-w,a+rX    setenv ALTERNATE_OWNER jason    setenv ALWAYS_SEARCH_USER_PATHS YES    setenv APPLE_INTERNAL_DEVELOPER_DIR /AppleInternal/Developer    setenv APPLE_INTERNAL_DIR /AppleInternal    setenv APPLE_INTERNAL_DOCUMENTATION_DIR /AppleInternal/Documentation    setenv APPLE_INTERNAL_LIBRARY_DIR /AppleInternal/Library    setenv APPLE_INTERNAL_TOOLS /AppleInternal/Developer/Tools    setenv APPLY_RULES_IN_COPY_FILES NO    setenv ARCHS i386    setenv ARCHS_STANDARD_32_64_BIT "x86_64 i386 ppc"    setenv ARCHS_STANDARD_32_BIT "i386 ppc"    setenv ARCHS_STANDARD_64_BIT x86_64    setenv BUILD_COMPONENTS "headers build"    setenv BUILD_DIR "/Users/jason/Projects/Scary DMX/build"    setenv BUILD_ROOT "/Users/jason/Projects/Scary DMX/build"    setenv BUILD_STYLE Release    setenv BUILD_VARIANTS normal    setenv BUILT_PRODUCTS_DIR "/Users/jason/Projects/Scary DMX/build/Release"    setenv CACHE_ROOT /var/folders/lA/lAw-nmLeHEeaDjx4otlCHE+++TI/-Caches-/com.apple.Xcode.501    setenv CCHROOT /var/folders/lA/lAw-nmLeHEeaDjx4otlCHE+++TI/-Caches-/com.apple.Xcode.501    setenv CHMOD /bin/chmod    setenv CHOWN /usr/sbin/chown    setenv CLASS_FILE_DIR "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/JavaClasses"    setenv CLEAN_PRECOMPS YES    setenv CLONE_HEADERS NO    setenv CODESIGNING_FOLDER_PATH "/Users/jason/Projects/Scary DMX/build/Release/Scary DMX.app"    setenv CODE_SIGNING_ALLOWED YES    setenv COMMAND_MODE legacy    setenv COMPOSITE_SDK_DIRS /var/folders/lA/lAw-nmLeHEeaDjx4otlCHE+++TI/-Caches-/com.apple.Xcode.501/CompositeSDKs    setenv CONFIGURATION Release    setenv CONFIGURATION_BUILD_DIR "/Users/jason/Projects/Scary DMX/build/Release"    setenv CONFIGURATION_TEMP_DIR "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release"    setenv CONTENTS_FOLDER_PATH "Scary DMX.app/Contents"    setenv COPYING_PRESERVES_HFS_DATA NO    setenv COPY_PHASE_STRIP YES    setenv COPY_RESOURCES_FROM_STATIC_FRAMEWORKS YES    setenv CP /bin/cp    setenv CURRENT_ARCH i386    setenv CURRENT_VARIANT normal    setenv DEAD_CODE_STRIPPING NO    setenv DEBUGGING_SYMBOLS YES    setenv DEBUG_INFORMATION_FORMAT dwarf    setenv DEPLOYMENT_LOCATION NO    setenv DEPLOYMENT_POSTPROCESSING NO    setenv DERIVED_FILES_DIR "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources"    setenv DERIVED_FILE_DIR "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources"    setenv DERIVED_SOURCES_DIR "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/DerivedSources"    setenv DEVELOPER_APPLICATIONS_DIR /Developer/Applications    setenv DEVELOPER_BIN_DIR /Developer/usr/bin    setenv DEVELOPER_DIR /Developer    setenv DEVELOPER_FRAMEWORKS_DIR /Developer/Library/Frameworks    setenv DEVELOPER_FRAMEWORKS_DIR_QUOTED "\"/Developer/Library/Frameworks\""    setenv DEVELOPER_LIBRARY_DIR /Developer/Library    setenv DEVELOPER_SDK_DIR /Developer/SDKs    setenv DEVELOPER_TOOLS_DIR /Developer/Tools    setenv DEVELOPER_USR_DIR /Developer/usr    setenv DEVELOPMENT_LANGUAGE English    setenv DOCUMENTATION_FOLDER_PATH /Documentation    setenv DO_HEADER_SCANNING_IN_JAM NO    setenv DSTROOT "/tmp/Scary DMX.dst"    setenv DWARF_DSYM_FILE_NAME "Scary DMX.app.dSYM"    setenv DWARF_DSYM_FOLDER_PATH "/Users/jason/Projects/Scary DMX/build/Release"    setenv ENABLE_HEADER_DEPENDENCIES YES    setenv ENABLE_OPENMP_SUPPORT NO    setenv EXCLUDED_INSTALLSRC_SUBDIRECTORY_PATTERNS ".svn CVS"    setenv EXCLUDED_RECURSIVE_SEARCH_PATH_SUBDIRECTORIES "*.nib *.lproj *.framework *.gch (*) CVS .svn *.xcodeproj *.xcode *.pbproj *.pbxproj"    setenv EXECUTABLES_FOLDER_PATH "Scary DMX.app/Contents/Executables"    setenv EXECUTABLE_FOLDER_PATH "Scary DMX.app/Contents/MacOS"    setenv EXECUTABLE_NAME "Scary DMX"    setenv EXECUTABLE_PATH "Scary DMX.app/Contents/MacOS/Scary DMX"    setenv FILE_LIST "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects/LinkFileList"    setenv FIXED_FILES_DIR "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/FixedFiles"    setenv FRAMEWORKS_FOLDER_PATH "Scary DMX.app/Contents/Frameworks"    setenv FRAMEWORK_FLAG_PREFIX -framework    setenv FRAMEWORK_SEARCH_PATHS "\"/Users/jason/Projects/Scary DMX/build/Release\" "    setenv FRAMEWORK_VERSION A    setenv FULL_PRODUCT_NAME "Scary DMX.app"    setenv GCC3_VERSION 3.3    setenv GCC_DYNAMIC_NO_PIC YES    setenv GCC_ENABLE_OBJC_EXCEPTIONS YES    setenv GCC_GENERATE_DEBUGGING_SYMBOLS NO    setenv GCC_INLINES_ARE_PRIVATE_EXTERN YES    setenv GCC_MODEL_TUNING G5    setenv GCC_PFE_FILE_C_DIALECTS "c objective-c c++ objective-c++"    setenv GCC_SYMBOLS_PRIVATE_EXTERN YES    setenv GCC_TREAT_WARNINGS_AS_ERRORS NO    setenv GCC_VERSION 4.2    setenv GCC_WARN_ABOUT_RETURN_TYPE YES    setenv GCC_WARN_UNUSED_VARIABLE YES    setenv GENERATE_MASTER_OBJECT_FILE NO    setenv GENERATE_PKGINFO_FILE YES    setenv GENERATE_PROFILING_CODE NO    setenv GID 20    setenv GROUP staff    setenv HEADERMAP_INCLUDES_FLAT_ENTRIES_FOR_TARGET_BEING_BUILT YES    setenv HEADERMAP_INCLUDES_FRAMEWORK_ENTRIES_FOR_ALL_PRODUCT_TYPES YES    setenv HEADERMAP_INCLUDES_NONPUBLIC_NONPRIVATE_HEADERS YES    setenv HEADERMAP_INCLUDES_PROJECT_HEADERS YES    setenv HEADER_SEARCH_PATHS "\"/Users/jason/Projects/Scary DMX/build/Release/include\" "    setenv ICONV /usr/bin/iconv    setenv INFOPLIST_EXPAND_BUILD_SETTINGS YES    setenv INFOPLIST_FILE Info.plist    setenv INFOPLIST_OUTPUT_FORMAT same-as-input    setenv INFOPLIST_PATH "Scary DMX.app/Contents/Info.plist"    setenv INFOPLIST_PREPROCESS NO    setenv INFOSTRINGS_PATH /InfoPlist.strings    setenv INSTALL_DIR "/tmp/Scary DMX.dst/Users/jason/Applications"    setenv INSTALL_GROUP staff    setenv INSTALL_MODE_FLAG u+w,go-w,a+rX    setenv INSTALL_OWNER jason    setenv INSTALL_PATH /Users/jason/Applications    setenv INSTALL_ROOT "/tmp/Scary DMX.dst"    setenv JAVAC_DEFAULT_FLAGS "-J-Xms64m -J-XX:NewSize=4M -J-Dfile.encoding=UTF8"    setenv JAVA_APP_STUB /System/Library/Frameworks/JavaVM.framework/Resources/MacOS/JavaApplicationStub    setenv JAVA_ARCHIVE_CLASSES YES    setenv JAVA_ARCHIVE_TYPE JAR    setenv JAVA_COMPILER /usr/bin/javac    setenv JAVA_FOLDER_PATH "Scary DMX.app/Contents/Resources/Java"    setenv JAVA_FRAMEWORK_RESOURCES_DIRS Resources    setenv JAVA_JAR_FLAGS cv    setenv JAVA_SOURCE_SUBDIR .    setenv JAVA_USE_DEPENDENCIES YES    setenv JAVA_ZIP_FLAGS -urg    setenv JIKES_DEFAULT_FLAGS "+E +OLDCSO"    setenv KEEP_PRIVATE_EXTERNS NO    setenv LD_GENERATE_MAP_FILE NO    setenv LD_MAP_FILE_PATH "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Scary DMX-LinkMap-normal-i386.txt"    setenv LD_OPENMP_FLAGS -fopenmp    setenv LEX /Developer/usr/bin/lex    setenv LIBRARY_FLAG_NOSPACE YES    setenv LIBRARY_FLAG_PREFIX -l    setenv LIBRARY_SEARCH_PATHS "\"/Users/jason/Projects/Scary DMX/build/Release\"  \"/Users/jason/Projects/Scary DMX\""    setenv LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 "\"/Users/jason/Projects/Scary DMX\""    setenv LINKER_DISPLAYS_MANGLED_NAMES NO    setenv LINK_FILE_LIST_normal_i386 "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal/i386/Scary DMX.LinkFileList"    setenv LINK_WITH_STANDARD_LIBRARIES YES    setenv LOCAL_ADMIN_APPS_DIR /Applications/Utilities    setenv LOCAL_APPS_DIR /Applications    setenv LOCAL_DEVELOPER_DIR /Library/Developer    setenv LOCAL_LIBRARY_DIR /Library    setenv MACH_O_TYPE mh_execute    setenv MACOSX_DEPLOYMENT_TARGET 10.6    setenv MAC_OS_X_VERSION_ACTUAL 1064    setenv MAC_OS_X_VERSION_MAJOR 1060    setenv MAC_OS_X_VERSION_MINOR 0604    setenv NATIVE_ARCH i386    setenv NATIVE_ARCH_32_BIT i386    setenv NATIVE_ARCH_64_BIT x86_64    setenv NATIVE_ARCH_ACTUAL x86_64    setenv NO_COMMON YES    setenv OBJECT_FILE_DIR "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects"    setenv OBJECT_FILE_DIR_normal "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Objects-normal"    setenv OBJROOT "/Users/jason/Projects/Scary DMX/build"    setenv ONLY_ACTIVE_ARCH YES    setenv OPTIMIZATION_LEVEL 0    setenv OS MACOS    setenv OSAC /usr/bin/osacompile    setenv PACKAGE_TYPE com.apple.package-type.wrapper.application    setenv PASCAL_STRINGS YES    setenv PATH_PREFIXES_EXCLUDED_FROM_HEADER_DEPENDENCIES "/usr/include /usr/local/include /System/Library/Frameworks /System/Library/PrivateFrameworks /Developer/Headers /Developer/SDKs /Developer/Platforms"    setenv PBDEVELOPMENTPLIST_PATH "Scary DMX.app/Contents/pbdevelopment.plist"    setenv PFE_FILE_C_DIALECTS "c objective-c"    setenv PKGINFO_FILE_PATH "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/PkgInfo"    setenv PKGINFO_PATH "Scary DMX.app/Contents/PkgInfo"    setenv PLATFORM_DEVELOPER_APPLICATIONS_DIR /Developer/Applications    setenv PLATFORM_DEVELOPER_BIN_DIR /Developer/usr/bin    setenv PLATFORM_DEVELOPER_LIBRARY_DIR /Developer/Library    setenv PLATFORM_DEVELOPER_SDK_DIR /Developer/SDKs    setenv PLATFORM_DEVELOPER_TOOLS_DIR /Developer/Tools    setenv PLATFORM_DEVELOPER_USR_DIR /Developer/usr    setenv PLATFORM_NAME macosx    setenv PLIST_FILE_OUTPUT_FORMAT same-as-input    setenv PLUGINS_FOLDER_PATH "Scary DMX.app/Contents/PlugIns"    setenv PREBINDING NO    setenv PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR YES    setenv PRECOMP_DESTINATION_DIR "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/PrefixHeaders"    setenv PRESERVE_DEAD_CODE_INITS_AND_TERMS NO    setenv PRIVATE_HEADERS_FOLDER_PATH "Scary DMX.app/Contents/PrivateHeaders"    setenv PRODUCT_NAME "Scary DMX"    setenv PRODUCT_SETTINGS_PATH "/Users/jason/Projects/Scary DMX/Info.plist"    setenv PRODUCT_TYPE com.apple.product-type.application    setenv PROFILING_CODE NO    setenv PROJECT "Scary DMX"    setenv PROJECT_DERIVED_FILE_DIR "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/DerivedSources"    setenv PROJECT_DIR "/Users/jason/Projects/Scary DMX"    setenv PROJECT_FILE_PATH "/Users/jason/Projects/Scary DMX/Scary DMX.xcodeproj"    setenv PROJECT_NAME "Scary DMX"    setenv PROJECT_TEMP_DIR "/Users/jason/Projects/Scary DMX/build/Scary DMX.build"    setenv PUBLIC_HEADERS_FOLDER_PATH "Scary DMX.app/Contents/Headers"    setenv RECURSIVE_SEARCH_PATHS_FOLLOW_SYMLINKS YES    setenv REMOVE_CVS_FROM_RESOURCES YES    setenv REMOVE_SVN_FROM_RESOURCES YES    setenv REZ_COLLECTOR_DIR "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/ResourceManagerResources"    setenv REZ_OBJECTS_DIR "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/ResourceManagerResources/Objects"    setenv REZ_SEARCH_PATHS "\"/Users/jason/Projects/Scary DMX/build/Release\" "    setenv RUN_CLANG_STATIC_ANALYZER NO    setenv SCAN_ALL_SOURCE_FILES_FOR_INCLUDES NO    setenv SCRIPTS_FOLDER_PATH "Scary DMX.app/Contents/Resources/Scripts"    setenv SCRIPT_INPUT_FILE_COUNT 0    setenv SCRIPT_OUTPUT_FILE_COUNT 0    setenv SDKROOT /Developer/SDKs/MacOSX10.6.sdk    setenv SDK_DIR /Developer/SDKs/MacOSX10.6.sdk    setenv SDK_NAME macosx10.6    setenv SED /usr/bin/sed    setenv SEPARATE_STRIP NO    setenv SEPARATE_SYMBOL_EDIT NO    setenv SET_DIR_MODE_OWNER_GROUP YES    setenv SET_FILE_MODE_OWNER_GROUP NO    setenv SHARED_DERIVED_FILE_DIR "/Users/jason/Projects/Scary DMX/build/Release/DerivedSources"    setenv SHARED_FRAMEWORKS_FOLDER_PATH "Scary DMX.app/Contents/SharedFrameworks"    setenv SHARED_PRECOMPS_DIR /var/folders/lA/lAw-nmLeHEeaDjx4otlCHE+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders    setenv SHARED_SUPPORT_FOLDER_PATH "Scary DMX.app/Contents/SharedSupport"    setenv SKIP_INSTALL NO    setenv SOURCE_ROOT "/Users/jason/Projects/Scary DMX"    setenv SRCROOT "/Users/jason/Projects/Scary DMX"    setenv STANDARD_C_PLUS_PLUS_LIBRARY_TYPE dynamic    setenv STRINGS_FILE_OUTPUT_ENCODING UTF-16    setenv STRIP_INSTALLED_PRODUCT YES    setenv STRIP_STYLE all    setenv SYMBOL_REPOSITORY_DIR "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/SymbolRepositories"    setenv SYMROOT "/Users/jason/Projects/Scary DMX/build"    setenv SYSTEM_ADMIN_APPS_DIR /Applications/Utilities    setenv SYSTEM_APPS_DIR /Applications    setenv SYSTEM_CORE_SERVICES_DIR /System/Library/CoreServices    setenv SYSTEM_DEMOS_DIR /Applications/Extras    setenv SYSTEM_DEVELOPER_APPS_DIR /Developer/Applications    setenv SYSTEM_DEVELOPER_BIN_DIR /Developer/usr/bin    setenv SYSTEM_DEVELOPER_DEMOS_DIR "/Developer/Applications/Utilities/Built Examples"    setenv SYSTEM_DEVELOPER_DIR /Developer    setenv SYSTEM_DEVELOPER_DOC_DIR "/Developer/ADC Reference Library"    setenv SYSTEM_DEVELOPER_GRAPHICS_TOOLS_DIR "/Developer/Applications/Graphics Tools"    setenv SYSTEM_DEVELOPER_JAVA_TOOLS_DIR "/Developer/Applications/Java Tools"    setenv SYSTEM_DEVELOPER_PERFORMANCE_TOOLS_DIR "/Developer/Applications/Performance Tools"    setenv SYSTEM_DEVELOPER_RELEASENOTES_DIR "/Developer/ADC Reference Library/releasenotes"    setenv SYSTEM_DEVELOPER_TOOLS /Developer/Tools    setenv SYSTEM_DEVELOPER_TOOLS_DOC_DIR "/Developer/ADC Reference Library/documentation/DeveloperTools"    setenv SYSTEM_DEVELOPER_TOOLS_RELEASENOTES_DIR "/Developer/ADC Reference Library/releasenotes/DeveloperTools"    setenv SYSTEM_DEVELOPER_USR_DIR /Developer/usr    setenv SYSTEM_DEVELOPER_UTILITIES_DIR /Developer/Applications/Utilities    setenv SYSTEM_DOCUMENTATION_DIR /Library/Documentation    setenv SYSTEM_LIBRARY_DIR /System/Library    setenv TARGETNAME "Scary DMX"    setenv TARGET_BUILD_DIR "/Users/jason/Projects/Scary DMX/build/Release"    setenv TARGET_NAME "Scary DMX"    setenv TARGET_TEMP_DIR "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build"    setenv TEMP_DIR "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build"    setenv TEMP_FILES_DIR "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build"    setenv TEMP_FILE_DIR "/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build"    setenv TEMP_ROOT "/Users/jason/Projects/Scary DMX/build"    setenv UID 501    setenv UNLOCALIZED_RESOURCES_FOLDER_PATH "Scary DMX.app/Contents/Resources"    setenv UNSTRIPPED_PRODUCT NO    setenv USER jason    setenv USER_APPS_DIR /Users/jason/Applications    setenv USER_LIBRARY_DIR /Users/jason/Library    setenv USE_DYNAMIC_NO_PIC YES    setenv USE_HEADERMAP YES    setenv USE_HEADER_SYMLINKS NO    setenv VALIDATE_PRODUCT NO    setenv VALID_ARCHS "i386 ppc ppc64 ppc7400 ppc970 x86_64"    setenv VERBOSE_PBXCP NO    setenv VERSIONPLIST_PATH "Scary DMX.app/Contents/version.plist"    setenv VERSION_INFO_BUILDER jason    setenv VERSION_INFO_FILE "Scary DMX_vers.c"    setenv VERSION_INFO_STRING "\"@(#)PROGRAM:Scary DMX  PROJECT:Scary DMX-\""    setenv WRAPPER_EXTENSION app    setenv WRAPPER_NAME "Scary DMX.app"    setenv WRAPPER_SUFFIX .app    setenv XCODE_APP_SUPPORT_DIR /Developer/Library/Xcode    setenv XCODE_VERSION_ACTUAL 0323    setenv XCODE_VERSION_MAJOR 0300    setenv XCODE_VERSION_MINOR 0320    setenv YACC /Developer/usr/bin/yacc    setenv ZERO_LINK NO    /bin/sh -c "\"/Users/jason/Projects/Scary DMX/build/Scary DMX.build/Release/Scary DMX.build/Script-96AF8E3F0F2B868C00369C1E.sh\""0#
-
-CProcessInfoPlistFile "/Users/jason/Projects/Scary DMX/build/Release/Scary DMX.app/Contents/Info.plist" Info.plist
-s308334768.277713
-e308334768.282099
-r1
-xProcessInfoPlistFile
-x/Users/jason/Projects/Scary DMX/build/Release/Scary DMX.app/Contents/Info.plist
-xInfo.plist
-lSLF07#2@18"Process Info.plist308334768#308334768#0(0"0(0#0#42"/Users/jason/Projects/Scary DMX/Info.plist8616274752#295"    cd "/Users/jason/Projects/Scary DMX"    builtin-infoPlistUtility Info.plist -genpkginfo "/Users/jason/Projects/Scary DMX/build/Release/Scary DMX.app/Contents/PkgInfo" -expandbuildsettings -platform macosx -o "/Users/jason/Projects/Scary DMX/build/Release/Scary DMX.app/Contents/Info.plist"0#
-
-CStripNIB "/Users/jason/Projects/Scary DMX/English.lproj/MainMenu.nib"
-s308334768.342251
-e308334768.433578
-r1
-xStripNIB
-x/Users/jason/Projects/Scary DMX/English.lproj/MainMenu.nib
-lSLF07#2@35"StripNIB English.lproj/MainMenu.nib308334768#308334768#0(0"0(0#0#58"/Users/jason/Projects/Scary DMX/English.lproj/MainMenu.nib8628680704#284"    cd "/Users/jason/Projects/Scary DMX"    /Developer/usr/bin/ibtool --strip "/Users/jason/Projects/Scary DMX/build/Release/Scary DMX.app/Contents/Resources/English.lproj/MainMenu.nib" --output-format human-readable-text "/Users/jason/Projects/Scary DMX/English.lproj/MainMenu.nib"0#
-
-CTouch "/Users/jason/Projects/Scary DMX/build/Release/Scary DMX.app"
-s308334770.740863
-e308334770.743168
-r1
-xTouch
-x/Users/jason/Projects/Scary DMX/build/Release/Scary DMX.app
-lSLF07#2@65"Touch /Users/jason/Projects/Scary DMX/build/Release/Scary DMX.app308334770#308334770#0(0"0(0#0#0"8624718688#125"    cd "/Users/jason/Projects/Scary DMX"    /usr/bin/touch -c "/Users/jason/Projects/Scary DMX/build/Release/Scary DMX.app"0#
-
