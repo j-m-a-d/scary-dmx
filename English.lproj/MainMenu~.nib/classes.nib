@@ -1,0 +1,66 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            ACTIONS = {
+                nextCue = id; 
+                openShowFile = id; 
+                rewindShow = id; 
+                setShowLoop = id; 
+                startShow = id; 
+                stopShow = id; 
+                toggleDMX = id; 
+                toggleShow = id; 
+                updateChannel = id; 
+            }; 
+            CLASS = MainWinController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                dmxButton = NSButton; 
+                loopShow = NSMenuItem; 
+                progress = NSProgressIndicator; 
+                showButton = NSButton; 
+                showList = NSTableView; 
+                showTable = NSTableView; 
+                soundController = NSObject; 
+                statusText = NSTextField; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {CLASS = NSLevelIndicator; LANGUAGE = ObjC; SUPERCLASS = NSControl; }, 
+        {
+            ACTIONS = {myAction = id; }; 
+            CLASS = NSWindow; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSResponder; 
+        }, 
+        {
+            ACTIONS = {
+                toggleOscillator = id; 
+                updateChannel = id; 
+                updateHighThreshold = id; 
+                updateLowThreshold = id; 
+                updateSpeed = id; 
+            }; 
+            CLASS = OscillatorController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                channelField = NSTextField; 
+                channelStepper = NSStepper; 
+                control = NSButton; 
+                high = NSSlider; 
+                low = NSSlider; 
+                speed = NSSlider; 
+                speedLevel = NSLevelIndicator; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            CLASS = SoundController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {levelViewLeft = NSView; levelViewRight = NSView; }; 
+            SUPERCLASS = NSObject; 
+        }
+    ); 
+    IBVersion = 1; 
+}
