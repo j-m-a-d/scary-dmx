@@ -21,7 +21,7 @@ if(!timed) { \
 } \
 pthread_mutex_unlock(&wait_mutex);
 //
-static int timed = 0;
+volatile static int timed = 0;
 //
 static pthread_mutex_t wait_mutex = PTHREAD_MUTEX_INITIALIZER;
 static pthread_cond_t wait_cond = PTHREAD_COND_INITIALIZER;

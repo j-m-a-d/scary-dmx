@@ -24,7 +24,7 @@ if(!oscillating) { \
 pthread_mutex_unlock(&oscillator_mutex);
 //
 //  Flag that indicates this thread is running.
-static int oscillating = 0;
+volatile static int oscillating = 0;
 //
 static pthread_t oscillator_pt = 0;
 static pthread_mutex_t oscillator_mutex = PTHREAD_MUTEX_INITIALIZER;
@@ -51,7 +51,7 @@ void *Oscillate(void* data_in){
     
     oscillator_data_t *val = (oscillator_data_t*)data_in;
   
-    int i=0;
+    register int i=0;
     while(oscillating){
         for(i=val->lowThreshold; i<val->highThreshold; i+=2){ 
             update_channel(val->channel, i); 

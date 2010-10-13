@@ -17,7 +17,7 @@ static Movie *movie = 0;
 static pthread_t MonitorThread = 0;
 static pthread_t CallbackThread = 0;
 //
-static int monitoring = 0;
+volatile static int monitoring = 0;
 //
 static pthread_mutex_t analyze_mutex = PTHREAD_MUTEX_INITIALIZER;
 //
@@ -57,7 +57,7 @@ void free_analyzer_data(analyzer_data_t * adata)
 {
     if(adata){
         free(adata->movieFile);
-        free(adata->dmxChannelList);
+        DELETE_CHANNEL_LIST(adata->dmxChannelList);
         memset(adata, 0, sizeof(analyzer_data_t));
         free(adata);
         adata = 0;
@@ -97,7 +97,7 @@ void stop_analyze()
 */
 void *do_callback(void *data_in)
 {
-    void(*callback_function)() __attribute__((pascal));
+    void(*callback_function)();
     callback_function = data_in;
     callback_function();
     pthread_exit(NULL);
@@ -112,9 +112,9 @@ void registerSelfAsFreqListener(void *callbackRef, void(*listenerFunction)(void*
 /*
  Update all the channels set for this analyzer to the specified value.
  */
-static void update_channel_list(channel_list_t data, int value)
+static void update_channels(channel_list_t data, int value)
 {
-    int *tmp = data;
+    int *tmp = data->channels;
     while(*tmp){
         update_channel(*tmp, value);
         tmp++;
@@ -137,7 +137,7 @@ void *monitor(void *data_in)
     void(*callback)() = data.callback;
 
     //start the channels at reset level.
-    update_channel_list(data.dmxChannelList, CHANNEL_RESET);    
+    update_channels(data.dmxChannelList, CHANNEL_RESET);    
 
     StartMovie(*movie);
     //Don't stop unless the movie has stopped or the frequency buffer has vanished or
@@ -163,6 +163,8 @@ cleanup:
         StopMovie(*movie);           
     }
     
+    //Reset the DMX channel.
+    update_channels(data.dmxChannelList, CHANNEL_RESET);  
     //Free the input
     free_monitor_data(data_in);
     //Free up these resources now.
@@ -172,10 +174,7 @@ cleanup:
     DisposeMovie(*movie);
     free(movie);
     movie = 0;
-    
-    //Reset the DMX channel.
-    update_channel_list(data.dmxChannelList, CHANNEL_RESET);
-    
+
     //Let our listener(s) know
     if(callback && monitoring){
         pthread_create(&CallbackThread, NULL, do_callback, (void*)callback);
@@ -195,9 +194,9 @@ void peak_monitor(monitor_data_t *data, QTAudioFrequencyLevels *freqs)
 {
     Float32 value = freqResults->level[data->frequency];
     if(value >= data->threshold ){
-        update_channel_list(data->dmxChannelList, data->dmxValue);  
+        update_channels(data->dmxChannelList, data->dmxValue);  
         usleep(100000);  
-        update_channel_list(data->dmxChannelList, CHANNEL_RESET);
+        update_channels(data->dmxChannelList, CHANNEL_RESET);
     }  
 }
 
@@ -205,7 +204,14 @@ void follow_monitor(monitor_data_t *data, QTAudioFrequencyLevels *freqs)
 {
     Float32 value = freqResults->level[data->frequency];
     /* update the channel to the percentage of max based on the freq level. */
-    update_channel_list(data->dmxChannelList, (255 * value));  
+    update_channels(data->dmxChannelList, (255 * value));  
+}
+
+void chase_monitor(monitor_data_t *data, QTAudioFrequencyLevels *freqs)
+{
+    //check freq
+    //if freq > threshold set value on next item (set struct on void before very first item)
+    //else fade out current channelvalue
 }
 
 int open_movie_file(const unsigned char *fileName, Movie **newMovie, short *refId)
@@ -283,8 +289,7 @@ int start_analyze(analyzer_data_t *data_in, void(*callback)())
     if (!freqResults) {
         //TODO clean up
         err = memFullErr;
-        return err;
-    
+        return err;    
     }
   
     freqResults->numChannels = numberOfChannels;
@@ -296,7 +301,7 @@ int start_analyze(analyzer_data_t *data_in, void(*callback)())
     // a copy.
     monitor_data_t *data = malloc(sizeof(monitor_data_t));
     
-    data->dmxChannelList = COPY_CHANNEL_LIST(data->dmxChannelList, data_in->dmxChannelList, DMX_CHANNELS);
+    data->dmxChannelList = copy_channel_list(data_in->dmxChannelList);
    
     data->flags = data_in->flags;
     data->frequency = data_in->frequency;

@@ -267,7 +267,7 @@ bands freq analyzer_type RBRACE
 #endif
     analyzer_data_t *aData = NEW_ANALYZER_DATA_T(aData);
     aData->movieFile = $3;
-    aData->dmxChannelList = COPY_CHANNEL_LIST(aData->dmxChannelList, $4.channels, $4.count);
+    aData->dmxChannelList = channel_list_from_data($4.count, $4.channels);
     aData->threshold = $5;
     aData->dmxValue = $6;
     aData->numberOfBandLevels = $7;
@@ -290,9 +290,9 @@ bands freq analyzer_type RBRACE
     analyzer_data_t *aData = NEW_ANALYZER_DATA_T(aData);
     aData->movieFile = $3;
     int length = sizeof(int) * ( 1 + 1);
-    aData->dmxChannelList = malloc(length);
-    aData->dmxChannelList[1] = 0;
-    aData->dmxChannelList[0] = $4;
+    aData->dmxChannelList = new_channel_list(length);
+    aData->dmxChannelList->channels[1] = 0;
+    aData->dmxChannelList->channels[0] = $4;
     aData->threshold = $5;
     aData->dmxValue = $6;
     aData->numberOfBandLevels = $7;

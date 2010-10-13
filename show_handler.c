@@ -182,7 +182,7 @@ static void printAnalyzer(analyzer_data_t *data, FILE *showFile)
     fprintf(showFile, "\tanalyzer {\n");
     fprintf(showFile, "\t\t file:%s;\n", data->movieFile);
     int *tmp;
-    tmp = data->dmxChannelList;
+    tmp = data->dmxChannelList->channels;
     fprintf(showFile, "\t\t ch:%d", *tmp++);
     while(*tmp){
         fprintf(showFile, ",%d", *tmp);
