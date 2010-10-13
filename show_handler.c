@@ -74,7 +74,9 @@ int free_show(dmx_show_t *show)
             
             FREE_OSCILLATOR_DATA (tmp->cue->oData);
             
-            FREE_TIMED_EFFECT (tmp->cue->timer);
+            FREE_TIMED_EFFECTS(tmp->cue->timer);
+            
+            DELETE_CHANNEL_LIST (tmp->cue->flickerChannels);
             
             free(tmp->cue);
             tmp->cue = 0;
@@ -115,7 +117,7 @@ int create_cue_node(cue_node_t **cueNode)
     (*cueNode)->cue = (cue_t*)malloc(sizeof(cue_t));
     memset( (*cueNode)->cue, 0, sizeof(cue_t));
     (*cueNode)->cue->empty = 1;
-    (*cueNode)->cue->flickerChannel=0;
+    (*cueNode)->cue->flickerChannels=0;
     (*cueNode)->cue->stepDuration=0;
     (*cueNode)->cue->aData=0;
     (*cueNode)->cue->oData=0;
@@ -203,7 +205,14 @@ static void printAnalyzer(analyzer_data_t *data, FILE *showFile)
 static void printOscillatorData(oscillator_data_t *data, FILE *showFile)
 {
     fprintf(showFile, "\toscillator {\n");
-    fprintf(showFile, "\t\t ch:%d;\n", data->channel);
+    int *tmp;
+    tmp = data->dmxChannels->channels;
+    fprintf(showFile, "\t\t ch:%d", *tmp++);
+    while(*tmp){
+        fprintf(showFile, ",%d", *tmp);
+        tmp++;
+    }
+    //fprintf(showFile, "\t\t ch:%d;\n", data->channel);
     fprintf(showFile, "\t\t low:%d;\n", data->lowThreshold);
     fprintf(showFile, "\t\t high:%d;\n", data->highThreshold);
     fprintf(showFile, "\t\t speed:%d;\n", data->speed);
@@ -226,9 +235,15 @@ static void printTimerData(timed_effect_data_t *data, FILE *showFile)
 /*
     Print a flicker value to a show file.
  */
-static void printFlickerChannel(int channel, FILE *showFile)
+static void printFlickerChannels(channel_list_t dmxChannels, FILE *showFile)
 {
-    fprintf(showFile, "\tflicker {\n\t\tch:%d;\n\t}\n", channel);
+    fprintf(showFile, "\tflicker {\n\t\tch:}");
+    int *tmp = dmxChannels->channels;
+    while(*tmp){
+        fprintf(showFile, ",%d", *tmp);
+        tmp++;
+    }
+    fprintf(showFile, ";\n");
 }
 
 /*
@@ -244,7 +259,7 @@ void printShow(dmx_show_t *show, FILE *showFile)
         if(cue->stepDuration) fprintf(showFile, "(%d)", cue->stepDuration);
         fprintf(showFile, "{\n");        
         printCueChannels(cue->channelValues, showFile);  
-        if(cue->flickerChannel) printFlickerChannel(cue->flickerChannel, showFile);
+        if(cue->flickerChannels) printFlickerChannels(cue->flickerChannels, showFile);
         if(cue->aData) printAnalyzer(cue->aData, showFile);  
         if(cue->oData) printOscillatorData(cue->oData, showFile);
         if(cue->timer) printTimerData(cue->timer, showFile);
@@ -289,10 +304,10 @@ inline void set_step_duration_for_current_cue(dmx_show_t *show, int duration)
     show->currentCue->cue->stepDuration = duration;
 }
 
-inline void set_flicker_channel_for_current_cue(dmx_show_t *show, int ch)
+inline void set_flicker_channel_for_current_cue(dmx_show_t *show, channel_list_t ch)
 {
     show->currentCue->cue->empty = 0;
-    show->currentCue->cue->flickerChannel = ch;
+    show->currentCue->cue->flickerChannels = ch;
 }
 
 inline void set_oscillator_data_for_current_cue(dmx_show_t *show, oscillator_data_t *oData)
@@ -378,9 +393,9 @@ static void *next_step(void *data_in)
     //printCueChannels(cue->channelValues, stdout);
     bulk_update(cue->channelValues);
     // 
-    if(cue->flickerChannel){
+    if(cue->flickerChannels){
         //printFlickerChannel(cue->flickerChannel, stdout);
-        start_flicker(cue->flickerChannel);        
+        start_flicker(cue->flickerChannels);        
     }
     //
     if(cue->oData){

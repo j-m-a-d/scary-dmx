@@ -6,7 +6,8 @@
  *  Copyright 2008 Inspirotech Inc. All rights reserved.
  *
  */
- 
+#include "utils.h"
+
 #define ODT_SIZE sizeof(oscillator_data_t)
 
 #define NEW_OSCILLATOR_DATA_T(data) \
@@ -26,7 +27,7 @@ enum {
 
 //
 typedef struct _oscillator_data_t{
-    int channel;
+    channel_list_t dmxChannels;
     int lowThreshold;
     int highThreshold;
     int speed;

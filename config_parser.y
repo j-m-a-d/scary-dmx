@@ -239,12 +239,30 @@ CHANNEL  value
 ;
 
 flicker_setting:
+FLICKER LBRACE channel_list RBRACE
+{
+#ifdef _TRACE_PARSER
+    printf("flicker setting: ");
+    printf(" %d channel(s)", $3.count);
+    int i=0;
+    for(i=0; i<$3.count; i++){
+        printf(" %d, ", $3.channels[i]);
+    }
+    printf("\n");
+#endif
+    channel_list_t chs = channel_list_from_data($3.count, $3.channels);
+    set_flicker_channel_for_current_cue(resultShow, chs);
+}
+|
 FLICKER LBRACE CHAN value RBRACE
 {
 #ifdef _TRACE_PARSER
     printf("flicker setting: %d\n", $4);
 #endif
-    set_flicker_channel_for_current_cue(resultShow, $4);
+    channel_list_t chs = new_channel_list(1);
+    chs->channels[1] = 0;
+    chs->channels[0] = $4;
+    set_flicker_channel_for_current_cue(resultShow, chs);
 }
 ;
 
@@ -303,13 +321,34 @@ bands freq analyzer_type RBRACE
 ;
 
 oscillator_setting:
+OSCILLATOR LBRACE channel_list low_value high_value speed_value RBRACE
+{
+#ifdef _TRACE_PARSER
+    printf("Oscillator setting: low-- %d, high-- %d, speed-- %d", $4, $5, $6 );
+    printf(" %d channel(s)", $3.count);
+    int i=0;
+    for(i=0; i<$3.count; i++){
+        printf(" %d, ", $3.channels[i]);
+    }
+    printf("\n");
+#endif
+    oscillator_data_t* oData = NEW_OSCILLATOR_DATA_T(oData);
+    oData->dmxChannels = channel_list_from_data($3.count, $3.channels);
+    oData->lowThreshold = $4;
+    oData->highThreshold = $5;
+    oData->speed = $6;
+    set_oscillator_data_for_current_cue(resultShow, oData);
+}
+|
 OSCILLATOR LBRACE chan low_value high_value speed_value RBRACE
 {
 #ifdef _TRACE_PARSER
     printf("Oscillator setting: ch-- %d, low-- %d, high-- %d, speed-- %d\n", $3, $4, $5, $6 );
 #endif
     oscillator_data_t* oData = NEW_OSCILLATOR_DATA_T(oData);
-    oData->channel = $3;
+    oData->dmxChannels = new_channel_list(1);
+    oData->dmxChannels->channels[1] = 0;
+    oData->dmxChannels->channels[0] = $3;
     oData->lowThreshold = $4;
     oData->highThreshold = $5;
     oData->speed = $6;

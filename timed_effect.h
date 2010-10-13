@@ -7,15 +7,15 @@
  *
  */
 
-#define FREE_TIMED_EFFECT(data) \
-    free_timed_effect(data); \
+#define FREE_TIMED_EFFECTS(data) \
+    free_timed_effects(data); \
     data = 0;
 
 typedef struct timed_effect_t *timed_effect_handle;
 
 typedef struct _timed_effect_data_t {
     int channel;
-    int value;
+    short value;
     long on_time;
     long off_time;
     timed_effect_handle *timer_handle;

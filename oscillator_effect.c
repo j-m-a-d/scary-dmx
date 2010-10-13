@@ -38,11 +38,13 @@ inline void copy_oscillator_data(oscillator_data_t *to, const oscillator_data_t 
 inline void free_oscillator_data(oscillator_data_t *tdata)
 {
     if(tdata){
+        DELETE_CHANNEL_LIST(tdata->dmxChannels);
         memset(tdata, 0, ODT_SIZE);
         free(tdata);
         tdata = 0;
     }
 }
+
 /*
  *  This thread will update channels like a chaser that
  *  oscillates from a low threshold to a high threshold.
@@ -51,10 +53,10 @@ void *Oscillate(void* data_in){
     
     oscillator_data_t *val = (oscillator_data_t*)data_in;
   
-    register int i=0;
+    register short i=0;
     while(oscillating){
         for(i=val->lowThreshold; i<val->highThreshold; i+=2){ 
-            update_channel(val->channel, i); 
+            update_channels(val->dmxChannels, i); 
             CHECK_OSCILLATING
             usleep(val->speed);
         }
@@ -62,7 +64,7 @@ void *Oscillate(void* data_in){
         CHECK_OSCILLATING
         
         for(i=val->highThreshold; i>val->lowThreshold; i-=2){ 
-            update_channel(val->channel, i);
+            update_channels(val->dmxChannels, i);
             CHECK_OSCILLATING
             usleep(val->speed);
         }        
@@ -70,7 +72,7 @@ void *Oscillate(void* data_in){
     
 cleanup:
     //Reset
-    update_channel(val->channel, 0);
+    update_channels(val->dmxChannels, 0);
     pthread_exit(NULL);
 }
 
@@ -92,9 +94,10 @@ void stop_oscillating()
 */
 int start_oscillating(const oscillator_data_t *inData)
 {   
-    if(inData->channel > DMX_CHANNELS ){
+    /*
+     if(inData->channel > DMX_CHANNELS ){
         return OSCILLATOR_BAD_CHANNEL;
-    }
+    }*/
     
     //signal we are ready to oscillate.
     pthread_mutex_lock(&oscillator_mutex);    

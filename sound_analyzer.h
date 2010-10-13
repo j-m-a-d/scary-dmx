@@ -6,7 +6,7 @@
  *  Copyright 2008 Inspirotech Inc. All rights reserved.
  *
  */
-#include <QuickTime/QuickTime.h>
+
 #include "utils.h"
 
 #define MAX_ANALYZE_CHANNELS 2

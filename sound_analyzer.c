@@ -11,6 +11,8 @@
 #include "dmx_controller.h"
 #include <pthread.h>
 #include <string.h>
+#include <QuickTime/QuickTime.h>
+
 //
 static Movie *movie = 0; 
 //
@@ -107,18 +109,6 @@ void registerSelfAsFreqListener(void *callbackRef, void(*listenerFunction)(void*
 {
     _listenerFunction = listenerFunction;
     _callbackRef = callbackRef;
-}
-
-/*
- Update all the channels set for this analyzer to the specified value.
- */
-static void update_channels(channel_list_t data, int value)
-{
-    int *tmp = data->channels;
-    while(*tmp){
-        update_channel(*tmp, value);
-        tmp++;
-    }
 }
 
 /*

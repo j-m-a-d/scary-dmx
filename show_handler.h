@@ -30,7 +30,7 @@ enum {
 //
 typedef struct _cue_t{
     int empty;
-    int flickerChannel;
+    channel_list_t flickerChannels;
     timed_effect_data_t* timer;
     oscillator_data_t* oData;
     analyzer_data_t* aData;
@@ -102,7 +102,7 @@ inline void set_channel_value_for_current_cue(dmx_show_t*, int, int);
 //
 inline void set_step_duration_for_current_cue(dmx_show_t*, int);
 //
-inline void set_flicker_channel_for_current_cue(dmx_show_t*, int);
+inline void set_flicker_channel_for_current_cue(dmx_show_t*, channel_list_t);
 //
 inline void set_oscillator_data_for_current_cue(dmx_show_t*, oscillator_data_t*);
 //

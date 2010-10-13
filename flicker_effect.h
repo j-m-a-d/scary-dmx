@@ -7,6 +7,8 @@
  *
  */
 
+#include "utils.h"
+
 enum {
     FLICKER_OK,
     FLICKER_IN_PROGRESS,
@@ -14,7 +16,7 @@ enum {
 };
     
 // Start the 'flicker' effect thread.
-int start_flicker(int);
+int start_flicker(channel_list_t);
 
 // Stop the 'flicker' effect thread.
 void stop_flicker();

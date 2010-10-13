@@ -9,6 +9,10 @@
 #ifndef UTILS_H
 #define UTILS_H
 
+#include <sys/types.h>
+#include <stdlib.h>
+#include <string.h>
+
 struct _channel_list_t {
     int *channels;
     int length;
@@ -16,7 +20,7 @@ struct _channel_list_t {
 
 typedef struct _channel_list_t *channel_list_t;
 //    
-static inline channel_list_t new_channel_list(size_t length)
+static inline channel_list_t new_channel_list(int length)
 {
     size_t __chan_length_init = sizeof(int) * (length + 1);
     channel_list_t v = malloc(sizeof(struct _channel_list_t));
@@ -50,7 +54,9 @@ static inline void delete_channel_list(channel_list_t in)
 }
 //
 #define DELETE_CHANNEL_LIST(in) \
+    if(in){ \
         delete_channel_list(in); \
-        in = 0;
+    } \
+    in = 0;
 //
 #endif

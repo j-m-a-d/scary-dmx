@@ -1,7 +1,7 @@
 cue {
     analyzer {
         file:/Users/jason/Desktop/Halloween Tracks/Toccata-ext.m4a;
-        ch:9,4;
+        ch:9;
         threshold:0.575;
         threshold_value:225;
         bands:7;
@@ -9,7 +9,7 @@ cue {
         type:0;
     }
     oscillator {
-        ch:5;
+        ch:1,2,3,4;
         low:10;
         high:225;
         speed:50000;
@@ -21,7 +21,7 @@ cue {
 cue {
     analyzer {
         file:/Users/jason/Desktop/Halloween Tracks/dungeon.m4a;
-        ch:9,4;
+        ch:9;
         threshold:0.285;
         threshold_value:225;
         bands:7;
@@ -45,15 +45,15 @@ cue {
 cue {
     analyzer {
         file:/Users/jason/Desktop/Halloween Tracks/RiseOfTheDead.aif;
-        ch:9,4;
-        threshold:0.62;
+        ch:9;
+        threshold:0.525;
         threshold_value:195;
         bands:7;
         freq:4;
         type:0;
     }
     flicker {
-        ch:6;
+        ch:1,2,3,4;
     }
     ch5:255;
 }
@@ -61,7 +61,7 @@ cue {
 cue {
     analyzer {
         file:/Users/jason/Desktop/Halloween Tracks/Thunder Symphony.aiff;
-        ch:9,4;
+        ch:9;
         threshold:0.750;
         threshold_value:225;
         bands:7;
@@ -107,7 +107,7 @@ cue {
 cue {
     analyzer {
         file:/Users/jason/Desktop/Halloween Tracks/The Beast Lives.mp3;
-        ch:9,4;
+        ch:9;
         threshold:0.525;
         threshold_value:255;
         bands:7;
@@ -131,7 +131,7 @@ cue {
     }
     analyzer {
         file:/Users/jason/Desktop/Halloween Tracks/Fright Storm.m4a;
-        ch:9,4;
+        ch:9;
         threshold:0.625;
         threshold_value:245;
         bands:7;

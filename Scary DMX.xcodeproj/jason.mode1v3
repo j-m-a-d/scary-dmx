@@ -195,7 +195,48 @@
 	<key>Notifications</key>
 	<array/>
 	<key>OpenEditors</key>
-	<array/>
+	<array>
+		<dict>
+			<key>Content</key>
+			<dict>
+				<key>PBXProjectModuleGUID</key>
+				<string>96A574EC12657367000B395B</string>
+				<key>PBXProjectModuleLabel</key>
+				<string>timed_effect.h</string>
+				<key>PBXSplitModuleInNavigatorKey</key>
+				<dict>
+					<key>Split0</key>
+					<dict>
+						<key>PBXProjectModuleGUID</key>
+						<string>96A574ED12657367000B395B</string>
+						<key>PBXProjectModuleLabel</key>
+						<string>timed_effect.h</string>
+						<key>_historyCapacity</key>
+						<integer>40</integer>
+						<key>bookmark</key>
+						<string>96A574EE12657367000B395B</string>
+						<key>history</key>
+						<array>
+							<string>96A574DE126572E1000B395B</string>
+						</array>
+					</dict>
+					<key>SplitCount</key>
+					<string>1</string>
+				</dict>
+				<key>StatusBarVisibility</key>
+				<true/>
+			</dict>
+			<key>Geometry</key>
+			<dict>
+				<key>Frame</key>
+				<string>{{0, 20}, {681, 654}}</string>
+				<key>PBXModuleWindowStatusBarHidden2</key>
+				<false/>
+				<key>RubberWindowFrame</key>
+				<string>994 483 681 695 0 0 1920 1178 </string>
+			</dict>
+		</dict>
+	</array>
 	<key>PerspectiveWidths</key>
 	<array>
 		<integer>-1</integer>
@@ -265,7 +306,6 @@
 								<string>96C217B410C0E3C200507543</string>
 								<string>1C37FBAC04509CD000000102</string>
 								<string>1C37FAAC04509CD000000102</string>
-								<string>1C37FABC05509CD000000102</string>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
@@ -294,7 +334,7 @@
 							<real>176</real>
 						</array>
 						<key>RubberWindowFrame</key>
-						<string>14 266 1064 892 0 0 1920 1178 </string>
+						<string>12 270 1064 892 0 0 1920 1178 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -312,7 +352,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>utils.h</string>
+								<string>timed_effect.c</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -320,18 +360,30 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>utils.h</string>
+										<string>timed_effect.c</string>
 										<key>_historyCapacity</key>
 										<integer>40</integer>
 										<key>bookmark</key>
-										<string>96A5736112654137000B395B</string>
+										<string>96A574EB12657367000B395B</string>
 										<key>history</key>
 										<array>
-											<string>96A572B5126530A5000B395B</string>
-											<string>96A5732A12653D91000B395B</string>
 											<string>96A5735612653F56000B395B</string>
-											<string>96A5735712653F56000B395B</string>
-											<string>96A5735812653F56000B395B</string>
+											<string>96A5740B12655C55000B395B</string>
+											<string>96A5746812656486000B395B</string>
+											<string>96A574711265657F000B395B</string>
+											<string>96A574731265657F000B395B</string>
+											<string>96A57489126567F9000B395B</string>
+											<string>96A57495126568E1000B395B</string>
+											<string>96A574C312656EA9000B395B</string>
+											<string>96A574C412656EA9000B395B</string>
+											<string>96A574C512656EA9000B395B</string>
+											<string>96A574C612656EA9000B395B</string>
+											<string>96A574D912656F9E000B395B</string>
+											<string>96A574E612657367000B395B</string>
+											<string>96A574E712657367000B395B</string>
+											<string>96A574E812657367000B395B</string>
+											<string>96A574E912657367000B395B</string>
+											<string>96A574EA12657367000B395B</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -345,7 +397,7 @@
 								<key>Frame</key>
 								<string>{{0, 0}, {866, 529}}</string>
 								<key>RubberWindowFrame</key>
-								<string>14 266 1064 892 0 0 1920 1178 </string>
+								<string>12 270 1064 892 0 0 1920 1178 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
@@ -365,7 +417,7 @@
 								<key>Frame</key>
 								<string>{{0, 534}, {866, 317}}</string>
 								<key>RubberWindowFrame</key>
-								<string>14 266 1064 892 0 0 1920 1178 </string>
+								<string>12 270 1064 892 0 0 1920 1178 </string>
 							</dict>
 							<key>Module</key>
 							<string>XCDetailModule</string>
@@ -532,12 +584,13 @@
 		<string>96A571A01263AFF8000B395B</string>
 		<string>966271DF1187AE5600CF8CBB</string>
 		<string>1C78EAAD065D492600B07095</string>
-		<string>/Users/jason/Projects/Scary DMX/Scary DMX.xcodeproj</string>
 		<string>1CD10A99069EF8BA00B06720</string>
+		<string>96A574EC12657367000B395B</string>
+		<string>/Users/jason/Projects/Scary DMX/Scary DMX.xcodeproj</string>
 		<string>9662722C1187B0BF00CF8CBB</string>
 	</array>
 	<key>WindowString</key>
-	<string>14 266 1064 892 0 0 1920 1178 </string>
+	<string>12 270 1064 892 0 0 1920 1178 </string>
 	<key>WindowToolsV3</key>
 	<array>
 		<dict>
@@ -558,7 +611,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>config_parser.tab.c</string>
+								<string>config_parser.y</string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -714,10 +767,10 @@
 									<key>Frame</key>
 									<string>{{282, 0}, {645, 471}}</string>
 									<key>RubberWindowFrame</key>
-									<string>916 176 927 924 0 0 1920 1178 </string>
+									<string>916 167 927 924 0 0 1920 1178 </string>
 								</dict>
 								<key>RubberWindowFrame</key>
-								<string>916 176 927 924 0 0 1920 1178 </string>
+								<string>916 167 927 924 0 0 1920 1178 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXDebugSessionModule</string>
@@ -751,7 +804,7 @@
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debugV3</string>
 			<key>WindowString</key>
-			<string>916 176 927 924 0 0 1920 1178 </string>
+			<string>916 167 927 924 0 0 1920 1178 </string>
 			<key>WindowToolGUID</key>
 			<string>1CD10A99069EF8BA00B06720</string>
 			<key>WindowToolIsVisible</key>
@@ -778,7 +831,7 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CDD528C0622207200134675</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>config_parser.y</string>
+										<string>oscillator_effect.c</string>
 										<key>StatusBarVisibility</key>
 										<true/>
 									</dict>

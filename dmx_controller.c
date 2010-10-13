@@ -12,6 +12,7 @@
 #include <unistd.h>
 #include <pthread.h>
 #include <string.h>
+#include "utils.h"
 #include "ftd2xx.h"
 #include "dmx_controller.h"
 
@@ -105,6 +106,23 @@ void update_channel(int ch, short val)
 #ifdef _DMX_TRACE_OUTPUT
     printf("setting channel %d=%d\n", ch, val);
 #endif    
+}
+
+/*
+    Update multiple channels with a new value.
+ */
+void update_channels(channel_list_t channelList, short val)
+{
+    if(!allowWrite || !outputBuffer) return;
+    int *tmp;
+    tmp = channelList->channels;
+    while(*tmp){
+        outputBuffer[*tmp] = val;
+#ifdef _DMX_TRACE_OUTPUT
+        printf("setting channel %d=%d\n", *tmp, val);
+#endif 
+        tmp++;
+    }
 }
 
 /*
