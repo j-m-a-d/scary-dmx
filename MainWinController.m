@@ -21,6 +21,8 @@
     return NSTerminateNow;
 }
 
+static unsigned short _current_cue_index = 0;
+
 - (IBAction)openShowFile:(id)sender
 {
     int result = 0;
@@ -50,6 +52,7 @@
         if(!result){
             [statusText setStringValue:[newFile lastPathComponent]];
             [defaults setObject:newFile forKey:LAST_OPENED_SHOW];
+            _current_cue_index = 0;
             [ds setShow:newShow];
             [showTable reloadData];
         }else{
@@ -71,8 +74,6 @@
         stop_dmx();
     }
 }
-
-static unsigned short _current_cue_index = 0;
 
 - (void)startShow:(id)sender
 {
