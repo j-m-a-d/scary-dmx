@@ -25,8 +25,8 @@ static unsigned char *outputBuffer = 0;
 //
 static pthread_t dmx_writer_pt = 0;
 //
-static int writing = 0;
-static int allowWrite = 0;
+static volatile int writing = 0;
+static volatile allowWrite = 0;
 
 /*
    Zero out the write buffer then stop the DMX write thread.
@@ -137,7 +137,7 @@ void bulk_update(unsigned char* newVals)
 /*
    Get the current value for the channel.
  */
-int get_channel_value(int ch){
+short get_channel_value(int ch){
     return outputBuffer ? outputBuffer[ch] : 0;
 }
 
