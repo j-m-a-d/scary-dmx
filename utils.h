@@ -13,17 +13,17 @@
 #include <stdlib.h>
 #include <string.h>
 
-struct _channel_list_t {
+struct channel_list {
     int *channels;
     int length;
 };
 
-typedef struct _channel_list_t *channel_list_t;
+typedef struct channel_list *channel_list_t;
 //    
 static inline channel_list_t new_channel_list(int length)
 {
     size_t __chan_length_init = sizeof(int) * (length + 1);
-    channel_list_t v = malloc(sizeof(struct _channel_list_t));
+    channel_list_t v = malloc(sizeof(struct channel_list));
     v->channels = malloc(__chan_length_init);
     memset(v->channels, 0, __chan_length_init);
     v->length = length;    
@@ -49,7 +49,7 @@ static inline void delete_channel_list(channel_list_t in)
     memset(in->channels, 0, sizeof(int) * in->length);
     free(in->channels);
     in->channels = 0;
-    memset(in, 0, sizeof(struct _channel_list_t));
+    memset(in, 0, sizeof(struct channel_list));
     free(in);
 }
 //
