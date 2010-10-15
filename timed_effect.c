@@ -37,11 +37,10 @@ void free_timed_effect(timed_effect_data_t * data)
     if(data){
         memset(data, 0, sizeof(timed_effect_data_t));
         free(data);
-        data = 0;
     }
 }
 
-void free_timer_handle(timed_effect_handle *in_timer)
+void free_timer_handle(timed_effect_handle in_timer)
 {
     if(!in_timer)
         return;
@@ -105,18 +104,19 @@ void *do_timed_effect(void *data_in)
     pthread_exit(NULL);
 }
 
-int new_timed_effect(timed_effect_data_t *data, timed_effect_handle *newTimer)
+int new_timed_effect(timed_effect_data_t *data, timed_effect_handle **handle)
 {
-    if(!newTimer) return TIMED_EFFECT_FAIL;
-    
-    timed_effect_t *timer = (timed_effect_t*)newTimer;
-
+    timed_effect_t *timer = malloc(sizeof(timed_effect_t));
     if(!timer) return TIMED_EFFECT_FAIL;
     
+    memset(timer, 0, sizeof(timed_effect_t));
+           
     timer->data = malloc(sizeof(timed_effect_data_t));
     memcpy(timer->data, data, sizeof(timed_effect_data_t));
+           
     timer->handle = malloc(sizeof(pthread_t));
     
+    *handle = (timed_effect_handle*)timer;
     return TIMED_EFFECT_OK;
 }
 

@@ -18,7 +18,7 @@ typedef struct _timed_effect_data_t {
     short value;
     long on_time;
     long off_time;
-    timed_effect_handle *timer_handle;
+    timed_effect_handle timer_handle;
     struct _timed_effect_data_t *nextTimer;
 } timed_effect_data_t;
 
