@@ -408,10 +408,9 @@ static void *next_step(void *data_in)
         //do each timer
         timed_effect_data_t *tdata = cue->timer;
         while(NULL != tdata){
-            timed_effect_handle *timer = 0;
+            timed_effect_handle timer = 0;
             if(!tdata->timer_handle){
-                timer = malloc(sizeof(timed_effect_handle));
-                new_timed_effect(tdata, timer);
+                new_timed_effect(tdata, &timer);
                 tdata->timer_handle = timer;
             }
             cue_timed_effect(tdata->timer_handle);
