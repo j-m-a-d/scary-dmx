@@ -1,6 +1,5 @@
-#OPTIONS=-D_TRACE_PARSER -D_EXT_PARSER
-#OPTIONS=-D_EXT_PARSER
-OPTIONS=-D_CLI_MAIN -D_TRACE_PARSER
+OPTIONS=-D_TRACE_PARSER -D_EXT_PARSER
+#OPTIONS=-D_CLI_MAIN -D_TRACE_PARSER
 
 CC=gcc $(OPTIONS)
 LINK=ld
@@ -10,7 +9,8 @@ BISON=yacc
 FTD2XX_H=ftd2xx.h
 WIN_TYPES_H=WinTypes.h
 
-INCLUDES=-I.
+#OPTIONS=-m32
+INCLUDES=-m32 -I.
 LINKS=-lftd2xx -lpthread
 LINK_DIRS=-L.
 FRAMEWORKS=-framework QuickTime -framework Cocoa
@@ -38,8 +38,15 @@ show_handler.o	\
 sound_analyzer.o
 
 parser: flex objs 
-	$(CC) $(LINK_DIRS) $(LINKS) $(FRAMEWORKS) $(INCLUDES) -o parse show_handler.o dmx_controller.o \
-flicker_effect.o sound_analyzer.o oscillator_effect.o timed_effect.o config_reader.yy.c config_parser.tab.c
+	$(CC) $(LINK_DIRS) $(LINKS) $(FRAMEWORKS) $(INCLUDES) -o parse config_reader.yy.o	\
+config_parser.tab.o	\
+dmx_controller.o	\
+flicker_effect.o	\
+oscillator_effect.o	\
+timed_effect.o	\
+show_handler.o	\
+sound_analyzer.o
+
 
 config_reader.yy.o:	config_reader.yy.c
 	$(CC) -c -o config_reader.yy.o $(INCLUDES) config_reader.yy.c
@@ -63,7 +70,7 @@ show_handler.o:	show_handler.c
 	$(CC) -c -o show_handler.o $(INCLUDES) show_handler.c
 
 sound_analyzer.o:	sound_analyzer.c
-	$(CC) -c -o sound_analyzer.o $(INCLUDES) sound_analyzer.c
+	$(CC) -c -o sound_analyzer.o  $(INCLUDES) sound_analyzer.c
 
 clean:
 	-rm -rf *.o 2>/dev/null
