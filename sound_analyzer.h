@@ -26,10 +26,9 @@ enum  {
 };
 
 enum {
-    analyzeMonitorPeak         = 0 << 0,
-    analyzeMonitorFollow       = 1 << 0,
-    analyzeSingleChannel       = 0 << 1,
-    analyzeMultiChannel        = 1 << 1
+    analyzeMonitorPeak,
+    analyzeMonitorFollow,
+    analyzeMonitorChase
 };
  
 //

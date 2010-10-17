@@ -212,7 +212,7 @@ static void printOscillatorData(oscillator_data_t *data, FILE *showFile)
         fprintf(showFile, ",%d", *tmp);
         tmp++;
     }
-    //fprintf(showFile, "\t\t ch:%d;\n", data->channel);
+    fprintf(showFile, ";\n");
     fprintf(showFile, "\t\t low:%d;\n", data->lowThreshold);
     fprintf(showFile, "\t\t high:%d;\n", data->highThreshold);
     fprintf(showFile, "\t\t speed:%d;\n", data->speed);
@@ -227,8 +227,8 @@ static void printTimerData(timed_effect_data_t *data, FILE *showFile)
     fprintf(showFile, "\ttimer {\n");
     fprintf(showFile, "\t\t ch:%d;\n", data->channel);
     fprintf(showFile, "\t\t dmx-value:%d;\n", data->value);
-    fprintf(showFile, "\t\t ontime:%ld\n", data->on_time);
-    fprintf(showFile, "\t\t offtime:%ld\n", data->off_time);
+    fprintf(showFile, "\t\t ontime:%ld;\n", data->on_time);
+    fprintf(showFile, "\t\t offtime:%ld;\n", data->off_time);
     fprintf(showFile, "\t}\n");
 }
 
@@ -237,13 +237,14 @@ static void printTimerData(timed_effect_data_t *data, FILE *showFile)
  */
 static void printFlickerChannels(channel_list_t dmxChannels, FILE *showFile)
 {
-    fprintf(showFile, "\tflicker {\n\t\tch:}");
+    fprintf(showFile, "\tflicker {\n");
     int *tmp = dmxChannels->channels;
+	fprintf(showFile, "\t\t ch: %d", *tmp++);
     while(*tmp){
         fprintf(showFile, ",%d", *tmp);
         tmp++;
     }
-    fprintf(showFile, ";\n");
+    fprintf(showFile, ";\n\t}\n");
 }
 
 /*
@@ -373,7 +374,6 @@ static void *next_step(void *data_in)
         pthread_exit(NULL);     
     }
 	int result = 0;
-    //stop_analyze();
     stop_oscillating();
     stop_flicker();
     stop_timed_effects();
@@ -382,29 +382,23 @@ static void *next_step(void *data_in)
     cue_t *cue = cueNode->cue;
     // 
     if(cue->aData && !cue->stepDuration){
-        //printAnalyzer(cue->aData, stdout);
         result = start_analyze(cue->aData, &go_to_next_step);
 		if(result){
-			//fprintf(stderr, "start analyzer result: %d\n", result);
 			goto die_now;
 		}
     }
     //
-    //printCueChannels(cue->channelValues, stdout);
     bulk_update(cue->channelValues);
     // 
     if(cue->flickerChannels){
-        //printFlickerChannel(cue->flickerChannel, stdout);
         start_flicker(cue->flickerChannels);        
     }
     //
     if(cue->oData){
-        //printOscillatorData(cue->oData, stdout);
         start_oscillating(cue->oData);
     }
     //
     if(cue->timer){
-        //printTimerData(cue->timer, stdout);
         //do each timer
         timed_effect_data_t *tdata = cue->timer;
         while(NULL != tdata){

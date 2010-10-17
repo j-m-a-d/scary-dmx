@@ -54,7 +54,10 @@ void free_monitor_data(monitor_data_t *mdata)
     DELETE_CHANNEL_LIST(mdata->dmxChannelList);    
     free(mdata);
 }
-
+#define FREE_MONITOR_DATA(data) \
+    free_monitor_data(data); \
+    data = 0;
+//
 void free_analyzer_data(analyzer_data_t * adata)
 {
     if(adata){
@@ -139,24 +142,31 @@ void *monitor(void *data_in)
             goto cleanup;
         }
         
-        if( analyzer_function )
-            analyzer_function(data_in, freqResults);
+        if( analyzer_function ){
+            pthread_mutex_lock(&analyze_mutex);
+            if(monitoring) analyzer_function(data_in, freqResults);
+            pthread_mutex_unlock(&analyze_mutex);
+        }
         
         if(_listenerFunction && _callbackRef)
             _listenerFunction(_callbackRef, freqResults);
-        usleep(1000);   
+        //usleep(1000);   
     }
     
 cleanup:
     //Stop the movie first before we start to cleanup
     if(movie){// && !IsMovieDone(*movie)){
         StopMovie(*movie);           
-    }
+    }    
+    //we aren't playing anymore.
+    pthread_mutex_lock(&analyze_mutex);
+    monitoring = 0;
+    pthread_mutex_unlock(&analyze_mutex);
     
     //Reset the DMX channel.
     update_channels(data.dmxChannelList, CHANNEL_RESET);  
     //Free the input
-    free_monitor_data(data_in);
+    FREE_MONITOR_DATA(data_in);
     //Free up these resources now.
     free(freqResults);
     freqResults = 0;
@@ -164,16 +174,11 @@ cleanup:
     DisposeMovie(*movie);
     free(movie);
     movie = 0;
-
-    //Let our listener(s) know
-    if(callback && monitoring){
-        pthread_create(&CallbackThread, NULL, do_callback, (void*)callback);
-    }   
     
-    //we aren't playing anymore.
-    pthread_mutex_lock(&analyze_mutex);
-    monitoring = 0;
-    pthread_mutex_unlock(&analyze_mutex);
+    //Let our listener(s) know
+    if(callback){// && monitoring){
+        pthread_create(&CallbackThread, NULL, do_callback, (void*)callback);
+    } 
     
     //Knock down QT and quit.
     ExitMoviesOnThread();
@@ -182,7 +187,7 @@ cleanup:
 
 void peak_monitor(monitor_data_t *data, QTAudioFrequencyLevels *freqs)
 {
-    Float32 value = freqResults->level[data->frequency];
+    Float32 value = freqs->level[data->frequency];
     if(value >= data->threshold ){
         update_channels(data->dmxChannelList, data->dmxValue);  
         usleep(100000);  
@@ -192,16 +197,36 @@ void peak_monitor(monitor_data_t *data, QTAudioFrequencyLevels *freqs)
 
 void follow_monitor(monitor_data_t *data, QTAudioFrequencyLevels *freqs)
 {
-    Float32 value = freqResults->level[data->frequency];
+    Float32 value = freqs->level[data->frequency];
     /* update the channel to the percentage of max based on the freq level. */
     update_channels(data->dmxChannelList, (255 * value));  
 }
 
 void chase_monitor(monitor_data_t *data, QTAudioFrequencyLevels *freqs)
 {
-    //check freq
-    //if freq > threshold set value on next item (set struct on void before very first item)
-    //else fade out current channelvalue
+    static int lastChannel = 0;
+    static int lastValue = 0;
+    
+    if(!data){
+        lastChannel = 0;
+        return;
+    }
+    //if(!lastChannel) lastChannel = 0;
+    
+    Float32 value = freqs->level[data->frequency];
+    if(value > data->threshold){
+        update_channel(data->dmxChannelList->channels[lastChannel], 0);
+        lastChannel++;
+        if(lastChannel >= data->dmxChannelList->length) lastChannel = 0;
+        update_channel(data->dmxChannelList->channels[lastChannel], data->dmxValue);
+        lastValue = data->dmxValue;
+        usleep(100000);
+    } else {
+        lastValue = lastValue - 1; 
+        lastValue = lastValue > 0 ? lastValue : 0;
+        update_channel(data->dmxChannelList->channels[lastChannel], lastValue);
+        usleep(2500);//need a fade param
+    }
 }
 
 int open_movie_file(const unsigned char *fileName, Movie **newMovie, short *refId)
@@ -296,7 +321,7 @@ int start_analyze(analyzer_data_t *data_in, void(*callback)())
     data->flags = data_in->flags;
     data->frequency = data_in->frequency;
     data->threshold = data_in->threshold;  
-      
+    data->dmxValue = data_in->dmxValue;
     data->refId = refId;    
     data->callback = callback;
    
@@ -306,6 +331,9 @@ int start_analyze(analyzer_data_t *data_in, void(*callback)())
             break;
         case analyzeMonitorPeak:
             analyzer_function = peak_monitor;
+            break;
+        case analyzeMonitorChase:
+            analyzer_function = chase_monitor;
             break;
     }
     

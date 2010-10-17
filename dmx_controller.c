@@ -24,9 +24,10 @@ static FT_HANDLE    dmxDevice = 0;
 static unsigned char *outputBuffer = 0;
 //
 static pthread_t dmx_writer_pt = 0;
+static pthread_mutex_t dmx_mutex = PTHREAD_MUTEX_INITIALIZER;
 //
 static volatile int writing = 0;
-static volatile allowWrite = 0;
+static volatile int allowWrite = 0;
 
 /*
    Zero out the write buffer then stop the DMX write thread.
@@ -78,7 +79,7 @@ void *Write_Buffer(){
     DWORD dwBytesWritten;
     FT_STATUS ftStatus;
     useconds_t seconds;
-    seconds=10000;
+    seconds=20000;
 	
 	if(!outputBuffer) pthread_exit(NULL);
 	
@@ -92,6 +93,7 @@ void *Write_Buffer(){
             break;
         }
         usleep(seconds);	
+        //sleep(1);
     }
     pthread_exit(NULL);
 }
@@ -101,7 +103,7 @@ void *Write_Buffer(){
  */
 void update_channel(int ch, short val)
 {
-    if(!allowWrite || !outputBuffer) return;
+    if(!allowWrite || !outputBuffer || ch >= DMX_CHANNELS) return;
     outputBuffer[ch] = val;
 #ifdef _DMX_TRACE_OUTPUT
     printf("setting channel %d=%d\n", ch, val);
