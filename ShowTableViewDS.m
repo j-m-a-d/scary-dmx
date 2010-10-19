@@ -59,7 +59,7 @@ NSString *formatDuration(long duration)
     if(showData){
         NSString *col = [aTableColumn identifier];
         if(![col compare:@"0"]){
-            return @"";
+            return [NSString stringWithFormat:@"%d", rowIndex ];
         }else if(![col compare:@"1"]){
             id ret = nil;
             @try{

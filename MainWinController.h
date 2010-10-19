@@ -34,6 +34,6 @@
 - (void)setPlayingCueTableRow;
 - (void)nextCue:(id)sender;
 - (void)rewindShow:(id)sender;
-- (void)doNextStep;
+- (void)doNextStep:(int)cue_id;
 
 @end

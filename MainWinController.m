@@ -100,14 +100,14 @@ static unsigned short _current_cue_index = 0;
 
 - (void)setPlayingCueTableRow
 {
-    if(_current_cue_index >= [ds numberOfRowsInTableView:showTable] -1)
-        _current_cue_index = -1;
-    NSIndexSet *row = [NSIndexSet indexSetWithIndex:++_current_cue_index];
+    if(_current_cue_index >= [ds numberOfRowsInTableView:showTable]) _current_cue_index=0;
+    NSIndexSet *row = [NSIndexSet indexSetWithIndex:_current_cue_index];
     [showTable selectRowIndexes:row byExtendingSelection:NO];
 }
 
-- (void)doNextStep
+- (void)doNextStep:(int)cue_id
 {
+    _current_cue_index = cue_id;
     [self setPlayingCueTableRow];
 }
 
@@ -121,7 +121,7 @@ static unsigned short _current_cue_index = 0;
 - (void)rewindShow:(id)sender
 {
     rewind_show();
-    _current_cue_index = -1;
+    _current_cue_index = 0;
     [self setPlayingCueTableRow];
 }
 
@@ -137,7 +137,7 @@ void show_next_step(void *objRef, cue_node_t *cueData)
 {
     id mySelf = (id)objRef;
     if([mySelf respondsToSelector:@selector(doNextStep:)]){
-        [mySelf doNextStep];
+        [mySelf doNextStep: cueData->cue_id];
     }
 }
 

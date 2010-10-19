@@ -157,6 +157,7 @@ int init_show(dmx_show_t **show)
         *show = 0;
         return 1;
     }
+    (*show)->currentCue->cue_id = 0;
     //
     return 0;
 }
@@ -280,11 +281,13 @@ int add_cue(dmx_show_t* show)
         lastCue = lastCue->nextCue;
     }
     cue_node_t *newCue;
+    int id = lastCue->cue_id +1;
     int i = create_cue_node(&newCue);
     if(i){
         // free newCue and it's children
         return i;
     }
+    newCue->cue_id = id;
     lastCue->nextCue = newCue;
     newCue->previousCue = lastCue;
     newCue->nextCue = 0; // <===-----
