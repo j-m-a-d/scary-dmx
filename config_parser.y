@@ -5,7 +5,7 @@
 #include "show_handler.h"
  
 dmx_show_t *resultShow;
-
+    
 void yyerror(const char *str)
 {
     fprintf(stderr,"error: %s\n",str);
@@ -75,6 +75,7 @@ int main(int argc, char **argv)
 #include <signal.h>
 #include <unistd.h>
 #include <QuickTime/QuickTime.h>
+#include <Carbon/Carbon.h>
 
 void sig_all(int signal)
 {
@@ -89,13 +90,15 @@ int main(int argc, char **argv)
 {
     (void)signal(SIGINT, &sig_all);
 
+    CGrafPtr myPort = CreateNewPort();
+    MacSetPort(myPort);
+
     EnterMovies();
         
     dmx_show_t *newShow;
     char *showFile;
-    //showFile = argv[1];
-    showFile = "/Volumes/HD2/jason/Projects/Scary DMX/halloween.shw";
-    if(NULL == showFile){
+    showFile = argv[1];
+    if(!showFile){
         fprintf(stderr, "Usage: %s showfile\n", argv[0]);
         return 1;
     }
