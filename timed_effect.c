@@ -55,6 +55,8 @@ void free_timer_handle(timed_effect_handle in_timer)
         free(timer->data);
         timer->data = 0;
     }
+    memset(in_timer, 0, sizeof(timed_effect_t));
+    free(in_timer);
 }
 
 void free_timed_effects(timed_effect_data_t *timer)
@@ -63,8 +65,7 @@ void free_timed_effects(timed_effect_data_t *timer)
     while(timer){
         tmp = timer->nextTimer;
         free_timer_handle(timer->timer_handle);
-        memset(timer->timer_handle, 0, sizeof(timed_effect_t));
-        free(timer->timer_handle);
+        timer->timer_handle = 0;
         free_timed_effect(timer);
         timer = tmp;        
     }    
