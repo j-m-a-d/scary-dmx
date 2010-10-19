@@ -46,10 +46,12 @@ void free_timer_handle(timed_effect_handle in_timer)
         return;
     timed_effect_t *timer = (timed_effect_t *)in_timer;
     if(timer->handle){
+        memset(timer->handle, 0, sizeof(void*));
         free(timer->handle);
         timer->handle = 0;
     }
     if(timer->data){
+        memset(timer->data, 0, sizeof(timed_effect_data_t));
         free(timer->data);
         timer->data = 0;
     }
@@ -61,6 +63,8 @@ void free_timed_effects(timed_effect_data_t *timer)
     while(timer){
         tmp = timer->nextTimer;
         free_timer_handle(timer->timer_handle);
+        memset(timer->timer_handle, 0, sizeof(timed_effect_t));
+        free(timer->timer_handle);
         free_timed_effect(timer);
         timer = tmp;        
     }    
@@ -112,6 +116,7 @@ int new_timed_effect(timed_effect_data_t *data, timed_effect_handle **handle)
     memset(timer, 0, sizeof(timed_effect_t));
            
     timer->data = malloc(sizeof(timed_effect_data_t));
+    memset(timer->data, 0, sizeof(timed_effect_t));
     memcpy(timer->data, data, sizeof(timed_effect_data_t));
            
     timer->handle = malloc(sizeof(pthread_t));
