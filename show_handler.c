@@ -178,20 +178,27 @@ static void printCueChannels(unsigned char *channels, FILE *showFile)
 }
 
 /*
-    Print an analyzer setting to a show file.
+    Print a list of channels for any effect that supports channes lists.
  */
-static void printAnalyzer(analyzer_data_t *data, FILE *showFile)
+static void printChannelList(channel_list_t channels, FILE *showFile)
 {
-    fprintf(showFile, "\tanalyzer {\n");
-    fprintf(showFile, "\t\t file:%s;\n", data->movieFile);
-    int *tmp;
-    tmp = data->dmxChannelList->channels;
+    int *tmp = channels->channels;
     fprintf(showFile, "\t\t ch:%d", *tmp++);
     while(*tmp){
         fprintf(showFile, ",%d", *tmp);
         tmp++;
     }
     fprintf(showFile, ";\n");
+}
+
+/*
+    Print an analyzer setting to a show file.
+ */
+static void printAnalyzer(analyzer_data_t *data, FILE *showFile)
+{
+    fprintf(showFile, "\tanalyzer {\n");
+    fprintf(showFile, "\t\t file:%s;\n", data->movieFile);
+    printChannelList(data->dmxChannelList, showFile);
     fprintf(showFile, "\t\t threshold:%6.3f;\n", data->threshold);
     fprintf(showFile, "\t\t threshold_value:%d;\n", data->dmxValue);
     fprintf(showFile, "\t\t bands:%lu;\n", data->numberOfBandLevels);
@@ -206,14 +213,7 @@ static void printAnalyzer(analyzer_data_t *data, FILE *showFile)
 static void printOscillatorData(oscillator_data_t *data, FILE *showFile)
 {
     fprintf(showFile, "\toscillator {\n");
-    int *tmp;
-    tmp = data->dmxChannels->channels;
-    fprintf(showFile, "\t\t ch:%d", *tmp++);
-    while(*tmp){
-        fprintf(showFile, ",%d", *tmp);
-        tmp++;
-    }
-    fprintf(showFile, ";\n");
+    printChannelList(data->dmxChannels, showFile);
     fprintf(showFile, "\t\t low:%d;\n", data->lowThreshold);
     fprintf(showFile, "\t\t high:%d;\n", data->highThreshold);
     fprintf(showFile, "\t\t speed:%d;\n", data->speed);
@@ -239,13 +239,8 @@ static void printTimerData(timed_effect_data_t *data, FILE *showFile)
 static void printFlickerChannels(channel_list_t dmxChannels, FILE *showFile)
 {
     fprintf(showFile, "\tflicker {\n");
-    int *tmp = dmxChannels->channels;
-	fprintf(showFile, "\t\t ch: %d", *tmp++);
-    while(*tmp){
-        fprintf(showFile, ",%d", *tmp);
-        tmp++;
-    }
-    fprintf(showFile, ";\n\t}\n");
+    printChannelList(dmxChannels, showFile);
+    fprintf(showFile, "\t}\n");
 }
 
 /*
