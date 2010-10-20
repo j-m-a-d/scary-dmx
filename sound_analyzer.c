@@ -199,7 +199,8 @@ void follow_monitor(monitor_data_t *data, QTAudioFrequencyLevels *freqs)
 {
     Float32 value = freqs->level[data->frequency];
     /* update the channel to the percentage of max based on the freq level. */
-    update_channels(data->dmxChannelList, (255 * value));  
+    int i = 255 * value;
+    update_channels(data->dmxChannelList, i);
 }
 
 void chase_monitor(monitor_data_t *data, QTAudioFrequencyLevels *freqs)
@@ -211,8 +212,7 @@ void chase_monitor(monitor_data_t *data, QTAudioFrequencyLevels *freqs)
         lastChannel = 0;
         return;
     }
-    //if(!lastChannel) lastChannel = 0;
-    
+
     Float32 value = freqs->level[data->frequency];
     if(value > data->threshold){
         update_channel(data->dmxChannelList->channels[lastChannel], 0);
