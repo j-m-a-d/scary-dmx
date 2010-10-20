@@ -90,10 +90,10 @@ void *Write_Buffer(){
         FT_Write(dmxDevice, 0, 1, &dwBytesWritten);
         if((ftStatus = FT_Write(dmxDevice, outputBuffer, DMX_CHANNELS, &dwBytesWritten)) != FT_OK) {
             printf("Error FT_Write(%d)\n", (int)ftStatus);
+            writing = 0;
             break;
         }
         usleep(seconds);	
-        //sleep(1);
     }
     pthread_exit(NULL);
 }
@@ -152,7 +152,6 @@ int init_dmx()
     char 	cBufLD[MAX_DEVICES][64];
 
     FT_STATUS	ftStatus;
-    //FT_HANDLE	dmxDevice;
 
     int iNumDevs = 0;
     int i;
@@ -179,11 +178,6 @@ int init_dmx()
     i = 0;
     /* Setup */
     if((ftStatus = FT_OpenEx(cBufLD[i], FT_OPEN_BY_SERIAL_NUMBER, &dmxDevice)) != FT_OK){
-        /* 
-           This can fail if the ftdi_sio driver is loaded
-           use lsmod to check this and rmmod ftdi_sio to remove
-           also rmmod usbserial
-         */
         fprintf(stderr, "Error FT_Open(%d), device: %d\n", (int)ftStatus, i);
         return DMX_INIT_OPEN_FAIL;
     }
