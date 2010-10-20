@@ -12,7 +12,7 @@
 
 - (void)awakeFromNib
 {
-    odata.channel = [channelStepper intValue];
+    //odata.channel = [channelStepper intValue];
     odata.highThreshold = [high intValue];
     odata.lowThreshold = [low intValue];
     odata.speed = [speed intValue];
@@ -48,7 +48,7 @@
 
 -(IBAction)updateChannel:(id)sender
 {
-    odata.channel = [channelStepper intValue];
+    //odata.channel = [channelStepper intValue];
     [channelField setIntValue:[channelStepper intValue]];
 }
 

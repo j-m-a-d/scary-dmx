@@ -79,8 +79,7 @@ static unsigned short _current_cue_index = 0;
 {
     [progress startAnimation:sender];
     [showList setEnabled:FALSE];
-    NSIndexSet *row = [NSIndexSet indexSetWithIndex:_current_cue_index];
-    [showTable selectRowIndexes:row byExtendingSelection:NO];
+    [self setPlayingCueTableRow];
     id sc = (SoundController*)soundController;
     [sc startMonitor:7];
 }
@@ -88,6 +87,8 @@ static unsigned short _current_cue_index = 0;
 - (void)stopShow:(id)sender
 {
     if([loopShow state] && nil == sender){
+        _current_cue_index = 0;
+        [self setPlayingCueTableRow];
         start_show();
     } else {
         [showButton setState: NSOffState];
