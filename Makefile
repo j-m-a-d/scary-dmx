@@ -1,5 +1,5 @@
-#OPTIONS=-D_TRACE_PARSER -D_EXT_PARSER
-OPTIONS=-D_CLI_MAIN -D_TRACE_PARSER
+OPTIONS=-D_TRACE_PARSER -D_EXT_PARSER
+#OPTIONS=-D_CLI_MAIN -D_TRACE_PARSER
 
 CC=gcc $(OPTIONS)
 LINK=ld
@@ -13,7 +13,7 @@ WIN_TYPES_H=WinTypes.h
 INCLUDES=-m32 -I.
 LINKS=-lftd2xx -lpthread
 LINK_DIRS=-L.
-eRAMEWORKS=-framework QuickTime -framework Carbon -framework CoreFoundation
+FRAMEWORKS=-framework QuickTime -framework Carbon -framework CoreFoundation
 
 all:	parser
 
