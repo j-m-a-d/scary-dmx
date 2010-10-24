@@ -21,10 +21,10 @@
 // Globals
 static FT_HANDLE    dmxDevice = 0;
 //
-static unsigned char *outputBuffer = 0;
+static dmx_value_t *outputBuffer = 0;
 //
 static pthread_t dmx_writer_pt = 0;
-static pthread_mutex_t dmx_mutex = PTHREAD_MUTEX_INITIALIZER;
+//static pthread_mutex_t dmx_mutex = PTHREAD_MUTEX_INITIALIZER;
 //
 static volatile int writing = 0;
 static volatile int allowWrite = 0;
@@ -101,9 +101,12 @@ void *Write_Buffer(){
 /*
    Update one channel with a new value.
  */
-void update_channel(int ch, short val)
+void update_channel(int ch, dmx_value_t val)
 {
-    if(!allowWrite || !outputBuffer || ch >= DMX_CHANNELS) return;
+    if(!allowWrite || !outputBuffer || ch >= DMX_CHANNELS ){
+        fprintf(stderr, "Incorrect state for dmx channel update.  allow write: %d, output buffer address: %ld, channel: %d, value:%d\n", allowWrite, &outputBuffer,ch, val);
+        return;
+    }
     outputBuffer[ch] = val;
 #ifdef _DMX_TRACE_OUTPUT
     printf("setting channel %d=%d\n", ch, val);
@@ -113,7 +116,7 @@ void update_channel(int ch, short val)
 /*
     Update multiple channels with a new value.
  */
-void update_channels(channel_list_t channelList, short val)
+void update_channels(channel_list_t channelList, dmx_value_t val)
 {
     if(!allowWrite || !outputBuffer) return;
     int *tmp;

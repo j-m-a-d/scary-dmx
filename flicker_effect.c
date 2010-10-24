@@ -43,7 +43,7 @@ void *Flicker(void *channels)
     //Effect speed.
 	useconds_t seconds = 10000;
     
-	register short i=0;
+	register dmx_value_t i=0;
 	while(flickering){
         //Hardcoded sequence of values for this effect on a dimmer pack.
 	    for(i=65; i<155; i+=2){ 

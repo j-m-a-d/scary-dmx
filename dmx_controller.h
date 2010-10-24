@@ -7,9 +7,12 @@
  *
  */
 
+#include "utils.h"
+
 #define CHANNEL_RESET           0
 #define DMX_CHANNELS            513
  
+
 enum { 
     DMX_INIT_OK,       
     DMX_INIT_FAIL,
@@ -32,7 +35,7 @@ void destroy_dmx();
 void start_dmx();
 
 //update one channel with a new value
-void update_channel(int, short);
+void update_channel(int, dmx_value_t);
 
 //update all channels at once
 void bulk_update(unsigned char*);

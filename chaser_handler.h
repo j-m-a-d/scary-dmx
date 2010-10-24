@@ -7,11 +7,12 @@
  *
  */
 
+#include "utils.h"
 
 typedef struct _chaser_step_t {
     unsigned short channel;
-    unsigned char value;
-    unsigned char _pad;
+    dmx_value_t value;
+    dmx_value_t _pad;
     long pre_delay;
     long post_delay;
 } chaser_step_t;

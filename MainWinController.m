@@ -156,7 +156,7 @@ void show_next_step(void *objRef, cue_node_t *cueData)
 - (IBAction)updateChannel:(id)sender
 {
     NSSlider* curSlider = (NSSlider*)sender;
-    update_channel([curSlider tag], [curSlider intValue]);
+    update_channel([curSlider tag], (dmx_value_t)[curSlider intValue]);
 }
 
 - (IBAction)setShowLoop:(id)sender
