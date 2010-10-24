@@ -6,6 +6,7 @@
  *  Copyright 2008 Inspirotech Inc. All rights reserved.
  *
  */
+#include "utils.h"
 
 #define FREE_TIMED_EFFECTS(data) \
     free_timed_effects(data); \
@@ -15,7 +16,7 @@ typedef struct timed_effect_t *timed_effect_handle;
 
 typedef struct _timed_effect_data_t {
     int channel;
-    short value;
+    dmx_value_t value;
     long on_time;
     long off_time;
     timed_effect_handle timer_handle;

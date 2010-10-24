@@ -35,7 +35,7 @@ enum {
 typedef struct _analyzer_data_t {
     char *movieFile;
     channel_list_t dmxChannelList;
-    short dmxValue;
+    dmx_value_t dmxValue;
     unsigned long numberOfBandLevels;
     short frequency;
     float threshold;

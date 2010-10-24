@@ -53,7 +53,7 @@ void *Oscillate(void* data_in){
     
     oscillator_data_t *val = (oscillator_data_t*)data_in;
   
-    register short i=0;
+    register dmx_value_t i=0;
     while(oscillating){
         for(i=val->lowThreshold; i<val->highThreshold; i+=2){ 
             update_channels(val->dmxChannels, i); 

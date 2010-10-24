@@ -13,6 +13,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+typedef unsigned char dmx_value_t;
+
 struct channel_list {
     int *channels;
     int length;

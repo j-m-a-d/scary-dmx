@@ -28,8 +28,8 @@ enum {
 //
 typedef struct _oscillator_data_t{
     channel_list_t dmxChannels;
-    int lowThreshold;
-    int highThreshold;
+    dmx_value_t lowThreshold;
+    dmx_value_t highThreshold;
     int speed;
 } oscillator_data_t;
 //

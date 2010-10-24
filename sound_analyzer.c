@@ -39,7 +39,7 @@ typedef struct _monitor_data_t {
     short refId;
     short frequency;
     channel_list_t dmxChannelList;
-    int dmxValue;
+    dmx_value_t dmxValue; // fix alignment
     Float32 threshold;
     int flags;
     void(*callback)();
@@ -206,7 +206,7 @@ void follow_monitor(monitor_data_t *data, QTAudioFrequencyLevels *freqs)
 void chase_monitor(monitor_data_t *data, QTAudioFrequencyLevels *freqs)
 {
     static int lastChannel = 0;
-    static int lastValue = 0;
+    static dmx_value_t lastValue = 0;
     
     if(!data){
         lastChannel = 0;
@@ -222,9 +222,10 @@ void chase_monitor(monitor_data_t *data, QTAudioFrequencyLevels *freqs)
         lastValue = data->dmxValue;
         usleep(100000);
     } else {
-        lastValue = lastValue - 1; 
-        lastValue = lastValue > 0 ? lastValue : 0;
-        update_channel(data->dmxChannelList->channels[lastChannel], lastValue);
+        if(lastValue > 0){
+            lastValue = lastValue > 0 ? --lastValue : 0;
+            update_channel(data->dmxChannelList->channels[lastChannel], lastValue);
+        }
         usleep(2500);//need a fade param
     }
 }
