@@ -294,7 +294,7 @@ bands freq analyzer_type RBRACE
     aData->numberOfBandLevels = $7;
     aData->frequency = $8;
     aData->flags = $9;
-    set_timer_data_for_current_cue(resultShow, aData);
+    set_analyzer_data_for_current_cue(resultShow, aData);
 }
 |
 ANALYZER LBRACE file_spec chan threshold threshold_value 
@@ -319,7 +319,7 @@ bands freq analyzer_type RBRACE
     aData->numberOfBandLevels = $7;
     aData->frequency = $8;
     aData->flags = $9;
-    set_timer_data_for_current_cue(resultShow, aData);
+    set_analyzer_data_for_current_cue(resultShow, aData);
 }           
 ;
 
@@ -372,7 +372,7 @@ TIMER LBRACE chan dmx_value ontime_value offtime_value RBRACE
     timer->on_time = $5;
     timer->off_time = $6;
     timer->timer_handle = 0;
-    setTimerDataForCurrentCue(resultShow, timer);
+    set_timer_data_for_current_cue(resultShow, timer);
 }
 ;
 

@@ -315,13 +315,13 @@ inline void set_oscillator_data_for_current_cue(dmx_show_t *show, oscillator_dat
     show->currentCue->cue->oData = oData;
 }
 
-inline void set_timer_data_for_current_cue(dmx_show_t *show, analyzer_data_t *aData)
+inline void set_analyzer_data_for_current_cue(dmx_show_t *show, analyzer_data_t *aData)
 {
     show->currentCue->cue->empty = 0;
     show->currentCue->cue->aData = aData;
 }
 
-void setTimerDataForCurrentCue(dmx_show_t *show, timed_effect_data_t *data)
+void set_timer_data_for_current_cue(dmx_show_t *show, timed_effect_data_t *data)
 {
     if(NULL == show->currentCue->cue->timer){
         show->currentCue->cue->timer = data;
@@ -514,6 +514,7 @@ void rewind_show()
     if(!showing){
         _rewind_show(live_show);
         pthread_mutex_unlock(&show_mutex);
+        pthread_mutex_unlock(&control_mutex);
         return;
     }
     pthread_mutex_unlock(&show_mutex);

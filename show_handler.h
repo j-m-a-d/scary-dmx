@@ -107,9 +107,9 @@ inline void set_flicker_channel_for_current_cue(dmx_show_t*, channel_list_t);
 //
 inline void set_oscillator_data_for_current_cue(dmx_show_t*, oscillator_data_t*);
 //
-inline void set_timer_data_for_current_cue(dmx_show_t*, analyzer_data_t*);
+inline void set_analyzer_data_for_current_cue(dmx_show_t*, analyzer_data_t*);
 //
-void setTimerDataForCurrentCue(dmx_show_t*, timed_effect_data_t*);
+void set_timer_data_for_current_cue(dmx_show_t*, timed_effect_data_t*);
 //
 void printShow(dmx_show_t*, FILE*);
 //
