@@ -104,7 +104,7 @@ void *Write_Buffer(){
 void update_channel(int ch, dmx_value_t val)
 {
     if(!allowWrite || !outputBuffer || ch >= DMX_CHANNELS ){
-        fprintf(stderr, "Incorrect state for dmx channel update.  allow write: %d, output buffer address: %ld, channel: %d, value:%d\n", allowWrite, &outputBuffer,ch, val);
+        fprintf(stderr, "Incorrect state for dmx channel update.  allow write: %d, output buffer address: %ld, channel: %d, value:%d\n", allowWrite, (long)&outputBuffer, ch, val);
         return;
     }
     outputBuffer[ch] = val;

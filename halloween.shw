@@ -26,7 +26,7 @@ cue {
     analyzer {
         file:/Users/jason/Desktop/Halloween Tracks/dungeon.m4a;
         ch:13;
-        threshold:0.285;
+        threshold:0.300;
         threshold_value:225;
         bands:7;
         freq:5;
@@ -182,10 +182,10 @@ cue {
         high:150;
         speed:50000;
     }
-    ch1:100;
-    ch2:100;
-    ch3:100;
-    ch4:100;
+    ch1:75;
+    ch2:75;
+    ch3:75;
+    ch4:75;
 }
 
 cue {
