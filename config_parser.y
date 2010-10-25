@@ -310,8 +310,7 @@ bands freq analyzer_type RBRACE
 #endif
     analyzer_data_t *aData = NEW_ANALYZER_DATA_T(aData);
     aData->movieFile = $3;
-    int length = sizeof(int) * ( 1 + 1);
-    aData->dmxChannelList = new_channel_list(length);
+    aData->dmxChannelList = new_channel_list(1);
     aData->dmxChannelList->channels[1] = 0;
     aData->dmxChannelList->channels[0] = $4;
     aData->threshold = $5;
