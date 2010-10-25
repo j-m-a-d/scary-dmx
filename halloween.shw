@@ -141,6 +141,54 @@ cue {
         freq:4;
         type:2;
     }
+    timer {
+        ch:5;
+        dmx-value:200;
+        ontime:200000;
+        offtime:100000;
+    }
+    timer {
+        ch:6;
+        dmx-value:200;
+        ontime:200000;
+        offtime:100000;
+    }
+    timer {
+        ch:7;
+        dmx-value:200;
+        ontime:200000;
+        offtime:100000;
+    }
+    timer {
+        ch:8;
+        dmx-value:200;
+        ontime:200000;
+        offtime:100000;
+    }
+    timer {
+        ch:9;
+        dmx-value:200;
+        ontime:200000;
+        offtime:100000;
+    }
+    timer {
+        ch:10;
+        dmx-value:200;
+        ontime:200000;
+        offtime:100000;
+    }
+    timer {
+        ch:11;
+        dmx-value:200;
+        ontime:200000;
+        offtime:100000;
+    }
+    timer {
+        ch:12;
+        dmx-value:200;
+        ontime:200000;
+        offtime:100000;
+    }
 } 
 cue {
     analyzer {
@@ -208,4 +256,22 @@ cue {
         speed:100000;
     }
 }
-
+cue {
+    analyzer {
+        file:/Users/jason/Desktop/Halloween Tracks/Vampyre.mp3;
+        ch:1,2,3,4;
+        threshold:0.99;
+        threshold_value:255;
+        bands:7;
+        freq:4;
+        type:1;
+    }
+    ch5:255;
+    ch6:255;
+    ch7:255;
+    ch8:255;
+    ch9:255;
+    ch10:255;
+    ch11:255;
+    ch12:255; 
+} 
