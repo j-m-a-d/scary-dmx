@@ -201,6 +201,7 @@ void follow_monitor(monitor_data_t *data, QTAudioFrequencyLevels *freqs)
     /* update the channel to the percentage of max based on the freq level. */
     int i = 255 * value;
     update_channels(data->dmxChannelList, i);
+    usleep(100000);  
 }
 
 void chase_monitor(monitor_data_t *data, QTAudioFrequencyLevels *freqs)
