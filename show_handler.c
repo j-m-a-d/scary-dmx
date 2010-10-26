@@ -355,7 +355,7 @@ void stop_show()
         stop_analyze();
         stop_oscillating();
         stop_flicker();
-        stop_timed_effects();
+        stop_timed_effects(NULL);
     pthread_mutex_unlock(&show_mutex);   
 }
 
@@ -374,7 +374,8 @@ static void *next_step(void *data_in)
 	int result = 0;
     stop_oscillating();
     stop_flicker();
-    stop_timed_effects();
+    if(live_show->currentCue->previousCue)
+        stop_timed_effects(live_show->currentCue->previousCue->cue->timer);
     //    
     cue_node_t *cueNode = live_show->currentCue;
     cue_t *cue = cueNode->cue;

@@ -47,6 +47,7 @@ void free_timer_handle(timed_effect_handle in_timer)
     timed_effect_t *timer = (timed_effect_t *)in_timer;
     if(timer->handle){
         pthread_cancel(timer->handle);
+        pthread_join(timer->handle, NULL);
         memset(timer->handle, 0, sizeof(void*));
         free(timer->handle);
         timer->handle = 0;
@@ -82,12 +83,23 @@ int timed_effects_init()
     return result;
 }
 
-void stop_timed_effects()
+void stop_timed_effects(timed_effect_data_t *timer)
 {
     pthread_mutex_lock(&wait_mutex);
         timed = 0;
         //usleep(500);
     pthread_mutex_unlock(&wait_mutex);
+    
+    if(!timer) return;
+    timed_effect_data_t *tmp = (timed_effect_data_t*)timer;
+    while(tmp){
+        timed_effect_t* handle = (timed_effect_t*)tmp->timer_handle;
+        if(handle){
+            pthread_cancel(*(pthread_t*)(handle->handle));
+            pthread_join(*(pthread_t*)(handle->handle), NULL);
+        }
+        tmp = tmp->nextTimer;
+    }
 }
 
 void *do_timed_effect(void *data_in)
