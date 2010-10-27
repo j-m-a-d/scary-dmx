@@ -266,6 +266,12 @@ cue {
         freq:4;
         type:1;
     }
+    timer{
+        ch:13;
+        dmx-value:245;
+        ontime:900000;
+        offtime:9000000; 
+    }
     ch5:255;
     ch6:255;
     ch7:255;
