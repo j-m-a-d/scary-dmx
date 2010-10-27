@@ -113,7 +113,6 @@ void update_channel(dmx_channel_t ch, dmx_value_t val)
 #else
     if(!allowWrite) return;
 #endif
-    ch = ch & 0x000001ff; 
     outputBuffer[ch] = val;
 #ifdef _DMX_TRACE_OUTPUT
     printf("setting channel %d=%d\n", ch, val);
