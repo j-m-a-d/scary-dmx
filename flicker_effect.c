@@ -111,9 +111,9 @@ int start_flicker(channel_list_t dmxChannels){
         return FLICKER_IN_PROGRESS;
     }else{
         flickering = 1;
-        int *tmp = dmxChannels->channels;
+        dmx_channel_t *tmp = dmxChannels->channels;
         while(*tmp++){
-            if(! (0 > *tmp < DMX_CHANNELS) ){
+            if( *tmp >= DMX_CHANNELS ){
                 flickering = 0;
                 return FLICKER_BAD_CHANNEL;
             }

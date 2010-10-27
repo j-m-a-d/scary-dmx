@@ -182,7 +182,7 @@ static void printCueChannels(unsigned char *channels, FILE *showFile)
  */
 static void printChannelList(channel_list_t channels, FILE *showFile)
 {
-    int *tmp = channels->channels;
+    dmx_channel_t *tmp = channels->channels;
     fprintf(showFile, "\t\t ch:%d", *tmp++);
     while(*tmp){
         fprintf(showFile, ",%d", *tmp);
@@ -538,6 +538,7 @@ int skip_cue()
         skip_movie();
     } else if(live_show && live_show->currentCue->nextCue){
         live_show->currentCue = live_show->currentCue->nextCue;
+        call_show_next_step(show_next_step_obj, live_show->currentCue);
     }
     pthread_mutex_unlock(&show_mutex);
     pthread_mutex_unlock(&control_mutex);

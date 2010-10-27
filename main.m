@@ -8,6 +8,10 @@
 
 #import <Cocoa/Cocoa.h>
 
+#ifndef _REENTRANT
+#error Compile with _REENTRANT defined for use with threads
+#endif
+
 #ifndef _CLI_MAIN
 int main(int argc, char *argv[])
 {

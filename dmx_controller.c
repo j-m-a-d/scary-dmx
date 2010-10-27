@@ -21,7 +21,7 @@
 // Globals
 static FT_HANDLE    dmxDevice = 0;
 //
-static dmx_value_t *outputBuffer = 0;
+static dmx_value_t outputBuffer[DMX_CHANNELS];
 //
 static pthread_t dmx_writer_pt = 0;
 //static pthread_mutex_t dmx_mutex = PTHREAD_MUTEX_INITIALIZER;
@@ -65,8 +65,10 @@ void destroy_dmx()
         dmxDevice = 0;
         printf("Closed device.\n");
     }
-    if(outputBuffer)
+    /*
+     if(outputBuffer)
         free(outputBuffer);
+     */
 }
 
 /*
@@ -101,12 +103,17 @@ void *Write_Buffer(){
 /*
    Update one channel with a new value.
  */
-void update_channel(int ch, dmx_value_t val)
+void update_channel(dmx_channel_t ch, dmx_value_t val)
 {
-    if(!allowWrite || !outputBuffer || ch >= DMX_CHANNELS ){
+#ifdef _DMX_TRACE_OUTPUT
+    if(!allowWrite || ch >= DMX_CHANNELS ){
         fprintf(stderr, "Incorrect state for dmx channel update.  allow write: %d, output buffer address: %ld, channel: %d, value:%d\n", allowWrite, (long)&outputBuffer, ch, val);
         return;
     }
+#else
+    if(!allowWrite) return;
+#endif
+    ch = ch & 0x000001ff; 
     outputBuffer[ch] = val;
 #ifdef _DMX_TRACE_OUTPUT
     printf("setting channel %d=%d\n", ch, val);
@@ -118,10 +125,16 @@ void update_channel(int ch, dmx_value_t val)
  */
 void update_channels(channel_list_t channelList, dmx_value_t val)
 {
-    if(!allowWrite || !outputBuffer) return;
-    int *tmp;
+    if(!allowWrite) return;
+    dmx_channel_t *tmp;
     tmp = channelList->channels;
     while(*tmp){
+#ifdef _DMX_TRACE_OUTPUT
+        if(*tmp >= DMX_CHANNELS ){
+            fprintf(stderr, "Incorrect state for dmx channel update.  allow write: %d, output buffer address: %ld, channel: %d, value:%d\n", allowWrite, (long)&outputBuffer, *tmp, val);
+            return;
+        }
+#endif
         outputBuffer[*tmp] = val;
 #ifdef _DMX_TRACE_OUTPUT
         printf("setting channel %d=%d\n", *tmp, val);
@@ -213,7 +226,7 @@ int init_dmx()
 
     FT_W32_PurgeComm(dmxDevice,FT_PURGE_TX | FT_PURGE_RX);
 
-    outputBuffer = malloc(sizeof(char) * DMX_CHANNELS);
+    //outputBuffer = malloc(sizeof(char) * DMX_CHANNELS);
     memset(outputBuffer, 0, (sizeof(char)) * DMX_CHANNELS);
 
     return DMX_INIT_OK;

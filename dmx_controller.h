@@ -35,7 +35,7 @@ void destroy_dmx();
 void start_dmx();
 
 //update one channel with a new value
-void update_channel(int, dmx_value_t);
+void update_channel(dmx_channel_t, dmx_value_t);
 
 //update all channels at once
 void bulk_update(unsigned char*);
