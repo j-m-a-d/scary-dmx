@@ -105,14 +105,12 @@ void *Write_Buffer(){
  */
 void update_channel(dmx_channel_t ch, dmx_value_t val)
 {
-#ifdef _DMX_TRACE_OUTPUT
     if(!allowWrite || ch >= DMX_CHANNELS ){
         fprintf(stderr, "Incorrect state for dmx channel update.  allow write: %d, output buffer address: %ld, channel: %d, value:%d\n", allowWrite, (long)&outputBuffer, ch, val);
         return;
     }
-#else
     if(!allowWrite) return;
-#endif
+
     outputBuffer[ch] = val;
 #ifdef _DMX_TRACE_OUTPUT
     printf("setting channel %d=%d\n", ch, val);
