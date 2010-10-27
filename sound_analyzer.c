@@ -13,6 +13,8 @@
 #include <string.h>
 #include <QuickTime/QuickTime.h>
 
+#define SLEEP_INTERVAL 100000
+
 //
 static Movie *movie = 0; 
 //
@@ -52,6 +54,7 @@ static void(*analyzer_function)(monitor_data_t*, QTAudioFrequencyLevels*) = 0;
 void free_monitor_data(monitor_data_t *mdata)
 {
     DELETE_CHANNEL_LIST(mdata->dmxChannelList);    
+    memset(mdata, 0, sizeof(monitor_data_t));
     free(mdata);
 }
 #define FREE_MONITOR_DATA(data) \
@@ -124,13 +127,13 @@ void *monitor(void *data_in)
 
     EnterMoviesOnThread(0);
     
-    monitor_data_t data = *(monitor_data_t*)data_in;
+    monitor_data_t *data = (monitor_data_t*)data_in;
            
-    short movieId = data.refId;
-    void(*callback)() = data.callback;
+    short movieId = data->refId;
+    void(*callback)() = data->callback;
 
     //start the channels at reset level.
-    update_channels(data.dmxChannelList, CHANNEL_RESET);    
+    update_channels(data->dmxChannelList, CHANNEL_RESET);    
 
     StartMovie(*movie);
     //Don't stop unless the movie has stopped or the frequency buffer has vanished or
@@ -144,13 +147,14 @@ void *monitor(void *data_in)
         
         if( analyzer_function ){
             pthread_mutex_lock(&analyze_mutex);
-            if(monitoring) analyzer_function(data_in, freqResults);
+            if(monitoring) analyzer_function(data, freqResults);
             pthread_mutex_unlock(&analyze_mutex);
+        }else{
+            sleep(1);
         }
         
         if(_listenerFunction && _callbackRef)
             _listenerFunction(_callbackRef, freqResults);
-        //usleep(1000);   
     }
     
 cleanup:
@@ -160,16 +164,15 @@ cleanup:
     }    
     //we aren't playing anymore.
     pthread_mutex_lock(&analyze_mutex);
-    monitoring = 0;
+        monitoring = 0;   
+        //Reset the DMX channel.
+        update_channels(data->dmxChannelList, CHANNEL_RESET);  
+        //Free the input
+        FREE_MONITOR_DATA(data);
+        free(freqResults);
+        freqResults = 0;
     pthread_mutex_unlock(&analyze_mutex);
-    
-    //Reset the DMX channel.
-    update_channels(data.dmxChannelList, CHANNEL_RESET);  
-    //Free the input
-    FREE_MONITOR_DATA(data_in);
     //Free up these resources now.
-    free(freqResults);
-    freqResults = 0;
     CloseMovieFile(movieId);
     DisposeMovie(*movie);
     free(movie);
@@ -189,10 +192,12 @@ void peak_monitor(monitor_data_t *data, QTAudioFrequencyLevels *freqs)
 {
     Float32 value = freqs->level[data->frequency];
     if(value >= data->threshold ){
-        update_channels(data->dmxChannelList, data->dmxValue);  
-        usleep(100000);  
+        update_channels(data->dmxChannelList, data->dmxValue); 
+        usleep(SLEEP_INTERVAL);
         update_channels(data->dmxChannelList, CHANNEL_RESET);
-    }  
+    }else{ 
+        usleep(SLEEP_INTERVAL); 
+    }
 }
 
 void follow_monitor(monitor_data_t *data, QTAudioFrequencyLevels *freqs)
@@ -201,7 +206,7 @@ void follow_monitor(monitor_data_t *data, QTAudioFrequencyLevels *freqs)
     /* update the channel to the percentage of max based on the freq level. */
     int i = 255 * value;
     update_channels(data->dmxChannelList, i);
-    usleep(100000);  
+    usleep(SLEEP_INTERVAL);  
 }
 
 void chase_monitor(monitor_data_t *data, QTAudioFrequencyLevels *freqs)
@@ -213,19 +218,26 @@ void chase_monitor(monitor_data_t *data, QTAudioFrequencyLevels *freqs)
         lastChannel = 0;
         return;
     }
-
-    Float32 value = freqs->level[data->frequency];
+    //
+    unsigned int length = data->dmxChannelList->length;
+    if(lastChannel >= length) lastChannel = 0;
+    dmx_channel_t ch = data->dmxChannelList->channels[lastChannel];
+    Float32 value = 0.0;
+    if(freqs)
+        value = freqs->level[data->frequency];
+    //
     if(value > data->threshold){
-        update_channel(data->dmxChannelList->channels[lastChannel], 0);
-        lastChannel++;
-        if(lastChannel >= data->dmxChannelList->length) lastChannel = 0;
-        update_channel(data->dmxChannelList->channels[lastChannel], data->dmxValue);
+        update_channel(ch, 0);
+        ++lastChannel;
+        if(lastChannel >= length) lastChannel = 0;
+        ch = data->dmxChannelList->channels[lastChannel];
+        update_channel(ch, data->dmxValue);
         lastValue = data->dmxValue;
-        usleep(100000);
+        usleep(SLEEP_INTERVAL);
     } else {
         if(lastValue > 0){
             lastValue = lastValue > 0 ? --lastValue : 0;
-            update_channel(data->dmxChannelList->channels[lastChannel], lastValue);
+            update_channel(ch, lastValue);
         }
         usleep(2500);//need a fade param
     }
