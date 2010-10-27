@@ -101,9 +101,11 @@ static unsigned short _current_cue_index = 0;
 
 - (void)setPlayingCueTableRow
 {
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
     if(_current_cue_index >= [ds numberOfRowsInTableView:showTable]) _current_cue_index=0;
     NSIndexSet *row = [NSIndexSet indexSetWithIndex:_current_cue_index];
     [showTable selectRowIndexes:row byExtendingSelection:NO];
+    [pool release];
 }
 
 - (void)doNextStep:(int)cue_id
