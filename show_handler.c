@@ -434,10 +434,8 @@ void go_to_next_step()
         if(!showOver){        
             pthread_create(&show_pt, NULL, &next_step, NULL);
             if(call_show_next_step){
-                //pthread_create(&show_pt, NULL, &next_step, NULL);
                 call_show_next_step(show_next_step_obj, live_show->currentCue);
             }
-            //pthread_mutex_unlock(&show_mutex);
         } else {
             pthread_mutex_unlock(&show_mutex);
             stop_show();
@@ -456,7 +454,6 @@ void go_to_next_step()
 int load_show_from_file(const char *show_file, dmx_show_t **out_show)
 {
     stop_show();
-    //if(strlen(showFile)
     dmx_show_t *newShow;
     int result = parse_show_file(show_file, &newShow);
     if(!result && NULL != newShow){
@@ -534,7 +531,6 @@ int skip_cue()
     pthread_mutex_lock(&control_mutex);
     pthread_mutex_lock(&show_mutex);
     if(showing){
-        //live_show->currentCue->cue->stepDuration
         skip_movie();
     } else if(live_show && live_show->currentCue->nextCue){
         live_show->currentCue = live_show->currentCue->nextCue;
