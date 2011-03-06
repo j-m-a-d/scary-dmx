@@ -35,7 +35,7 @@ typedef struct _cue_t{
     oscillator_data_t* oData;
     analyzer_data_t* aData;
     int stepDuration;              // this is the duration in seconds of the cue if not using the length of the movie.
-    unsigned char* channelValues;  
+    dmx_value_t *channelValues;  
 } cue_t;
 //
 typedef struct _cue_node_t{

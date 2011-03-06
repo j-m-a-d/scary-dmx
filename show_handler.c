@@ -81,7 +81,7 @@ int free_show(dmx_show_t *show)
             free(tmp->cue);
             tmp->cue = 0;
         }
-        memset(tmp, 0, sizeof(cue_node_t));//<<<----
+        memset(tmp, 0, sizeof(tmp));//<<<----
         free(tmp);
         tmp = 0;
     }
@@ -102,7 +102,7 @@ int free_all_show()
  */
 int create_cue_node(cue_node_t **cueNode)
 {
-    *cueNode = (cue_node_t*)malloc(sizeof(cue_node_t));
+    *cueNode = malloc(sizeof(cue_node_t));
     if(NULL == cueNode){
         fprintf( stderr, "Cannot create cue node.  Supplied value is zero.\n");
         return 1;
@@ -125,7 +125,7 @@ int create_cue_node(cue_node_t **cueNode)
     (*cueNode)->previousCue = 0;
     (*cueNode)->nextCue = 0;
     // Allocate the channel values
-    (*cueNode)->cue->channelValues = calloc(sizeof(char), DMX_CHANNELS);
+    (*cueNode)->cue->channelValues = calloc(sizeof(dmx_value_t), DMX_CHANNELS);
     if( NULL == (*cueNode)->cue->channelValues){
         fprintf(stderr, "Could not allocate memory for channel settings.\n");
         free( (*cueNode)->cue );

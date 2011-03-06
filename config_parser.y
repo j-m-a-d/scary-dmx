@@ -79,19 +79,17 @@ int main(int argc, char **argv)
 
 void sig_all(int signal)
 {
-    stop_show();
-    free_all_show();
-    destroy_dmx();
-    ExitMovies();
-    fprintf(stderr, "Shutdown finished.\n");
-    exit(0);
+	stop_show();
+	free_all_show();
+	destroy_dmx();
+	ExitMovies();
+	fprintf(stderr, "Shutdown finished.\n");
+	exit(0);
 }
+
 int main(int argc, char **argv)
 {
     (void)signal(SIGINT, &sig_all);
-
-    CGrafPtr myPort = CreateNewPort();
-    MacSetPort(myPort);
 
     EnterMovies();
         
@@ -117,7 +115,8 @@ int main(int argc, char **argv)
     start_show();
     fprintf(stdout, "Running....");
     while(1){
-        usleep(100000);
+        //usleep(100000);
+        sleep(5);
     }
     
     return 0;

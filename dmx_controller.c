@@ -65,10 +65,6 @@ void destroy_dmx()
         dmxDevice = 0;
         printf("Closed device.\n");
     }
-    /*
-     if(outputBuffer)
-        free(outputBuffer);
-     */
 }
 
 /*
@@ -105,16 +101,17 @@ void *Write_Buffer(){
  */
 void update_channel(dmx_channel_t ch, dmx_value_t val)
 {
+#ifdef _DMX_TRACE_OUTPUT
     if(!allowWrite || ch >= DMX_CHANNELS ){
         fprintf(stderr, "Incorrect state for dmx channel update.  allow write: %d, output buffer address: %ld, channel: %d, value:%d\n", allowWrite, (long)&outputBuffer, ch, val);
         return;
     }
+    if(!ch){
+        fprintf(stderr, "Broadcast channel selected.\n");
+    }
+#endif
     if(!allowWrite) return;
-
-    outputBuffer[ch] = val;
-#ifdef _DMX_TRACE_OUTPUT
-    printf("setting channel %d=%d\n", ch, val);
-#endif    
+    outputBuffer[ch] = val;    
 }
 
 /*
@@ -131,11 +128,11 @@ void update_channels(channel_list_t channelList, dmx_value_t val)
             fprintf(stderr, "Incorrect state for dmx channel update.  allow write: %d, output buffer address: %ld, channel: %d, value:%d\n", allowWrite, (long)&outputBuffer, *tmp, val);
             return;
         }
+        if(!*tmp){
+            fprintf(stderr, "Broadcast channel selected.\n");
+        }
 #endif
         outputBuffer[*tmp] = val;
-#ifdef _DMX_TRACE_OUTPUT
-        printf("setting channel %d=%d\n", *tmp, val);
-#endif 
         tmp++;
     }
 }
