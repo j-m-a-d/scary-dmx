@@ -1,6 +1,7 @@
 #OPTIONS=-D_TRACE_PARSER -D_EXT_PARSER -D_REENTRANT
 OPTIONS=-D_CLI_MAIN -D_TRACE_PARSER -D_REENTRANT 
 
+PROG=playshow
 CC=gcc $(OPTIONS)
 LINK=ld
 FLEX=flex
@@ -38,7 +39,7 @@ show_handler.o	\
 sound_analyzer.o
 
 parser: flex objs 
-	$(CC) $(LINK_DIRS) $(LINKS) $(FRAMEWORKS) $(INCLUDES) -o parse config_reader.yy.o	\
+	$(CC) $(LINK_DIRS) $(LINKS) $(FRAMEWORKS) $(INCLUDES) -o $(PROG) config_reader.yy.o	\
 config_parser.tab.o	\
 dmx_controller.o	\
 flicker_effect.o	\
@@ -77,4 +78,4 @@ clean:
 	-rm -rf config_reader.yy.c
 	-rm -rf config_parser.tab.c
 	-rm -rf config_parser.tab.y
-	-rm -rf parse
+	-rm -rf $(PROG)
