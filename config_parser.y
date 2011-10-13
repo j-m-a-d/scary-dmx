@@ -77,8 +77,15 @@ int main(int argc, char **argv)
 #include <QuickTime/QuickTime.h>
 #include <Carbon/Carbon.h>
 
-void sig_all(int signal)
+void sig_all(int sig)
 {
+    sigset_t mask_set;
+    sigset_t old_set;
+    
+    signal(sig, sig_all);
+    sigfillset(&mask_set);
+    sigprocmask(SIG_SETMASK, &mask_set, &old_set);
+    
 	stop_show();
 	free_all_show();
 	destroy_dmx();
@@ -90,6 +97,8 @@ void sig_all(int signal)
 int main(int argc, char **argv)
 {
     (void)signal(SIGINT, &sig_all);
+    (void)signal(SIGQUIT, &sig_all);
+    (void)signal(SIGKILL, &sig_all);
 
     EnterMovies();
         
