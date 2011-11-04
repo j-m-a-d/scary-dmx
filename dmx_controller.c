@@ -109,6 +109,7 @@ void update_channel(dmx_channel_t ch, dmx_value_t val)
     if(!ch){
         fprintf(stderr, "Broadcast channel selected.\n");
     }
+    fprintf(stdout, "Ch: %d -> %d\n", ch, val);
 #endif
     if(!allowWrite) return;
     outputBuffer[ch] = val;    
@@ -131,6 +132,7 @@ void update_channels(channel_list_t channelList, dmx_value_t val)
         if(!*tmp){
             fprintf(stderr, "Broadcast channel selected.\n");
         }
+        fprintf(stdout, "Multichannel : %d\n", val);
 #endif
         outputBuffer[*tmp] = val;
         tmp++;
@@ -149,7 +151,7 @@ void bulk_update(unsigned char* newVals)
 /*
    Get the current value for the channel.
  */
-short get_channel_value(int ch){
+dmx_value_t get_channel_value(int ch){
     return outputBuffer ? outputBuffer[ch] : 0;
 }
 

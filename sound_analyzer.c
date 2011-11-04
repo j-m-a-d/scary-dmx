@@ -18,8 +18,8 @@
 //
 static Movie *movie = 0; 
 //
-static pthread_t MonitorThread = 0;
-static pthread_t CallbackThread = 0;
+static pthread_t monitor_thread = 0;
+static pthread_t callback_thread = 0;
 //
 volatile static int monitoring = 0;
 //
@@ -96,8 +96,10 @@ void stop_analyze()
     }
     pthread_mutex_unlock(&analyze_mutex);
     //Wait for the monitoring thread to exit;
-    if(MonitorThread)
-        pthread_join(MonitorThread, NULL);    
+    if(monitor_thread){
+        pthread_join(monitor_thread, NULL);
+        monitor_thread = 0;
+    }
 }
 
 /*
@@ -183,7 +185,7 @@ cleanup:
     
     //Let our listener(s) know
     if(callback){// && monitoring){
-        pthread_create(&CallbackThread, NULL, do_callback, (void*)callback);
+        pthread_create(&callback_thread, NULL, do_callback, (void*)callback);
     } 
     
     //Knock down QT and quit.
@@ -354,7 +356,7 @@ int start_analyze(analyzer_data_t *data_in, void(*callback)())
             break;
     }
     
-    pthread_create(&MonitorThread, NULL, monitor, (void*)data);       
+    pthread_create(&monitor_thread, NULL, monitor, (void*)data);       
     return ANALYZE_OK;
 }
 
