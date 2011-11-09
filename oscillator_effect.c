@@ -19,7 +19,7 @@
 pthread_mutex_lock(&oscillator_mutex); \
 if(!oscillating) { \
     pthread_mutex_unlock(&oscillator_mutex);\
-        break; \
+        break;break; \
 } \
 pthread_mutex_unlock(&oscillator_mutex);
 //
@@ -55,15 +55,15 @@ void *Oscillate(void* data_in){
   
     register dmx_value_t i=0;
     while(oscillating){
-        for(i=val->lowThreshold; i<val->highThreshold; i+=2){ 
+        for(i=val->lowThreshold; i<val->highThreshold-1; i+=2){ 
             update_channels(val->dmxChannels, i); 
             CHECK_OSCILLATING
             usleep(val->speed);
         }
         
         CHECK_OSCILLATING
-        
-        for(i=val->highThreshold; i>val->lowThreshold; i-=2){ 
+
+        for(i=val->highThreshold; i>val->lowThreshold+1; i-=2){ 
             update_channels(val->dmxChannels, i);
             CHECK_OSCILLATING
             usleep(val->speed);
