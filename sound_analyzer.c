@@ -218,6 +218,7 @@ void chase_monitor(monitor_data_t *data, QTAudioFrequencyLevels *freqs)
 {
     static int lastChannel = 0;
     static dmx_value_t lastValue = 0;
+    static useconds_t fade_interval = 2500;
     
     if(!data){
         lastChannel = 0;
@@ -244,7 +245,7 @@ void chase_monitor(monitor_data_t *data, QTAudioFrequencyLevels *freqs)
             lastValue = lastValue > 0 ? --lastValue : 0;
             update_channel(ch, lastValue);
         }
-        usleep(2500);//need a fade param
+        usleep(fade_interval);//need a fade param
     }
 }
 
