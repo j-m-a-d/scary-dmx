@@ -14,6 +14,8 @@
 		960887640F3CD61D005D8118 /* MainWinController.m in Sources */ = {isa = PBXBuildFile; fileRef = 960887630F3CD61D005D8118 /* MainWinController.m */; };
 		96138FFC1080CEFD00147788 /* ShowTableViewDS.m in Sources */ = {isa = PBXBuildFile; fileRef = 96138FFB1080CEFD00147788 /* ShowTableViewDS.m */; };
 		962EA6E60F5B0BEA00DCC0C1 /* SoundController.m in Sources */ = {isa = PBXBuildFile; fileRef = 962EA6E50F5B0BEA00DCC0C1 /* SoundController.m */; };
+		9635B9481469FB75004552B8 /* AnalyzerDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9635B9471469FB75004552B8 /* AnalyzerDisplayController.m */; };
+		9635B9E8146A1502004552B8 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9635B9E3146A14E1004552B8 /* OpenGL.framework */; };
 		9642140310B0783400F9F364 /* OscillatorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9642140210B0783400F9F364 /* OscillatorController.m */; };
 		967B70BA10DEBF6A00318111 /* chaser_handler.c in Sources */ = {isa = PBXBuildFile; fileRef = 967B70B910DEBF6A00318111 /* chaser_handler.c */; };
 		96AF8DF90F2B857300369C1E /* dmx_controller.c in Sources */ = {isa = PBXBuildFile; fileRef = 96AF8DE30F2B857300369C1E /* dmx_controller.c */; };
@@ -26,6 +28,7 @@
 		96AF8E040F2B857300369C1E /* timed_effect.c in Sources */ = {isa = PBXBuildFile; fileRef = 96AF8DF40F2B857300369C1E /* timed_effect.c */; };
 		96AF8E820F2B873800369C1E /* config_parser.tab.c in Sources */ = {isa = PBXBuildFile; fileRef = 96AF8E7F0F2B873800369C1E /* config_parser.tab.c */; };
 		96AF8E830F2B873800369C1E /* config_reader.yy.c in Sources */ = {isa = PBXBuildFile; fileRef = 96AF8E810F2B873800369C1E /* config_reader.yy.c */; };
+		96E23BED146A1BC1009FC276 /* SpectrumAnalyzerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E23BEC146A1BC1009FC276 /* SpectrumAnalyzerView.m */; };
 		96FE58061079A00900A92124 /* QuickTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96FE58051079A00900A92124 /* QuickTime.framework */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +50,9 @@
 		96138FFB1080CEFD00147788 /* ShowTableViewDS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowTableViewDS.m; sourceTree = "<group>"; };
 		962EA6E40F5B0BEA00DCC0C1 /* SoundController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SoundController.h; sourceTree = "<group>"; };
 		962EA6E50F5B0BEA00DCC0C1 /* SoundController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = SoundController.m; sourceTree = "<group>"; };
+		9635B9461469FB75004552B8 /* AnalyzerDisplayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnalyzerDisplayController.h; sourceTree = "<group>"; };
+		9635B9471469FB75004552B8 /* AnalyzerDisplayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnalyzerDisplayController.m; sourceTree = "<group>"; };
+		9635B9E3146A14E1004552B8 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		9642140110B0783400F9F364 /* OscillatorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OscillatorController.h; sourceTree = "<group>"; };
 		9642140210B0783400F9F364 /* OscillatorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OscillatorController.m; sourceTree = "<group>"; };
 		967B70B810DEBF6A00318111 /* chaser_handler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chaser_handler.h; sourceTree = "<group>"; };
@@ -74,6 +80,8 @@
 		96AF8E7F0F2B873800369C1E /* config_parser.tab.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = config_parser.tab.c; sourceTree = "<group>"; };
 		96AF8E800F2B873800369C1E /* config_parser.tab.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = config_parser.tab.h; sourceTree = "<group>"; };
 		96AF8E810F2B873800369C1E /* config_reader.yy.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = config_reader.yy.c; sourceTree = "<group>"; };
+		96E23BEB146A1BC1009FC276 /* SpectrumAnalyzerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpectrumAnalyzerView.h; sourceTree = "<group>"; };
+		96E23BEC146A1BC1009FC276 /* SpectrumAnalyzerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpectrumAnalyzerView.m; sourceTree = "<group>"; };
 		96FE58051079A00900A92124 /* QuickTime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickTime.framework; path = /System/Library/Frameworks/QuickTime.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -85,6 +93,7 @@
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				96AF8DFD0F2B857300369C1E /* libftd2xx.dylib in Frameworks */,
 				96FE58061079A00900A92124 /* QuickTime.framework in Frameworks */,
+				9635B9E8146A1502004552B8 /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,6 +107,8 @@
 				962EA6E50F5B0BEA00DCC0C1 /* SoundController.m */,
 				96138FFB1080CEFD00147788 /* ShowTableViewDS.m */,
 				9642140210B0783400F9F364 /* OscillatorController.m */,
+				96E23BEC146A1BC1009FC276 /* SpectrumAnalyzerView.m */,
+				9635B9471469FB75004552B8 /* AnalyzerDisplayController.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -176,6 +187,7 @@
 			children = (
 				96FE58051079A00900A92124 /* QuickTime.framework */,
 				96AF8DEA0F2B857300369C1E /* libftd2xx.dylib */,
+				9635B9E3146A14E1004552B8 /* OpenGL.framework */,
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
@@ -185,8 +197,10 @@
 		96AF8EC50F2BA2F700369C1E /* Headers */ = {
 			isa = PBXGroup;
 			children = (
+				9635B9461469FB75004552B8 /* AnalyzerDisplayController.h */,
 				96AE8B2510E813DC00210B82 /* utils.h */,
 				967B70B810DEBF6A00318111 /* chaser_handler.h */,
+				96E23BEB146A1BC1009FC276 /* SpectrumAnalyzerView.h */,
 				9642140110B0783400F9F364 /* OscillatorController.h */,
 				32CA4F630368D1EE00C91783 /* Scary DMX_Prefix.pch */,
 				96AF8DE70F2B857300369C1E /* ftd2xx.h */,
@@ -309,6 +323,8 @@
 				96138FFC1080CEFD00147788 /* ShowTableViewDS.m in Sources */,
 				9642140310B0783400F9F364 /* OscillatorController.m in Sources */,
 				967B70BA10DEBF6A00318111 /* chaser_handler.c in Sources */,
+				9635B9481469FB75004552B8 /* AnalyzerDisplayController.m in Sources */,
+				96E23BED146A1BC1009FC276 /* SpectrumAnalyzerView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

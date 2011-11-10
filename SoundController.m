@@ -22,7 +22,7 @@ int _numberOfBands;
         levelIndicators[i+7] = li;
     }
 }
-
+/*
 -(void) monitorFrequencies:(QTAudioFrequencyLevels*)levels
 {
     if(!levels) return;
@@ -55,5 +55,5 @@ void freqCallback(void* objRef, QTAudioFrequencyLevels* levels)
         [levelIndicators[i+_numberOfBands] setFloatValue:0.0];
     }
 }
-
+*/
 @end

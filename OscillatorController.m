@@ -12,10 +12,12 @@
 
 - (void)awakeFromNib
 {
-    //odata.channel = [channelStepper intValue];
+    
     odata.highThreshold = [high intValue];
     odata.lowThreshold = [low intValue];
     odata.speed = [speed intValue];
+    int chs[] = {[channelStepper intValue],0};
+    odata.dmxChannels = channel_list_from_data(1, chs);
     [speedLevel setIntValue:[speed intValue]];
     
     [speedLevel setFrameRotation:90.0];
@@ -48,7 +50,7 @@
 
 -(IBAction)updateChannel:(id)sender
 {
-    //odata.channel = [channelStepper intValue];
+    odata.dmxChannels->channels[0] = [channelStepper intValue];
     [channelField setIntValue:[channelStepper intValue]];
 }
 

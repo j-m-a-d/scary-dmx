@@ -129,7 +129,7 @@ void update_channels(channel_list_t channelList, dmx_value_t val)
             fprintf(stderr, "Incorrect state for dmx channel update.  allow write: %d, output buffer address: %ld, channel: %d, value:%d\n", allowWrite, (long)&outputBuffer, *tmp, val);
             return;
         }
-        if(!*tmp){
+        if(!*tmp){/* can't happen */
             fprintf(stderr, "Broadcast channel selected.\n");
         }
         fprintf(stdout, "Multichannel : %d\n", val);

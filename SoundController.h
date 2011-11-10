@@ -10,8 +10,8 @@
     IBOutlet NSView *levelViewRight;
     NSLevelIndicator* levelIndicators[14];
 }
-
+/*
 -(void) startMonitor:(int)numberOfBands;
 -(void) stopMonitor;
-
+*/
 @end

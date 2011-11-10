@@ -80,8 +80,8 @@ static unsigned short _current_cue_index = 0;
     [progress startAnimation:sender];
     [showList setEnabled:FALSE];
     [self setPlayingCueTableRow];
-    id sc = (SoundController*)soundController;
-    [sc startMonitor:7];
+    //id sc = (SoundController*)soundController;
+    //[sc startMonitor:7];
 }
 
 - (void)stopShow:(id)sender
@@ -90,12 +90,13 @@ static unsigned short _current_cue_index = 0;
         _current_cue_index = 0;
         [self setPlayingCueTableRow];
         start_show();
+        //[analyzer startAnalyzer];
     } else {
         [showButton setState: NSOffState];
         [progress stopAnimation:sender];
         [showList setEnabled:TRUE];
-        id sc = (SoundController*)soundController;
-        [sc stopMonitor];
+        //id sc = (SoundController*)soundController;
+        //[sc stopMonitor];
     }
 }
 
@@ -207,6 +208,7 @@ void show_next_step(void *objRef, cue_node_t *cueData)
     [defaults release];
     register_show_ended((void *)self, &show_has_ended);
     register_show_next_step((void *)self, &show_next_step);
+
 }
 
 - (void)dealloc
