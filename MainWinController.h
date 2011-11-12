@@ -10,7 +10,6 @@
 
 @interface MainWinController : NSObject <NSOpenSavePanelDelegate>
 {
-    IBOutlet SpectrumAnalyzerView *analyzer;
     IBOutlet NSButton *dmxButton;
     IBOutlet NSButton *showButton;
     IBOutlet NSProgressIndicator *progress;

@@ -11,7 +11,6 @@
 #include "dmx_controller.h"
 #include <pthread.h>
 #include <string.h>
-#include <QuickTime/QuickTime.h>
 
 #define SLEEP_INTERVAL 100000
 
@@ -117,6 +116,12 @@ void registerSelfAsFreqListener(void *callbackRef, void(*listenerFunction)(void*
 {
     _listenerFunction = listenerFunction;
     _callbackRef = callbackRef;
+}
+
+void deregisterSelfAsFreqListner(void *callbackRef)
+{
+    _listenerFunction = 0;
+    _callbackRef = 0;
 }
 
 /*
@@ -360,6 +365,4 @@ int start_analyze(analyzer_data_t *data_in, void(*callback)())
     pthread_create(&monitor_thread, NULL, monitor, (void*)data);       
     return ANALYZE_OK;
 }
-
-
 

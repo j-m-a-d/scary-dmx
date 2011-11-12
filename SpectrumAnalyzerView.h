@@ -8,10 +8,19 @@
 
 #import <Cocoa/Cocoa.h>
 
+#define MAX_ANALYZER_LEVELS 41
 
 @interface SpectrumAnalyzerView : NSOpenGLView {
+    float levels[MAX_ANALYZER_LEVELS];
+    int levelCount;
+    
+    NSTimer *timer;
 }
--(void)startAnalyzer;
+
+-(void)start;
+-(void)stop;
+-(void)update:(int)count :(float *)levs;
+
 /*    
 @private
     NSOpenGLContext*   _openGLContext;

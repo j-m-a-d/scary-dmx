@@ -6,11 +6,11 @@
  *  Copyright 2008 Inspirotech Inc. All rights reserved.
  *
  */
-
+#include <QuickTime/QuickTime.h>
 #include "utils.h"
 
 #define MAX_ANALYZE_CHANNELS 2
-#define MAX_ANALYZE_BANDS 10
+//#define MAX_ANALYZE_BANDS 20
 
 #define FREE_ANALYZER_DATA(data) \
     free_analyzer_data(data); \
@@ -51,3 +51,7 @@ int start_analyze(analyzer_data_t *data_in, void(*callback)());
 void stop_analyze();
 //
 void free_analyzer_data(analyzer_data_t *);
+//
+void registerSelfAsFreqListener(void *callbackRef, void(*listenerFunction)(void*, QTAudioFrequencyLevels*));
+void deregisterSelfAsFreqListner(void *callbackRef);
+

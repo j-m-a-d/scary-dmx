@@ -10,7 +10,9 @@
 #import "SpectrumAnalyzerView.h"
 
 @interface AnalyzerDisplayController : NSObject {
-    IBOutlet SpectrumAnalyzerView *analyzer;
+   IBOutlet SpectrumAnalyzerView *analyzer;
 }
+
+-(void)updateAnalyzer:(int)count: (float*)levels;
 
 @end
