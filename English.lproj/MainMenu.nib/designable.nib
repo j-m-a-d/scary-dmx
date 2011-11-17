@@ -13,9 +13,9 @@
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<integer value="29"/>
-			<integer value="729"/>
+			<integer value="728"/>
 			<integer value="2"/>
-			<integer value="736"/>
+			<integer value="735"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -2816,7 +2816,7 @@
 			<object class="NSWindowTemplate" id="662055909">
 				<int key="NSWindowStyleMask">8211</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{767, 811}, {415, 152}}</string>
+				<string key="NSWindowRect">{{767, 743}, {455, 200}}</string>
 				<int key="NSWTFlags">611844096</int>
 				<string key="NSWindowTitle">Frequency Analyzer</string>
 				<string key="NSWindowClass">NSPanel</string>
@@ -2831,8 +2831,9 @@
 							<reference key="NSNextResponder" ref="589657482"/>
 							<int key="NSvFlags">1292</int>
 							<object class="NSPSMatrix" key="NSDrawMatrix"/>
-							<string key="NSFrameSize">{415, 152}</string>
+							<string key="NSFrame">{{20, 28}, {415, 152}}</string>
 							<reference key="NSSuperview" ref="589657482"/>
+							<int key="NSViewLayerContentsRedrawPolicy">2</int>
 							<object class="NSOpenGLPixelFormat" key="NSPixelFormat">
 								<object class="NSMutableData" key="NSPixelAttributes">
 									<bytes key="NS.bytes">AAAAYAAAAAA</bytes>
@@ -2840,8 +2841,9 @@
 							</object>
 						</object>
 					</object>
-					<string key="NSFrameSize">{415, 152}</string>
+					<string key="NSFrameSize">{455, 200}</string>
 					<reference key="NSSuperview"/>
+					<int key="NSViewLayerContentsRedrawPolicy">2</int>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
 				<string key="NSMaxSize">{1.79769e+308, 1.79769e+308}</string>
@@ -2849,7 +2851,7 @@
 			<object class="NSWindowTemplate" id="101262591">
 				<int key="NSWindowStyleMask">8211</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{769, 1001}, {415, 153}}</string>
+				<string key="NSWindowRect">{{769, 990}, {455, 200}}</string>
 				<int key="NSWTFlags">611844096</int>
 				<string key="NSWindowTitle">DMX Output</string>
 				<string key="NSWindowClass">NSPanel</string>
@@ -2864,8 +2866,9 @@
 							<reference key="NSNextResponder" ref="268713721"/>
 							<int key="NSvFlags">5388</int>
 							<object class="NSPSMatrix" key="NSDrawMatrix"/>
-							<string key="NSFrame">{{0, 1}, {415, 152}}</string>
+							<string key="NSFrame">{{20, 28}, {415, 152}}</string>
 							<reference key="NSSuperview" ref="268713721"/>
+							<int key="NSViewLayerContentsRedrawPolicy">2</int>
 							<object class="NSOpenGLPixelFormat" key="NSPixelFormat">
 								<object class="NSMutableData" key="NSPixelAttributes">
 									<bytes key="NS.bytes">AAAAYAAAAAA</bytes>
@@ -2873,7 +2876,7 @@
 							</object>
 						</object>
 					</object>
-					<string key="NSFrameSize">{415, 153}</string>
+					<string key="NSFrameSize">{455, 200}</string>
 					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
@@ -5590,14 +5593,14 @@
 						<reference key="parent" ref="0"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">726</int>
-						<reference key="object" ref="346121539"/>
-						<reference key="parent" ref="589657482"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">736</int>
 						<reference key="object" ref="965148056"/>
 						<reference key="parent" ref="268713721"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">726</int>
+						<reference key="object" ref="346121539"/>
+						<reference key="parent" ref="589657482"/>
 					</object>
 				</object>
 			</object>
@@ -6410,18 +6413,20 @@
 					<boolean value="YES"/>
 					<string>SpectrumAnalyzerView</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<object class="NSAffineTransform"/>
-					<string>{{767, 811}, {415, 152}}</string>
+					<object class="NSAffineTransform">
+						<bytes key="NSTransformStruct">AUGgAABB8AAAA</bytes>
+					</object>
+					<string>{{768, 708}, {455, 200}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{767, 811}, {415, 152}}</string>
+					<string>{{768, 708}, {455, 200}}</string>
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{769, 988}, {415, 153}}</string>
+					<string>{{769, 941}, {455, 200}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{769, 988}, {415, 153}}</string>
+					<string>{{769, 941}, {455, 200}}</string>
 					<boolean value="YES"/>
 					<boolean value="NO"/>
 					<string>{0, 0}</string>
@@ -6429,7 +6434,7 @@
 					<string>SpectrumAnalyzerView</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<object class="NSAffineTransform">
-						<bytes key="NSTransformStruct">AUQYQABDIgAAA</bytes>
+						<bytes key="NSTransformStruct">AQAAAABCQAAAA</bytes>
 					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -6464,7 +6469,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">752</int>
+			<int key="maxID">753</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
