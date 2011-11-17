@@ -13,8 +13,9 @@
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<integer value="29"/>
+			<integer value="729"/>
 			<integer value="2"/>
-			<integer value="728"/>
+			<integer value="736"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -40,7 +41,7 @@
 			<object class="NSWindowTemplate" id="495760441">
 				<int key="NSWindowStyleMask">261</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{20, 459}, {1180, 670}}</string>
+				<string key="NSWindowRect">{{7, 472}, {1180, 670}}</string>
 				<int key="NSWTFlags">1886912512</int>
 				<string key="NSWindowTitle">Scary DMX</string>
 				<string key="NSWindowClass">NSWindow</string>
@@ -2809,10 +2810,13 @@
 			<object class="NSCustomObject" id="1034015221">
 				<string key="NSClassName">AnalyzerDisplayController</string>
 			</object>
+			<object class="NSCustomObject" id="69260922">
+				<string key="NSClassName">DMXOutputDisplayController</string>
+			</object>
 			<object class="NSWindowTemplate" id="662055909">
-				<int key="NSWindowStyleMask">8215</int>
+				<int key="NSWindowStyleMask">8211</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{235, 407}, {415, 152}}</string>
+				<string key="NSWindowRect">{{767, 811}, {415, 152}}</string>
 				<int key="NSWTFlags">611844096</int>
 				<string key="NSWindowTitle">Frequency Analyzer</string>
 				<string key="NSWindowClass">NSPanel</string>
@@ -2827,7 +2831,7 @@
 							<reference key="NSNextResponder" ref="589657482"/>
 							<int key="NSvFlags">1292</int>
 							<object class="NSPSMatrix" key="NSDrawMatrix"/>
-							<string key="NSFrameSize">{415, 151}</string>
+							<string key="NSFrameSize">{415, 152}</string>
 							<reference key="NSSuperview" ref="589657482"/>
 							<object class="NSOpenGLPixelFormat" key="NSPixelFormat">
 								<object class="NSMutableData" key="NSPixelAttributes">
@@ -2837,6 +2841,39 @@
 						</object>
 					</object>
 					<string key="NSFrameSize">{415, 152}</string>
+					<reference key="NSSuperview"/>
+				</object>
+				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
+				<string key="NSMaxSize">{1.79769e+308, 1.79769e+308}</string>
+			</object>
+			<object class="NSWindowTemplate" id="101262591">
+				<int key="NSWindowStyleMask">8211</int>
+				<int key="NSWindowBacking">2</int>
+				<string key="NSWindowRect">{{769, 1001}, {415, 153}}</string>
+				<int key="NSWTFlags">611844096</int>
+				<string key="NSWindowTitle">DMX Output</string>
+				<string key="NSWindowClass">NSPanel</string>
+				<nil key="NSViewClass"/>
+				<string key="NSWindowContentMaxSize">{1.79769e+308, 1.79769e+308}</string>
+				<object class="NSView" key="NSWindowView" id="268713721">
+					<reference key="NSNextResponder"/>
+					<int key="NSvFlags">256</int>
+					<object class="NSMutableArray" key="NSSubviews">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSOpenGLView" id="965148056">
+							<reference key="NSNextResponder" ref="268713721"/>
+							<int key="NSvFlags">5388</int>
+							<object class="NSPSMatrix" key="NSDrawMatrix"/>
+							<string key="NSFrame">{{0, 1}, {415, 152}}</string>
+							<reference key="NSSuperview" ref="268713721"/>
+							<object class="NSOpenGLPixelFormat" key="NSPixelFormat">
+								<object class="NSMutableData" key="NSPixelAttributes">
+									<bytes key="NS.bytes">AAAAYAAAAAA</bytes>
+								</object>
+							</object>
+						</object>
+					</object>
+					<string key="NSFrameSize">{415, 153}</string>
 					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
@@ -3737,14 +3774,6 @@
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">analyzer</string>
-						<reference key="source" ref="714071244"/>
-						<reference key="destination" ref="346121539"/>
-					</object>
-					<int key="connectionID">727</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">analyzer</string>
 						<reference key="source" ref="1034015221"/>
 						<reference key="destination" ref="346121539"/>
 					</object>
@@ -3765,6 +3794,30 @@
 						<reference key="destination" ref="662055909"/>
 					</object>
 					<int key="connectionID">733</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">delegate</string>
+						<reference key="source" ref="101262591"/>
+						<reference key="destination" ref="69260922"/>
+					</object>
+					<int key="connectionID">738</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">analyzer</string>
+						<reference key="source" ref="69260922"/>
+						<reference key="destination" ref="965148056"/>
+					</object>
+					<int key="connectionID">739</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">window</string>
+						<reference key="source" ref="69260922"/>
+						<reference key="destination" ref="101262591"/>
+					</object>
+					<int key="connectionID">740</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -5509,14 +5562,42 @@
 						<reference key="parent" ref="662055909"/>
 					</object>
 					<object class="IBObjectRecord">
+						<int key="objectID">730</int>
+						<reference key="object" ref="1034015221"/>
+						<reference key="parent" ref="0"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">734</int>
+						<reference key="object" ref="101262591"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="268713721"/>
+						</object>
+						<reference key="parent" ref="0"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">735</int>
+						<reference key="object" ref="268713721"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="965148056"/>
+						</object>
+						<reference key="parent" ref="101262591"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">737</int>
+						<reference key="object" ref="69260922"/>
+						<reference key="parent" ref="0"/>
+					</object>
+					<object class="IBObjectRecord">
 						<int key="objectID">726</int>
 						<reference key="object" ref="346121539"/>
 						<reference key="parent" ref="589657482"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">730</int>
-						<reference key="object" ref="1034015221"/>
-						<reference key="parent" ref="0"/>
+						<int key="objectID">736</int>
+						<reference key="object" ref="965148056"/>
+						<reference key="parent" ref="268713721"/>
 					</object>
 				</object>
 			</object>
@@ -5916,6 +5997,17 @@
 					<string>73.IBPluginDependency</string>
 					<string>73.ImportedFromIB2</string>
 					<string>730.IBPluginDependency</string>
+					<string>734.IBEditorWindowLastContentRect</string>
+					<string>734.IBPluginDependency</string>
+					<string>734.IBWindowTemplateEditedContentRect</string>
+					<string>734.NSWindowTemplate.visibleAtLaunch</string>
+					<string>734.windowTemplate.hasMinSize</string>
+					<string>734.windowTemplate.minSize</string>
+					<string>735.IBPluginDependency</string>
+					<string>736.CustomClassName</string>
+					<string>736.IBPluginDependency</string>
+					<string>736.IBViewBoundsToFrameTransform</string>
+					<string>737.IBPluginDependency</string>
 					<string>75.IBPluginDependency</string>
 					<string>75.ImportedFromIB2</string>
 					<string>79.IBPluginDependency</string>
@@ -6035,9 +6127,9 @@
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
-					<string>{{260, 186}, {1180, 670}}</string>
+					<string>{{7, 472}, {1180, 670}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{260, 186}, {1180, 670}}</string>
+					<string>{{7, 472}, {1180, 670}}</string>
 					<boolean value="YES"/>
 					<boolean value="YES"/>
 					<boolean value="YES"/>
@@ -6161,7 +6253,7 @@
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
-					<string>{{645, 836}, {393, 20}}</string>
+					<string>{{1047, 836}, {393, 20}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -6319,13 +6411,26 @@
 					<string>SpectrumAnalyzerView</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<object class="NSAffineTransform"/>
-					<string>{{648, 707}, {415, 152}}</string>
+					<string>{{767, 811}, {415, 152}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{648, 707}, {415, 152}}</string>
+					<string>{{767, 811}, {415, 152}}</string>
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>{{769, 988}, {415, 153}}</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>{{769, 988}, {415, 153}}</string>
+					<boolean value="YES"/>
+					<boolean value="NO"/>
+					<string>{0, 0}</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>SpectrumAnalyzerView</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<object class="NSAffineTransform">
+						<bytes key="NSTransformStruct">AUQYQABDIgAAA</bytes>
+					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
@@ -6359,7 +6464,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">733</int>
+			<int key="maxID">752</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -6402,6 +6507,46 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">AnalyzerDisplayController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">DMXOutputDisplayController</string>
+					<string key="superclassName">NSObject</string>
+					<object class="NSMutableDictionary" key="outlets">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>analyzer</string>
+							<string>window</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>SpectrumAnalyzerView</string>
+							<string>NSPanel</string>
+						</object>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>analyzer</string>
+							<string>window</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBToOneOutletInfo">
+								<string key="name">analyzer</string>
+								<string key="candidateClassName">SpectrumAnalyzerView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">window</string>
+								<string key="candidateClassName">NSPanel</string>
+							</object>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">DMXOutputDisplayController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
