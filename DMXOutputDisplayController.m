@@ -23,7 +23,7 @@
 - (void)updateBuffer
 {
     dmx_value_t vdmx[16];
-    get_channel_buffer(vdmx, 0, 16);
+    get_channel_buffer(vdmx, 1, 16);
     int i=0;
     for(i=0; i<16; i++){
         buffer[i] =  (float)(vdmx[i]/255.0f);
