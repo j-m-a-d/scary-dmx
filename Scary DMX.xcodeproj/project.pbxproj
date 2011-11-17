@@ -18,6 +18,7 @@
 		9635B9E8146A1502004552B8 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9635B9E3146A14E1004552B8 /* OpenGL.framework */; };
 		9642140310B0783400F9F364 /* OscillatorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9642140210B0783400F9F364 /* OscillatorController.m */; };
 		967B70BA10DEBF6A00318111 /* chaser_handler.c in Sources */ = {isa = PBXBuildFile; fileRef = 967B70B910DEBF6A00318111 /* chaser_handler.c */; };
+		968800391471CF9200754002 /* DMXOutputDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 968800381471CF9200754002 /* DMXOutputDisplayController.m */; };
 		96AF8DF90F2B857300369C1E /* dmx_controller.c in Sources */ = {isa = PBXBuildFile; fileRef = 96AF8DE30F2B857300369C1E /* dmx_controller.c */; };
 		96AF8DFA0F2B857300369C1E /* flicker_effect.c in Sources */ = {isa = PBXBuildFile; fileRef = 96AF8DE50F2B857300369C1E /* flicker_effect.c */; };
 		96AF8DFD0F2B857300369C1E /* libftd2xx.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 96AF8DEA0F2B857300369C1E /* libftd2xx.dylib */; };
@@ -57,6 +58,8 @@
 		9642140210B0783400F9F364 /* OscillatorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OscillatorController.m; sourceTree = "<group>"; };
 		967B70B810DEBF6A00318111 /* chaser_handler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chaser_handler.h; sourceTree = "<group>"; };
 		967B70B910DEBF6A00318111 /* chaser_handler.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = chaser_handler.c; sourceTree = "<group>"; };
+		968800371471CF9200754002 /* DMXOutputDisplayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMXOutputDisplayController.h; sourceTree = "<group>"; };
+		968800381471CF9200754002 /* DMXOutputDisplayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMXOutputDisplayController.m; sourceTree = "<group>"; };
 		96AE8B2510E813DC00210B82 /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
 		96AF8DE10F2B857300369C1E /* config_parser.y */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.yacc; path = config_parser.y; sourceTree = "<group>"; };
 		96AF8DE20F2B857300369C1E /* config_reader.l */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.lex; path = config_reader.l; sourceTree = "<group>"; };
@@ -103,12 +106,13 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				960887630F3CD61D005D8118 /* MainWinController.m */,
-				962EA6E50F5B0BEA00DCC0C1 /* SoundController.m */,
-				96138FFB1080CEFD00147788 /* ShowTableViewDS.m */,
-				9642140210B0783400F9F364 /* OscillatorController.m */,
-				96E23BEC146A1BC1009FC276 /* SpectrumAnalyzerView.m */,
 				9635B9471469FB75004552B8 /* AnalyzerDisplayController.m */,
+				968800381471CF9200754002 /* DMXOutputDisplayController.m */,
+				960887630F3CD61D005D8118 /* MainWinController.m */,
+				9642140210B0783400F9F364 /* OscillatorController.m */,
+				96138FFB1080CEFD00147788 /* ShowTableViewDS.m */,
+				962EA6E50F5B0BEA00DCC0C1 /* SoundController.m */,
+				96E23BEC146A1BC1009FC276 /* SpectrumAnalyzerView.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -155,16 +159,16 @@
 			isa = PBXGroup;
 			children = (
 				967B70B910DEBF6A00318111 /* chaser_handler.c */,
+				96AF8DE10F2B857300369C1E /* config_parser.y */,
 				96AF8E7F0F2B873800369C1E /* config_parser.tab.c */,
+				96AF8DE20F2B857300369C1E /* config_reader.l */,
 				96AF8E810F2B873800369C1E /* config_reader.yy.c */,
+				96AF8DE30F2B857300369C1E /* dmx_controller.c */,
+				96AF8DE50F2B857300369C1E /* flicker_effect.c */,
+				96AF8DEC0F2B857300369C1E /* oscillator_effect.c */,
 				96AF8DEF0F2B857300369C1E /* show_handler.c */,
 				96AF8DF20F2B857300369C1E /* sound_analyzer.c */,
 				96AF8DF40F2B857300369C1E /* timed_effect.c */,
-				96AF8DEC0F2B857300369C1E /* oscillator_effect.c */,
-				96AF8DE10F2B857300369C1E /* config_parser.y */,
-				96AF8DE20F2B857300369C1E /* config_reader.l */,
-				96AF8DE30F2B857300369C1E /* dmx_controller.c */,
-				96AF8DE50F2B857300369C1E /* flicker_effect.c */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
 			name = "Other Sources";
@@ -198,23 +202,24 @@
 			isa = PBXGroup;
 			children = (
 				9635B9461469FB75004552B8 /* AnalyzerDisplayController.h */,
-				96AE8B2510E813DC00210B82 /* utils.h */,
 				967B70B810DEBF6A00318111 /* chaser_handler.h */,
-				96E23BEB146A1BC1009FC276 /* SpectrumAnalyzerView.h */,
-				9642140110B0783400F9F364 /* OscillatorController.h */,
-				32CA4F630368D1EE00C91783 /* Scary DMX_Prefix.pch */,
-				96AF8DE70F2B857300369C1E /* ftd2xx.h */,
-				96138FFA1080CEFD00147788 /* ShowTableViewDS.h */,
 				96AF8E800F2B873800369C1E /* config_parser.tab.h */,
 				96AF8DE40F2B857300369C1E /* dmx_controller.h */,
+				968800371471CF9200754002 /* DMXOutputDisplayController.h */,
 				96AF8DE60F2B857300369C1E /* flicker_effect.h */,
+				96AF8DE70F2B857300369C1E /* ftd2xx.h */,
+				960887620F3CD61D005D8118 /* MainWinController.h */,
+				9642140110B0783400F9F364 /* OscillatorController.h */,
 				96AF8DED0F2B857300369C1E /* oscillator_effect.h */,
 				96AF8DF00F2B857300369C1E /* show_handler.h */,
+				96138FFA1080CEFD00147788 /* ShowTableViewDS.h */,
+				96E23BEB146A1BC1009FC276 /* SpectrumAnalyzerView.h */,
+				962EA6E40F5B0BEA00DCC0C1 /* SoundController.h */,
 				96AF8DF30F2B857300369C1E /* sound_analyzer.h */,
 				96AF8DF50F2B857300369C1E /* timed_effect.h */,
+				96AE8B2510E813DC00210B82 /* utils.h */,
 				96AF8DF60F2B857300369C1E /* WinTypes.h */,
-				960887620F3CD61D005D8118 /* MainWinController.h */,
-				962EA6E40F5B0BEA00DCC0C1 /* SoundController.h */,
+				32CA4F630368D1EE00C91783 /* Scary DMX_Prefix.pch */,
 			);
 			name = Headers;
 			sourceTree = "<group>";
@@ -325,6 +330,7 @@
 				967B70BA10DEBF6A00318111 /* chaser_handler.c in Sources */,
 				9635B9481469FB75004552B8 /* AnalyzerDisplayController.m in Sources */,
 				96E23BED146A1BC1009FC276 /* SpectrumAnalyzerView.m in Sources */,
+				968800391471CF9200754002 /* DMXOutputDisplayController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,11 +366,7 @@
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					_REENTRANT,
-					_TRACE_PARSER,
-					_DMX_TRACE_OUTPUT,
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = _REENTRANT;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				LIBRARY_SEARCH_PATHS = (
