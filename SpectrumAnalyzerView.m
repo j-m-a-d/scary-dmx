@@ -20,8 +20,6 @@ float LEVELS[MAX_ANALYZER_LEVELS] = {0.0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0
 
 static void draw_analyzer_graph (int num_levels, float levels[])
 {
-    
-    float light_q = 1.0f;
     float spacing = 0.5f;
     float max_w = 40.f;
     float max_h = 12.0f;
@@ -35,10 +33,10 @@ static void draw_analyzer_graph (int num_levels, float levels[])
 	GLfloat ambientLight[] = {0.7f, 0.7f, 0.7f, 1.0f};
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientLight);
 	
-	GLfloat lightColor[] = {0.7f, 0.7f, 0.7f, 1.0f};
-	GLfloat lightPos[] = {2 * light_q, light_q, 10 * light_q, 1.0f};
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, lightColor);
-	glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
+	//GLfloat lightColor[] = {0.9f, 0.9f, 0.9f, 1.0f};
+	//GLfloat lightPos[] = {-20.0f, 0.0f, 1.0f, 1.0f};
+	//glLightfv(GL_LIGHT0, GL_DIFFUSE, lightColor);
+	//glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
 	
 	glTranslatef(-20.0f, -6.5f, -20.0f);
 	
@@ -49,6 +47,7 @@ static void draw_analyzer_graph (int num_levels, float levels[])
     
     for(i=0; i<num_levels; i++, cur++){ 
         glBegin(GL_QUADS);
+        
         glColor3f(0.0f, 0.5f, 0.8f);
         glNormal3f(0.0, -1.0f, 0.0f);
         
@@ -77,7 +76,7 @@ static inline void display_setrect(int width, int height)
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     gluPerspective(45.0,(float)width / (float)height, 1.0f, 200.0f);
-    glClearColor(0, 0, 0, 0);
+    glClearColor(0.15f, 0.15f, 0.15f, 1.0f);
 }
 
 static void display_prepare()
@@ -88,11 +87,12 @@ static void display_prepare()
 	glEnable(GL_NORMALIZE);
 	glEnable(GL_COLOR_MATERIAL);
     glEnable(GL_MULTISAMPLE);
+    glEnable(GL_SMOOTH);
 }
 
--(void) drawRect: (NSRect) bounds
+-(void) drawRect: (NSRect)bounds
 {
-    NSSize size = [self bounds].size;
+    NSSize size = bounds.size;
     [[self openGLContext] makeCurrentContext];
     display_setrect(size.width, size.height);
     draw_analyzer_graph(levelCount, levels);
@@ -101,20 +101,19 @@ static void display_prepare()
 -(void) prepareOpenGL
 {
     [super prepareOpenGL];
-    [[self openGLContext] makeCurrentContext];
-    
+   
     levelCount = MAX_ANALYZER_LEVELS;
     memcpy(levels, LEVELS, MAX_ANALYZER_LEVELS * sizeof(float));
-    
+
+    [[self openGLContext] makeCurrentContext];
     display_prepare();
 }
 
--(void)update:(int)count: (float*)levs
+-(void)update:(int)count: (float*)newLevels
 {
     levelCount = count;
-    
     //TODO check against max levels
-    memcpy(levels, levs, levelCount * sizeof(float));
+    memcpy(levels, newLevels, levelCount * sizeof(float));
     
 }
 
@@ -127,7 +126,7 @@ static void display_prepare()
 -(void) start
 {
     timer = [NSTimer scheduledTimerWithTimeInterval:
-             .05
+             .01
              target:self 
              selector:@selector(drawIt) 
              userInfo:nil 
@@ -139,28 +138,7 @@ static void display_prepare()
 {
     [timer invalidate];
     [timer release];
-}
-
--(void)setLevelCount:(int) count
-{
-    levelCount = count;
-}
-
--(float*)levels
-{
-    float *p = levels;
-    return p;
-}    
+}   
     
-/*
--(id) init
-{ 
-    [super init];
-    levelCount = MAX_ANALYZER_LEVELS;
-    memcpy(levels, LEVELS, MAX_ANALYZER_LEVELS * sizeof(float));
-    return self;
-}
- */
-
 @end
 

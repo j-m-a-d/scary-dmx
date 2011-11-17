@@ -33,4 +33,11 @@ void freqCallback(void* objRef, QTAudioFrequencyLevels* freq_levels)
     deregisterSelfAsFreqListner((void*)self);
 }
 
+-(void)_windowDidResize:(NSNotification *)notification
+{
+    NSRect rect = [[window contentView] bounds];
+    [analyzer setFrame:rect];
+    [analyzer drawRect:rect];
+}
+
 @end

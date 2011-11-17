@@ -259,8 +259,9 @@ void start_dmx()
 }
 
 /*
-int main(int argc, char **argv)
+    Get a copy of a portion of the DMX output buffer
+ */
+void get_channel_buffer(dmx_value_t *buffer, int offset, int num_channels)
 {
-    //signal(SIGINT, stop_dmx);		// trap ctrl-c call quit fn 
+    memcpy(buffer, outputBuffer + offset, sizeof(dmx_value_t) * num_channels);
 }
-*/

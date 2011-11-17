@@ -19,7 +19,7 @@
 
 -(void)start;
 -(void)stop;
--(void)update:(int)count :(float *)levs;
+-(void)update:(int)count :(float *)newLevels;
 
 /*    
 @private

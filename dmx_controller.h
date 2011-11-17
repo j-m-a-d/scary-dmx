@@ -39,3 +39,5 @@ void update_channel(dmx_channel_t, dmx_value_t);
 
 //update all channels at once
 void bulk_update(unsigned char*);
+
+void get_channel_buffer(dmx_value_t *buf, int offset, int num_channels);
