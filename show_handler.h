@@ -6,6 +6,9 @@
  *  Copyright 2008 Inspirotech Inc. All rights reserved.
  *
  */
+#ifndef SHOW_HANLDER_H
+#define SHOW_HANDLER_H
+
 #include "oscillator_effect.h"
 #include "flicker_effect.h"
 #include "sound_analyzer.h"
@@ -14,9 +17,6 @@
 #include "utils.h"
 
 #include <stdio.h>
-
-#ifndef SHOW_HANLDER_H
-#define SHOW_HANDLER_H
 
 #define FREE_SHOW(show) \
     free_show(show); \
@@ -35,7 +35,7 @@ typedef struct _cue_t{
     oscillator_data_t* oData;
     analyzer_data_t* aData;
     int stepDuration;              // this is the duration in seconds of the cue if not using the length of the movie.
-    dmx_value_t *channelValues;  
+    dmx_value_t *channelValues;
 } cue_t;
 //
 typedef struct _cue_node_t{
@@ -67,7 +67,7 @@ void end_show();
  */
 int create_cue_node(cue_node_t**);
 
-/* 
+/*
     Allocate memory and initialize a show
     with its first cue.
  */
@@ -87,13 +87,13 @@ void rewind_show();
 int free_show(dmx_show_t*);
 
 /*
-    Free up any allocations related to loading shows.  
+    Free up any allocations related to loading shows.
     Useful for during application shutdown.
  */
 int free_all_show();
 
 /*
-    Add a cue to this show at the 
+    Add a cue to this show at the
     end of the cue list.
  */
 int add_cue(dmx_show_t*);

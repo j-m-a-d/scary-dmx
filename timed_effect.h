@@ -6,6 +6,10 @@
  *  Copyright 2008 Inspirotech Inc. All rights reserved.
  *
  */
+
+#ifndef _TIMED_EFFECT_H
+#define _TIMED_EFFECT_H
+
 #include "utils.h"
 
 #define FREE_TIMED_EFFECTS(data) \
@@ -31,3 +35,5 @@ enum {
 int timed_effects_init();
 int create_timed_effect_handle(timed_effect_data_t *data, timed_effect_handle *);
 void free_timed_effect(timed_effect_data_t *);
+
+#endif

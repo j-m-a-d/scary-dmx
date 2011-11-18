@@ -6,6 +6,9 @@
  *  Copyright 2008 Inspirotech Inc. All rights reserved.
  *
  */
+#ifndef _SOUND_ANALYZER_H
+#define _SOUND_ANALYZER_H
+
 #include <QuickTime/QuickTime.h>
 #include "utils.h"
 
@@ -55,3 +58,4 @@ void free_analyzer_data(analyzer_data_t *);
 void registerSelfAsFreqListener(void *callbackRef, void(*listenerFunction)(void*, QTAudioFrequencyLevels*));
 void deregisterSelfAsFreqListner(void *callbackRef);
 
+#endif

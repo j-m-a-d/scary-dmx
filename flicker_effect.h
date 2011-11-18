@@ -7,6 +7,9 @@
  *
  */
 
+#ifndef _FLICKER_EFFECT_H
+#define _FLICKER_EFFECT_H
+
 #include "utils.h"
 
 enum {
@@ -21,3 +24,4 @@ int start_flicker(channel_list_t);
 // Stop the 'flicker' effect thread.
 void stop_flicker();
 
+#endif

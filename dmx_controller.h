@@ -7,6 +7,9 @@
  *
  */
 
+#ifndef _DMX_CONTROLLER_H
+#define _DMX_CONTROLLER_H
+
 #include "utils.h"
 
 #define CHANNEL_RESET           0
@@ -41,3 +44,5 @@ void update_channel(dmx_channel_t, dmx_value_t);
 void bulk_update(unsigned char*);
 
 void get_channel_buffer(dmx_value_t *buf, int offset, int num_channels);
+
+#endif

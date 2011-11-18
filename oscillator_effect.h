@@ -6,6 +6,10 @@
  *  Copyright 2008 Inspirotech Inc. All rights reserved.
  *
  */
+
+#ifndef _OSCILLATOR_EFFECT_H
+#define _OSCILLATOR_EFFECT_H
+
 #include "utils.h"
 
 #define ODT_SIZE sizeof(oscillator_data_t)
@@ -42,3 +46,5 @@ int start_oscillating(const oscillator_data_t *);
 
 // Stop the oscillating effect thread.
 void stop_oscillating();
+
+#endif

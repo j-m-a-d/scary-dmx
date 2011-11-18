@@ -7,6 +7,9 @@
  *
  */
 
+#ifndef _CHASE_HANDLER_H
+#define _CHASE_HANDLER_H
+
 #include "utils.h"
 
 typedef struct _chaser_step_t {
@@ -22,3 +25,6 @@ typedef struct _chaser_data_t {
     chaser_step_t *data;
     struct _chaser_data_t *next_step;
 } chaser_data_t;
+
+#endif
+
