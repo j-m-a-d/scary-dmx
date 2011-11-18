@@ -24,7 +24,7 @@ static FT_HANDLE    dmxDevice = 0;
 static dmx_value_t outputBuffer[DMX_CHANNELS];
 //
 static pthread_t dmx_writer_pt = 0;
-//static pthread_mutex_t dmx_mutex = PTHREAD_MUTEX_INITIALIZER;
+static pthread_mutex_t dmx_mutex = PTHREAD_MUTEX_INITIALIZER;
 //
 static volatile int writing = 0;
 static volatile int allowWrite = 0;
@@ -33,7 +33,7 @@ static volatile int allowWrite = 0;
    Zero out the write buffer then stop the DMX write thread.
  */
 void stop_dmx()
-{  
+{
     if( !writing || !outputBuffer ){
         return;
     }
@@ -41,16 +41,18 @@ void stop_dmx()
     printf("Stopping DMX transmission.\n");
 
     register int j;
+    pthread_mutex_lock(&dmx_mutex);
+
     allowWrite = 0;
 
     if(dmxDevice) {
-        for(j = 0; j < DMX_CHANNELS; j++) {
-            outputBuffer[j] = 0;
-        }
+        memset(outputBuffer, 0, DMX_CHANNELS * sizeof(dmx_channel_t));
         usleep(500000);	
         writing=0;	
         pthread_join(dmx_writer_pt,NULL);
     }
+
+    pthread_mutex_unlock(&dmx_mutex);
 }
 
 /*
@@ -69,7 +71,7 @@ void destroy_dmx()
 
 /*
    This is the send thread.  Other threads will modify the
-   write buffer while this thread just keeps sending it to the 
+   write buffer while this thread just keeps sending it to the
    output device.
  */
 void *Write_Buffer(){
@@ -78,9 +80,9 @@ void *Write_Buffer(){
     FT_STATUS ftStatus;
     useconds_t seconds;
     seconds=20000;
-	
+
 	if(!outputBuffer) pthread_exit(NULL);
-	
+
     /* Write */
     while(writing && dmxDevice){
         FT_W32_SetCommBreak(dmxDevice);
@@ -101,9 +103,12 @@ void *Write_Buffer(){
  */
 void update_channel(dmx_channel_t ch, dmx_value_t val)
 {
+    pthread_mutex_lock(&dmx_mutex);
+
 #ifdef _DMX_TRACE_OUTPUT
     if(!allowWrite || ch >= DMX_CHANNELS ){
         fprintf(stderr, "Incorrect state for dmx channel update.  allow write: %d, output buffer address: %ld, channel: %d, value:%d\n", allowWrite, (long)&outputBuffer, ch, val);
+        pthread_mutex_unlock(&dmx_mutex);
         return;
     }
     if(!ch){
@@ -111,8 +116,12 @@ void update_channel(dmx_channel_t ch, dmx_value_t val)
     }
     fprintf(stdout, "Ch: %d -> %d\n", ch, val);
 #endif
-    if(!allowWrite) return;
-    outputBuffer[ch] = val;    
+
+    if(allowWrite){
+        outputBuffer[ch] = val;
+    }
+
+    pthread_mutex_unlock(&dmx_mutex);
 }
 
 /*
@@ -120,13 +129,20 @@ void update_channel(dmx_channel_t ch, dmx_value_t val)
  */
 void update_channels(channel_list_t channelList, dmx_value_t val)
 {
-    if(!allowWrite) return;
+    pthread_mutex_lock(&dmx_mutex);
+
+    if(!allowWrite){
+        pthread_mutex_unlock(&dmx_mutex);
+        return;
+    }
+
     dmx_channel_t *tmp;
     tmp = channelList->channels;
     while(*tmp){
 #ifdef _DMX_TRACE_OUTPUT
         if(*tmp >= DMX_CHANNELS ){
             fprintf(stderr, "Incorrect state for dmx channel update.  allow write: %d, output buffer address: %ld, channel: %d, value:%d\n", allowWrite, (long)&outputBuffer, *tmp, val);
+            pthread_mutex_unlock(&dmx_mutex);
             return;
         }
         if(!*tmp){/* can't happen */
@@ -137,6 +153,8 @@ void update_channels(channel_list_t channelList, dmx_value_t val)
         outputBuffer[*tmp] = val;
         tmp++;
     }
+
+    pthread_mutex_unlock(&dmx_mutex);
 }
 
 /*
@@ -144,8 +162,12 @@ void update_channels(channel_list_t channelList, dmx_value_t val)
  */
 void bulk_update(unsigned char* newVals)
 {
-    if(!allowWrite || !outputBuffer || !newVals) return;    
-    memcpy(outputBuffer, newVals, DMX_CHANNELS);    
+    pthread_mutex_lock(&dmx_mutex);
+
+    if(allowWrite && newVals)
+        memcpy(outputBuffer, newVals, DMX_CHANNELS);
+
+    pthread_mutex_unlock(&dmx_mutex);
 }
 
 /*
@@ -153,6 +175,14 @@ void bulk_update(unsigned char* newVals)
  */
 dmx_value_t get_channel_value(int ch){
     return outputBuffer ? outputBuffer[ch] : 0;
+}
+
+/*
+   Get a copy of a portion of the DMX output buffer
+ */
+void get_channel_buffer(dmx_value_t *buffer, int offset, int num_channels)
+{
+    memcpy(buffer, outputBuffer + offset, sizeof(dmx_value_t) * num_channels);
 }
 
 /*
@@ -187,7 +217,9 @@ int init_dmx()
     for(i = 0; ( (i <MAX_DEVICES) && (i < iNumDevs) ); i++) {
         printf("Device %d Serial Number - %s\n", i, cBufLD[i]);
     }
+
     i = 0;
+
     /* Setup */
     if((ftStatus = FT_OpenEx(cBufLD[i], FT_OPEN_BY_SERIAL_NUMBER, &dmxDevice)) != FT_OK){
         fprintf(stderr, "Error FT_Open(%d), device: %d\n", (int)ftStatus, i);
@@ -234,7 +266,7 @@ int init_dmx()
 void start_dmx()
 {
     //If the DMX device is not initialized try
-    // initializing then try running.  
+    // initializing then try running.
     if(!dmxDevice){
         if(DMX_INIT_OK != init_dmx()){
             return;
@@ -255,13 +287,8 @@ void start_dmx()
     pthread_create(&dmx_writer_pt, NULL, Write_Buffer, NULL);
 
     //We can now allow threads to write updates to the output buffer.
-    allowWrite = 1;
+    pthread_mutex_lock(&dmx_mutex);
+        allowWrite = 1;
+    pthread_mutex_unlock(&dmx_mutex);
 }
 
-/*
-    Get a copy of a portion of the DMX output buffer
- */
-void get_channel_buffer(dmx_value_t *buffer, int offset, int num_channels)
-{
-    memcpy(buffer, outputBuffer + offset, sizeof(dmx_value_t) * num_channels);
-}
