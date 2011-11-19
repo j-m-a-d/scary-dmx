@@ -6,8 +6,8 @@
  *  Copyright 2008 Inspirotech Inc. All rights reserved.
  *
  */
-#ifndef SHOW_HANLDER_H
-#define SHOW_HANDLER_H
+#ifndef _SHOW_HANDLER_H
+#define _SHOW_HANDLER_H
 
 #include "oscillator_effect.h"
 #include "flicker_effect.h"

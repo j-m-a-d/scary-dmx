@@ -6,14 +6,14 @@
 //  Copyright 2011 Inspirotech Consulting, Inc. All rights reserved.
 //
 
-#import "AnalyzerDisplayController.h"
+#import "FrequencyAnalyzerDisplayController.h"
 #import "QuickTime/QuickTime.h"
 
-@implementation AnalyzerDisplayController
+@implementation FrequencyAnalyzerDisplayController
 
 void freqCallback(void* objRef, QTAudioFrequencyLevels* freq_levels)
 {
-    id myself = (AnalyzerDisplayController*)objRef;
+    id myself = (FrequencyAnalyzerDisplayController*)objRef;
     [myself updateAnalyzer:freq_levels->numFrequencyBands * 2 : freq_levels->level];
 }
 
@@ -30,14 +30,8 @@ void freqCallback(void* objRef, QTAudioFrequencyLevels* freq_levels)
 
 - (void)windowWillClose:(NSNotification *)notification
 {
+    [super windowWillClose:notification];
     deregisterSelfAsFreqListner((void*)self);
-}
-
--(void)_windowDidResize:(NSNotification *)notification
-{
-    NSRect rect = [[window contentView] bounds];
-    [analyzer setFrame:rect];
-    [analyzer drawRect:rect];
 }
 
 @end

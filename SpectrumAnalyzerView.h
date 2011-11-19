@@ -12,14 +12,14 @@
 
 @interface SpectrumAnalyzerView : NSOpenGLView {
     float levels[MAX_ANALYZER_LEVELS];
-    int levelCount;
+    unsigned int levelCount;
     
     NSTimer *timer;
 }
 
 -(void)start;
 -(void)stop;
--(void)update:(int)count :(float *)newLevels;
+-(void)update:(unsigned int)count :(float *)newLevels;
 
 /*    
 @private

@@ -18,7 +18,7 @@ float LEVELS[MAX_ANALYZER_LEVELS] = {0.0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0
     0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0,0.9,0.8,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.0};
 
 
-static void draw_analyzer_graph (int num_levels, float levels[])
+static void draw_analyzer_graph (unsigned int num_levels, float levels[])
 {
     float spacing = 0.5f;
     float max_w = 40.f;
@@ -70,7 +70,7 @@ static void draw_analyzer_graph (int num_levels, float levels[])
     glFlush();
 }
 
-static inline void display_setrect(int width, int height)
+static inline void display_setrect(unsigned int width, int height)
 {
     glViewport(0, 0, width, height);
     glMatrixMode(GL_PROJECTION);
@@ -109,18 +109,29 @@ static void display_prepare()
     display_prepare();
 }
 
--(void)update:(int)count: (float*)newLevels
+-(void)update:(unsigned int)count: (float*)newLevels
 {
     levelCount = count;
     //TODO check against max levels
     memcpy(levels, newLevels, levelCount * sizeof(float));
-    
+}
+
+-(void)reduce
+{
+    float *cur = levels;
+    register int i= 0;
+    for(i=0; i<MAX_ANALYZER_LEVELS; i++){
+        float nv = *cur - .005f;
+        *cur = (nv > 0.0f ? nv : 0.0f);
+        cur++;
+    }
 }
 
 -(void)drawIt
 {
     [[self openGLContext] makeCurrentContext];
     draw_analyzer_graph(levelCount, levels);
+    [self reduce];
 }
 
 -(void) start

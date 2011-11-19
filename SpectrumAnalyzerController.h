@@ -1,19 +1,19 @@
 //
-//  AnalyzerDisplayHandler.h
+//  SpectrumDisplayController.h
 //  Scary DMX
 //
-//  Created by Jason Diprinzio on 11/8/11.
+//  Created by Jason Diprinzio on 11/19/11.
 //  Copyright 2011 Inspirotech Consulting, Inc. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>
 #import "SpectrumAnalyzerView.h"
 
-@interface AnalyzerDisplayController : NSObject {
+@interface SpectrumAnalyzerController : NSObject {
     IBOutlet NSPanel *window;
     IBOutlet SpectrumAnalyzerView *analyzer;
 }
 
--(void)updateAnalyzer:(int)count: (float*)levels;
+- (void)windowWillClose:(NSNotification *)notification;
 
 @end

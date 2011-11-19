@@ -2,11 +2,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "ShowTableViewDS.h"
-#import "AnalyzerDisplayController.h"
-
-#ifndef SHOW_HANDLER_H
 #include "show_handler.h"
-#endif 
 
 @interface MainWinController : NSObject <NSOpenSavePanelDelegate>
 {

@@ -7,12 +7,10 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "SpectrumAnalyzerView.h"
+#import "SpectrumAnalyzerController.h"
 
 
-@interface DMXOutputDisplayController : NSObject {
-    IBOutlet NSPanel *window;
-    IBOutlet SpectrumAnalyzerView *analyzer;
+@interface DMXOutputDisplayController : SpectrumAnalyzerController {
     NSTimer *timer;
     float buffer[16];
 }

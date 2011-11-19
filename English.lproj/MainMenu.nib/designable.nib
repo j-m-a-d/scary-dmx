@@ -12,10 +12,10 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
+			<integer value="729"/>
 			<integer value="29"/>
-			<integer value="728"/>
 			<integer value="2"/>
-			<integer value="735"/>
+			<integer value="734"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -2808,15 +2808,15 @@
 				<string key="NSClassName">ShowTableViewDS</string>
 			</object>
 			<object class="NSCustomObject" id="1034015221">
-				<string key="NSClassName">AnalyzerDisplayController</string>
+				<string key="NSClassName">FrequencyAnalyzerDisplayController</string>
 			</object>
 			<object class="NSCustomObject" id="69260922">
 				<string key="NSClassName">DMXOutputDisplayController</string>
 			</object>
 			<object class="NSWindowTemplate" id="662055909">
-				<int key="NSWindowStyleMask">8211</int>
+				<int key="NSWindowStyleMask">8219</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{767, 743}, {455, 200}}</string>
+				<string key="NSWindowRect">{{767, 751}, {455, 192}}</string>
 				<int key="NSWTFlags">611844096</int>
 				<string key="NSWindowTitle">Frequency Analyzer</string>
 				<string key="NSWindowClass">NSPanel</string>
@@ -2831,9 +2831,10 @@
 							<reference key="NSNextResponder" ref="589657482"/>
 							<int key="NSvFlags">1292</int>
 							<object class="NSPSMatrix" key="NSDrawMatrix"/>
-							<string key="NSFrame">{{20, 28}, {415, 152}}</string>
+							<string key="NSFrame">{{20, 20}, {415, 152}}</string>
 							<reference key="NSSuperview" ref="589657482"/>
 							<int key="NSViewLayerContentsRedrawPolicy">2</int>
+							<bool key="NSViewCanDrawConcurrently">YES</bool>
 							<object class="NSOpenGLPixelFormat" key="NSPixelFormat">
 								<object class="NSMutableData" key="NSPixelAttributes">
 									<bytes key="NS.bytes">AAAAYAAAAAA</bytes>
@@ -2841,7 +2842,7 @@
 							</object>
 						</object>
 					</object>
-					<string key="NSFrameSize">{455, 200}</string>
+					<string key="NSFrameSize">{455, 192}</string>
 					<reference key="NSSuperview"/>
 					<int key="NSViewLayerContentsRedrawPolicy">2</int>
 				</object>
@@ -2849,9 +2850,9 @@
 				<string key="NSMaxSize">{1.79769e+308, 1.79769e+308}</string>
 			</object>
 			<object class="NSWindowTemplate" id="101262591">
-				<int key="NSWindowStyleMask">8211</int>
+				<int key="NSWindowStyleMask">8219</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{769, 990}, {455, 200}}</string>
+				<string key="NSWindowRect">{{769, 996}, {455, 194}}</string>
 				<int key="NSWTFlags">611844096</int>
 				<string key="NSWindowTitle">DMX Output</string>
 				<string key="NSWindowClass">NSPanel</string>
@@ -2866,9 +2867,10 @@
 							<reference key="NSNextResponder" ref="268713721"/>
 							<int key="NSvFlags">5388</int>
 							<object class="NSPSMatrix" key="NSDrawMatrix"/>
-							<string key="NSFrame">{{20, 28}, {415, 152}}</string>
+							<string key="NSFrame">{{20, 22}, {415, 152}}</string>
 							<reference key="NSSuperview" ref="268713721"/>
 							<int key="NSViewLayerContentsRedrawPolicy">2</int>
+							<bool key="NSViewCanDrawConcurrently">YES</bool>
 							<object class="NSOpenGLPixelFormat" key="NSPixelFormat">
 								<object class="NSMutableData" key="NSPixelAttributes">
 									<bytes key="NS.bytes">AAAAYAAAAAA</bytes>
@@ -2876,7 +2878,7 @@
 							</object>
 						</object>
 					</object>
-					<string key="NSFrameSize">{455, 200}</string>
+					<string key="NSFrameSize">{455, 194}</string>
 					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
@@ -6130,9 +6132,9 @@
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
-					<string>{{7, 472}, {1180, 670}}</string>
+					<string>{{26, 68}, {1180, 670}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{7, 472}, {1180, 670}}</string>
+					<string>{{26, 68}, {1180, 670}}</string>
 					<boolean value="YES"/>
 					<boolean value="YES"/>
 					<boolean value="YES"/>
@@ -6416,17 +6418,17 @@
 					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">AUGgAABB8AAAA</bytes>
 					</object>
-					<string>{{768, 708}, {455, 200}}</string>
+					<string>{{768, 716}, {455, 192}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{768, 708}, {455, 200}}</string>
+					<string>{{768, 716}, {455, 192}}</string>
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{769, 941}, {455, 200}}</string>
+					<string>{{769, 947}, {455, 194}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{769, 941}, {455, 200}}</string>
+					<string>{{769, 947}, {455, 194}}</string>
 					<boolean value="YES"/>
 					<boolean value="NO"/>
 					<string>{0, 0}</string>
@@ -6475,80 +6477,8 @@
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<object class="IBPartialClassDescription">
-					<string key="className">AnalyzerDisplayController</string>
-					<string key="superclassName">NSObject</string>
-					<object class="NSMutableDictionary" key="outlets">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>analyzer</string>
-							<string>window</string>
-						</object>
-						<object class="NSMutableArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>SpectrumAnalyzerView</string>
-							<string>NSPanel</string>
-						</object>
-					</object>
-					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>analyzer</string>
-							<string>window</string>
-						</object>
-						<object class="NSMutableArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBToOneOutletInfo">
-								<string key="name">analyzer</string>
-								<string key="candidateClassName">SpectrumAnalyzerView</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">window</string>
-								<string key="candidateClassName">NSPanel</string>
-							</object>
-						</object>
-					</object>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">AnalyzerDisplayController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
 					<string key="className">DMXOutputDisplayController</string>
-					<string key="superclassName">NSObject</string>
-					<object class="NSMutableDictionary" key="outlets">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>analyzer</string>
-							<string>window</string>
-						</object>
-						<object class="NSMutableArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>SpectrumAnalyzerView</string>
-							<string>NSPanel</string>
-						</object>
-					</object>
-					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>analyzer</string>
-							<string>window</string>
-						</object>
-						<object class="NSMutableArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBToOneOutletInfo">
-								<string key="name">analyzer</string>
-								<string key="candidateClassName">SpectrumAnalyzerView</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">window</string>
-								<string key="candidateClassName">NSPanel</string>
-							</object>
-						</object>
-					</object>
+					<string key="superclassName">SpectrumAnalyzerController</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">DMXOutputDisplayController.h</string>
@@ -6560,6 +6490,14 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBUserSource</string>
 						<string key="minorKey"/>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">FrequencyAnalyzerDisplayController</string>
+					<string key="superclassName">SpectrumAnalyzerController</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">FrequencyAnalyzerDisplayController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -6957,6 +6895,46 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBUserSource</string>
 						<string key="minorKey"/>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">SpectrumAnalyzerController</string>
+					<string key="superclassName">NSObject</string>
+					<object class="NSMutableDictionary" key="outlets">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>analyzer</string>
+							<string>window</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>SpectrumAnalyzerView</string>
+							<string>NSPanel</string>
+						</object>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>analyzer</string>
+							<string>window</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBToOneOutletInfo">
+								<string key="name">analyzer</string>
+								<string key="candidateClassName">SpectrumAnalyzerView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">window</string>
+								<string key="candidateClassName">NSPanel</string>
+							</object>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">SpectrumAnalyzerController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
