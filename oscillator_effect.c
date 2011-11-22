@@ -86,7 +86,6 @@ void stop_oscillating()
     pthread_mutex_unlock(&oscillator_mutex);
     if(oscillator_pt)
         pthread_join(oscillator_pt, NULL);
-    oscillator_pt = NULL;
 }
 
 /*
