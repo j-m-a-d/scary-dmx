@@ -46,8 +46,8 @@ void free_timer_handle(timed_effect_handle in_timer)
         return;
     timed_effect_t *timer = (timed_effect_t *)in_timer;
     if(timer->handle){
-        pthread_cancel(timer->handle);
-        pthread_join(timer->handle, NULL);
+        pthread_cancel( (pthread_t)timer->handle);
+        pthread_join( (pthread_t)timer->handle, NULL);
         memset(timer->handle, 0, sizeof(void*));
         free(timer->handle);
         timer->handle = 0;
