@@ -26,13 +26,13 @@
 
 - (void)updateBuffer
 {
-    dmx_value_t vdmx[16];
-    get_channel_buffer(vdmx, 1, 16);
+    dmx_value_t vdmx[MONITORED_DMX_CHANNELS];
+    get_channel_buffer(vdmx, 1, MONITORED_DMX_CHANNELS);
     int i=0;
-    for(i=0; i<16; i++){
+    for(i=0; i<MONITORED_DMX_CHANNELS; i++){
         buffer[i] =  (float)(vdmx[i]/255.0f);
     }
-    [analyzer update:16 :buffer];   
+    [analyzer update:MONITORED_DMX_CHANNELS :buffer];   
 }
 
 - (void)windowWillClose:(NSNotification *)notification

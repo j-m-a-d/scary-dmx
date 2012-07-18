@@ -9,10 +9,11 @@
 #import <Cocoa/Cocoa.h>
 #import "SpectrumAnalyzerController.h"
 
+#define MONITORED_DMX_CHANNELS 32
 
 @interface DMXOutputDisplayController : SpectrumAnalyzerController {
     NSTimer *timer;
-    float buffer[16];
+    float buffer[MONITORED_DMX_CHANNELS];
 }
 
 @end

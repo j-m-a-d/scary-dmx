@@ -15,5 +15,6 @@
 }
 
 - (void)windowWillClose:(NSNotification *)notification;
+- (void)windowDidResize:(NSNotification *)notification;
 
 @end
