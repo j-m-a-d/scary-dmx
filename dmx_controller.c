@@ -27,7 +27,6 @@ static pthread_t dmx_writer_pt = 0;
 static pthread_mutex_t dmx_mutex = PTHREAD_MUTEX_INITIALIZER;
 //
 static volatile int writing = 0;
-static volatile int allowWrite = 0;
 
 /*
    Zero out the write buffer then stop the DMX write thread.
@@ -41,8 +40,6 @@ void stop_dmx()
     printf("Stopping DMX transmission.\n");
 
     pthread_mutex_lock(&dmx_mutex);
-
-    allowWrite = 0;
 
     if(dmxDevice) {
         memset(outputBuffer, 0, DMX_CHANNELS * sizeof(dmx_value_t));
@@ -116,9 +113,9 @@ void update_channel(dmx_channel_t ch, dmx_value_t val)
     fprintf(stdout, "Ch: %d -> %d\n", ch, val);
 #endif
 
-    if(allowWrite){
+    //if(allowWrite){
         outputBuffer[ch] = val;
-    }
+    //}
 
     pthread_mutex_unlock(&dmx_mutex);
 }
@@ -130,10 +127,12 @@ void update_channels(channel_list_t channelList, dmx_value_t val)
 {
     pthread_mutex_lock(&dmx_mutex);
 
+    /*
     if(!allowWrite){
         pthread_mutex_unlock(&dmx_mutex);
         return;
     }
+     */
 
     dmx_channel_t *tmp;
     tmp = channelList->channels;
@@ -163,7 +162,7 @@ void bulk_update(unsigned char* newVals)
 {
     pthread_mutex_lock(&dmx_mutex);
 
-    if(allowWrite && newVals)
+    if(newVals)
         memcpy(outputBuffer, newVals, DMX_CHANNELS);
 
     pthread_mutex_unlock(&dmx_mutex);
@@ -253,7 +252,6 @@ int init_dmx()
 
     FT_W32_PurgeComm(dmxDevice,FT_PURGE_TX | FT_PURGE_RX);
 
-    //outputBuffer = malloc(sizeof(char) * DMX_CHANNELS);
     memset(outputBuffer, 0, (sizeof(char)) * DMX_CHANNELS);
 
     return DMX_INIT_OK;
@@ -266,28 +264,23 @@ void start_dmx()
 {
     //If the DMX device is not initialized try
     // initializing then try running.
-    if(!dmxDevice){
-        if(DMX_INIT_OK != init_dmx()){
+    pthread_mutex_lock(&dmx_mutex);
+        //If the DMX device is initialized correctly see
+        // if we are already started.
+        if(writing || dmxDevice){
+            pthread_mutex_unlock(&dmx_mutex);
             return;
         }
-    }
-
-    //If the DMX device is initialized correctly see
-    // if we are already started.
-    if(writing){
-        return;
-    }
-
-    printf("Starting DMX transmission.\n");
-
-    //Signal we are ready to run.
-    writing = 1;
-
-    pthread_create(&dmx_writer_pt, NULL, Write_Buffer, NULL);
-
-    //We can now allow threads to write updates to the output buffer.
-    pthread_mutex_lock(&dmx_mutex);
-        allowWrite = 1;
+        destroy_dmx();
+        if(DMX_INIT_OK != init_dmx()){
+            pthread_mutex_unlock(&dmx_mutex);
+            return;
+        }
+        pthread_create(&dmx_writer_pt, NULL, Write_Buffer, NULL);
+        //TODO check result ^^
+        fprintf(stdout, "Starting DMX transmission.\n");
+        //We can now allow threads to write updates to the output buffer.
+        writing = 1;
     pthread_mutex_unlock(&dmx_mutex);
 }
 
