@@ -8,35 +8,32 @@
  */
 
 #include "show_handler.h"
+#include "timed_effect.h"
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <pthread.h>
 
 static dmx_show_t *live_show = 0;
-//
+
 static pthread_t show_pt = 0;
-//
+
+enum {
+    SHOW_STOPPED,
+    SHOW_STARTED,
+    SHOW_RUNNING,
+    SHOW_SKIPPING
+};
 static int showing = 0;
-//
+
 static pthread_mutex_t show_mutex = PTHREAD_MUTEX_INITIALIZER;
 static pthread_mutex_t control_mutex = PTHREAD_MUTEX_INITIALIZER;
-//
+
 static void(*call_show_end)(void*) = 0;
 static void *show_end_obj = 0;
-//
+
 static void(*call_show_next_step)(void*, cue_node_t *) = 0;
 static void *show_next_step_obj = 0;
-
-/*
-    Check to see if we are at the first cue.
- */
-static int first_cue(dmx_show_t *show)
-{
-    if(!show) return 0;
-    if(!(show->currentCue)) return 0;
-    return (NULL ==show->currentCue->previousCue);
-}
 
 /*
     Advance the current cue in the show.
@@ -65,14 +62,13 @@ int free_show(dmx_show_t *show)
     while(show->currentCue){
         cue_node_t *tmp = show->currentCue;
         show->currentCue = tmp->previousCue;
+        free(tmp->cue->channelValues);
+        tmp->cue->channelValues = 0;
+        FREE_ANALYZER_DATA (tmp->cue->aData);
+        FREE_OSCILLATOR_DATA (tmp->cue->oData);
         if(tmp->cue){
             if(tmp->cue->channelValues)
-                free(tmp->cue->channelValues);
-            tmp->cue->channelValues = 0;
-            
-            FREE_ANALYZER_DATA (tmp->cue->aData);
-            
-            FREE_OSCILLATOR_DATA (tmp->cue->oData);
+
             
             FREE_TIMED_EFFECTS(tmp->cue->timer);
             
@@ -81,11 +77,11 @@ int free_show(dmx_show_t *show)
             free(tmp->cue);
             tmp->cue = 0;
         }
-        memset(tmp, 0, sizeof(tmp));//<<<----
+        memset(tmp, 0, sizeof(cue_node_t));//<<<----
         free(tmp);
         tmp = 0;
     }
-    memset(show, 0, sizeof(show));
+    memset(show, 0, sizeof(dmx_show_t));
     free(show);
     show = 0;
     return 0;
@@ -107,13 +103,13 @@ int create_cue_node(cue_node_t **cueNode)
         fprintf( stderr, "Cannot create cue node.  Supplied value is zero.\n");
         return 1;
     }
-    //
+    
     if(NULL == *cueNode){
         fprintf(stderr, "Could not allocate memory for cue.\n");
         *cueNode = 0;
         return 1;
     }
-    // Initialze each member.
+    /* Initialze each member. */
     (*cueNode)->cue = (cue_t*)malloc(sizeof(cue_t));
     memset( (*cueNode)->cue, 0, sizeof(cue_t));
     (*cueNode)->cue->empty = 1;
@@ -124,7 +120,7 @@ int create_cue_node(cue_node_t **cueNode)
     (*cueNode)->cue->timer=0;
     (*cueNode)->previousCue = 0;
     (*cueNode)->nextCue = 0;
-    // Allocate the channel values
+    /* Allocate the channel values */
     (*cueNode)->cue->channelValues = calloc(sizeof(dmx_value_t), DMX_CHANNELS);
     if( NULL == (*cueNode)->cue->channelValues){
         fprintf(stderr, "Could not allocate memory for channel settings.\n");
@@ -158,7 +154,7 @@ int init_show(dmx_show_t **show)
         return 1;
     }
     (*show)->currentCue->cue_id = 0;
-    //
+    
     return 0;
 }
 
@@ -279,7 +275,7 @@ int add_cue(dmx_show_t* show)
     int id = lastCue->cue_id +1;
     int i = create_cue_node(&newCue);
     if(i){
-        // free newCue and it's children
+        /* free newCue and it's children */
         return i;
     }
     newCue->cue_id = id;
@@ -341,22 +337,22 @@ void stop_show()
 {
     pthread_mutex_lock(&show_mutex);   
         showing = 0;
-        /*
-         The show thread is only 'alive' during
-         the setup of a cue.  It exits immediately
-         but in case a call to stop_show comes immediately
-         after a call to start_show we'll wait for the show
-         thread to exit first.
-         */
-        if(0 != show_pt){
-            pthread_join(show_pt, NULL);
-            show_pt = 0;
-        }
-        stop_analyze();
-        stop_oscillating();
-        stop_flicker();
-        stop_timed_effects(NULL);
-    pthread_mutex_unlock(&show_mutex);   
+    pthread_mutex_unlock(&show_mutex); 
+    /*
+     The show thread is only 'alive' during
+     the setup of a cue.  It exits immediately
+     but in case a call to stop_show comes immediately
+     after a call to start_show we'll wait for the show
+     thread to exit first.
+     */
+    if(0 != show_pt){
+        pthread_join(show_pt, NULL);
+        show_pt = 0;
+    }
+    stop_analyze();
+    stop_oscillating();
+    stop_flicker();
+    stop_timed_effects(NULL);
 }
 
 void go_to_next_step();
@@ -364,52 +360,54 @@ void go_to_next_step();
 /*
  Thread function to invoke the next step in the show.
  */
-static void *next_step(void *data_in)
+static void *next_step()
 { 
     pthread_mutex_lock(&show_mutex);
     if(!showing){
         pthread_mutex_unlock(&show_mutex);
         pthread_exit(NULL);     
     }
+    pthread_mutex_unlock(&show_mutex);
+    
 	int result = 0;
     stop_oscillating();
     stop_flicker();
     if(live_show->currentCue->previousCue)
         stop_timed_effects(live_show->currentCue->previousCue->cue->timer);
-    //    
+        
     cue_node_t *cueNode = live_show->currentCue;
     cue_t *cue = cueNode->cue;
-    // 
+     
     if(cue->aData && !cue->stepDuration){
         result = start_analyze(cue->aData, &go_to_next_step);
 		if(result){
 			goto die_now;
 		}
     }
-    //
+    
     bulk_update(cue->channelValues);
-    // 
+     
     if(cue->flickerChannels){
         start_flicker(cue->flickerChannels);        
     }
-    //
+    
     if(cue->oData){
         start_oscillating(cue->oData);
     }
-    //
+    
     if(cue->timer){
-        //do each timer
+        /* do each timer */
         timed_effect_data_t *tdata = cue->timer;
         while(NULL != tdata){
-            timed_effect_handle timer = 0;
+            timed_effect_handle *timer = 0;
             if(!tdata->timer_handle){
-                new_timed_effect(tdata, &timer);
+                create_timed_effect_handle(&timer);
                 tdata->timer_handle = timer;
             }
-            cue_timed_effect(tdata->timer_handle);
+            cue_timed_effect(tdata);
             tdata = tdata->nextTimer;
         }
-        //now start them all at once
+        /* now start them all at once */
         start_timed_effects();
     }
 die_now:
@@ -423,13 +421,15 @@ die_now:
  */
 void go_to_next_step()
 {
-    //Get a lock on the show_mutex before we move to the next
-    // step in the event we have been interrupted.
+    /*
+     Get a lock on the show_mutex before we move to the next
+     step in the event we have been interrupted.
+     */
     int showOver = 0;
         
     pthread_mutex_lock(&show_mutex);
     if(showing){
-        //Cue up the next scene.   
+        /* Cue up the next scene. */
         showOver = advance_cue(live_show); 
         if(!showOver){        
             pthread_create(&show_pt, NULL, &next_step, NULL);
@@ -451,6 +451,7 @@ void go_to_next_step()
 /*
  Load a show file.
  */
+int parse_show_file(const char *filename, dmx_show_t **show);
 int load_show_from_file(const char *show_file, dmx_show_t **out_show)
 {
     stop_show();
@@ -507,15 +508,12 @@ void _rewind_show(dmx_show_t *show)
  */
 void rewind_show()
 {
-    pthread_mutex_lock(&control_mutex);
-    pthread_mutex_lock(&show_mutex);   
+    pthread_mutex_lock(&control_mutex);  
     if(!showing){
         _rewind_show(live_show);
-        pthread_mutex_unlock(&show_mutex);
         pthread_mutex_unlock(&control_mutex);
         return;
     }
-    pthread_mutex_unlock(&show_mutex);
     
     _rewind_show(live_show);   
     stop_show();
@@ -529,14 +527,14 @@ void rewind_show()
 int skip_cue()
 {
     pthread_mutex_lock(&control_mutex);
-    pthread_mutex_lock(&show_mutex);
+    //pthread_mutex_lock(&show_mutex);
     if(showing){
         skip_movie();
     } else if(live_show && live_show->currentCue->nextCue){
         live_show->currentCue = live_show->currentCue->nextCue;
         call_show_next_step(show_next_step_obj, live_show->currentCue);
     }
-    pthread_mutex_unlock(&show_mutex);
+    //pthread_mutex_unlock(&show_mutex);
     pthread_mutex_unlock(&control_mutex);
     return 0;
 }

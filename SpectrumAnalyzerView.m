@@ -1,16 +1,16 @@
-//
-//  SpectrumAnalyzerView.m
-//  Scary DMX
-//
-//  Created by Jason Diprinzio on 11/8/11.
-//  Copyright 2011 Inspirotech Consulting, Inc. All rights reserved.
-//
+/*
+ *  SpectrumAnalyzerView.m
+ *  Scary DMX
+ *
+ *  Created by Jason Diprinzio on 11/8/11.
+ *  Copyright 2011 Inspirotech Consulting, Inc. All rights reserved.
+ */
 
 #import "SpectrumAnalyzerView.h"
+#import <string.h>
+#import <OpenGL/OpenGL.h>
+#import <OPenGL/glu.h>
 
-#include <string.h>
-
-#include <OpenGL/OpenGL.h>
 
 @implementation SpectrumAnalyzerView
 
@@ -42,14 +42,14 @@ static void draw_analyzer_graph (unsigned int num_levels, float levels[])
 	
     float bar_width = (max_w / (float)num_levels) - spacing ;
     
-    register int i=0;
+    unsigned register int i=0;
     float *cur = levels;
     
     for(i=0; i<num_levels; i++, cur++){ 
         glBegin(GL_QUADS);
         
         glColor3f(0.0f, 0.5f, 0.8f);
-        glNormal3f(0.0, -1.0f, 0.0f);
+        glNormal3f(0.0f, -1.0f, 0.0f);
         
         float bar_height = (float)(max_h * (*cur) );
         
@@ -57,7 +57,7 @@ static void draw_analyzer_graph (unsigned int num_levels, float levels[])
         glVertex3f(0.0f, bar_height, 1.0f );
         
         glColor3f(0.0f, 0.3f, 0.8f);
-        glNormal3f(0.0, -1.0f, 0.0f);
+        glNormal3f(0.0f, -1.0f, 0.0f);
         
         glVertex3f(bar_width  , bar_height, 1.0f );
         glVertex3f(bar_width  , 0.0f, 1.0f ); 
@@ -112,7 +112,7 @@ static void display_prepare()
 -(void)update:(unsigned int)count: (float*)newLevels
 {
     levelCount = count;
-    //TODO check against max levels
+    /* TODO check against max levels */
     memcpy(levels, newLevels, levelCount * sizeof(float));
 }
 

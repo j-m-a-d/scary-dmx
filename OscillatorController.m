@@ -1,10 +1,10 @@
-//
-//  OscillatorController.m
-//  Scary DMX
-//
-//  Created by Jason DiPrinzio on 11/15/09.
-//  Copyright 2009 Inspirotech Inc. All rights reserved.
-//
+/*
+ *  OscillatorController.m
+ *  Scary DMX
+ *
+ *  Created by Jason DiPrinzio on 11/15/09.
+ *  Copyright 2009 Inspirotech Inc. All rights reserved.
+ */
 
 #import "OscillatorController.h"
 

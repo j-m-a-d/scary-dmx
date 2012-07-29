@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "show_handler.h"
+#include "config_parser.tab.h"
  
 dmx_show_t *resultShow;
     
@@ -16,29 +17,33 @@ int yywrap()
     return 1;
 } 
 
+/* DECS */
+void yyrestart(FILE*);
+int yyparse();
+
 int parse_show_file(const char *filename, dmx_show_t **show)
 {
     FILE *showFile = fopen(filename, "r");
     if(!showFile){
         return -1;
     }
-    //
+
     extern FILE *yyin;
     yyin = showFile;
-    //
+
     int i = init_show(&resultShow); 
     if(i) return i;
-    //
+
     yyrestart(showFile);
     i = yyparse();
     if(i) return i;
-    //
+
     _rewind_show(resultShow);   
     fclose(showFile);
-    //
+
     *show = resultShow;
     resultShow = 0;
-    //
+
     return 0; 
 }
 
@@ -47,7 +52,7 @@ int main(int argc, char **argv)
 {
     extern FILE *yyin;
     yyin = fopen(argv[1], "r");
-    //
+
     int i = init_show(&resultShow);
     if(i){
         fprintf(stderr, "Failed to initialize show.");
@@ -58,14 +63,14 @@ int main(int argc, char **argv)
         return i;
     }
     _rewind_show(resultShow);    
-    //
+
     FILE *outFile = fopen("./outshow.shw", "w+");
     if(!outFile){
         printf("Could not open out file for show output.");
     }
     printShow(resultShow, outFile);
     fclose(outFile);
-    //
+
     FREE_SHOW (resultShow);
     return i;
 }

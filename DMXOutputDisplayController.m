@@ -1,10 +1,10 @@
-//
-//  DMXOutputDisplayController.m
-//  Scary DMX
-//
-//  Created by Jason Diprinzio on 11/14/11.
-//  Copyright 2011 Inspirotech Consulting, Inc. All rights reserved.
-//
+/*
+ *  DMXOutputDisplayController.m
+ *  Scary DMX
+ *
+ *  Created by Jason Diprinzio on 11/14/11.
+ *  Copyright 2011 Inspirotech Consulting, Inc. All rights reserved.
+ */
 
 #import "DMXOutputDisplayController.h"
 #include "dmx_controller.h"

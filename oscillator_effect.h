@@ -29,22 +29,22 @@ enum {
     OSCILLATOR_BAD_CHANNEL
 };
 
-//
+
 typedef struct _oscillator_data_t{
     channel_list_t dmxChannels;
     dmx_value_t lowThreshold;
     dmx_value_t highThreshold;
     int speed;
 } oscillator_data_t;
-//
 
-inline void copy_oscillator_data(oscillator_data_t *, const oscillator_data_t *);
-inline void free_oscillator_data(oscillator_data_t *);
 
-// Start the oscillating effect thread on a channel.
+void copy_oscillator_data(oscillator_data_t *, const oscillator_data_t *);
+void free_oscillator_data(oscillator_data_t *);
+
+/* Start the oscillating effect thread on a channel. */
 int start_oscillating(const oscillator_data_t *);
 
-// Stop the oscillating effect thread.
+/* Stop the oscillating effect thread. */
 void stop_oscillating();
 
 #endif

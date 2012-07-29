@@ -9,6 +9,7 @@
 
 #include "timed_effect.h"
 #include "dmx_controller.h"
+#include "unistd.h"
 #include <pthread.h>
 #include <stdlib.h>
 #include <string.h>
@@ -20,15 +21,14 @@ if(!timed) { \
         break; \
 } \
 pthread_mutex_unlock(&wait_mutex);
-//
+
 volatile static int timed = 0;
-//
+
 static pthread_mutex_t wait_mutex = PTHREAD_MUTEX_INITIALIZER;
 static pthread_cond_t wait_cond = PTHREAD_COND_INITIALIZER;
-//
+
 typedef struct _timed_effect_t {
-    void *handle;
-    timed_effect_data_t *data;
+    pthread_t handle;
     volatile int run_flag;
 } timed_effect_t;
 
@@ -40,23 +40,16 @@ void free_timed_effect(timed_effect_data_t * data)
     }
 }
 
-void free_timer_handle(timed_effect_handle in_timer)
+void free_timer_handle(timed_effect_handle *in_timer)
 {
     if(!in_timer)
         return;
-    timed_effect_t *timer = (timed_effect_t *)in_timer;
+    timed_effect_t *timer = (timed_effect_t *)*in_timer;
     if(timer->handle){
-        pthread_cancel( (pthread_t)timer->handle);
-        pthread_join( (pthread_t)timer->handle, NULL);
-        memset(timer->handle, 0, sizeof(void*));
-        free(timer->handle);
-        timer->handle = 0;
+        pthread_cancel( timer->handle);
+        pthread_join( timer->handle, NULL);
     }
-    if(timer->data){
-        memset(timer->data, 0, sizeof(timed_effect_data_t));
-        free(timer->data);
-        timer->data = 0;
-    }
+
     memset(in_timer, 0, sizeof(timed_effect_t));
     free(in_timer);
 }
@@ -64,12 +57,12 @@ void free_timer_handle(timed_effect_handle in_timer)
 void free_timed_effects(timed_effect_data_t *timer)
 {
     struct _timed_effect_data_t *tmp;
-    while(timer){
-        tmp = timer->nextTimer;
-        free_timer_handle(timer->timer_handle);
-        timer->timer_handle = 0;
-        free_timed_effect(timer);
-        timer = tmp;        
+    tmp = timer;
+    while(tmp){
+        free_timer_handle(tmp->timer_handle);
+        tmp->timer_handle = 0;
+        free_timed_effect(tmp);
+        tmp = timer->nextTimer;   
     }    
 }
 
@@ -87,16 +80,16 @@ void stop_timed_effects(timed_effect_data_t *timer)
 {
     pthread_mutex_lock(&wait_mutex);
         timed = 0;
-        //usleep(500);
     pthread_mutex_unlock(&wait_mutex);
     
     if(!timer) return;
-    timed_effect_data_t *tmp = (timed_effect_data_t*)timer;
+    timed_effect_data_t *tmp = timer;
     while(tmp){
         timed_effect_t* handle = (timed_effect_t*)tmp->timer_handle;
         if(handle){
-            pthread_cancel(*(pthread_t*)(handle->handle));
-            pthread_join(*(pthread_t*)(handle->handle), NULL);
+            pthread_cancel(handle->handle);
+            pthread_join(handle->handle, NULL);
+            free(handle);
         }
         tmp = tmp->nextTimer;
     }
@@ -122,34 +115,29 @@ void *do_timed_effect(void *data_in)
     pthread_exit(NULL);
 }
 
-int new_timed_effect(timed_effect_data_t *data, timed_effect_handle **handle)
+int create_timed_effect_handle(timed_effect_handle **handle)
 {
-    timed_effect_t *timer = malloc(sizeof(timed_effect_t));
-    if(!timer) return TIMED_EFFECT_FAIL;
-    
-    memset(timer, 0, sizeof(timed_effect_t));
-           
-    timer->data = malloc(sizeof(timed_effect_data_t));
-    memset(timer->data, 0, sizeof(timed_effect_t));
-    memcpy(timer->data, data, sizeof(timed_effect_data_t));
-           
-    timer->handle = malloc(sizeof(pthread_t));
+    timed_effect_t *timer = 0;
+    timer = malloc(sizeof(timed_effect_t));
+    if(!timer) return TIMED_EFFECT_FAIL; // combine
+
+    timer->run_flag = 0;
     
     *handle = (timed_effect_handle*)timer;
+    
     return TIMED_EFFECT_OK;
 }
 
 
-int cue_timed_effect(timed_effect_handle *timer)
+int cue_timed_effect(timed_effect_data_t *data)
 {   
-    pthread_mutex_lock(&wait_mutex);
-    pthread_mutex_unlock(&wait_mutex);
-
-    timed_effect_t *_timer = (timed_effect_t*)timer;
     pthread_attr_t attr;
     pthread_attr_init(&attr);
     pthread_attr_setstacksize(&attr, 512);
-    int result = pthread_create(_timer->handle, &attr, do_timed_effect, (void*)(_timer->data) );
+
+    timed_effect_t *te = (timed_effect_t*)data->timer_handle;
+    pthread_t thread = te->handle;
+    int result = pthread_create(&thread, &attr, do_timed_effect, (void*)(data) );
     //check result   
     if(result){}
     

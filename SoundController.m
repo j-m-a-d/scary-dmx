@@ -22,38 +22,5 @@ int _numberOfBands;
         levelIndicators[i+7] = li;
     }
 }
-/*
--(void) monitorFrequencies:(QTAudioFrequencyLevels*)levels
-{
-    if(!levels) return;
-    register int i;
-    for(i=0; i<_numberOfBands; i++){ 
-        [levelIndicators[i] setFloatValue:((float)levels->level[i])*100.0];
-        [levelIndicators[i+_numberOfBands] setFloatValue:((float)levels->level[i+_numberOfBands])*100.0];   
-    }
-}
 
-void freqCallback(void* objRef, QTAudioFrequencyLevels* levels)
-{
-    id myself = (id)objRef;    
-    if([myself respondsToSelector:@selector(monitorFrequencies:)]){
-        [myself monitorFrequencies:levels];
-    }        
-}
-
--(void) startMonitor:(int)numberOfBands
-{
-    registerSelfAsFreqListener((void*)self, &freqCallback);
-    _numberOfBands = numberOfBands;
-}
-
--(void) stopMonitor
-{
-    register int i;
-    for(i=0; i< _numberOfBands; i++){
-        [levelIndicators[i] setFloatValue:0.0];
-        [levelIndicators[i+_numberOfBands] setFloatValue:0.0];
-    }
-}
-*/
 @end

@@ -18,10 +18,10 @@ enum {
     FLICKER_BAD_CHANNEL
 };
     
-// Start the 'flicker' effect thread.
+/* Start the 'flicker' effect thread. */
 int start_flicker(channel_list_t);
 
-// Stop the 'flicker' effect thread.
+/* Stop the 'flicker' effect thread. */
 void stop_flicker();
 
 #endif

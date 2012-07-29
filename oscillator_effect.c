@@ -22,10 +22,11 @@ if(!oscillating) { \
         break;break; \
 } \
 pthread_mutex_unlock(&oscillator_mutex);
-//
-//  Flag that indicates this thread is running.
+
+
+/* Flag that indicates this thread is running. */
 volatile static int oscillating = 0;
-//
+
 static pthread_t oscillator_pt = 0;
 static pthread_mutex_t oscillator_mutex = PTHREAD_MUTEX_INITIALIZER;
 
@@ -84,8 +85,9 @@ void stop_oscillating()
     pthread_mutex_lock(&oscillator_mutex);
         oscillating=0;    
     pthread_mutex_unlock(&oscillator_mutex);
-    if(oscillator_pt)
-        pthread_join(oscillator_pt, NULL);
+    pthread_cancel(oscillator_pt);
+    pthread_join(oscillator_pt, NULL);
+    oscillator_pt = 0;
 }
 
 /*
@@ -98,7 +100,7 @@ int start_oscillating(const oscillator_data_t *inData)
         return OSCILLATOR_BAD_CHANNEL;
     }*/
     
-    //signal we are ready to oscillate.
+    /* signal we are ready to oscillate. */
     pthread_mutex_lock(&oscillator_mutex);    
         if(oscillating){
             pthread_mutex_unlock(&oscillator_mutex);

@@ -1,12 +1,13 @@
-//
-//  AnalyzerDisplayHandler.m
-//  Scary DMX
-//
-//  Created by Jason Diprinzio on 11/8/11.
-//  Copyright 2011 Inspirotech Consulting, Inc. All rights reserved.
-//
+/*
+ *  AnalyzerDisplayHandler.m
+ *  Scary DMX
+ *
+ *  Created by Jason Diprinzio on 11/8/11.
+ *  Copyright 2011 Inspirotech Consulting, Inc. All rights reserved.
+ */
 
 #import "FrequencyAnalyzerDisplayController.h"
+#import "sound_analyzer.h"
 #import "QuickTime/QuickTime.h"
 
 @implementation FrequencyAnalyzerDisplayController

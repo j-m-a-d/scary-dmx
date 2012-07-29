@@ -1,10 +1,10 @@
-//
-//  ShowTableViewDS.m
-//  Scary DMX
-//
-//  Created by Jason DiPrinzio on 10/10/09.
-//  Copyright 2009 Inspirotech Inc. All rights reserved.
-//
+/*
+ *  ShowTableViewDS.m
+ *  Scary DMX
+ *
+ *  Created by Jason DiPrinzio on 10/10/09.
+ *  Copyright 2009 Inspirotech Inc. All rights reserved.
+ */
 
 #import "ShowTableViewDS.h"
 #import <QuickTime/QuickTime.h>
@@ -128,21 +128,21 @@ NSString *formatDuration(long duration)
         return;
     }
     cue_node_t *aCue = showData->currentCue;
-    //
+
     short refId = 0;
     Movie *movie = 0;
     long duration = 0;
-    //
+
 	[durations release];
     [durations dealloc];
     durations = [[NSMutableArray alloc] init];
 	[durations retain];
-    //
+
     register int i =0;
     for(i=0; i< numberOfRows; i++){
-        //map pointer array to each cue pointer;
+        /* map pointer array to each cue pointer */
         showDataIndex[i] = aCue;
-        //get the movie duration for each movie in the list
+        /* get the movie duration for each movie in the list */
         analyzer_data_t *aData = aCue->cue->aData;
         TimeValue v = 0;
         TimeScale s = 0;
@@ -165,7 +165,7 @@ NSString *formatDuration(long duration)
         NSString *length = formatDuration(duration);
         if(length)
             [durations addObject:length];        
-        //move to the next node in the list
+        /* move to the next node in the list */
         aCue = aCue->nextCue;
     }
     if(movie){

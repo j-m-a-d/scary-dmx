@@ -1,4 +1,5 @@
 #import "MainWinController.h"
+#import "show_handler.h"
 #import "SoundController.h"
 #import "ShowTableViewDS.h"
 
@@ -34,14 +35,14 @@ static unsigned short _current_cue_index = 0;
     [oPanel setMessage:@"Choose show file to open."];
     [oPanel setDelegate:self];
 
-    // Go to the last opend directory if there was one.
+    /* Go to the last opend directory if there was one. */
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *lastShowDir = (NSString*)[defaults objectForKey:LAST_OPENED_SHOW_DIR];
     NSString *path = NSHomeDirectory();
     if(nil != lastShowDir){
         path = lastShowDir;
     }
-    // Launch the dialog.    
+    /* Launch the dialog. */
     result = [oPanel runModalForDirectory:path file:nil types:fileTypes];
     if (NSOKButton == result) {
         [self stopShow: self];
@@ -182,10 +183,10 @@ void show_next_step(void *objRef, cue_node_t *cueData)
     
     EnterMovies();
     
-    // Setup show table
+    /* Setup show table */
     [ds setColumnHeaders:[showTable tableColumns]];
     
-    // Load a show if we can find the last show opened.
+    /* Load a show if we can find the last show opened. */
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults retain];
     NSString *lastShow = (NSString*)[defaults objectForKey:LAST_OPENED_SHOW];

@@ -13,10 +13,10 @@
 #include <unistd.h>
 #include <pthread.h>
 
-//
+
 static pthread_t flicker_pt = 0;
 static pthread_mutex_t flicker_mutex = PTHREAD_MUTEX_INITIALIZER;
-//
+
 static int flickering = 0;
 
 /*
@@ -40,12 +40,12 @@ void *Flicker(void *channels)
 {
     channel_list_t dmxChannels = (channel_list_t)channels;
 
-    //Effect speed.
+    /* Effect speed. */
 	useconds_t seconds = 10000;
     
 	register dmx_value_t i=0;
 	while(flickering){
-        //Hardcoded sequence of values for this effect on a dimmer pack.
+        /* Hardcoded sequence of values for this effect on a dimmer pack. */
 	    for(i=65; i<155; i+=2){ 
             update_channels(dmxChannels, i); 
             usleep(seconds);

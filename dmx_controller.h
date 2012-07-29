@@ -25,22 +25,24 @@ enum {
     DMX_INIT_SET_DATA_FLOW_FAIL    
 };
 
-//initialize dmx output
+/*initialize dmx output*/
 int init_dmx();
 
-//stop threads
+/* stop threads */
 void stop_dmx();
 
-//kill everything
+/*kill everything */
 void destroy_dmx();
 
-//start threads;
+/* start threads */
 void start_dmx();
 
-//update one channel with a new value
+/* update one channel with a new value */
 void update_channel(dmx_channel_t, dmx_value_t);
 
-//update all channels at once
+void update_channels(channel_list_t channelList, dmx_value_t val);
+
+/* update all channels at once */
 void bulk_update(unsigned char*);
 
 void get_channel_buffer(dmx_value_t *buf, int offset, int num_channels);

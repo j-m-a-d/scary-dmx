@@ -18,14 +18,14 @@
 
 #define MAX_DEVICES		1
 
-// Globals
+/* Globals */
 static FT_HANDLE    dmxDevice = 0;
-//
+
 static dmx_value_t outputBuffer[DMX_CHANNELS];
-//
+
 static pthread_t dmx_writer_pt = 0;
 static pthread_mutex_t dmx_mutex = PTHREAD_MUTEX_INITIALIZER;
-//
+
 static volatile int writing = 0;
 
 /*
@@ -262,8 +262,9 @@ int init_dmx()
  */
 void start_dmx()
 {
-    //If the DMX device is not initialized try
-    // initializing then try running.
+    /* If the DMX device is not initialized try
+     *  initializing then try running.
+     */
     pthread_mutex_lock(&dmx_mutex);
         //If the DMX device is initialized correctly see
         // if we are already started.
@@ -277,9 +278,9 @@ void start_dmx()
             return;
         }
         pthread_create(&dmx_writer_pt, NULL, Write_Buffer, NULL);
-        //TODO check result ^^
+        /* TODO check result ^^ */
         fprintf(stdout, "Starting DMX transmission.\n");
-        //We can now allow threads to write updates to the output buffer.
+        /* We can now allow threads to write updates to the output buffer. */
         writing = 1;
     pthread_mutex_unlock(&dmx_mutex);
 }
