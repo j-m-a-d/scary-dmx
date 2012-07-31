@@ -333,7 +333,7 @@ int start_analyze(analyzer_data_t *data_in, void(*callback)())
      * can cleanup this new allocation in the pthread once it makes
      * a copy.
      */
-    onitor_data_t *data = malloc(sizeof(monitor_data_t));
+    monitor_data_t *data = malloc(sizeof(monitor_data_t));
     
     data->dmxChannelList = copy_channel_list(data_in->dmxChannelList);
    
