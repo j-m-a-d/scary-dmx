@@ -14,7 +14,6 @@
 		960887640F3CD61D005D8118 /* MainWinController.m in Sources */ = {isa = PBXBuildFile; fileRef = 960887630F3CD61D005D8118 /* MainWinController.m */; };
 		96138FFC1080CEFD00147788 /* ShowTableViewDS.m in Sources */ = {isa = PBXBuildFile; fileRef = 96138FFB1080CEFD00147788 /* ShowTableViewDS.m */; };
 		962EA6E60F5B0BEA00DCC0C1 /* SoundController.m in Sources */ = {isa = PBXBuildFile; fileRef = 962EA6E50F5B0BEA00DCC0C1 /* SoundController.m */; };
-		9635B9E8146A1502004552B8 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9635B9E3146A14E1004552B8 /* OpenGL.framework */; };
 		9642140310B0783400F9F364 /* OscillatorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9642140210B0783400F9F364 /* OscillatorController.m */; };
 		967B70BA10DEBF6A00318111 /* chaser_handler.c in Sources */ = {isa = PBXBuildFile; fileRef = 967B70B910DEBF6A00318111 /* chaser_handler.c */; };
 		968800391471CF9200754002 /* DMXOutputDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 968800381471CF9200754002 /* DMXOutputDisplayController.m */; };
@@ -53,7 +52,6 @@
 		96138FFB1080CEFD00147788 /* ShowTableViewDS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowTableViewDS.m; sourceTree = "<group>"; };
 		962EA6E40F5B0BEA00DCC0C1 /* SoundController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SoundController.h; sourceTree = "<group>"; };
 		962EA6E50F5B0BEA00DCC0C1 /* SoundController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = SoundController.m; sourceTree = "<group>"; };
-		9635B9E3146A14E1004552B8 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/OpenGL.framework; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		9642140110B0783400F9F364 /* OscillatorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OscillatorController.h; sourceTree = "<group>"; };
 		9642140210B0783400F9F364 /* OscillatorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OscillatorController.m; sourceTree = "<group>"; };
 		967B70B810DEBF6A00318111 /* chaser_handler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chaser_handler.h; sourceTree = "<group>"; };
@@ -101,7 +99,6 @@
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				96AF8DFD0F2B857300369C1E /* libftd2xx.dylib in Frameworks */,
 				96FE58061079A00900A92124 /* QuickTime.framework in Frameworks */,
-				9635B9E8146A1502004552B8 /* OpenGL.framework in Frameworks */,
 				96E0BD911478576A0050B8F7 /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -127,6 +124,8 @@
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				96FE58051079A00900A92124 /* QuickTime.framework */,
+				96E0BD901478576A0050B8F7 /* OpenGL.framework */,
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
 			);
 			name = "Linked Frameworks";
@@ -139,8 +138,6 @@
 				13E42FB307B3F0F600E4EEF1 /* CoreData.framework */,
 				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
 				96AF8DEA0F2B857300369C1E /* libftd2xx.dylib */,
-				9635B9E3146A14E1004552B8 /* OpenGL.framework */,
-				96FE58051079A00900A92124 /* QuickTime.framework */,
 			);
 			name = "Other Frameworks";
 			sourceTree = "<group>";
@@ -161,7 +158,6 @@
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
-				96E0BD901478576A0050B8F7 /* OpenGL.framework */,
 			);
 			name = "Scary DMX";
 			sourceTree = "<group>";
@@ -385,6 +381,7 @@
 					_REENTRANT,
 					pthread,
 				);
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
 				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
@@ -406,7 +403,7 @@
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)\"";
 				ONLY_ACTIVE_ARCH_PRE_XCODE_3_1 = "$(NATIVE_ARCH)";
 				PRODUCT_NAME = "Scary DMX";
-				SDKROOT = macosx;
+				SDKROOT = "";
 				STRINGS_FILE_OUTPUT_ENCODING = "UTF-8";
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = YES;
@@ -430,6 +427,7 @@
 					_REENTRANT,
 					pthread,
 				);
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
 				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
@@ -449,7 +447,7 @@
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)\"";
 				ONLY_ACTIVE_ARCH_PRE_XCODE_3_1 = "$(NATIVE_ARCH)";
 				PRODUCT_NAME = "Scary DMX";
-				SDKROOT = macosx;
+				SDKROOT = "";
 				STRINGS_FILE_OUTPUT_ENCODING = "UTF-8";
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = NO;
@@ -459,20 +457,22 @@
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+				SDKROOT = "";
 			};
 			name = Debug;
 		};
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+				SDKROOT = "";
 			};
 			name = Release;
 		};
