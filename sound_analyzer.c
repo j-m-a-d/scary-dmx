@@ -38,7 +38,7 @@ typedef struct _monitor_data_t {
     short frequency;
     channel_list_t dmxChannelList;
     dmx_value_t dmxValue; // fix alignment
-    Float32 threshold;
+    double threshold;
     int flags;
     void(*callback)();
     void *callback_data;
@@ -226,7 +226,7 @@ void chase_monitor(monitor_data_t *data, QTAudioFrequencyLevels *freqs)
     unsigned int length = data->dmxChannelList->length;
     if(lastChannel >= length) lastChannel = 0;
     dmx_channel_t ch = data->dmxChannelList->channels[lastChannel];
-    Float32 value = 0.0;
+    Float32 value = 0.0F;
     if(freqs) {
         value = freqs->level[data->frequency];
     }

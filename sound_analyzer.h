@@ -39,7 +39,7 @@ typedef struct _analyzer_data_t {
     dmx_value_t dmxValue;
     unsigned long numberOfBandLevels;
     short frequency;
-    float threshold;
+    double threshold;
     int flags;
 } analyzer_data_t;
 

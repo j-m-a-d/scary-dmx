@@ -20,6 +20,7 @@ int yywrap()
 /* DECS */
 void yyrestart(FILE*);
 int yyparse();
+int yylex();
 
 int parse_show_file(const char *filename, dmx_show_t **show)
 {

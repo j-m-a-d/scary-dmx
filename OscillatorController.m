@@ -20,7 +20,7 @@
     odata.dmxChannels = channel_list_from_data(1, chs);
     [speedLevel setIntValue:[speed intValue]];
     
-    [speedLevel setFrameRotation:90.0];
+    [speedLevel setFrameRotation:90.0F];
 }
 
 - (IBAction)toggleOscillator:(id)sender

@@ -6,8 +6,8 @@ int _numberOfBands;
 
 -(void) awakeFromNib
 {
-    [levelViewLeft setFrameRotation:90.0];
-    [levelViewRight setFrameRotation:90.0];
+    [levelViewLeft setFrameRotation:90.0F];
+    [levelViewRight setFrameRotation:90.0F];
     register int i;
     for(i=0; i<7; i++){
         id li = [levelViewLeft viewWithTag:i];
