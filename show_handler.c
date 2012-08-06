@@ -14,26 +14,37 @@
 #include <stdio.h>
 #include <pthread.h>
 
-static dmx_show_t *live_show = 0;
+static dmx_show_t *_live_show = 0;
 
-static pthread_t show_pt = 0;
+static pthread_t _show_pt = 0;
 
-enum {
-    SHOW_STOPPED,
-    SHOW_STARTED,
-    SHOW_RUNNING,
-    SHOW_SKIPPING
+enum show_state {
+    SHOW_STATE_STOPPED    =1 << 0,
+    SHOW_STATE_STOPPING   =1 << 1,
+    SHOW_STATE_STARTING   =1 << 2,
+    SHOW_STATE_RUNNING    =1 << 3,
+    SHOW_STATE_SKIPPING   =1 << 4
 };
-static int showing = 0;
 
-static pthread_mutex_t show_mutex = PTHREAD_MUTEX_INITIALIZER;
-static pthread_mutex_t control_mutex = PTHREAD_MUTEX_INITIALIZER;
+static enum show_state _state;
 
-static void(*call_show_end)(void*) = 0;
-static void *show_end_obj = 0;
+//static pthread_mutex_t _show_mutex = PTHREAD_MUTEX_INITIALIZER;
+static pthread_mutex_t _control_mutex = PTHREAD_MUTEX_INITIALIZER;
 
-static void(*call_show_next_step)(void*, cue_node_t *) = 0;
-static void *show_next_step_obj = 0;
+static void(*_call_show_end)(void*) = 0;
+static void *_show_end_obj = 0;
+
+static void(*_call_show_next_step)(void*, cue_node_t *) = 0;
+static void *_show_next_step_obj = 0;
+
+#define SHOWING() \
+    (SHOW_STATE_RUNNING & _state)
+
+#define SHOW_STOPPED() \
+    (SHOW_STATE_STOPPED & _state)
+
+#define SHOW_INTRANSIT() \
+    ( 0x16 & _state )
 
 /*
     Advance the current cue in the show.
@@ -41,7 +52,8 @@ static void *show_next_step_obj = 0;
 static int advance_cue(dmx_show_t *show)
 {
     show->currentCue = show->currentCue->nextCue;
-    return (NULL == show->currentCue || NULL == show->currentCue->cue || show->currentCue->cue->empty);
+    return (NULL == show->currentCue || NULL == show->currentCue->cue ||
+            show->currentCue->cue->empty);
 }
 
 /*
@@ -89,7 +101,7 @@ int free_show(dmx_show_t *show)
 
 int free_all_show()
 {
-    FREE_SHOW(live_show);
+    FREE_SHOW(_live_show);
     return 0;
 }
 
@@ -330,52 +342,24 @@ void set_timer_data_for_current_cue(dmx_show_t *show, timed_effect_data_t *data)
     }
 }
 
-/*
- Stop the show sequence.
- */
-void stop_show()
-{
-    pthread_mutex_lock(&show_mutex);   
-        showing = 0;
-    pthread_mutex_unlock(&show_mutex); 
-    /*
-     The show thread is only 'alive' during
-     the setup of a cue.  It exits immediately
-     but in case a call to stop_show comes immediately
-     after a call to start_show we'll wait for the show
-     thread to exit first.
-     */
-    if(0 != show_pt){
-        pthread_join(show_pt, NULL);
-        show_pt = 0;
-    }
-    stop_analyze();
-    stop_oscillating();
-    stop_flicker();
-    stop_timed_effects(NULL);
-}
-
-void go_to_next_step();
+static void go_to_next_step();
 
 /*
  Thread function to invoke the next step in the show.
  */
 static void *next_step()
-{ 
-    pthread_mutex_lock(&show_mutex);
-    if(!showing){
-        pthread_mutex_unlock(&show_mutex);
-        pthread_exit(NULL);     
+{
+    if(!SHOWING()){
+        goto die_now;
     }
-    pthread_mutex_unlock(&show_mutex);
     
 	int result = 0;
     stop_oscillating();
     stop_flicker();
-    if(live_show->currentCue->previousCue)
-        stop_timed_effects(live_show->currentCue->previousCue->cue->timer);
+    if(_live_show->currentCue->previousCue)
+        stop_timed_effects(_live_show->currentCue->previousCue->cue->timer);
         
-    cue_node_t *cueNode = live_show->currentCue;
+    cue_node_t *cueNode = _live_show->currentCue;
     cue_t *cue = cueNode->cue;
      
     if(cue->aData && !cue->stepDuration){
@@ -411,41 +395,70 @@ static void *next_step()
         start_timed_effects();
     }
 die_now:
-	pthread_mutex_unlock(&show_mutex);
 	pthread_exit(NULL);
 
+}
+
+static void _stop_show()
+{
+    /*
+     The show thread is only 'alive' during
+     the setup of a cue.  It exits immediately
+     but in case a call to stop_show comes immediately
+     after a call to start_show we'll wait for the show
+     thread to exit first.
+     */
+    if(0 != _show_pt){
+        pthread_join(_show_pt, NULL);
+        _show_pt = 0;
+    }
+    stop_analyze();
+    stop_oscillating();
+    stop_flicker();
+    stop_timed_effects(NULL);
+}
+
+/*
+ Stop the show sequence.
+ */
+void stop_show()
+{
+    if(SHOW_STOPPED())
+        return;
+    
+    pthread_mutex_lock(&_control_mutex);
+    _state = SHOW_STATE_STOPPING;
+    
+    _stop_show();
+    
+    _state = SHOW_STATE_STOPPED;
+    pthread_mutex_unlock(&_control_mutex);
 }
 
 /*
  Callback from movie thread to know when to move to the next scene.
  */
-void go_to_next_step()
+static void go_to_next_step()
 {
-    /*
-     Get a lock on the show_mutex before we move to the next
-     step in the event we have been interrupted.
-     */
     int showOver = 0;
-        
-    pthread_mutex_lock(&show_mutex);
-    if(showing){
+    if(SHOWING()){
         /* Cue up the next scene. */
-        showOver = advance_cue(live_show); 
+        showOver = advance_cue(_live_show); 
         if(!showOver){        
-            pthread_create(&show_pt, NULL, &next_step, NULL);
-            if(call_show_next_step){
-                call_show_next_step(show_next_step_obj, live_show->currentCue);
+            pthread_create(&_show_pt, NULL, &next_step, NULL);
+            if(_call_show_next_step){
+                /* notify listeners */
+                _call_show_next_step(_show_next_step_obj, _live_show->currentCue);
             }
         } else {
-            pthread_mutex_unlock(&show_mutex);
             stop_show();
-            _rewind_show(live_show);
-            if(call_show_end){
-                call_show_end(show_end_obj);
+            _rewind_show(_live_show);
+            if(_call_show_end){
+                /* notify listeners */
+                _call_show_end(_show_end_obj);
             }
         }
     }
-    pthread_mutex_unlock(&show_mutex);
 }
 
 /*
@@ -458,11 +471,11 @@ int load_show_from_file(const char *show_file, dmx_show_t **out_show)
     dmx_show_t *newShow;
     int result = parse_show_file(show_file, &newShow);
     if(!result && NULL != newShow){
-        if(live_show != NULL) {
-            FREE_SHOW(live_show);
+        if(_live_show != NULL) {
+            FREE_SHOW(_live_show);
         }
-        live_show = newShow;
-        *out_show = live_show;
+        _live_show = newShow;
+        *out_show = _live_show;
     }
     return result;
 }
@@ -471,9 +484,17 @@ int load_show_from_file(const char *show_file, dmx_show_t **out_show)
  Set a pre-built show to be played.
  */
 int setShow(dmx_show_t *show){
+    if(SHOW_STOPPED())
+        return 1;
+    
     free_all_show();
-    live_show = show;
+    _live_show = show;
     return 0;
+}
+
+static void _start_show()
+{
+    pthread_create(&_show_pt, NULL, &next_step, NULL);
 }
 
 /*
@@ -481,13 +502,17 @@ int setShow(dmx_show_t *show){
  */
 int start_show()
 {
-    if(NULL == live_show) return DMX_SHOW_NOT_LOADED;
-    pthread_mutex_lock(&show_mutex);
-    if(!showing){
-        showing = 1;
-        pthread_create(&show_pt, NULL, &next_step, NULL);
-    }
-    pthread_mutex_unlock(&show_mutex);
+    if(NULL == _live_show) return DMX_SHOW_NOT_LOADED;
+    if(SHOW_STATE_RUNNING==_state) return 0;
+    
+    pthread_mutex_lock(&_control_mutex);
+    _state = SHOW_STATE_STARTING;
+    
+    _start_show();
+    
+    _state = SHOW_STATE_RUNNING;
+    pthread_mutex_unlock(&_control_mutex);
+    
     return DMX_SHOW_OK;
 }
 
@@ -508,17 +533,21 @@ void _rewind_show(dmx_show_t *show)
  */
 void rewind_show()
 {
-    pthread_mutex_lock(&control_mutex);  
-    if(!showing){
-        _rewind_show(live_show);
-        pthread_mutex_unlock(&control_mutex);
-        return;
+    pthread_mutex_lock(&_control_mutex);
+    enum show_state lastState = _state;
+    _state = SHOW_STATE_SKIPPING;
+
+
+    if(SHOW_STATE_RUNNING == lastState){
+        _stop_show();
+        _rewind_show(_live_show);
+        _start_show();
+    } else {
+        _rewind_show(_live_show);
     }
-    
-    _rewind_show(live_show);   
-    stop_show();
-    start_show();
-    pthread_mutex_unlock(&control_mutex);
+
+    _state = lastState;
+    pthread_mutex_unlock(&_control_mutex);
 }
 
 /*
@@ -526,16 +555,25 @@ void rewind_show()
  */
 int skip_cue()
 {
-    pthread_mutex_lock(&control_mutex);
-    //pthread_mutex_lock(&show_mutex);
-    if(showing){
+    if(SHOW_INTRANSIT())
+        return -1;
+
+    pthread_mutex_lock(&_control_mutex);
+    enum show_state last_state = _state;
+
+    _state = SHOW_STATE_SKIPPING;
+
+    if(SHOW_STATE_RUNNING & last_state) {
         skip_movie();
-    } else if(live_show && live_show->currentCue->nextCue){
-        live_show->currentCue = live_show->currentCue->nextCue;
-        call_show_next_step(show_next_step_obj, live_show->currentCue);
+    } else if(_live_show && _live_show->currentCue->nextCue){
+        _live_show->currentCue = _live_show->currentCue->nextCue;
+        _call_show_next_step(_show_next_step_obj, _live_show->currentCue);
     }
-    //pthread_mutex_unlock(&show_mutex);
-    pthread_mutex_unlock(&control_mutex);
+
+    _state = last_state;
+    
+    pthread_mutex_unlock(&_control_mutex);
+
     return 0;
 }
 
@@ -543,13 +581,11 @@ int skip_cue()
  Register show events
  */
 void register_show_ended(void *callRef, void(*showEnded)(void*)){
-    call_show_end = showEnded;
-    show_end_obj = callRef;
+    _call_show_end = showEnded;
+    _show_end_obj = callRef;
  }
  
 void register_show_next_step(void *callRef, void(*show_next_step)(void*, cue_node_t*)){
-    call_show_next_step = show_next_step;
-    show_next_step_obj = callRef;
+    _call_show_next_step = show_next_step;
+    _show_next_step_obj = callRef;
 }
-
-
