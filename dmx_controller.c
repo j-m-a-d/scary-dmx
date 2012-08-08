@@ -196,7 +196,7 @@ int init_dmx()
     int iNumDevs = 0;
     int i;
 
-    //init the device info buffers
+    /* Init the device info buffers */
     for(i = 0; i < MAX_DEVICES; i++) {
         pcBufLD[i] = cBufLD[i];
     }
@@ -266,8 +266,9 @@ void start_dmx()
      *  initializing then try running.
      */
     pthread_mutex_lock(&dmx_mutex);
-        //If the DMX device is initialized correctly see
-        // if we are already started.
+        /* If the DMX device is initialized correctly see
+         * if we are already started.
+         */
         if(writing || dmxDevice){
             pthread_mutex_unlock(&dmx_mutex);
             return;

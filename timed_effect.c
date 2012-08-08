@@ -98,7 +98,7 @@ void stop_timed_effects(timed_effect_data_t *timer)
 void *do_timed_effect(void *data_in)
 {
     timed_effect_data_t *data = (timed_effect_data_t*)data_in;
-    //wait here until the timers are told to start.
+    /* Wait here until the timers are told to start. */
     pthread_mutex_lock(&wait_mutex);
     while(!timed)
         pthread_cond_wait(&wait_cond, &wait_mutex);
@@ -138,7 +138,7 @@ int cue_timed_effect(timed_effect_data_t *data)
     timed_effect_t *te = (timed_effect_t*)data->timer_handle;
     pthread_t thread = te->handle;
     int result = pthread_create(&thread, &attr, do_timed_effect, (void*)(data) );
-    //check result   
+    /* Check result */
     if(result){}
     
     return TIMED_EFFECT_OK;

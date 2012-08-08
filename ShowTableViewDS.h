@@ -1,10 +1,10 @@
-//
-//  ShowTableViewDS.h
-//  Scary DMX
-//
-//  Created by Jason DiPrinzio on 10/10/09.
-//  Copyright 2009 Inspirotech Inc. All rights reserved.
-//
+/*
+ *  ShowTableViewDS.h
+ *  Scary DMX
+ *
+ *  Created by Jason DiPrinzio on 10/10/09.
+ *  Copyright 2009 Inspirotech Inc. All rights reserved.
+ */
 
 #import <Cocoa/Cocoa.h>
 #ifndef SHOW_HANDLER_H

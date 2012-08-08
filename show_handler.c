@@ -28,7 +28,6 @@ enum show_state {
 
 static enum show_state _state;
 
-//static pthread_mutex_t _show_mutex = PTHREAD_MUTEX_INITIALIZER;
 static pthread_mutex_t _control_mutex = PTHREAD_MUTEX_INITIALIZER;
 
 static void(*_call_show_end)(void*) = 0;

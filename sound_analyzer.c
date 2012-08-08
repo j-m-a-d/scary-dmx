@@ -166,7 +166,7 @@ void *monitor(void *data_in)
     
 cleanup:
     /* Stop the movie first before we start to cleanup */
-    if(movie){// && !IsMovieDone(*movie)){
+    if(movie){
         StopMovie(*movie);           
     }    
 
@@ -184,7 +184,7 @@ cleanup:
     movie = 0;
     
     /* Let our listener(s) know */
-    if(callback){// && monitoring){
+    if(callback){
         pthread_create(&callback_thread, NULL, do_callback, (void*)callback);
     } 
     

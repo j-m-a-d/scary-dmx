@@ -93,7 +93,7 @@ void *Flicker(void *channels)
 	}
     
 cleanup:
-    //Reset
+    /* Reset */
     i=0;
 	update_channels(dmxChannels, i);    
 	pthread_exit(NULL);
