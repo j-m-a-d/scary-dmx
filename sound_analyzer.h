@@ -13,7 +13,6 @@
 #include "utils.h"
 
 #define MAX_ANALYZE_CHANNELS 2
-//#define MAX_ANALYZE_BANDS 20
 
 #define FREE_ANALYZER_DATA(data) \
     free_analyzer_data(data); \

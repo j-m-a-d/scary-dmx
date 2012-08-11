@@ -72,7 +72,7 @@ void *Oscillate(void* data_in){
     }
     
 cleanup:
-    //Reset
+    /* Reset */
     update_channels(val->dmxChannels, 0);
     pthread_exit(NULL);
 }
