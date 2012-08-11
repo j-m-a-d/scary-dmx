@@ -483,7 +483,8 @@ int load_show_from_file(const char *show_file, dmx_show_t **out_show)
 /*
  Set a pre-built show to be played.
  */
-int setShow(dmx_show_t *show){
+int setShow(dmx_show_t *show)
+{
     if(SHOW_STOPPED())
         return 1;
     
@@ -580,12 +581,14 @@ int skip_cue()
 /*
  Register show events
  */
-void register_show_ended(void *callRef, void(*showEnded)(void*)){
+void register_show_ended(void *callRef, void(*showEnded)(void*))
+{
     _call_show_end = showEnded;
     _show_end_obj = callRef;
  }
  
-void register_show_next_step(void *callRef, void(*show_next_step)(void*, cue_node_t*)){
+void register_show_next_step(void *callRef, void(*show_next_step)(void*, cue_node_t*))
+{
     _call_show_next_step = show_next_step;
     _show_next_step_obj = callRef;
 }
