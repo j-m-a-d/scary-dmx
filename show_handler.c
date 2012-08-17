@@ -492,6 +492,9 @@ int setShow(dmx_show_t *show)
     return 0;
 }
 
+/*
+ Only called from start_show()
+ */
 static void _start_show()
 {
     pthread_create(&_show_pt, NULL, &next_step, NULL);
