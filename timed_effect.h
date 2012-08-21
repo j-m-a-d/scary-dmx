@@ -35,13 +35,13 @@ int create_timed_effect_handle(timed_effect_handle **handle);
 
 int cue_timed_effect(timed_effect_data_t *timer_data);
 
-void free_timed_effect(timed_effect_data_t *);
+void free_timed_effects(timed_effect_data_t *);
 
 int start_timed_effects();
 void stop_timed_effects();
 
 #define FREE_TIMED_EFFECTS(data) \
-free_timed_effect(data); \
+free_timed_effects(data); \
 data = 0;
 
 #endif

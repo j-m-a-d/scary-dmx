@@ -378,14 +378,14 @@ static void *next_step()
         start_oscillating(cue->oData);
     }
     
+    timed_effects_init();
+    
     if(cue->timer){
         /* do each timer */
         timed_effect_data_t *tdata = cue->timer;
         while(NULL != tdata){
-            timed_effect_handle *timer = 0;
             if(!tdata->timer_handle){
-                create_timed_effect_handle(&timer);
-                tdata->timer_handle = timer;
+                create_timed_effect_handle(&(tdata->timer_handle));
             }
             cue_timed_effect(tdata);
             tdata = tdata->nextTimer;
@@ -414,7 +414,8 @@ static void _stop_show()
     stop_analyze();
     stop_oscillating();
     stop_flicker();
-    stop_timed_effects(NULL);
+    if(_live_show)
+        stop_timed_effects(_live_show->currentCue->cue->timer);
 }
 
 /*

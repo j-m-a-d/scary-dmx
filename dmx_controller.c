@@ -40,9 +40,9 @@ void stop_dmx()
     printf("Stopping DMX transmission.\n");
 
     pthread_mutex_lock(&dmx_mutex);
-
+    
+    memset(outputBuffer, 0, DMX_CHANNELS * sizeof(dmx_value_t));
     if(dmxDevice) {
-        memset(outputBuffer, 0, DMX_CHANNELS * sizeof(dmx_value_t));
         usleep(500000);	
         writing=0;	
         pthread_join(dmx_writer_pt,NULL);
