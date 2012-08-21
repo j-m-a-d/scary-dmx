@@ -27,9 +27,14 @@ void stop_flicker()
     pthread_mutex_lock(&flicker_mutex);
         flickering = 0;
     pthread_mutex_unlock(&flicker_mutex);
-    if(flicker_pt)
-        pthread_join(flicker_pt, NULL);
-    flicker_pt = 0;
+    pthread_cancel(flicker_pt);
+    pthread_join(flicker_pt, NULL);
+}
+
+static void reset_dmx_state(void *data)
+{
+    channel_list_t dmxChannels = (channel_list_t)data;
+    update_channels(dmxChannels, 0);
 }
 
 /*
@@ -38,8 +43,12 @@ void stop_flicker()
 */
 void *Flicker(void *channels)
 {
+    pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
+    pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, NULL);
     channel_list_t dmxChannels = (channel_list_t)channels;
 
+    pthread_cleanup_push(reset_dmx_state, dmxChannels);
+    
     /* Effect speed. */
 	useconds_t seconds = 10000;
     
@@ -50,52 +59,34 @@ void *Flicker(void *channels)
             update_channels(dmxChannels, i); 
             usleep(seconds);
         }
-        
-        if(!flickering) break;
-	    
+
         for(i=155; i>100; i-=2){ 
             update_channels(dmxChannels, i); 
-            if(!flickering) break;
             usleep(seconds);
         }
 
-        if(!flickering) break;
-	    
 		for(i=100; i<125; i+=2){ 
             update_channels(dmxChannels, i); 
-            if(!flickering) break;
             usleep(seconds);
         }
 
-        if(!flickering) break;
-	    
 		for(i=125; i>75; i-=2){ 
-            update_channels(dmxChannels, i); 
-            if(!flickering) break;
+            update_channels(dmxChannels, i);
             usleep(seconds);
         }
 
-        if(!flickering) break;
-	    
 		for(i=75; i<125; i+=2){ 
-            update_channels(dmxChannels, i); 
-            if(!flickering) break;
+            update_channels(dmxChannels, i);
             usleep(seconds);
         }
 
-        if(!flickering) break;
-	    
 		for(i=125; i>65; i-=2){ 
             update_channels(dmxChannels, i); 
-            if(!flickering) break;
             usleep(seconds);
         }
 	}
-    
-cleanup:
-    /* Reset */
-    i=0;
-	update_channels(dmxChannels, i);    
+
+    pthread_cleanup_pop(1);
 	pthread_exit(NULL);
 }
 

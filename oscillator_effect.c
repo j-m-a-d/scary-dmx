@@ -14,16 +14,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-
-#define CHECK_OSCILLATING \
-pthread_mutex_lock(&oscillator_mutex); \
-if(!oscillating) { \
-    pthread_mutex_unlock(&oscillator_mutex);\
-        break;break; \
-} \
-pthread_mutex_unlock(&oscillator_mutex);
-
-
 /* Flag that indicates this thread is running. */
 volatile static int oscillating = 0;
 
@@ -46,34 +36,39 @@ inline void free_oscillator_data(oscillator_data_t *tdata)
     }
 }
 
+static void reset_dmx_state(void *data)
+{
+    channel_list_t dmxChannels = (channel_list_t)data;
+    update_channels(dmxChannels, 0);
+}
+
 /*
  *  This thread will update channels like a chaser that
  *  oscillates from a low threshold to a high threshold.
  */
 void *Oscillate(void* data_in){
     
+    pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
+    pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, NULL);
+    
     oscillator_data_t *val = (oscillator_data_t*)data_in;
   
+    pthread_cleanup_push(reset_dmx_state, val->dmxChannels);
+    
     register dmx_value_t i=0;
     while(oscillating){
         for(i=val->lowThreshold; i<val->highThreshold-1; i+=2){ 
-            update_channels(val->dmxChannels, i); 
-            CHECK_OSCILLATING
+            update_channels(val->dmxChannels, i);
             usleep(val->speed);
         }
-        
-        CHECK_OSCILLATING
 
         for(i=val->highThreshold; i>val->lowThreshold+1; i-=2){ 
             update_channels(val->dmxChannels, i);
-            CHECK_OSCILLATING
             usleep(val->speed);
         }        
     }
     
-cleanup:
-    /* Reset */
-    update_channels(val->dmxChannels, 0);
+    pthread_cleanup_pop(1);
     pthread_exit(NULL);
 }
 
