@@ -93,9 +93,8 @@ void stop_timed_effects(timed_effect_data_t *timer)
 
 void *do_timed_effect(void *data_in)
 {
-    int old = 0;
-    pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, &old);
-    pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, &old);
+    pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
+    pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, NULL);
 
     timed_effect_data_t *data = (timed_effect_data_t*)data_in;
     /* Wait here until the timers are told to start. */
