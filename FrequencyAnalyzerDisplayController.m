@@ -25,14 +25,14 @@ void freqCallback(void* objRef, QTAudioFrequencyLevels* freq_levels)
 
 - (void)awakeFromNib
 {
-    registerSelfAsFreqListener((void*)self, freqCallback);
+    register_self_as_freq_listener((void*)self, freqCallback);
     [analyzer start];
 }
 
 - (void)windowWillClose:(NSNotification *)notification
 {
     [super windowWillClose:notification];
-    deregisterSelfAsFreqListner((void*)self);
+    deregister_self_as_freqListner((void*)self);
 }
 
 @end
