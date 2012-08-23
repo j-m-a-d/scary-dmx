@@ -38,11 +38,12 @@ static void free_timer_handle(timed_effect_handle *in_timer)
 {
     if(!in_timer) return;
     
-    timed_effect_t *timer = (timed_effect_t *)*in_timer;//<#1
+    timed_effect_t *timer = (timed_effect_t *)in_timer;
     pthread_cancel( *timer->handle);
     pthread_join( *timer->handle, NULL);
-    free(*timer->handle);
-    memset(in_timer, 0, sizeof(timed_effect_t));
+    if(timer->handle)
+        free(timer->handle);
+    memset(timer, 0, sizeof(timed_effect_t));
     free(in_timer);
 }
 
@@ -79,8 +80,8 @@ void stop_timed_effects(timed_effect_data_t *timer)
     
     timed_effect_data_t *tmp = timer;
     while(tmp){
-        timed_effect_t* handle = ((timed_effect_t*)tmp->timer_handle);//<#1
-        
+        timed_effect_t* handle = ((timed_effect_t*)tmp->timer_handle);
+        if(!handle) continue;
         if(ESRCH == pthread_cancel(*handle->handle)) {
             fprintf(stderr, "WARNING: Cannot cancel Timer; Thread not found.\n");
         }
