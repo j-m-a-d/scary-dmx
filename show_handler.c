@@ -55,6 +55,21 @@ static int advance_cue(dmx_show_t *show)
             show->currentCue->cue->empty);
 }
 
+static void free_cue(cue_t *cue)
+{
+    if(cue->channelValues)
+        free(cue->channelValues);
+    
+    cue->channelValues = 0;
+    
+    FREE_ANALYZER_DATA (cue->aData);
+    FREE_OSCILLATOR_DATA (cue->oData);
+    FREE_TIMED_EFFECTS(cue->timer);    
+    DELETE_CHANNEL_LIST (cue->flickerChannels);
+    
+    free(cue);
+}
+
 /*
     Release all the memory allocated
     for this show structure.
@@ -67,31 +82,24 @@ int free_show(dmx_show_t *show)
     if(!(show->currentCue)){
         return 0;
     }
+    /* Skip to the end and work backwards. */
     while(show->currentCue->nextCue){
         show->currentCue = show->currentCue->nextCue;
     }
+    
     while(show->currentCue){
         cue_node_t *tmp = show->currentCue;
         show->currentCue = tmp->previousCue;
-        free(tmp->cue->channelValues);
-        tmp->cue->channelValues = 0;
-        FREE_ANALYZER_DATA (tmp->cue->aData);
-        FREE_OSCILLATOR_DATA (tmp->cue->oData);
+        
         if(tmp->cue){
-            if(tmp->cue->channelValues)
-
-            
-            FREE_TIMED_EFFECTS(tmp->cue->timer);
-            
-            DELETE_CHANNEL_LIST (tmp->cue->flickerChannels);
-            
-            free(tmp->cue);
+            free_cue(tmp->cue);
             tmp->cue = 0;
         }
-        memset(tmp, 0, sizeof(cue_node_t));//<<<----
+        memset(tmp, 0, sizeof(cue_node_t));
         free(tmp);
         tmp = 0;
     }
+    
     memset(show, 0, sizeof(dmx_show_t));
     free(show);
     show = 0;
@@ -286,7 +294,7 @@ int add_cue(dmx_show_t* show)
     int id = lastCue->cue_id +1;
     int i = create_cue_node(&newCue);
     if(i){
-        /* free newCue and it's children */
+        /* TODO free newCue and it's children */
         return i;
     }
     newCue->cue_id = id;
@@ -351,19 +359,12 @@ static void *next_step()
     if(!SHOWING()){
         goto die_now;
     }
-    
-	int result = 0;
-    stop_oscillating();
-    stop_flicker();
-    if(_live_show->currentCue->previousCue)
-        stop_timed_effects(_live_show->currentCue->previousCue->cue->timer);
         
     cue_node_t *cueNode = _live_show->currentCue;
     cue_t *cue = cueNode->cue;
      
     if(cue->aData && !cue->stepDuration){
-        result = start_analyze(cue->aData, &go_to_next_step);
-		if(result){
+        if(start_analyze(cue->aData, &go_to_next_step)){
 			goto die_now;
 		}
     }
@@ -393,6 +394,7 @@ static void *next_step()
         /* now start them all at once */
         start_timed_effects();
     }
+
 die_now:
 	pthread_exit(NULL);
 
@@ -441,6 +443,12 @@ void stop_show()
 static void go_to_next_step()
 {
     int showOver = 0;
+    
+    stop_oscillating();
+    stop_flicker();
+    if(_live_show->currentCue)
+        stop_timed_effects(_live_show->currentCue->cue->timer);
+    
     if(SHOWING()){
         /* Cue up the next scene. */
         showOver = advance_cue(_live_show); 
