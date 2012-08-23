@@ -232,8 +232,8 @@
 		96C217B410C0E3C200507543 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				080E96DDFE201D6D7F000001 /* Classes */,
 				96AF8EC50F2BA2F700369C1E /* Headers */,
+				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 			);
 			name = src;
