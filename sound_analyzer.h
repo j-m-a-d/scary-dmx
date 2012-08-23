@@ -56,7 +56,7 @@ void skip_movie();
 
 void free_analyzer_data(analyzer_data_t *);
 
-void registerSelfAsFreqListener(void *callbackRef, void(*listenerFunction)(void*, QTAudioFrequencyLevels*));
-void deregisterSelfAsFreqListner(void *callbackRef);
+void register_self_as_freq_listener(void *callbackRef, void(*listenerFunction)(void*, QTAudioFrequencyLevels*));
+void deregister_self_as_freqListner(void *callbackRef);
 
 #endif

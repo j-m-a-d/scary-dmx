@@ -14,18 +14,17 @@
 
 #define SLEEP_INTERVAL 100000
 
-volatile static int monitoring = 0;
+volatile static int _monitoring = 0;
 
-static Movie *movie = 0; 
-static pthread_t monitor_thread = 0;
-static pthread_t callback_thread = 0; 
-static pthread_mutex_t analyze_mutex = PTHREAD_MUTEX_INITIALIZER;
+static Movie *_movie = 0; 
+static pthread_t _monitor_thread = 0;
+static pthread_t _callback_thread = 0; 
+static pthread_mutex_t _analyze_mutex = PTHREAD_MUTEX_INITIALIZER;
 
 static void(*_listenerFunction)(void*, QTAudioFrequencyLevels*) = 0;
+static void *_callback_ref = 0;
 
-static void *_callbackRef = 0;
-
-static QTAudioFrequencyLevels *freqResults;
+static QTAudioFrequencyLevels *_freqResults;
 
 /*
  *   Structure for thread creation.
@@ -73,8 +72,8 @@ void free_analyzer_data(analyzer_data_t * adata)
  */
 void skip_movie()
 {
-    if(movie){
-        GoToEndOfMovie(*movie);
+    if(_movie){
+        GoToEndOfMovie(*_movie);
     }
 }
 
@@ -83,17 +82,17 @@ void skip_movie()
  */
 void stop_analyze()
 {
-    pthread_mutex_lock(&analyze_mutex);
-    if(monitoring){
+    pthread_mutex_lock(&_analyze_mutex);
+    if(_monitoring){
         /* Flip the run flag for the monitoring thread */
-        monitoring = 0;
-        if(movie) StopMovie(*movie);
+        _monitoring = 0;
+        if(_movie) StopMovie(*_movie);
     }
-    pthread_mutex_unlock(&analyze_mutex);
+    pthread_mutex_unlock(&_analyze_mutex);
 
-    if(monitor_thread){
-        pthread_join(monitor_thread, NULL);
-        monitor_thread = 0;
+    if(_monitor_thread){
+        pthread_join(_monitor_thread, NULL);
+        _monitor_thread = 0;
     }
 }
 
@@ -108,16 +107,16 @@ void *do_callback(void *data_in)
     pthread_exit(NULL);
 }
 
-void registerSelfAsFreqListener(void *callbackRef, void(*listenerFunction)(void*, QTAudioFrequencyLevels*))
+void register_self_as_freq_listener(void *callbackRef, void(*listenerFunction)(void*, QTAudioFrequencyLevels*))
 {
     _listenerFunction = listenerFunction;
-    _callbackRef = callbackRef;
+    _callback_ref = callbackRef;
 }
 
-void deregisterSelfAsFreqListner(void *callbackRef)
+void deregister_self_as_freqListner(void *callbackRef)
 {
     _listenerFunction = 0;
-    _callbackRef = 0;
+    _callback_ref = 0;
 }
 
 /*
@@ -138,27 +137,27 @@ void *monitor(void *data_in)
     /* start the channels at reset level. */
     update_channels(data->dmxChannelList, CHANNEL_RESET);    
 
-    StartMovie(*movie);
+    StartMovie(*_movie);
     /* Don't stop unless the movie has stopped or the frequency buffer has vanished or
      * the user told us to.
      */
-    while (monitoring && !IsMovieDone(*movie) && freqResults) {
+    while (_monitoring && !IsMovieDone(*_movie) && _freqResults) {
         
-        OSStatus err = GetMovieAudioFrequencyLevels(*movie, kQTAudioMeter_StereoMix, freqResults);
+        OSStatus err = GetMovieAudioFrequencyLevels(*_movie, kQTAudioMeter_StereoMix, _freqResults);
         if(err){
             goto cleanup;
         }
         
         if( analyzer_function ){
-            pthread_mutex_lock(&analyze_mutex);
-            if(monitoring) analyzer_function(data, freqResults);
-            pthread_mutex_unlock(&analyze_mutex);
+            pthread_mutex_lock(&_analyze_mutex);
+            if(_monitoring) analyzer_function(data, _freqResults);
+            pthread_mutex_unlock(&_analyze_mutex);
         }else{
             sleep(1);
         }
         
-        if(_listenerFunction && _callbackRef)
-            _listenerFunction(_callbackRef, freqResults);
+        if(_listenerFunction && _callback_ref)
+            _listenerFunction(_callback_ref, _freqResults);
         #ifdef _CLI_MAIN
         MoviesTask(*movie, 0);
         #endif
@@ -166,26 +165,26 @@ void *monitor(void *data_in)
     
 cleanup:
     /* Stop the movie first before we start to cleanup */
-    if(movie){
-        StopMovie(*movie);           
+    if(_movie){
+        StopMovie(*_movie);           
     }    
 
-    pthread_mutex_lock(&analyze_mutex);
-        monitoring = 0;   
+    pthread_mutex_lock(&_analyze_mutex);
+        _monitoring = 0;   
         /* Reset the DMX channel. */
         update_channels(data->dmxChannelList, CHANNEL_RESET);  
         FREE_MONITOR_DATA(data);
-        free(freqResults);
-        freqResults = 0;
-    pthread_mutex_unlock(&analyze_mutex);
+        free(_freqResults);
+        _freqResults = 0;
+    pthread_mutex_unlock(&_analyze_mutex);
     CloseMovieFile(movieId);
-    DisposeMovie(*movie);
-    free(movie);
-    movie = 0;
+    DisposeMovie(*_movie);
+    free(_movie);
+    _movie = 0;
     
     /* Let our listener(s) know */
     if(callback){
-        pthread_create(&callback_thread, NULL, do_callback, (void*)callback);
+        pthread_create(&_callback_thread, NULL, do_callback, (void*)callback);
     } 
     
     ExitMoviesOnThread();
@@ -292,40 +291,40 @@ int open_movie_file(const unsigned char *fileName, Movie **newMovie, short *refI
 */
 int start_analyze(analyzer_data_t *data_in, void(*callback)())
 {
-    pthread_mutex_lock(&analyze_mutex);
-    if(monitoring){
-        pthread_mutex_unlock(&analyze_mutex);
+    pthread_mutex_lock(&_analyze_mutex);
+    if(_monitoring){
+        pthread_mutex_unlock(&_analyze_mutex);
         return ANALYZE_IN_PROGRESS;
     }
-    monitoring = 1;
-    pthread_mutex_unlock(&analyze_mutex);
+    _monitoring = 1;
+    pthread_mutex_unlock(&_analyze_mutex);
     
     UInt32 numberOfChannels = 2; 
     UInt32 numberOfBandLevels;
     
     numberOfBandLevels = data_in->numberOfBandLevels;
     
-    freqResults = 0;
+    _freqResults = 0;
     OSStatus err;
  
     const unsigned char* fileName = (unsigned char *) data_in->movieFile;
     short refId = 0;
-    if(open_movie_file(fileName,&movie, &refId)){
+    if(open_movie_file(fileName,&_movie, &refId)){
 		return ANALYZE_FILE_NOT_FOUND;
 	}
 
-    SetMovieAudioFrequencyMeteringNumBands(*movie, kQTAudioMeter_StereoMix, &numberOfBandLevels);
+    SetMovieAudioFrequencyMeteringNumBands(*_movie, kQTAudioMeter_StereoMix, &numberOfBandLevels);
 
-    freqResults = malloc(offsetof(QTAudioFrequencyLevels,
+    _freqResults = malloc(offsetof(QTAudioFrequencyLevels,
                                   level[numberOfBandLevels * numberOfChannels]));
-    if (!freqResults) {
+    if (!_freqResults) {
         /* TODO clean up */
         err = memFullErr;
         return err;    
     }
   
-    freqResults->numChannels = numberOfChannels;
-    freqResults->numFrequencyBands = numberOfBandLevels;
+    _freqResults->numChannels = numberOfChannels;
+    _freqResults->numFrequencyBands = numberOfBandLevels;
     
     /*
      * Repackage our structure to send to the monitor thread so
@@ -356,7 +355,7 @@ int start_analyze(analyzer_data_t *data_in, void(*callback)())
             break;
     }
     
-    pthread_create(&monitor_thread, NULL, monitor, (void*)data);       
+    pthread_create(&_monitor_thread, NULL, monitor, (void*)data);       
     return ANALYZE_OK;
 }
 
