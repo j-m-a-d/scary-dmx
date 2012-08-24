@@ -32,5 +32,77 @@ cue {
         freq:7;
         type:0;
     }
+    timer {
+        ch:1;
+        dmx-value:255;
+        ontime:200000;
+        offtime:100000;
+    }
+    timer {
+        ch:2;
+        dmx-value:255;
+        ontime:200000;
+        offtime:200000;
+    }
+    timer {
+        ch:3;
+        dmx-value:255;
+        ontime:200000;
+        offtime:300000;
+    }
+    timer {
+        ch:4;
+        dmx-value:255;
+        ontime:200000;
+        offtime:400000;
+    }
+    timer {
+        ch:5;
+        dmx-value:255;
+        ontime:200000;
+        offtime:500000;
+    }    
+    timer {
+        ch:6;
+        dmx-value:255;
+        ontime:200000;
+        offtime:600000;
+    }
+    timer {
+        ch:7;
+        dmx-value:255;
+        ontime:200000;
+        offtime:500000;
+    }
+    timer {
+        ch:8;
+        dmx-value:255;
+        ontime:200000;
+        offtime:500000;
+    }
+    timer {
+        ch:9;
+        dmx-value:255;
+        ontime:200000;
+        offtime:400000;
+    }
+    timer {
+        ch:10;
+        dmx-value:255;
+        ontime:200000;
+        offtime:300000;
+    }
+    timer {
+        ch:11;
+        dmx-value:255;
+        ontime:200000;
+        offtime:2000000;
+    }    
+    timer {
+        ch:12;
+        dmx-value:255;
+        ontime:200000;
+        offtime:1000000;
+    } 
 }
 

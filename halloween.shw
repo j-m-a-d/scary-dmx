@@ -1,12 +1,18 @@
 cue {
     analyzer {
         file:/Users/jason/Desktop/Halloween Tracks/Horror Intro.mp3;
-        ch:13;
+        ch:1,2,3,4,5,6,7,8,9,10,11,12;
         threshold:0.470;
         threshold_value:245;
         bands:7;
         freq:5;
-        type:0;
+        type:1;
+    }
+    oscillator {
+        ch:13;
+        low:1;
+        high:255;
+        speed:50000;
     }
 }
 

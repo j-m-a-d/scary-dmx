@@ -380,7 +380,24 @@ TIMER LBRACE chan dmx_value ontime_value offtime_value RBRACE
 #endif
     timed_effect_data_t* timer = malloc(sizeof(timed_effect_data_t));
     memset(timer, 0, sizeof(timed_effect_data_t));
-    timer->channel = $3;
+    timer->channel = new_channel_list(1);
+    timer->channel->channels[1] = 0;
+    timer->channel->channels[0] = $3;
+    timer->value = $4;
+    timer->on_time = $5;
+    timer->off_time = $6;
+    timer->timer_handle = 0;
+    set_timer_data_for_current_cue(resultShow, timer);
+}
+|
+TIMER LBRACE channel_list dmx_value ontime_value offtime_value RBRACE
+{
+#ifdef _TRACE_PARSER
+    printf("Timer setting channel-- %d, on-- %d, off-- %d\n",$3, $5, $6);
+#endif
+    timed_effect_data_t* timer = malloc(sizeof(timed_effect_data_t));
+    memset(timer, 0, sizeof(timed_effect_data_t));
+    timer->channel = channel_list_from_data($3.count, $3.channels);
     timer->value = $4;
     timer->on_time = $5;
     timer->off_time = $6;
@@ -491,7 +508,6 @@ err : ERROR
 {
     fprintf(stderr, "%s not recognized.\n", $1);
     free($1);
-    //free_show(resultShow);    
 }
 ;
 

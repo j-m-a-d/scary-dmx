@@ -15,7 +15,7 @@
 typedef struct timed_effect_t *timed_effect_handle;
 
 typedef struct _timed_effect_data_t {
-    int channel;
+    channel_list_t channel;
     dmx_value_t value;
     long on_time;
     long off_time;
@@ -35,13 +35,14 @@ int create_timed_effect_handle(timed_effect_handle **handle);
 
 int cue_timed_effect(timed_effect_data_t *timer_data);
 
-void free_timed_effects(timed_effect_data_t *);
-
 int start_timed_effects();
 void stop_timed_effects();
 
 #define FREE_TIMED_EFFECTS(data) \
-free_timed_effects(data); \
-data = 0;
-
+if(data) { \
+    free_timed_effects(data); \
+    data = 0; \
+}
 #endif
+
+void free_timed_effects(timed_effect_data_t *);

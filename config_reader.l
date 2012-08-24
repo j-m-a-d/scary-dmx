@@ -79,7 +79,7 @@ ch[0-9]{1,3}:                {
 [\r\n ]                    lines++;
 [\t]                       ;
 .                           {
-                                //printf("Warning: unknown character '%s' (line: %d)\n", yytext, lines); 
+                                printf("Warning: unknown character '%s' (line: %d)\n", yytext, lines);
                                 yylval.text = strdup(yytext);
                                 return ERROR;                              
                             }

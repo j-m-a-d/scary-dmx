@@ -18,54 +18,61 @@
 
 volatile static int timed = 0;
 
-static pthread_mutex_t wait_mutex = PTHREAD_MUTEX_INITIALIZER;
-static pthread_cond_t wait_cond = PTHREAD_COND_INITIALIZER;
+static pthread_mutex_t _wait_mutex = PTHREAD_MUTEX_INITIALIZER;
+static pthread_cond_t _wait_cond = PTHREAD_COND_INITIALIZER;
 
 typedef struct _timed_effect_t {
     pthread_t *handle;
     volatile int run_flag;
 } timed_effect_t;
 
-static void free_timed_effect(timed_effect_data_t * data)
+static void free_timer_handle(timed_effect_t *in_timer)
+{
+    timed_effect_t *timer = (timed_effect_t *)in_timer;
+    pthread_cancel( *timer->handle);
+    pthread_join( *timer->handle, NULL);
+    
+    if(timer->handle) {
+        free(timer->handle);
+    }
+    
+    memset(timer, 0, sizeof(timed_effect_t));
+    free(in_timer);
+}
+
+static void free_timed_effect(timed_effect_data_t *data)
 {
     if(data){
+        /* If the show was never cued up, we'll have no allocations */
+        if(data->timer_handle){
+            free_timer_handle((timed_effect_t*)data->timer_handle);
+        }
+        
+        data->timer_handle = 0;
+        
+        delete_channel_list(data->channel);
+        data->channel = 0;
+        
         memset(data, 0, sizeof(timed_effect_data_t));
         free(data);
     }
 }
 
-static void free_timer_handle(timed_effect_handle *in_timer)
-{
-    if(!in_timer) return;
-    
-    timed_effect_t *timer = (timed_effect_t *)in_timer;
-    pthread_cancel( *timer->handle);
-    pthread_join( *timer->handle, NULL);
-    if(timer->handle)
-        free(timer->handle);
-    memset(timer, 0, sizeof(timed_effect_t));
-    free(in_timer);
-}
-
 void free_timed_effects(timed_effect_data_t *timer)
 {
-    struct _timed_effect_data_t *tmp;
-    tmp = timer;
-    while(tmp){
-        free_timer_handle(tmp->timer_handle);
-        tmp->timer_handle = 0;
-        free_timed_effect(tmp);
-        tmp = timer->nextTimer;   
-    }    
+    if(timer) {
+        free_timed_effects(timer->nextTimer);
+        free_timed_effect(timer);
+    }
 }
 
 int timed_effects_init()
 {    
     int result = 0;
     
-    pthread_mutex_lock(&wait_mutex);
-    result = pthread_cond_init(&wait_cond, NULL);
-    pthread_mutex_unlock(&wait_mutex);
+    pthread_mutex_lock(&_wait_mutex);
+    result = pthread_cond_init(&_wait_cond, NULL);
+    pthread_mutex_unlock(&_wait_mutex);
     
     return result;
 }
@@ -75,7 +82,7 @@ void stop_timed_effects(timed_effect_data_t *timer)
     
     if(!timer) return;
 
-    pthread_mutex_lock(&wait_mutex);
+    pthread_mutex_lock(&_wait_mutex);
     timed = 0;
     
     timed_effect_data_t *tmp = timer;
@@ -86,10 +93,10 @@ void stop_timed_effects(timed_effect_data_t *timer)
             fprintf(stderr, "WARNING: Cannot cancel Timer; Thread not found.\n");
         }
         handle->run_flag = 0;
-        update_channel(tmp->channel, 0);
+        update_channels(tmp->channel, 0);
         tmp = tmp->nextTimer;
     }
-    pthread_mutex_unlock(&wait_mutex);
+    pthread_mutex_unlock(&_wait_mutex);
 }
 
 void *do_timed_effect(void *data_in)
@@ -99,15 +106,16 @@ void *do_timed_effect(void *data_in)
 
     timed_effect_data_t *data = (timed_effect_data_t*)data_in;
     /* Wait here until the timers are told to start. */
-    pthread_mutex_lock(&wait_mutex);
-    while(!timed)
-        pthread_cond_wait(&wait_cond, &wait_mutex);
-    pthread_mutex_unlock(&wait_mutex);
+    pthread_mutex_lock(&_wait_mutex);
+    while(!timed) {
+        pthread_cond_wait(&_wait_cond, &_wait_mutex);
+    }
+    pthread_mutex_unlock(&_wait_mutex);
 
     while(1){
-        update_channel(data->channel, data->value);
+        update_channels(data->channel, data->value);
         usleep(data->on_time);
-        update_channel(data->channel, 0 );
+        update_channels(data->channel, 0 );
         usleep(data->off_time);
     }
     pthread_exit(NULL);
@@ -128,7 +136,6 @@ int create_timed_effect_handle(timed_effect_handle **handle)
     return TIMED_EFFECT_OK;
 }
 
-
 int cue_timed_effect(timed_effect_data_t *data)
 {   
     pthread_attr_t attr;
@@ -147,10 +154,10 @@ int cue_timed_effect(timed_effect_data_t *data)
 int start_timed_effects()
 {
     int result = 0;
-    if(0 == pthread_mutex_lock(&wait_mutex)){
+    if(0 == pthread_mutex_lock(&_wait_mutex)){
         timed = 1;
-        result = pthread_cond_broadcast(&wait_cond);
-        pthread_mutex_unlock(&wait_mutex);
+        result = pthread_cond_broadcast(&_wait_cond);
+        pthread_mutex_unlock(&_wait_mutex);
     }
     return result;
 }
