@@ -50,13 +50,21 @@ static void *_show_next_step_obj = 0;
  */
 static int advance_cue(dmx_show_t *show)
 {
+    if(!show->currentCue) return 0;
+    
     show->currentCue = show->currentCue->nextCue;
     return (NULL == show->currentCue || NULL == show->currentCue->cue ||
             show->currentCue->cue->empty);
 }
 
+#define FREE_CUE(cue) \
+    free_cue(cue); \
+    cue = 0;
+
 static void free_cue(cue_t *cue)
 {
+    if(!cue) return;
+    
     if(cue->channelValues)
         free(cue->channelValues);
     
@@ -64,10 +72,19 @@ static void free_cue(cue_t *cue)
     
     FREE_ANALYZER_DATA (cue->aData);
     FREE_OSCILLATOR_DATA (cue->oData);
-    FREE_TIMED_EFFECTS(cue->timer);    
-    DELETE_CHANNEL_LIST (cue->flickerChannels);
+    FREE_TIMED_EFFECTS(cue->timer);
+    DELETE_CHANNEL_LIST (cue->flickerChannels);//<--- TODO make flicker destructor
     
+    memset(cue, 0, sizeof(cue_t));
     free(cue);
+}
+
+static void free_cue_node(cue_node_t *node)
+{
+    if(node) {
+        free_cue(node->cue);
+    }
+    free(node);
 }
 
 /*
@@ -92,9 +109,9 @@ int free_show(dmx_show_t *show)
         show->currentCue = tmp->previousCue;
         
         if(tmp->cue){
-            free_cue(tmp->cue);
-            tmp->cue = 0;
+            FREE_CUE(tmp->cue);
         }
+
         memset(tmp, 0, sizeof(cue_node_t));
         free(tmp);
         tmp = 0;
@@ -241,7 +258,7 @@ static void printOscillatorData(oscillator_data_t *data, FILE *showFile)
 static void printTimerData(timed_effect_data_t *data, FILE *showFile)
 {
     fprintf(showFile, "\ttimer {\n");
-    fprintf(showFile, "\t\t ch:%d;\n", data->channel);
+    printChannelList(data->channel, showFile);
     fprintf(showFile, "\t\t dmx-value:%d;\n", data->value);
     fprintf(showFile, "\t\t ontime:%ld;\n", data->on_time);
     fprintf(showFile, "\t\t offtime:%ld;\n", data->off_time);
@@ -295,12 +312,13 @@ int add_cue(dmx_show_t* show)
     int i = create_cue_node(&newCue);
     if(i){
         /* TODO free newCue and it's children */
+        free_cue_node(newCue);
         return i;
     }
     newCue->cue_id = id;
     lastCue->nextCue = newCue;
     newCue->previousCue = lastCue;
-    newCue->nextCue = 0; // <===-----
+    newCue->nextCue = 0;
     show->currentCue = newCue;
     show->cueCount++;
     return 0;
