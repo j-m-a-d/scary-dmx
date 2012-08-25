@@ -2310,7 +2310,6 @@
 							<string key="NSFrame">{{17, 5}, {257, 11}}</string>
 							<reference key="NSSuperview" ref="222571327"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="292573277">
 								<int key="NSCellFlags">67108864</int>
@@ -2401,7 +2400,7 @@
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="979380474"/>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1440, 900}}</string>
 				<string key="NSMinSize">{213, 129}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<int key="NSWindowCollectionBehavior">128</int>
@@ -2978,6 +2977,22 @@
 									<reference key="NSOnImage" ref="95388488"/>
 									<reference key="NSMixedImage" ref="78229405"/>
 								</object>
+								<object class="NSMenuItem" id="233014139">
+									<reference key="NSMenu" ref="84765962"/>
+									<string key="NSTitle">Frequency Anazlyer</string>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="95388488"/>
+									<reference key="NSMixedImage" ref="78229405"/>
+								</object>
+								<object class="NSMenuItem" id="887493975">
+									<reference key="NSMenu" ref="84765962"/>
+									<string key="NSTitle">DMX Console</string>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="95388488"/>
+									<reference key="NSMixedImage" ref="78229405"/>
+								</object>
 								<object class="NSMenuItem" id="714531732">
 									<reference key="NSMenu" ref="84765962"/>
 									<bool key="NSIsDisabled">YES</bool>
@@ -3048,10 +3063,10 @@
 				<string key="NSClassName">DMXOutputDisplayController</string>
 			</object>
 			<object class="NSWindowTemplate" id="533836604">
-				<int key="NSWindowStyleMask">8223</int>
+				<int key="NSWindowStyleMask">8211</int>
 				<int key="NSWindowBacking">2</int>
 				<string key="NSWindowRect">{{656, 718}, {455, 195}}</string>
-				<int key="NSWTFlags">-1535639552</int>
+				<int key="NSWTFlags">-998768640</int>
 				<string key="NSWindowTitle">Frequency Analyzer</string>
 				<string key="NSWindowClass">NSPanel</string>
 				<nil key="NSViewClass"/>
@@ -3066,7 +3081,6 @@
 							<string key="NSFrame">{{20, 23}, {415, 152}}</string>
 							<reference key="NSSuperview" ref="666637936"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<bool key="NSViewCanDrawConcurrently">YES</bool>
 							<object class="NSOpenGLPixelFormat" key="NSPixelFormat">
 								<object class="NSMutableData" key="NSPixelAttributes">
@@ -3081,15 +3095,15 @@
 					<reference key="NSNextKeyView" ref="627925487"/>
 					<bool key="NSViewCanDrawConcurrently">YES</bool>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1440, 900}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<bool key="NSWindowIsRestorable">YES</bool>
 			</object>
 			<object class="NSWindowTemplate" id="450907382">
-				<int key="NSWindowStyleMask">8223</int>
+				<int key="NSWindowStyleMask">8211</int>
 				<int key="NSWindowBacking">2</int>
 				<string key="NSWindowRect">{{235, 289}, {455, 195}}</string>
-				<int key="NSWTFlags">-1535639552</int>
+				<int key="NSWTFlags">-998768640</int>
 				<string key="NSWindowTitle">DMX Output</string>
 				<string key="NSWindowClass">NSPanel</string>
 				<nil key="NSViewClass"/>
@@ -3104,7 +3118,6 @@
 							<string key="NSFrame">{{20, 23}, {415, 152}}</string>
 							<reference key="NSSuperview" ref="385393307"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<bool key="NSViewCanDrawConcurrently">YES</bool>
 							<object class="NSOpenGLPixelFormat" key="NSPixelFormat">
 								<object class="NSMutableData" key="NSPixelAttributes">
@@ -3118,7 +3131,7 @@
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="965148056"/>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1440, 900}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<bool key="NSWindowIsRestorable">YES</bool>
 			</object>
@@ -4015,19 +4028,27 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">window</string>
-						<reference key="source" ref="1034015221"/>
-						<reference key="destination" ref="533836604"/>
-					</object>
-					<int key="connectionID">757</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
 						<string key="label">analyzer</string>
 						<reference key="source" ref="1034015221"/>
 						<reference key="destination" ref="627925487"/>
 					</object>
 					<int key="connectionID">758</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">show:</string>
+						<reference key="source" ref="1034015221"/>
+						<reference key="destination" ref="233014139"/>
+					</object>
+					<int key="connectionID">775</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">panel</string>
+						<reference key="source" ref="1034015221"/>
+						<reference key="destination" ref="533836604"/>
+					</object>
+					<int key="connectionID">779</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -4038,12 +4059,20 @@
 					<int key="connectionID">739</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">show:</string>
+						<reference key="source" ref="69260922"/>
+						<reference key="destination" ref="887493975"/>
+					</object>
+					<int key="connectionID">776</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">window</string>
+						<string key="label">panel</string>
 						<reference key="source" ref="69260922"/>
 						<reference key="destination" ref="450907382"/>
 					</object>
-					<int key="connectionID">763</int>
+					<int key="connectionID">778</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -4333,6 +4362,8 @@
 							<reference ref="714531732"/>
 							<reference ref="299043327"/>
 							<reference ref="836936504"/>
+							<reference ref="233014139"/>
+							<reference ref="887493975"/>
 						</array>
 						<reference key="parent" ref="971924592"/>
 					</object>
@@ -5734,6 +5765,16 @@
 						<reference key="object" ref="965148056"/>
 						<reference key="parent" ref="385393307"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">773</int>
+						<reference key="object" ref="233014139"/>
+						<reference key="parent" ref="84765962"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">774</int>
+						<reference key="object" ref="887493975"/>
+						<reference key="parent" ref="84765962"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -5990,6 +6031,8 @@
 				<string key="760.IBWindowTemplateEditedContentRect">{{653, 952}, {455, 195}}</string>
 				<boolean value="YES" key="760.NSWindowTemplate.visibleAtLaunch"/>
 				<string key="761.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="773.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="774.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="79.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="80.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="81.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -6001,7 +6044,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">763</int>
+			<int key="maxID">779</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -6216,17 +6259,28 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">SpectrumAnalyzerController</string>
 					<string key="superclassName">NSObject</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">show:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">show:</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">show:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="analyzer">SpectrumAnalyzerView</string>
-						<string key="window">NSPanel</string>
+						<string key="panel">NSPanel</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<object class="IBToOneOutletInfo" key="analyzer">
 							<string key="name">analyzer</string>
 							<string key="candidateClassName">SpectrumAnalyzerView</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="window">
-							<string key="name">window</string>
+						<object class="IBToOneOutletInfo" key="panel">
+							<string key="name">panel</string>
 							<string key="candidateClassName">NSPanel</string>
 						</object>
 					</dictionary>

@@ -11,15 +11,20 @@
 
 @implementation SpectrumAnalyzerController
 
+- (IBAction)show:(id)sender
+{
+    [panel makeKeyAndOrderFront:nil];
+    [analyzer start];
+}
 
 - (void)windowWillClose:(NSNotification *)notification
 {
-
+    [analyzer stop];
 }
 
 -(void)windowDidResize:(NSNotification *)notification
 {
-    NSRect rect = [[window contentView] bounds];
+    NSRect rect = [[panel contentView] bounds];
     rect.origin.x = rect.origin.x + 20;
     rect.origin.y = rect.origin.y + 20;
     rect.size.width = rect.size.width - 40;

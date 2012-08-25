@@ -10,11 +10,11 @@
 #import "SpectrumAnalyzerView.h"
 
 @interface SpectrumAnalyzerController : NSObject {
-    IBOutlet NSPanel *window;
+    IBOutlet NSPanel *panel;
     IBOutlet SpectrumAnalyzerView *analyzer;
 }
+- (IBAction)show:(id)sender;
 
 - (void)windowWillClose:(NSNotification *)notification;
 - (void)windowDidResize:(NSNotification *)notification;
-
 @end

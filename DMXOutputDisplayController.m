@@ -12,15 +12,27 @@
 
 @implementation DMXOutputDisplayController
 
+-(NSTimer*) new_timer
+{
+    return [NSTimer scheduledTimerWithTimeInterval:0.01
+                                     target:self
+                                   selector:@selector(updateBuffer)
+                                   userInfo:nil
+                                    repeats:YES];
+
+}
 
 - (void)awakeFromNib
 {
     [analyzer start];
-    timer = [NSTimer scheduledTimerWithTimeInterval:0.01 
-                                             target:self 
-                                           selector:@selector(updateBuffer) 
-                                           userInfo:nil 
-                                            repeats:YES];
+    timer = [self new_timer ];
+    [timer retain];
+}
+
+- (void)show:(id)sender
+{
+    [super show:sender];
+    timer = [self new_timer];
     [timer retain];
 }
 
@@ -38,9 +50,9 @@
 - (void)windowWillClose:(NSNotification *)notification
 {
     [super windowWillClose:notification];
-    [timer invalidate];
+    //[timer invalidate];
+    [timer release];
 }
-
 
 -(void) dealloc
 {

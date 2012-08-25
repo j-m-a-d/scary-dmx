@@ -18,14 +18,20 @@ void freqCallback(void* objRef, QTAudioFrequencyLevels* freq_levels)
     [myself updateAnalyzer:freq_levels->numFrequencyBands * 2 : freq_levels->level];
 }
 
--(void)updateAnalyzer:(int)count: (float*)levels
+- (void)_start
 {
-    [analyzer update:count : levels];
+    register_self_as_freq_listener((void*)self, freqCallback);
+}
+
+- (IBAction)show:(id)sender
+{
+    [super show:sender];
+    [self _start];
 }
 
 - (void)awakeFromNib
 {
-    register_self_as_freq_listener((void*)self, freqCallback);
+    [self _start];
     [analyzer start];
 }
 
@@ -33,6 +39,11 @@ void freqCallback(void* objRef, QTAudioFrequencyLevels* freq_levels)
 {
     [super windowWillClose:notification];
     deregister_self_as_freqListner((void*)self);
+}
+
+- (void)updateAnalyzer:(int)count: (float*)levels
+{
+    [analyzer update:count : levels];
 }
 
 @end
