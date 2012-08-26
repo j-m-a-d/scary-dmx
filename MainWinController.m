@@ -24,33 +24,42 @@
 
 static unsigned short _current_cue_index = 0;
 
-- (IBAction)openShowFile:(id)sender
+- (NSURL*)chooseShowFile:(NSString*)fromDir:(NSString*)action
 {
-    int result = 0;
     NSArray *fileTypes = [NSArray arrayWithObjects:@"shw", nil];
     NSOpenPanel *oPanel = [NSOpenPanel openPanel];
-
+    
     [oPanel setAllowsMultipleSelection:NO];
     [oPanel setTitle:@"Choose File"];
-    [oPanel setMessage:@"Choose show file to open."];
+    [oPanel setMessage:[NSString stringWithFormat:@"Choose show file to %@.", action]];
     [oPanel setDelegate:self];
+    
+    NSString *path = NSHomeDirectory();
+    if(nil != fromDir){
+        path = fromDir;
+    }
+    /* Launch the dialog. */
+    [oPanel setAllowedFileTypes:fileTypes];
+    [oPanel setDirectoryURL:[NSURL URLWithString:path]];
+    if(NSOKButton == [oPanel runModal]) {
+        return [[oPanel URL] filePathURL];
+    }
+    return nil;
+}
 
+- (IBAction)openShowFile:(id)sender
+{
     /* Go to the last opend directory if there was one. */
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *lastShowDir = (NSString*)[defaults objectForKey:LAST_OPENED_SHOW_DIR];
-    NSString *path = NSHomeDirectory();
-    if(nil != lastShowDir){
-        path = lastShowDir;
-    }
-    /* Launch the dialog. */
-    result = [oPanel runModalForDirectory:path file:nil types:fileTypes];
-    if (NSOKButton == result) {
+    NSURL *path = [self chooseShowFile:lastShowDir: @"Open"];
+            
+    if (nil != path) {
         [self stopShow: self];
-        NSString *newFile = [oPanel filename];
+        NSString *newFile = [path path];
         [defaults setObject:[newFile stringByDeletingLastPathComponent] forKey:LAST_OPENED_SHOW_DIR];
         dmx_show_t *newShow = 0;
-        result = load_show_from_file([newFile cStringUsingEncoding:NSUTF8StringEncoding], &newShow );
-        if(!result){
+        if(!load_show_from_file([newFile cStringUsingEncoding:NSUTF8StringEncoding], &newShow )){
             [statusText setStringValue:[newFile lastPathComponent]];
             [defaults setObject:newFile forKey:LAST_OPENED_SHOW];
             _current_cue_index = 0;
