@@ -380,9 +380,9 @@ TIMER LBRACE chan dmx_value ontime_value offtime_value RBRACE
 #endif
     timed_effect_data_t* timer = malloc(sizeof(timed_effect_data_t));
     memset(timer, 0, sizeof(timed_effect_data_t));
-    timer->channel = new_channel_list(1);
-    timer->channel->channels[1] = 0;
-    timer->channel->channels[0] = $3;
+    timer->channels = new_channel_list(1);
+    timer->channels->channels[1] = 0;
+    timer->channels->channels[0] = $3;
     timer->value = $4;
     timer->on_time = $5;
     timer->off_time = $6;
@@ -397,7 +397,7 @@ TIMER LBRACE channel_list dmx_value ontime_value offtime_value RBRACE
 #endif
     timed_effect_data_t* timer = malloc(sizeof(timed_effect_data_t));
     memset(timer, 0, sizeof(timed_effect_data_t));
-    timer->channel = channel_list_from_data($3.count, $3.channels);
+    timer->channels = channel_list_from_data($3.count, $3.channels);
     timer->value = $4;
     timer->on_time = $5;
     timer->off_time = $6;

@@ -50,8 +50,8 @@ static void free_timed_effect(timed_effect_data_t *data)
         
         data->timer_handle = 0;
         
-        delete_channel_list(data->channel);
-        data->channel = 0;
+        delete_channel_list(data->channels);
+        data->channels = 0;
         
         memset(data, 0, sizeof(timed_effect_data_t));
         free(data);
@@ -93,7 +93,7 @@ void stop_timed_effects(timed_effect_data_t *timer)
             fprintf(stderr, "WARNING: Cannot cancel Timer; Thread not found.\n");
         }
         handle->run_flag = 0;
-        update_channels(tmp->channel, 0);
+        update_channels(tmp->channels, 0);
         tmp = tmp->nextTimer;
     }
     pthread_mutex_unlock(&_wait_mutex);
@@ -113,9 +113,9 @@ void *do_timed_effect(void *data_in)
     pthread_mutex_unlock(&_wait_mutex);
 
     while(1){
-        update_channels(data->channel, data->value);
+        update_channels(data->channels, data->value);
         usleep(data->on_time);
-        update_channels(data->channel, 0 );
+        update_channels(data->channels, 0 );
         usleep(data->off_time);
     }
     pthread_exit(NULL);

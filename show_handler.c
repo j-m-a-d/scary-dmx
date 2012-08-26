@@ -258,7 +258,7 @@ static void printOscillatorData(oscillator_data_t *data, FILE *showFile)
 static void printTimerData(timed_effect_data_t *data, FILE *showFile)
 {
     fprintf(showFile, "\ttimer {\n");
-    printChannelList(data->channel, showFile);
+    printChannelList(data->channels, showFile);
     fprintf(showFile, "\t\t dmx-value:%d;\n", data->value);
     fprintf(showFile, "\t\t ontime:%ld;\n", data->on_time);
     fprintf(showFile, "\t\t offtime:%ld;\n", data->off_time);
