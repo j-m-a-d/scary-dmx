@@ -145,8 +145,9 @@ int cue_timed_effect(timed_effect_data_t *data)
     timed_effect_t *te = (timed_effect_t*)data->timer_handle;
     te->run_flag = 1;
     int result = pthread_create(te->handle, &attr, do_timed_effect, (void*)(data) );
-    /* Check result */
-    if(result){}
+    if(result){
+        return result;
+    }
     
     return TIMED_EFFECT_OK;
 }

@@ -182,12 +182,13 @@ cleanup:
     free(_movie);
     _movie = 0;
     
+    ExitMoviesOnThread();
+
     /* Let our listener(s) know */
     if(callback){
         pthread_create(&_callback_thread, NULL, do_callback, (void*)callback);
     } 
     
-    ExitMoviesOnThread();
     pthread_exit(NULL);
 }
 
