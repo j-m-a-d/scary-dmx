@@ -77,4 +77,5 @@ clean:
 	-rm -rf config_reader.yy.c
 	-rm -rf config_parser.tab.c
 	-rm -rf config_parser.tab.y
+	-rm -rf config_parser.tab.h
 	-rm -rf $(PROG)
