@@ -170,24 +170,26 @@ cleanup:
     }    
 
     pthread_mutex_lock(&_analyze_mutex);
-        _monitoring = 0;   
+        _monitoring = 0;
         /* Reset the DMX channel. */
-        update_channels(data->dmxChannelList, CHANNEL_RESET);  
+        update_channels(data->dmxChannelList, CHANNEL_RESET);
         FREE_MONITOR_DATA(data);
         free(_freqResults);
         _freqResults = 0;
+        CloseMovieFile(movieId);
+        DisposeMovie(*_movie);
+        free(_movie);
+        _movie = 0;
+        
+        ExitMoviesOnThread();
+    
     pthread_mutex_unlock(&_analyze_mutex);
-    CloseMovieFile(movieId);
-    DisposeMovie(*_movie);
-    free(_movie);
-    _movie = 0;
     
     /* Let our listener(s) know */
     if(callback){
         pthread_create(&_callback_thread, NULL, do_callback, (void*)callback);
     } 
-    
-    ExitMoviesOnThread();
+
     pthread_exit(NULL);
 }
 
@@ -263,7 +265,7 @@ int open_movie_file(const unsigned char *fileName, Movie **newMovie, short *refI
     if(err){
         return ANALYZE_FILE_NOT_FOUND;
     }
-  
+
     err = OpenMovieFile(&file, refId, fsRdPerm);
     if(err){
         printf("movie err %d\n", (int)err);
@@ -297,7 +299,6 @@ int start_analyze(analyzer_data_t *data_in, void(*callback)())
         return ANALYZE_IN_PROGRESS;
     }
     _monitoring = 1;
-    pthread_mutex_unlock(&_analyze_mutex);
     
     UInt32 numberOfChannels = 2; 
     UInt32 numberOfBandLevels;
@@ -310,6 +311,7 @@ int start_analyze(analyzer_data_t *data_in, void(*callback)())
     const unsigned char* fileName = (unsigned char *) data_in->movieFile;
     short refId = 0;
     if(open_movie_file(fileName,&_movie, &refId)){
+        pthread_mutex_unlock(&_analyze_mutex);
 		return ANALYZE_FILE_NOT_FOUND;
 	}
 
@@ -320,6 +322,7 @@ int start_analyze(analyzer_data_t *data_in, void(*callback)())
     if (!_freqResults) {
         /* TODO clean up */
         err = memFullErr;
+        pthread_mutex_unlock(&_analyze_mutex);
         return err;    
     }
   
@@ -355,7 +358,10 @@ int start_analyze(analyzer_data_t *data_in, void(*callback)())
             break;
     }
     
-    pthread_create(&_monitor_thread, NULL, monitor, (void*)data);       
+    pthread_create(&_monitor_thread, NULL, monitor, (void*)data);
+    
+    pthread_mutex_unlock(&_analyze_mutex);
+    
     return ANALYZE_OK;
 }
 

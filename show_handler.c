@@ -382,7 +382,9 @@ static void *next_step()
     cue_t *cue = cueNode->cue;
      
     if(cue->aData && !cue->stepDuration){
-        if(start_analyze(cue->aData, &go_to_next_step)){
+        int err = start_analyze(cue->aData, &go_to_next_step);
+        if(err){
+            fprintf(stderr, "Cannot start sound analyzer: %d\n", err);
 			goto die_now;
 		}
     }

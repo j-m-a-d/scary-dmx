@@ -122,7 +122,7 @@ NSString *formatDuration(long duration)
     if(showDataIndex){
         free(showDataIndex);
     }
-    showDataIndex = malloc(numberOfRows * (sizeof (cue_node_t)));
+    showDataIndex = (cue_node_t**)calloc(numberOfRows, (sizeof (cue_node_t)));
     if(!showDataIndex){
         NSLog(@"Memory allocation failure.  Cannot allocate memory for show listing.");
         return;

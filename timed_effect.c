@@ -9,7 +9,7 @@
 
 #include "timed_effect.h"
 #include "dmx_controller.h"
-#include "unistd.h"
+#include <unistd.h>
 #include <pthread.h>
 #include <stdlib.h>
 #include <string.h>
@@ -17,6 +17,7 @@
 #include <stdio.h>
 
 volatile static int timed = 0;
+static const int THREAD_FINISHED = 21;
 
 static pthread_mutex_t _wait_mutex = PTHREAD_MUTEX_INITIALIZER;
 static pthread_cond_t _wait_cond = PTHREAD_COND_INITIALIZER;
@@ -90,7 +91,14 @@ void stop_timed_effects(timed_effect_data_t *timer)
         timed_effect_t* handle = ((timed_effect_t*)tmp->timer_handle);
         if(!handle) continue;
         if(ESRCH == pthread_cancel(*handle->handle)) {
-            fprintf(stderr, "WARNING: Cannot cancel Timer; Thread not found.\n");
+            int *retval[1];
+            if(!pthread_join(*handle->handle, (void**)&(retval[0]))) {
+                if(THREAD_FINISHED != *retval[0]) {
+                    fprintf(stderr, "WARNING: Cannot cancel timer;  Thread not found.\n");
+                }
+            } else {
+                fprintf(stderr, "WARNING: Failed to cancel timer.  Could not join.\n");
+            }
         }
         handle->run_flag = 0;
         update_channels(tmp->channels, 0);
@@ -118,7 +126,7 @@ void *do_timed_effect(void *data_in)
         update_channels(data->channels, 0 );
         usleep(data->off_time);
     }
-    pthread_exit(NULL);
+    pthread_exit((void*)&THREAD_FINISHED);
 }
 
 int create_timed_effect_handle(timed_effect_handle **handle)
