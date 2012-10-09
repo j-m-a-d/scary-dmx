@@ -24,9 +24,8 @@
 
 static unsigned short _current_cue_index = 0;
 
-- (NSURL*)chooseShowFile:(NSString*)fromDir:(NSString*)action
+- (NSURL*)chooseShowFile:(NSString*)fromDir:(NSArray*)fileTypes:(NSString*)action
 {
-    NSArray *fileTypes = [NSArray arrayWithObjects:@"shw", nil];
     NSOpenPanel *oPanel = [NSOpenPanel openPanel];
     
     [oPanel setAllowsMultipleSelection:NO];
@@ -52,7 +51,8 @@ static unsigned short _current_cue_index = 0;
     /* Go to the last opend directory if there was one. */
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *lastShowDir = (NSString*)[defaults objectForKey:LAST_OPENED_SHOW_DIR];
-    NSURL *path = [self chooseShowFile:lastShowDir: @"Open"];
+    NSArray *fileTypes = [NSArray arrayWithObjects:@"shw", nil];
+    NSURL *path = [self chooseShowFile:lastShowDir:fileTypes: @"Open"];
             
     if (nil != path) {
         [self stopShow: self];
