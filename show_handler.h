@@ -99,7 +99,7 @@ int add_cue(dmx_show_t*);
 int skip_cue();
 
 /* Show creation functions */
-void set_channel_value_for_current_cue(dmx_show_t*, int, int);
+void set_channel_value_for_current_cue(dmx_show_t*, dmx_channel_t, dmx_value_t);
 void set_step_duration_for_current_cue(dmx_show_t*, int);
 void set_flicker_channel_for_current_cue(dmx_show_t*, channel_list_t);
 void set_oscillator_data_for_current_cue(dmx_show_t*, oscillator_data_t*);

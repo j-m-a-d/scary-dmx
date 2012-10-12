@@ -201,7 +201,7 @@ void show_next_step(void *objRef, cue_node_t *cueData)
     NSString *lastShow = (NSString*)[defaults objectForKey:LAST_OPENED_SHOW];
     dmx_show_t *newShow;
     if(nil != lastShow){
-        int result = load_show_from_file([lastShow cStringUsingEncoding:NSUTF8StringEncoding], &newShow);
+        result = load_show_from_file([lastShow cStringUsingEncoding:NSUTF8StringEncoding], &newShow);
         if(!result){
             [statusText setStringValue:[lastShow lastPathComponent]];
             [ds setShow:newShow];

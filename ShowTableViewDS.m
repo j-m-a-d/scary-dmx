@@ -159,7 +159,7 @@ NSString *formatDuration(long duration)
                 DisposeMovie(*movie);
                 duration = v / s;
             } else{
-                printf("Could not open movie to get duration: %s\n", fileName);
+                log_warn("Could not open movie to get duration: %s\n", fileName);
             }  
         }
         NSString *length = formatDuration(duration);

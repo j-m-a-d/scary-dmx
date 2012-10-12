@@ -17,7 +17,7 @@
 #include <stdio.h>
 
 volatile static int timed = 0;
-static const int THREAD_FINISHED = 21;
+static const unsigned int THREAD_FINISHED = 11544216;
 
 static pthread_mutex_t _wait_mutex = PTHREAD_MUTEX_INITIALIZER;
 static pthread_cond_t _wait_cond = PTHREAD_COND_INITIALIZER;
@@ -88,16 +88,32 @@ void stop_timed_effects(timed_effect_data_t *timer)
     
     timed_effect_data_t *tmp = timer;
     while(tmp){
-        timed_effect_t* handle = ((timed_effect_t*)tmp->timer_handle);
+        timed_effect_t* handle = ((timed_effect_t*)(tmp->timer_handle));
         if(!handle) continue;
-        if(ESRCH == pthread_cancel(*handle->handle)) {
-            int *retval[1];
-            if(!pthread_join(*handle->handle, (void**)&(retval[0]))) {
+        if(ESRCH == pthread_cancel(*(handle->handle))) {
+            unsigned int *retval[1];
+            int result = pthread_join(*handle->handle, (void**)&(retval[0]));
+            if(!result) {
                 if(THREAD_FINISHED != *retval[0]) {
-                    fprintf(stderr, "WARNING: Cannot cancel timer;  Thread not found.\n");
+                    log_warn("WARNING: Cannot cancel timer.  Thread exited with unknown value: %d.\n", *retval[0]);
                 }
             } else {
-                fprintf(stderr, "WARNING: Failed to cancel timer.  Could not join.\n");
+                char *error_code;
+                switch(result) {
+                    case EDEADLK:
+                        error_code = "EDEADLK";
+                        break;
+                    case EINVAL:
+                        error_code = "EINVAL";
+                        break;
+                    case ESRCH:
+                        error_code = "ERSCH";
+                        break;
+                    default:
+                        error_code = "UNKNOWN";
+                        break;
+                }
+                log_warn(")WARNING: Failed to cancel timer; Could not join threadL %s\n", error_code);
             }
         }
         handle->run_flag = 0;

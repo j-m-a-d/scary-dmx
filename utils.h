@@ -62,4 +62,28 @@ static inline void delete_channel_list(channel_list_t in)
     } \
     in = 0;
 
+
+#ifdef _LOG
+    #define log_info(format, ...) \
+        fprintf (stdout, "[INFO]  "); \
+        fprintf (stdout, format, ##__VA_ARGS__)
+
+    #define log_debug(format, ...) \
+        fprintf (stderr, "[DEBUG] [%s:%d] ", __FILE__, __LINE__); \
+        fprintf (stderr, format, ##__VA_ARGS__)
+
+    #define log_warn(format, ...) \
+        fprintf (stderr, "[WARN]  " ); \
+        fprintf (stderr, format, ##__VA_ARGS__)
+
+    #define log_error(format, ...) \
+        fprintf (stderr, "[ERROR] [%s:%d] ", __FILE__, __LINE__ ); \
+        fprintf (stderr, format, ##__VA_ARGS__)
+#elif
+    #define log_info(format, ...)
+    #define log_warn(format, ...)
+    #define log_error(format, ...)
+#endif
+
+
 #endif

@@ -8,7 +8,6 @@
  */
 
 #include "show_handler.h"
-#include "timed_effect.h"
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -141,7 +140,7 @@ int create_cue_node(cue_node_t **cueNode)
     }
     
     if(NULL == *cueNode){
-        fprintf(stderr, "Could not allocate memory for cue.\n");
+        log_error( "Could not allocate memory for cue.\n");
         *cueNode = 0;
         return 1;
     }
@@ -159,7 +158,7 @@ int create_cue_node(cue_node_t **cueNode)
     /* Allocate the channel values */
     (*cueNode)->cue->channelValues = calloc(sizeof(dmx_value_t), DMX_CHANNELS);
     if( NULL == (*cueNode)->cue->channelValues){
-        fprintf(stderr, "Could not allocate memory for channel settings.\n");
+        log_error( "Could not allocate memory for channel settings.\n");
         free( (*cueNode)->cue );
         (*cueNode)->cue = 0;
         //(*cueNode)->cue->channelValues = 0;
@@ -177,7 +176,7 @@ int init_show(dmx_show_t **show)
 {
     *show = (dmx_show_t*)malloc(sizeof(dmx_show_t));
     if(NULL == show){
-        fprintf(stderr, "Could not allocate memory for show.\n");
+        log_error( "Could not allocate memory for show.\n");
         *show = 0;
         return 1;
     }
@@ -324,10 +323,10 @@ int add_cue(dmx_show_t* show)
     return 0;
 }
 
-inline void set_channel_value_for_current_cue(dmx_show_t *show, int ch, int val)
+inline void set_channel_value_for_current_cue(dmx_show_t *show, dmx_channel_t ch, dmx_value_t val)
 {
     show->currentCue->cue->empty = 0;
-    show->currentCue->cue->channelValues[ch]=val;
+    show->currentCue->cue->channelValues[ch] = val;
 }
 
 inline void set_step_duration_for_current_cue(dmx_show_t *show, int duration)
@@ -358,7 +357,7 @@ void set_timer_data_for_current_cue(dmx_show_t *show, timed_effect_data_t *data)
 {
     if(NULL == show->currentCue->cue->timer){
         show->currentCue->cue->timer = data;
-        show->currentCue->cue->timer->nextTimer = NULL;
+        show->currentCue->cue->timer->nextTimer = 0;
     } else {
         show->currentCue->cue->empty = 0;
         timed_effect_data_t *tmp = show->currentCue->cue->timer;
@@ -375,6 +374,7 @@ static void go_to_next_step();
 static void *next_step()
 {
     if(!SHOWING()){
+        log_debug( "Show is not in progress, exiting.\n");
         goto die_now;
     }
         
@@ -384,7 +384,7 @@ static void *next_step()
     if(cue->aData && !cue->stepDuration){
         int err = start_analyze(cue->aData, &go_to_next_step);
         if(err){
-            fprintf(stderr, "Cannot start sound analyzer: %d\n", err);
+            log_error( "Cannot start sound analyzer: %d\n", err);
 			goto die_now;
 		}
     }
@@ -416,6 +416,7 @@ static void *next_step()
     }
 
 die_now:
+    ;
 	pthread_exit(NULL);
 
 }
@@ -462,6 +463,8 @@ void stop_show()
  */
 static void go_to_next_step()
 {
+    log_debug( "Callback: moving to next cue from: %s\n", _live_show->currentCue->cue->aData->movieFile);
+    
     int showOver = 0;
     
     stop_oscillating();
@@ -472,13 +475,17 @@ static void go_to_next_step()
     if(SHOWING()){
         /* Cue up the next scene. */
         showOver = advance_cue(_live_show); 
-        if(!showOver){        
+        if(!showOver){
+            log_debug( "Calling next step\n");
             pthread_create(&_show_pt, NULL, &next_step, NULL);
+            log_debug( "Returned from next step\n");
             if(_call_show_next_step){
                 /* notify listeners */
                 _call_show_next_step(_show_next_step_obj, _live_show->currentCue);
             }
         } else {
+            log_debug( "Show is over.\n");
+            
             stop_show();
             _rewind_show(_live_show);
             if(_call_show_end){

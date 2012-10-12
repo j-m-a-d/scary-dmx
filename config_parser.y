@@ -9,7 +9,7 @@ dmx_show_t *resultShow;
     
 void yyerror(const char *str)
 {
-    fprintf(stderr,"error: %s\n",str);
+    log_error("error: %s\n",str);
 }
 
 int yywrap()
@@ -56,18 +56,18 @@ int main(int argc, char **argv)
 
     int i = init_show(&resultShow);
     if(i){
-        fprintf(stderr, "Failed to initialize show.");
+        log_error("Failed to initialize show.\n");
     }
     i = yyparse();
     if(i){
-        fprintf(stderr, "Parse error.");
+        log_error("Parse error.\n");
         return i;
     }
     _rewind_show(resultShow);    
 
     FILE *outFile = fopen("./outshow.shw", "w+");
     if(!outFile){
-        printf("Could not open out file for show output.");
+        log_error("Could not open out file for show output.\n");
     }
     printShow(resultShow, outFile);
     fclose(outFile);
@@ -96,7 +96,7 @@ void sig_all(int sig)
 	free_all_show();
 	destroy_dmx();
 	ExitMovies();
-	fprintf(stderr, "Shutdown finished.\n");
+	log_info("Shutdown finished.\n");
 	exit(0);
 }
 
@@ -112,23 +112,23 @@ int main(int argc, char **argv)
     char *showFile;
     showFile = argv[1];
     if(!showFile){
-        fprintf(stderr, "Usage: %s showfile\n", argv[0]);
+        flog_debug(stderr, "Usage: %s showfile\n", argv[0]);
         return 1;
     }
     if(load_show_from_file(showFile, &newShow )){
-        fprintf(stderr, "Show not found or invalid show.\n");
+        flog_debug(stderr, "Show not found or invalid show.\n");
         return 2;
     }
 
     if(DMX_INIT_OK != init_dmx()){
-        fprintf(stderr, "Failed to open DMX device.\n");
+        flog_debug(stderr, "Failed to open DMX device.\n");
         return 3;
     }
     
     start_dmx();
-    fprintf(stdout, "Starting show.\n");
+    log_error( "Starting show.\n");
     start_show();
-    fprintf(stdout, "Running....");
+    log_error( "Running....");
     while(1){
         //usleep(100000);
         sleep(5);
@@ -187,7 +187,7 @@ show:
 cues
 {
 #ifdef _TRACE_PARSER
-    printf("Show def.\n");
+    log_debug("Show def.\n");
 #endif
 }
 ;
@@ -202,14 +202,14 @@ cue:
 CUE LBRACE RBRACE
 {
 #ifdef _TRACE_PARSER
-    printf("Empty Cue def.\n");
+    log_debug("Empty Cue def.\n");
 #endif
 }
 |
 CUE LBRACE settings RBRACE   
 {
 #ifdef _TRACE_PARSER
-    printf("Cue def.\n");
+    log_debug("Cue def.\n");
 #endif
 //
     set_step_duration_for_current_cue(resultShow, 0);
@@ -219,7 +219,7 @@ CUE LBRACE settings RBRACE
 CUE LPAREN VALUE RPAREN LBRACE settings RBRACE
 {
 #ifdef _TRACE_PARSER
-    printf("Cue def with duration time: %d\n", $3);
+    log_debug("Cue def with duration time: %d\n", $3);
 #endif
 //
     set_step_duration_for_current_cue(resultShow, $3);
@@ -249,7 +249,7 @@ channel_setting:
 CHANNEL  value 
 {
 #ifdef _TRACE_PARSER
-    printf("set channel %d : %d\n", $1, $2);
+    log_debug("set channel %d : %d\n", $1, $2);
 #endif
     set_channel_value_for_current_cue(resultShow, $1, $2);
 }
@@ -259,13 +259,12 @@ flicker_setting:
 FLICKER LBRACE channel_list RBRACE
 {
 #ifdef _TRACE_PARSER
-    printf("flicker setting: ");
-    printf(" %d channel(s)", $3.count);
+    log_debug("flicker setting: %d channel(s)\n", $3.count);
     int i=0;
     for(i=0; i<$3.count; i++){
-        printf(" %d, ", $3.channels[i]);
+        log_debug(" %d \n", $3.channels[i]);
     }
-    printf("\n");
+    log_debug("\n");
 #endif
     channel_list_t chs = channel_list_from_data($3.count, $3.channels);
     set_flicker_channel_for_current_cue(resultShow, chs);
@@ -274,7 +273,7 @@ FLICKER LBRACE channel_list RBRACE
 FLICKER LBRACE CHAN value RBRACE
 {
 #ifdef _TRACE_PARSER
-    printf("flicker setting: %d\n", $4);
+    log_debug("flicker setting: %d\n", $4);
 #endif
     channel_list_t chs = new_channel_list(1);
     chs->channels[1] = 0;
@@ -288,17 +287,16 @@ ANALYZER LBRACE file_spec channel_list threshold threshold_value
 bands freq analyzer_type RBRACE
 {
 #ifdef _TRACE_PARSER
-    printf("analyzer setting: %s ,", $3);
-    printf("channel value: ");
-    printf(" %d channel(s)", $4.count);
+    log_debug("analyzer setting: %s \n", $3);
+    log_debug("channel value: %d channel(s)\n", $4.count);
     int i=0;
     for(i=0; i<$4.count; i++){
-        printf(" %d, ", $4.channels[i]);
+        log_debug("%d \n", $4.channels[i]);
     }
-    printf("freq value: %d ,", $8);
-    printf("threshold: %5.3f ,", $5);
-    printf("threshold value: %d ,", $6);
-    printf("bands: %d\n", $7);
+    log_debug("freq value: %d \n", $8);
+    log_debug("threshold: %5.3f \n", $5);
+    log_debug("threshold value: %d \n", $6);
+    log_debug("bands: %d\n", $7);
 #endif
     analyzer_data_t *aData = NEW_ANALYZER_DATA_T(aData);
     aData->movieFile = $3;
@@ -315,12 +313,12 @@ ANALYZER LBRACE file_spec chan threshold threshold_value
 bands freq analyzer_type RBRACE
 {
 #ifdef _TRACE_PARSER
-    printf("analyzer setting: %s ,", $3);
-    printf("channel value: %d ,", $4);
-    printf("freq value: %d ,", $8);
-    printf("threshold: %5.3f ,", $5);
-    printf("threshold value: %d ,", $6);
-    printf("bands: %d\n", $7);
+    log_debug("analyzer setting: %s\n", $3);
+    log_debug("channel value: %d\n", $4);
+    log_debug("freq value: %d\n", $8);
+    log_debug("threshold: %5.3f\n", $5);
+    log_debug("threshold value: %d\n", $6);
+    log_debug("bands: %d\n", $7);
 #endif
     analyzer_data_t *aData = NEW_ANALYZER_DATA_T(aData);
     aData->movieFile = $3;
@@ -340,13 +338,13 @@ oscillator_setting:
 OSCILLATOR LBRACE channel_list low_value high_value speed_value RBRACE
 {
 #ifdef _TRACE_PARSER
-    printf("Oscillator setting: low-- %d, high-- %d, speed-- %d", $4, $5, $6 );
-    printf(" %d channel(s)", $3.count);
+    log_debug("Oscillator setting: low-- %d, high-- %d, speed-- %d\n", $4, $5, $6 );
+    log_debug(" %d channel(s)\n", $3.count);
     int i=0;
     for(i=0; i<$3.count; i++){
-        printf(" %d, ", $3.channels[i]);
+        log_debug(" %d\n", $3.channels[i]);
     }
-    printf("\n");
+    log_debug("\n");
 #endif
     oscillator_data_t* oData = NEW_OSCILLATOR_DATA_T(oData);
     oData->dmxChannels = channel_list_from_data($3.count, $3.channels);
@@ -359,7 +357,7 @@ OSCILLATOR LBRACE channel_list low_value high_value speed_value RBRACE
 OSCILLATOR LBRACE chan low_value high_value speed_value RBRACE
 {
 #ifdef _TRACE_PARSER
-    printf("Oscillator setting: ch-- %d, low-- %d, high-- %d, speed-- %d\n", $3, $4, $5, $6 );
+    log_debug("Oscillator setting: ch-- %d, low-- %d, high-- %d, speed-- %d\n", $3, $4, $5, $6 );
 #endif
     oscillator_data_t* oData = NEW_OSCILLATOR_DATA_T(oData);
     oData->dmxChannels = new_channel_list(1);
@@ -376,10 +374,9 @@ timer_setting:
 TIMER LBRACE chan dmx_value ontime_value offtime_value RBRACE
 {
 #ifdef _TRACE_PARSER
-    printf("Timer setting channel-- %d, on-- %d, off-- %d\n",$3, $5, $6);
+    log_debug("Timer setting channel-- %d, on-- %d, off-- %d\n",$3, $5, $6);
 #endif
-    timed_effect_data_t* timer = malloc(sizeof(timed_effect_data_t));
-    memset(timer, 0, sizeof(timed_effect_data_t));
+    timed_effect_data_t* timer = NEW_TIMED_EFFECT(timer);
     timer->channels = new_channel_list(1);
     timer->channels->channels[1] = 0;
     timer->channels->channels[0] = $3;
@@ -393,10 +390,9 @@ TIMER LBRACE chan dmx_value ontime_value offtime_value RBRACE
 TIMER LBRACE channel_list dmx_value ontime_value offtime_value RBRACE
 {
 #ifdef _TRACE_PARSER
-    printf("Timer setting channel-- %d, on-- %d, off-- %d\n",$3, $5, $6);
+    log_debug("Timer setting channel-- %d, on-- %d, off-- %d\n",$3, $5, $6);
 #endif
-    timed_effect_data_t* timer = malloc(sizeof(timed_effect_data_t));
-    memset(timer, 0, sizeof(timed_effect_data_t));
+    timed_effect_data_t* timer = NEW_TIMED_EFFECT(timer);
     timer->channels = channel_list_from_data($3.count, $3.channels);
     timer->value = $4;
     timer->on_time = $5;
@@ -506,7 +502,7 @@ channel_list:   CHAN CHANNEL_LIST SEMICOLON
 
 err : ERROR
 {
-    fprintf(stderr, "%s not recognized.\n", $1);
+    flog_debug(stderr, "%s not recognized.\n", $1);
     free($1);
 }
 ;

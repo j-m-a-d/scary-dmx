@@ -23,6 +23,10 @@ typedef struct _timed_effect_data_t {
     struct _timed_effect_data_t *nextTimer;
 } timed_effect_data_t;
 
+#define NEW_TIMED_EFFECT(timer) \
+    malloc(sizeof(timed_effect_data_t)); \
+    memset(timer, 0, sizeof(timed_effect_data_t));
+
 enum {
     TIMED_EFFECT_OK,
     TIMED_EFFECT_FAIL,

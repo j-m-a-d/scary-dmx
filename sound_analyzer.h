@@ -19,11 +19,11 @@
     data = 0;
 
 enum  {
-    ANALYZE_OK,
-    ANALYZE_IN_PROGRESS,
-    ANALYZE_FILE_NOT_FOUND,
-    ANALYZE_MOVIE_NOT_FOUND,
-    ANALYZE_MOVIE_CREATE_FAILED
+    ANALYZE_OK                  =0 << 0,
+    ANALYZE_IN_PROGRESS         =1 << 0,
+    ANALYZE_FILE_NOT_FOUND      =1 << 1,
+    ANALYZE_MOVIE_NOT_FOUND     =1 << 2,
+    ANALYZE_MOVIE_CREATE_FAILED =1 << 3
 };
 
 enum {

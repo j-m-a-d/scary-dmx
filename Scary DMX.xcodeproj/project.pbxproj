@@ -49,7 +49,7 @@
 		960887620F3CD61D005D8118 /* MainWinController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MainWinController.h; sourceTree = "<group>"; };
 		960887630F3CD61D005D8118 /* MainWinController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = MainWinController.m; sourceTree = "<group>"; };
 		96138FFA1080CEFD00147788 /* ShowTableViewDS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowTableViewDS.h; sourceTree = "<group>"; };
-		96138FFB1080CEFD00147788 /* ShowTableViewDS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowTableViewDS.m; sourceTree = "<group>"; };
+		96138FFB1080CEFD00147788 /* ShowTableViewDS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ShowTableViewDS.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		962EA6E40F5B0BEA00DCC0C1 /* SoundController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SoundController.h; sourceTree = "<group>"; };
 		962EA6E50F5B0BEA00DCC0C1 /* SoundController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = SoundController.m; sourceTree = "<group>"; };
 		9642140110B0783400F9F364 /* OscillatorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OscillatorController.h; sourceTree = "<group>"; };
@@ -61,9 +61,9 @@
 		9691C15F14784EBD001C6297 /* SpectrumAnalyzerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpectrumAnalyzerController.h; sourceTree = "<group>"; };
 		9691C16014784EBD001C6297 /* SpectrumAnalyzerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpectrumAnalyzerController.m; sourceTree = "<group>"; };
 		96AE8B2510E813DC00210B82 /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
-		96AF8DE10F2B857300369C1E /* config_parser.y */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.yacc; path = config_parser.y; sourceTree = "<group>"; };
-		96AF8DE20F2B857300369C1E /* config_reader.l */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.lex; path = config_reader.l; sourceTree = "<group>"; };
-		96AF8DE30F2B857300369C1E /* dmx_controller.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = dmx_controller.c; sourceTree = "<group>"; };
+		96AF8DE10F2B857300369C1E /* config_parser.y */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.yacc; lineEnding = 0; path = config_parser.y; sourceTree = "<group>"; };
+		96AF8DE20F2B857300369C1E /* config_reader.l */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.lex; lineEnding = 0; path = config_reader.l; sourceTree = "<group>"; };
+		96AF8DE30F2B857300369C1E /* dmx_controller.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; lineEnding = 0; path = dmx_controller.c; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.c; };
 		96AF8DE40F2B857300369C1E /* dmx_controller.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = dmx_controller.h; sourceTree = "<group>"; };
 		96AF8DE50F2B857300369C1E /* flicker_effect.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = flicker_effect.c; sourceTree = "<group>"; };
 		96AF8DE60F2B857300369C1E /* flicker_effect.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = flicker_effect.h; sourceTree = "<group>"; };
@@ -72,7 +72,7 @@
 		96AF8DEB0F2B857300369C1E /* Makefile */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		96AF8DEC0F2B857300369C1E /* oscillator_effect.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = oscillator_effect.c; sourceTree = "<group>"; };
 		96AF8DED0F2B857300369C1E /* oscillator_effect.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = oscillator_effect.h; sourceTree = "<group>"; };
-		96AF8DEF0F2B857300369C1E /* show_handler.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = show_handler.c; sourceTree = "<group>"; };
+		96AF8DEF0F2B857300369C1E /* show_handler.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; lineEnding = 0; path = show_handler.c; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.c; };
 		96AF8DF00F2B857300369C1E /* show_handler.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = show_handler.h; sourceTree = "<group>"; };
 		96AF8DF10F2B857300369C1E /* skull.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = skull.icns; sourceTree = "<group>"; };
 		96AF8DF20F2B857300369C1E /* sound_analyzer.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = sound_analyzer.c; sourceTree = "<group>"; };
@@ -80,9 +80,9 @@
 		96AF8DF40F2B857300369C1E /* timed_effect.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = timed_effect.c; sourceTree = "<group>"; };
 		96AF8DF50F2B857300369C1E /* timed_effect.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = timed_effect.h; sourceTree = "<group>"; };
 		96AF8DF60F2B857300369C1E /* WinTypes.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = WinTypes.h; sourceTree = "<group>"; };
-		96AF8E7F0F2B873800369C1E /* config_parser.tab.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = config_parser.tab.c; sourceTree = "<group>"; };
+		96AF8E7F0F2B873800369C1E /* config_parser.tab.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; lineEnding = 0; path = config_parser.tab.c; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.c; };
 		96AF8E800F2B873800369C1E /* config_parser.tab.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = config_parser.tab.h; sourceTree = "<group>"; };
-		96AF8E810F2B873800369C1E /* config_reader.yy.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = config_reader.yy.c; sourceTree = "<group>"; };
+		96AF8E810F2B873800369C1E /* config_reader.yy.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; lineEnding = 0; path = config_reader.yy.c; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.c; };
 		96E0BD0F147852180050B8F7 /* FrequencyAnalyzerDisplayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FrequencyAnalyzerDisplayController.m; sourceTree = "<group>"; };
 		96E0BD10147852180050B8F7 /* FrequencyAnalyzerDisplayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrequencyAnalyzerDisplayController.h; sourceTree = "<group>"; };
 		96E0BD901478576A0050B8F7 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
@@ -267,7 +267,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0440;
+				LastUpgradeCheck = 0450;
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Scary DMX" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -379,12 +379,13 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 1;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					_REENTRANT,
-					pthread,
+					_TRACE_PARSER,
+					_LOG,
 				);
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
 				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
@@ -405,6 +406,7 @@
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)\"";
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "-pthread";
 				PRODUCT_NAME = "Scary DMX";
 				SDKROOT = "";
 				STRINGS_FILE_OUTPUT_ENCODING = "UTF-8";
@@ -427,11 +429,8 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					_REENTRANT,
-					pthread,
-				);
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_PREPROCESSOR_DEFINITIONS = _REENTRANT;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
 				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
@@ -450,6 +449,7 @@
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)\"";
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "-pthread";
 				PRODUCT_NAME = "Scary DMX";
 				SDKROOT = "";
 				STRINGS_FILE_OUTPUT_ENCODING = "UTF-8";
@@ -461,9 +461,22 @@
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				GCC_VERSION = "";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_IMPLICIT_SIGN_CONVERSION = YES;
+				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
+				GCC_WARN_SHADOW = YES;
+				GCC_WARN_SIGN_COMPARE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_LABEL = YES;
+				GCC_WARN_UNUSED_PARAMETER = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				OTHER_CFLAGS = "-pthread";
 				SDKROOT = "";
 			};
 			name = Debug;
@@ -471,9 +484,23 @@
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				GCC_VERSION = "";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_IMPLICIT_SIGN_CONVERSION = YES;
+				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
+				GCC_WARN_SHADOW = YES;
+				GCC_WARN_SIGN_COMPARE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_LABEL = YES;
+				GCC_WARN_UNUSED_PARAMETER = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				OTHER_CFLAGS = "-pthread";
 				SDKROOT = "";
 			};
 			name = Release;
