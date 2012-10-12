@@ -81,9 +81,10 @@ static inline void delete_channel_list(channel_list_t in)
         fprintf (stderr, format, ##__VA_ARGS__)
 #elif
     #define log_info(format, ...)
+    #define log_debug(format, ...)
     #define log_warn(format, ...)
     #define log_error(format, ...)
 #endif
 
-
 #endif
+
