@@ -22,7 +22,7 @@
     return NSTerminateNow;
 }
 
-static unsigned short _current_cue_index = 0;
+static int _current_cue_index = 0;
 
 - (NSURL*)chooseShowFile:(NSString*)fromDir:(NSArray*)fileTypes:(NSString*)action
 {

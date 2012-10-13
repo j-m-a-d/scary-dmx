@@ -278,7 +278,11 @@ void start_dmx()
             pthread_mutex_unlock(&dmx_mutex);
             return;
         }
-        pthread_create(&dmx_writer_pt, NULL, Write_Buffer, NULL);
+        pthread_attr_t attr;
+        pthread_attr_init(&attr);
+        pthread_attr_setdetachstate(&attr,PTHREAD_CREATE_JOINABLE);
+        pthread_attr_setstacksize(&attr, 512);
+        pthread_create(&dmx_writer_pt, &attr, Write_Buffer, NULL);
         /* TODO check result ^^ */
         log_error( "Starting DMX transmission.\n");
         /* We can now allow threads to write updates to the output buffer. */

@@ -17,7 +17,6 @@
 #include <stdio.h>
 
 volatile static int timed = 0;
-static const unsigned int THREAD_FINISHED = 11544216;
 
 static pthread_mutex_t _wait_mutex = PTHREAD_MUTEX_INITIALIZER;
 static pthread_cond_t _wait_cond = PTHREAD_COND_INITIALIZER;
@@ -90,32 +89,7 @@ void stop_timed_effects(timed_effect_data_t *timer)
     while(tmp){
         timed_effect_t* handle = ((timed_effect_t*)(tmp->timer_handle));
         if(!handle) continue;
-        if(ESRCH == pthread_cancel(*(handle->handle))) {
-            unsigned int *retval[1];
-            int result = pthread_join(*handle->handle, (void**)&(retval[0]));
-            if(!result) {
-                if(THREAD_FINISHED != *retval[0]) {
-                    log_warn("WARNING: Cannot cancel timer.  Thread exited with unknown value: %d.\n", *retval[0]);
-                }
-            } else {
-                char *error_code;
-                switch(result) {
-                    case EDEADLK:
-                        error_code = "EDEADLK";
-                        break;
-                    case EINVAL:
-                        error_code = "EINVAL";
-                        break;
-                    case ESRCH:
-                        error_code = "ERSCH";
-                        break;
-                    default:
-                        error_code = "UNKNOWN";
-                        break;
-                }
-                log_warn(")WARNING: Failed to cancel timer; Could not join threadL %s\n", error_code);
-            }
-        }
+        cancel_join_pthread((handle->handle), "timer");
         handle->run_flag = 0;
         update_channels(tmp->channels, 0);
         tmp = tmp->nextTimer;
@@ -129,6 +103,7 @@ void *do_timed_effect(void *data_in)
     pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, NULL);
 
     timed_effect_data_t *data = (timed_effect_data_t*)data_in;
+    
     /* Wait here until the timers are told to start. */
     pthread_mutex_lock(&_wait_mutex);
     while(!timed) {
@@ -142,7 +117,8 @@ void *do_timed_effect(void *data_in)
         update_channels(data->channels, 0 );
         usleep(data->off_time);
     }
-    pthread_exit((void*)&THREAD_FINISHED);
+    
+    EXIT_THREAD();
 }
 
 int create_timed_effect_handle(timed_effect_handle **handle)
@@ -165,6 +141,7 @@ int cue_timed_effect(timed_effect_data_t *data)
     pthread_attr_t attr;
     pthread_attr_init(&attr);
     pthread_attr_setstacksize(&attr, 512);
+    pthread_attr_setdetachstate(&attr,PTHREAD_CREATE_JOINABLE);
 
     timed_effect_t *te = (timed_effect_t*)data->timer_handle;
     te->run_flag = 1;

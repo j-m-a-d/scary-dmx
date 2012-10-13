@@ -31,6 +31,7 @@
 		96E0BD11147852180050B8F7 /* FrequencyAnalyzerDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E0BD0F147852180050B8F7 /* FrequencyAnalyzerDisplayController.m */; };
 		96E0BD911478576A0050B8F7 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96E0BD901478576A0050B8F7 /* OpenGL.framework */; };
 		96E23BED146A1BC1009FC276 /* SpectrumAnalyzerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E23BEC146A1BC1009FC276 /* SpectrumAnalyzerView.m */; };
+		96F6B9CA1629BEA50009FB9E /* utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 96F6B9C91629BEA50009FB9E /* utils.c */; };
 		96FE58061079A00900A92124 /* QuickTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96FE58051079A00900A92124 /* QuickTime.framework */; };
 /* End PBXBuildFile section */
 
@@ -88,6 +89,7 @@
 		96E0BD901478576A0050B8F7 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
 		96E23BEB146A1BC1009FC276 /* SpectrumAnalyzerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpectrumAnalyzerView.h; sourceTree = "<group>"; };
 		96E23BEC146A1BC1009FC276 /* SpectrumAnalyzerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpectrumAnalyzerView.m; sourceTree = "<group>"; };
+		96F6B9C91629BEA50009FB9E /* utils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = utils.c; sourceTree = "<group>"; };
 		96FE58051079A00900A92124 /* QuickTime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickTime.framework; path = /System/Library/Frameworks/QuickTime.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -165,6 +167,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				96F6B9C91629BEA50009FB9E /* utils.c */,
 				967B70B910DEBF6A00318111 /* chaser_handler.c */,
 				96AF8DE10F2B857300369C1E /* config_parser.y */,
 				96AF8E7F0F2B873800369C1E /* config_parser.tab.c */,
@@ -340,6 +343,7 @@
 				968800391471CF9200754002 /* DMXOutputDisplayController.m in Sources */,
 				9691C16114784EBD001C6297 /* SpectrumAnalyzerController.m in Sources */,
 				96E0BD11147852180050B8F7 /* FrequencyAnalyzerDisplayController.m in Sources */,
+				96F6B9CA1629BEA50009FB9E /* utils.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

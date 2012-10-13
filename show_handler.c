@@ -416,9 +416,7 @@ static void *next_step()
     }
 
 die_now:
-    ;
 	pthread_exit(NULL);
-
 }
 
 static void _stop_show()
@@ -467,25 +465,38 @@ static void go_to_next_step()
     
     int showOver = 0;
     
+    log_debug("Stopping effects\n");
+    
     stop_oscillating();
+    log_debug("Stopped oscillator\n");
+    
     stop_flicker();
+    log_debug("Stopped flicker\n");
+    
     if(_live_show->currentCue)
         stop_timed_effects(_live_show->currentCue->cue->timer);
+    log_debug("Stopped timed effects\n");
+    
+    log_debug("showstate=%#x\n", _state);
     
     if(SHOWING()){
         /* Cue up the next scene. */
-        showOver = advance_cue(_live_show); 
+        showOver = advance_cue(_live_show);
+        log_debug("Advanced to next cue\n");
         if(!showOver){
             log_debug( "Calling next step\n");
-            pthread_create(&_show_pt, NULL, &next_step, NULL);
+            pthread_attr_t attr;
+            pthread_attr_init(&attr);
+            pthread_attr_setdetachstate(&attr,PTHREAD_CREATE_JOINABLE);
+            pthread_attr_setstacksize(&attr, 512);
+            pthread_create(&_show_pt, &attr, &next_step, NULL);
             log_debug( "Returned from next step\n");
             if(_call_show_next_step){
                 /* notify listeners */
                 _call_show_next_step(_show_next_step_obj, _live_show->currentCue);
             }
         } else {
-            log_debug( "Show is over.\n");
-            
+            log_debug( "Show is over\n");
             stop_show();
             _rewind_show(_live_show);
             if(_call_show_end){
@@ -493,6 +504,8 @@ static void go_to_next_step()
                 _call_show_end(_show_end_obj);
             }
         }
+    } else {
+        log_debug("Show is not in progess: showstate=%#x\n", _state);
     }
 }
 
@@ -533,7 +546,11 @@ int setShow(dmx_show_t *show)
  */
 static void _start_show()
 {
-    pthread_create(&_show_pt, NULL, &next_step, NULL);
+    pthread_attr_t attr;
+    pthread_attr_init(&attr);
+    pthread_attr_setstacksize(&attr, 512);
+    pthread_attr_setdetachstate(&attr,PTHREAD_CREATE_JOINABLE);
+    pthread_create(&_show_pt, &attr, &next_step, NULL);
 }
 
 /*

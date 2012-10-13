@@ -193,7 +193,7 @@ cleanup:
     
         _monitoring = 0;
     
-        log_debug( "Finished cleaning up.\n");
+        log_debug( "Finished cleaning up analyzer.\n");
     pthread_mutex_unlock(&_analyze_mutex);
     
     /* Let our listener(s) know */
@@ -201,7 +201,8 @@ cleanup:
         log_debug( "Notifying analyzer listeners.\n");
         pthread_attr_t attr;
         pthread_attr_init(&attr);
-        pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
+        pthread_attr_setdetachstate(&attr,PTHREAD_CREATE_JOINABLE);
+        pthread_attr_setstacksize(&attr, 512);
         pthread_create(&_callback_thread, &attr, do_callback, (void*)callback);
     } else {
         log_debug( "No analyzer listeners.\n");
@@ -378,8 +379,11 @@ int start_analyze(analyzer_data_t *data_in, void(*callback)())
             break;
     }
     _monitoring = 1;
-    
-    if(pthread_create(&_monitor_thread, NULL, monitor, (void*)data) != 0){
+    pthread_attr_t attr;
+    pthread_attr_init(&attr);
+    pthread_attr_setdetachstate(&attr,PTHREAD_CREATE_JOINABLE);
+    pthread_attr_setstacksize(&attr, 512);
+    if(pthread_create(&_monitor_thread, &attr, monitor, (void*)data) != 0){
         log_error("Failed to start thread for sound analyzer.\n");
     }
 

@@ -14,8 +14,8 @@
 #include <pthread.h>
 
 
-static pthread_t flicker_pt = 0;
-static pthread_mutex_t flicker_mutex = PTHREAD_MUTEX_INITIALIZER;
+static pthread_t _flicker_thread = 0;
+static pthread_mutex_t _flicker_mutex = PTHREAD_MUTEX_INITIALIZER;
 
 static int flickering = 0;
 
@@ -24,11 +24,10 @@ static int flickering = 0;
 */
 void stop_flicker()
 {
-    pthread_mutex_lock(&flicker_mutex);
+    pthread_mutex_lock(&_flicker_mutex);
         flickering = 0;
-    pthread_mutex_unlock(&flicker_mutex);
-    pthread_cancel(flicker_pt);
-    pthread_join(flicker_pt, NULL);
+    pthread_mutex_unlock(&_flicker_mutex);
+    cancel_join_pthread(&_flicker_thread, "flicker");
 }
 
 static void reset_dmx_state(void *data)
@@ -41,7 +40,7 @@ static void reset_dmx_state(void *data)
 	This thread will update channels like a chaser that 
     creates a flicker effect.
 */
-void *Flicker(void *channels)
+void *flicker(void *channels)
 {
     pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
     pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, NULL);
@@ -53,7 +52,7 @@ void *Flicker(void *channels)
 	useconds_t seconds = 10000;
     
 	register dmx_value_t i=0;
-	while(flickering){
+	while(1){
         /* Hardcoded sequence of values for this effect on a dimmer pack. */
 	    for(i=65; i<155; i+=2){ 
             update_channels(dmxChannels, i); 
@@ -87,7 +86,7 @@ void *Flicker(void *channels)
 	}
 
     pthread_cleanup_pop(1);
-	pthread_exit(NULL);
+	EXIT_THREAD();
 }
 
 /*
@@ -96,21 +95,21 @@ void *Flicker(void *channels)
 int start_flicker(channel_list_t dmxChannels){
 
     int status = FLICKER_OK;
-    pthread_mutex_lock(&flicker_mutex);
+    pthread_mutex_lock(&_flicker_mutex);
     if(flickering){
-        pthread_mutex_unlock(&flicker_mutex);
+        pthread_mutex_unlock(&_flicker_mutex);
         return FLICKER_IN_PROGRESS;
     }else{
         flickering = 1;
-        dmx_channel_t *tmp = dmxChannels->channels;
-        while(*tmp++){
-            if( *tmp >= DMX_CHANNELS ){
-                flickering = 0;
-                return FLICKER_BAD_CHANNEL;
-            }
+        if(validate_channel_list(dmxChannels)) {
+            //return -1;
         }
-        pthread_create(&flicker_pt, NULL, Flicker, (void *)(dmxChannels));
+        pthread_attr_t attr;
+        pthread_attr_init(&attr);
+        pthread_attr_setdetachstate(&attr,PTHREAD_CREATE_JOINABLE);
+        //pthread_attr_setstacksize(&attr, 512);
+        pthread_create(&_flicker_thread, &attr, flicker, (void *)(dmxChannels));
     }
-    pthread_mutex_unlock(&flicker_mutex);
+    pthread_mutex_unlock(&_flicker_mutex);
     return status;
 }

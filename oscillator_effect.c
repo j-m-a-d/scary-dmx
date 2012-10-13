@@ -17,7 +17,7 @@
 /* Flag that indicates this thread is running. */
 volatile static int oscillating = 0;
 
-static pthread_t oscillator_pt = 0;
+static pthread_t _oscillator_thread = 0;
 static pthread_mutex_t oscillator_mutex = PTHREAD_MUTEX_INITIALIZER;
 
 inline void copy_oscillator_data(oscillator_data_t *to, const oscillator_data_t *from)
@@ -46,7 +46,8 @@ static void reset_dmx_state(void *data)
  *  This thread will update channels like a chaser that
  *  oscillates from a low threshold to a high threshold.
  */
-void *Oscillate(void* data_in){
+void *oscillate(void* data_in)
+{
     
     pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
     pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, NULL);
@@ -69,7 +70,7 @@ void *Oscillate(void* data_in){
     }
     
     pthread_cleanup_pop(1);
-    pthread_exit(NULL);
+    EXIT_THREAD();
 }
 
 /*
@@ -80,8 +81,7 @@ void stop_oscillating()
     pthread_mutex_lock(&oscillator_mutex);
         oscillating=0;    
     pthread_mutex_unlock(&oscillator_mutex);
-    pthread_cancel(oscillator_pt);
-    pthread_join(oscillator_pt, NULL);
+    cancel_join_pthread(&_oscillator_thread, "oscillator");
 }
 
 /*
@@ -101,7 +101,11 @@ int start_oscillating(const oscillator_data_t *inData)
             return OSCILLATOR_IN_PROGRESS;
         }
         oscillating = 1;
-        pthread_create(&oscillator_pt, NULL, Oscillate, (void *)inData);
+        pthread_attr_t attr;
+        pthread_attr_init(&attr);
+        pthread_attr_setdetachstate(&attr,PTHREAD_CREATE_JOINABLE);
+        pthread_attr_setstacksize(&attr, 512);
+        pthread_create(&_oscillator_thread, &attr, oscillate, (void *)inData);
     pthread_mutex_unlock(&oscillator_mutex);
     
     return OSCILLATOR_OK;

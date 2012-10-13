@@ -16,7 +16,7 @@
 NSString *formatDuration(long duration)
 {
     short left = 0;
-    short hours = duration / 3600;
+    short hours = (short)duration / 3600;
     left = duration % 3600;
     short mins = left / 60;
     short seconds = left % 60;

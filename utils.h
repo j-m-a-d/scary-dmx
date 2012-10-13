@@ -10,11 +10,45 @@
 #define UTILS_H
 
 #include <sys/types.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <pthread.h>
+#include <errno.h>
+
+
+#ifdef _LOG
+#include <libgen.h>
+#define log_info(format, ...) \
+fprintf (stdout, "[INFO]  "); \
+fprintf (stdout, format, ##__VA_ARGS__)
+
+#define log_debug(format, ...) \
+fprintf (stderr, "[DEBUG] [%s:%d] ", basename(__FILE__), __LINE__); \
+fprintf (stderr, format, ##__VA_ARGS__)
+
+#define log_warn(format, ...) \
+fprintf (stderr, "[WARN]  " ); \
+fprintf (stderr, format, ##__VA_ARGS__)
+
+#define log_error(format, ...) \
+fprintf (stderr, "[ERROR] [%s:%d] ", basename(__FILE__), __LINE__ ); \
+fprintf (stderr, format, ##__VA_ARGS__)
+#elif
+#define log_info(format, ...)
+#define log_debug(format, ...)
+#define log_warn(format, ...)
+#define log_error(format, ...)
+#endif
+
 
 typedef unsigned char dmx_value_t;
 typedef unsigned int dmx_channel_t;
+
+enum channel_ret {
+    CHANNEL_LIST_OK,
+    CHANNEL_LIST_BAD_CHANNEL
+};
 
 struct channel_list {
     dmx_channel_t *channels;
@@ -23,68 +57,25 @@ struct channel_list {
 
 typedef struct channel_list *channel_list_t;
 
-static inline channel_list_t new_channel_list(int length)
-{
-    size_t __chan_length_init = sizeof(dmx_channel_t) * (length + 1);
-    channel_list_t v = malloc(sizeof(v));
-    v->channels = malloc(__chan_length_init);
-    memset(v->channels, 0, __chan_length_init);
-    v->length = length;    
-    return v;
-}
-
-static inline channel_list_t channel_list_from_data(int length, int *data)
-{
-    channel_list_t retval = new_channel_list(length);
-    memcpy(retval->channels, data, sizeof(dmx_channel_t) * length);
-    return retval;
-}
-
-static inline channel_list_t copy_channel_list(channel_list_t in)
-{
-    channel_list_t retval = new_channel_list(in->length);
-    memcpy(retval->channels, in->channels, (sizeof(dmx_channel_t) * in->length) );
-    return retval;
-}
-
-static inline void delete_channel_list(channel_list_t in)
-{
-    memset(in->channels, 0, sizeof(dmx_channel_t) * in->length);
-    free(in->channels);
-    in->channels = 0;
-    memset(in, 0, sizeof(struct channel_list));
-    free(in);
-}
-
+channel_list_t new_channel_list(int);
+channel_list_t channel_list_from_data(int, int *);
+channel_list_t copy_channel_list(channel_list_t);
+void delete_channel_list(channel_list_t);
 #define DELETE_CHANNEL_LIST(in) \
     if(in){ \
         delete_channel_list(in); \
     } \
     in = 0;
 
+int validate_channel_list(channel_list_t);
 
-#ifdef _LOG
-    #define log_info(format, ...) \
-        fprintf (stdout, "[INFO]  "); \
-        fprintf (stdout, format, ##__VA_ARGS__)
+#define THREAD_FINISHED 0
+static const unsigned int _THREAD_FINISHED = 11544216;
 
-    #define log_debug(format, ...) \
-        fprintf (stderr, "[DEBUG] [%s:%d] ", __FILE__, __LINE__); \
-        fprintf (stderr, format, ##__VA_ARGS__)
+#define EXIT_THREAD() \
+    pthread_exit((void*)&_THREAD_FINISHED); 
 
-    #define log_warn(format, ...) \
-        fprintf (stderr, "[WARN]  " ); \
-        fprintf (stderr, format, ##__VA_ARGS__)
-
-    #define log_error(format, ...) \
-        fprintf (stderr, "[ERROR] [%s:%d] ", __FILE__, __LINE__ ); \
-        fprintf (stderr, format, ##__VA_ARGS__)
-#elif
-    #define log_info(format, ...)
-    #define log_debug(format, ...)
-    #define log_warn(format, ...)
-    #define log_error(format, ...)
-#endif
+int cancel_join_pthread(pthread_t*, const char *name);
 
 #endif
 
