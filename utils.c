@@ -7,9 +7,17 @@
 //
 
 #include "utils.h"
-#include "dmx_controller.h"
 
-int cancel_join_pthread(pthread_t *thread, const char* name)
+inline int spawn_joinable_pthread(pthread_t *thread, void*(*func)(void*), void *data)
+{
+    pthread_attr_t attr;
+    pthread_attr_init(&attr);
+    pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_JOINABLE);
+    pthread_attr_setstacksize(&attr, 512);
+    return pthread_create(thread, &attr, func, (void*)data);
+}
+
+int cancel_join_pthread(const pthread_t *thread, const char* name)
 {
     if(!thread || !*thread) {
         return 0;
@@ -47,7 +55,7 @@ int cancel_join_pthread(pthread_t *thread, const char* name)
     return THREAD_FINISHED;
 }
 
-inline channel_list_t new_channel_list(int length)
+ channel_list_t new_channel_list(const int length)
 {
     size_t __chan_length_init = sizeof(dmx_channel_t) * (length + 1);
     channel_list_t v = malloc(sizeof(v));
@@ -57,21 +65,21 @@ inline channel_list_t new_channel_list(int length)
     return v;
 }
 
-inline channel_list_t channel_list_from_data(int length, int *data)
+ channel_list_t channel_list_from_data(const int length, const int *data)
 {
     channel_list_t retval = new_channel_list(length);
     memcpy(retval->channels, data, sizeof(dmx_channel_t) * length);
     return retval;
 }
 
-inline channel_list_t copy_channel_list(channel_list_t in)
+ channel_list_t copy_channel_list(const channel_list_t in)
 {
     channel_list_t retval = new_channel_list(in->length);
     memcpy(retval->channels, in->channels, (sizeof(dmx_channel_t) * in->length) );
     return retval;
 }
 
-inline void delete_channel_list(channel_list_t in)
+ void delete_channel_list(const channel_list_t in)
 {
     memset(in->channels, 0, sizeof(dmx_channel_t) * in->length);
     free(in->channels);
@@ -80,11 +88,11 @@ inline void delete_channel_list(channel_list_t in)
     free(in);
 }
 
-inline int validate_channel_list(channel_list_t in)
+ int validate_channel_list(const channel_list_t in, const unsigned int max)
 {
     dmx_channel_t *tmp = in->channels;
     while(*tmp++){
-        if( *tmp >= DMX_CHANNELS ){
+        if( *tmp >= max ){
             return CHANNEL_LIST_BAD_CHANNEL;
         }
     }

@@ -44,6 +44,7 @@ void *flicker(void *channels)
 {
     pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
     pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, NULL);
+    
     channel_list_t dmxChannels = (channel_list_t)channels;
 
     pthread_cleanup_push(reset_dmx_state, dmxChannels);
@@ -101,14 +102,10 @@ int start_flicker(channel_list_t dmxChannels){
         return FLICKER_IN_PROGRESS;
     }else{
         flickering = 1;
-        if(validate_channel_list(dmxChannels)) {
+        if(validate_channel_list(dmxChannels, DMX_CHANNELS)) {
             //return -1;
         }
-        pthread_attr_t attr;
-        pthread_attr_init(&attr);
-        pthread_attr_setdetachstate(&attr,PTHREAD_CREATE_JOINABLE);
-        //pthread_attr_setstacksize(&attr, 512);
-        pthread_create(&_flicker_thread, &attr, flicker, (void *)(dmxChannels));
+        spawn_joinable_pthread(&_flicker_thread, flicker, (void *)(dmxChannels));
     }
     pthread_mutex_unlock(&_flicker_mutex);
     return status;

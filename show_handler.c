@@ -373,6 +373,9 @@ static void go_to_next_step();
  */
 static void *next_step()
 {
+    pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
+    pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, NULL);
+    
     if(!SHOWING()){
         log_debug( "Show is not in progress, exiting.\n");
         goto die_now;
@@ -416,7 +419,7 @@ static void *next_step()
     }
 
 die_now:
-	pthread_exit(NULL);
+	EXIT_THREAD();
 }
 
 static void _stop_show()
@@ -461,7 +464,7 @@ void stop_show()
  */
 static void go_to_next_step()
 {
-    log_debug( "Callback: moving to next cue from: %s\n", _live_show->currentCue->cue->aData->movieFile);
+    log_debug("Callback: moving to next cue from: %s\n", _live_show->currentCue->cue->aData->movieFile);
     
     int showOver = 0;
     
@@ -485,11 +488,7 @@ static void go_to_next_step()
         log_debug("Advanced to next cue\n");
         if(!showOver){
             log_debug( "Calling next step\n");
-            pthread_attr_t attr;
-            pthread_attr_init(&attr);
-            pthread_attr_setdetachstate(&attr,PTHREAD_CREATE_JOINABLE);
-            pthread_attr_setstacksize(&attr, 512);
-            pthread_create(&_show_pt, &attr, &next_step, NULL);
+            spawn_joinable_pthread(&_show_pt, &next_step, NULL);
             log_debug( "Returned from next step\n");
             if(_call_show_next_step){
                 /* notify listeners */
@@ -546,11 +545,7 @@ int setShow(dmx_show_t *show)
  */
 static void _start_show()
 {
-    pthread_attr_t attr;
-    pthread_attr_init(&attr);
-    pthread_attr_setstacksize(&attr, 512);
-    pthread_attr_setdetachstate(&attr,PTHREAD_CREATE_JOINABLE);
-    pthread_create(&_show_pt, &attr, &next_step, NULL);
+    spawn_joinable_pthread(&_show_pt, &next_step, NULL);
 }
 
 /*

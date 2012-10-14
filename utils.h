@@ -34,7 +34,7 @@ fprintf (stderr, format, ##__VA_ARGS__)
 #define log_error(format, ...) \
 fprintf (stderr, "[ERROR] [%s:%d] ", basename(__FILE__), __LINE__ ); \
 fprintf (stderr, format, ##__VA_ARGS__)
-#elif
+#else
 #define log_info(format, ...)
 #define log_debug(format, ...)
 #define log_warn(format, ...)
@@ -57,17 +57,17 @@ struct channel_list {
 
 typedef struct channel_list *channel_list_t;
 
-channel_list_t new_channel_list(int);
-channel_list_t channel_list_from_data(int, int *);
-channel_list_t copy_channel_list(channel_list_t);
-void delete_channel_list(channel_list_t);
+channel_list_t new_channel_list(const int);
+channel_list_t channel_list_from_data(const int, const int *);
+channel_list_t copy_channel_list(const channel_list_t);
+void delete_channel_list(const channel_list_t);
 #define DELETE_CHANNEL_LIST(in) \
     if(in){ \
         delete_channel_list(in); \
     } \
     in = 0;
 
-int validate_channel_list(channel_list_t);
+int validate_channel_list(const channel_list_t, const unsigned int);
 
 #define THREAD_FINISHED 0
 static const unsigned int _THREAD_FINISHED = 11544216;
@@ -75,7 +75,8 @@ static const unsigned int _THREAD_FINISHED = 11544216;
 #define EXIT_THREAD() \
     pthread_exit((void*)&_THREAD_FINISHED); 
 
-int cancel_join_pthread(pthread_t*, const char *name);
+int spawn_joinable_pthread(pthread_t *thread, void*(*func)(void*), void *data);
+int cancel_join_pthread(const pthread_t*, const char *name);
 
 #endif
 

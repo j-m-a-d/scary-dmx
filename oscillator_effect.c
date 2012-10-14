@@ -101,11 +101,7 @@ int start_oscillating(const oscillator_data_t *inData)
             return OSCILLATOR_IN_PROGRESS;
         }
         oscillating = 1;
-        pthread_attr_t attr;
-        pthread_attr_init(&attr);
-        pthread_attr_setdetachstate(&attr,PTHREAD_CREATE_JOINABLE);
-        pthread_attr_setstacksize(&attr, 512);
-        pthread_create(&_oscillator_thread, &attr, oscillate, (void *)inData);
+        spawn_joinable_pthread(&_oscillator_thread, oscillate, (void *)inData);
     pthread_mutex_unlock(&oscillator_mutex);
     
     return OSCILLATOR_OK;

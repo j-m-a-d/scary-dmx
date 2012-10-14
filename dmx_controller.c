@@ -12,7 +12,6 @@
 #include <unistd.h>
 #include <pthread.h>
 #include <string.h>
-#include "utils.h"
 #include "ftd2xx.h"
 #include "dmx_controller.h"
 
@@ -70,8 +69,11 @@ void destroy_dmx()
    write buffer while this thread just keeps sending it to the
    output device.
  */
-void *Write_Buffer(){
-
+void *write_buffer(){
+    
+    pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
+    pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, NULL);
+    
     DWORD dwBytesWritten;
     FT_STATUS ftStatus;
     useconds_t seconds;
@@ -91,7 +93,7 @@ void *Write_Buffer(){
         }
         usleep(seconds);	
     }
-    pthread_exit(NULL);
+    EXIT_THREAD();
 }
 
 /*
@@ -278,11 +280,7 @@ void start_dmx()
             pthread_mutex_unlock(&dmx_mutex);
             return;
         }
-        pthread_attr_t attr;
-        pthread_attr_init(&attr);
-        pthread_attr_setdetachstate(&attr,PTHREAD_CREATE_JOINABLE);
-        pthread_attr_setstacksize(&attr, 512);
-        pthread_create(&dmx_writer_pt, &attr, Write_Buffer, NULL);
+        spawn_joinable_pthread(&dmx_writer_pt, write_buffer, NULL);
         /* TODO check result ^^ */
         log_error( "Starting DMX transmission.\n");
         /* We can now allow threads to write updates to the output buffer. */

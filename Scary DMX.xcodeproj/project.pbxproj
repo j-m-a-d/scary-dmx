@@ -325,6 +325,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96F6B9CA1629BEA50009FB9E /* utils.c in Sources */,
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				96AF8DF90F2B857300369C1E /* dmx_controller.c in Sources */,
 				96AF8DFA0F2B857300369C1E /* flicker_effect.c in Sources */,
@@ -334,16 +335,15 @@
 				96AF8E040F2B857300369C1E /* timed_effect.c in Sources */,
 				96AF8E820F2B873800369C1E /* config_parser.tab.c in Sources */,
 				96AF8E830F2B873800369C1E /* config_reader.yy.c in Sources */,
-				960887640F3CD61D005D8118 /* MainWinController.m in Sources */,
-				962EA6E60F5B0BEA00DCC0C1 /* SoundController.m in Sources */,
-				96138FFC1080CEFD00147788 /* ShowTableViewDS.m in Sources */,
-				9642140310B0783400F9F364 /* OscillatorController.m in Sources */,
 				967B70BA10DEBF6A00318111 /* chaser_handler.c in Sources */,
+				960887640F3CD61D005D8118 /* MainWinController.m in Sources */,
+				96138FFC1080CEFD00147788 /* ShowTableViewDS.m in Sources */,
+				962EA6E60F5B0BEA00DCC0C1 /* SoundController.m in Sources */,
+				9642140310B0783400F9F364 /* OscillatorController.m in Sources */,
 				96E23BED146A1BC1009FC276 /* SpectrumAnalyzerView.m in Sources */,
 				968800391471CF9200754002 /* DMXOutputDisplayController.m in Sources */,
 				9691C16114784EBD001C6297 /* SpectrumAnalyzerController.m in Sources */,
 				96E0BD11147852180050B8F7 /* FrequencyAnalyzerDisplayController.m in Sources */,
-				96F6B9CA1629BEA50009FB9E /* utils.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -468,6 +468,7 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_IMPLICIT_SIGN_CONVERSION = YES;
 				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
+				GCC_ENABLE_PASCAL_STRINGS = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
 				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
@@ -491,6 +492,7 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_IMPLICIT_SIGN_CONVERSION = YES;
 				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
+				GCC_ENABLE_PASCAL_STRINGS = YES;
 				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;

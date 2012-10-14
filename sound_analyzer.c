@@ -102,10 +102,13 @@ void stop_analyze()
 */
 void *do_callback(void *data_in)
 {
+    pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
+    pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, NULL);
+    
     void(*callback_function)();
     callback_function = data_in;
     callback_function();
-    pthread_exit(NULL);
+    EXIT_THREAD();
 }
 
 void register_self_as_freq_listener(void *callbackRef, void(*listenerFunction)(void*, QTAudioFrequencyLevels*))
@@ -128,6 +131,9 @@ void deregister_self_as_freqListner(void *callbackRef)
 void *monitor(void *data_in)
 {
 
+    pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
+    pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, NULL);
+    
     EnterMoviesOnThread(0);
     
     monitor_data_t *data = (monitor_data_t*)data_in;
@@ -199,17 +205,13 @@ cleanup:
     /* Let our listener(s) know */
     if(callback){
         log_debug( "Notifying analyzer listeners.\n");
-        pthread_attr_t attr;
-        pthread_attr_init(&attr);
-        pthread_attr_setdetachstate(&attr,PTHREAD_CREATE_JOINABLE);
-        pthread_attr_setstacksize(&attr, 512);
-        pthread_create(&_callback_thread, &attr, do_callback, (void*)callback);
+        spawn_joinable_pthread(&_callback_thread, do_callback, (void*)callback);
     } else {
-        log_debug( "No analyzer listeners.\n");
+        log_debug("No analyzer listeners.\n");
     }
 
-    log_debug( "Exiting analyzer thread.\n");
-    pthread_exit(NULL);
+    log_debug("Exiting analyzer thread.\n");
+    EXIT_THREAD();
 }
 
 void peak_monitor(monitor_data_t *data, QTAudioFrequencyLevels *freqs)
@@ -379,11 +381,7 @@ int start_analyze(analyzer_data_t *data_in, void(*callback)())
             break;
     }
     _monitoring = 1;
-    pthread_attr_t attr;
-    pthread_attr_init(&attr);
-    pthread_attr_setdetachstate(&attr,PTHREAD_CREATE_JOINABLE);
-    pthread_attr_setstacksize(&attr, 512);
-    if(pthread_create(&_monitor_thread, &attr, monitor, (void*)data) != 0){
+    if(spawn_joinable_pthread(&_monitor_thread, monitor, (void*)data) != 0){
         log_error("Failed to start thread for sound analyzer.\n");
     }
 

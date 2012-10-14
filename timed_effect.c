@@ -138,14 +138,9 @@ int create_timed_effect_handle(timed_effect_handle **handle)
 
 int cue_timed_effect(timed_effect_data_t *data)
 {   
-    pthread_attr_t attr;
-    pthread_attr_init(&attr);
-    pthread_attr_setstacksize(&attr, 512);
-    pthread_attr_setdetachstate(&attr,PTHREAD_CREATE_JOINABLE);
-
     timed_effect_t *te = (timed_effect_t*)data->timer_handle;
     te->run_flag = 1;
-    int result = pthread_create(te->handle, &attr, do_timed_effect, (void*)(data) );
+    int result = spawn_joinable_pthread(te->handle, do_timed_effect, (void*)(data) );
     if(result){
         return result;
     }
