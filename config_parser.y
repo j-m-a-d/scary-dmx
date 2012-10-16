@@ -303,7 +303,13 @@ TIMER LBRACE chan dmx_value ontime_value offtime_value RBRACE
 TIMER LBRACE channel_list dmx_value ontime_value offtime_value RBRACE
 {
 #ifdef _TRACE_PARSER
-    log_debug("Timer setting channel-- %d, on-- %d, off-- %d\n",$3, $5, $6);
+    log_debug("Timer setting on-- %d, off-- %d\n", $5, $6);
+    log_debug(" %d channel(s)\n", $3.count);
+    int i=0;
+    for(i=0; i<$3.count; i++){
+    log_debug(" %d\n", $3.channels[i]);
+    }
+    log_debug("\n");
 #endif
     timed_effect_data_t* timer = NEW_TIMED_EFFECT(timer);
     timer->channels = channel_list_from_data($3.count, $3.channels);
