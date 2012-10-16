@@ -182,7 +182,7 @@ dmx_value_t get_channel_value(int ch){
  */
 void get_channel_buffer(dmx_value_t *buffer, int offset, int num_channels)
 {
-    memcpy(buffer, outputBuffer + offset, sizeof(dmx_value_t) * num_channels);
+    memcpy(buffer, outputBuffer + offset, sizeof(dmx_value_t) * (unsigned int)num_channels);
 }
 
 /*

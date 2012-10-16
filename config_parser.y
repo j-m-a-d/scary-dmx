@@ -3,150 +3,63 @@
 #include <string.h>
 #include <stdlib.h>
 #include "show_handler.h"
+#include "config_parser.h"
 #include "config_parser.tab.h"
- 
+
+
+/* DECS */
+extern void yyrestart(FILE*);
+extern int yyparse();
+extern int yylex();
+
 dmx_show_t *resultShow;
-    
-void yyerror(const char *str)
+
+extern void yyerror(const char *str)
 {
     log_error("error: %s\n",str);
 }
 
-int yywrap()
+extern int yywrap()
 {
     return 1;
-} 
+}
 
-/* DECS */
-void yyrestart(FILE*);
-int yyparse();
-int yylex();
-
-int parse_show_file(const char *filename, dmx_show_t **show)
+extern int parse_show_file(const char *filename, dmx_show_t **show)
 {
     FILE *showFile = fopen(filename, "r");
     if(!showFile){
-        return -1;
+    return -1;
     }
 
     extern FILE *yyin;
     yyin = showFile;
 
-    int i = init_show(&resultShow); 
+    int i = init_show(&resultShow);
     if(i) return i;
 
     yyrestart(showFile);
     i = yyparse();
     if(i) return i;
 
-    _rewind_show(resultShow);   
+    _rewind_show(resultShow);
     fclose(showFile);
 
     *show = resultShow;
     resultShow = 0;
 
-    return 0; 
-}
-
-#ifdef _EXT_PARSER
-int main(int argc, char **argv)
-{
-    extern FILE *yyin;
-    yyin = fopen(argv[1], "r");
-
-    int i = init_show(&resultShow);
-    if(i){
-        log_error("Failed to initialize show.\n");
-    }
-    i = yyparse();
-    if(i){
-        log_error("Parse error.\n");
-        return i;
-    }
-    _rewind_show(resultShow);    
-
-    FILE *outFile = fopen("./outshow.shw", "w+");
-    if(!outFile){
-        log_error("Could not open out file for show output.\n");
-    }
-    printShow(resultShow, outFile);
-    fclose(outFile);
-
-    FREE_SHOW (resultShow);
-    return i;
-}
-#endif
-
-#ifdef _CLI_MAIN
-#include <signal.h>
-#include <unistd.h>
-#include <QuickTime/QuickTime.h>
-#include <Carbon/Carbon.h>
-
-void sig_all(int sig)
-{
-    sigset_t mask_set;
-    sigset_t old_set;
-    
-    signal(sig, sig_all);
-    sigfillset(&mask_set);
-    sigprocmask(SIG_SETMASK, &mask_set, &old_set);
-    
-	stop_show();
-	free_all_show();
-	destroy_dmx();
-	ExitMovies();
-	log_info("Shutdown finished.\n");
-	exit(0);
-}
-
-int main(int argc, char **argv)
-{
-    (void)signal(SIGINT, &sig_all);
-    (void)signal(SIGQUIT, &sig_all);
-    (void)signal(SIGKILL, &sig_all);
-
-    EnterMovies();
-        
-    dmx_show_t *newShow;
-    char *showFile;
-    showFile = argv[1];
-    if(!showFile){
-        flog_debug(stderr, "Usage: %s showfile\n", argv[0]);
-        return 1;
-    }
-    if(load_show_from_file(showFile, &newShow )){
-        flog_debug(stderr, "Show not found or invalid show.\n");
-        return 2;
-    }
-
-    if(DMX_INIT_OK != init_dmx()){
-        flog_debug(stderr, "Failed to open DMX device.\n");
-        return 3;
-    }
-    
-    start_dmx();
-    log_error( "Starting show.\n");
-    start_show();
-    log_error( "Running....");
-    while(1){
-        //usleep(100000);
-        sleep(5);
-    }
-    
     return 0;
 }
-#endif
 
-%} 
+
+%}
 
 %union {
-    int     val;
+    unsigned int val;
     double  dval;
     char    *text;
     struct {
-        int count;
-        int channels[512];
+        unsigned int count;
+        unsigned int channels[512];
     } chan_list;
 }
 

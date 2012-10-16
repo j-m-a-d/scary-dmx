@@ -13,10 +13,10 @@
 - (void)awakeFromNib
 {
     
-    odata.highThreshold = [high intValue];
-    odata.lowThreshold = [low intValue];
+    odata.highThreshold = (dmx_value_t)[high intValue];
+    odata.lowThreshold = (dmx_value_t)[low intValue];
     odata.speed = [speed intValue];
-    int chs[] = {[channelStepper intValue],0};
+    unsigned int chs[] = {[channelStepper intValue],0};
     odata.dmxChannels = channel_list_from_data(1, chs);
     [speedLevel setIntValue:[speed intValue]];
     
@@ -34,12 +34,12 @@
 
 - (IBAction)updateHighThreshold:(id)sender
 {
-    odata.highThreshold = [high intValue];
+    odata.highThreshold = (dmx_value_t)[high intValue];
 }
 
 - (IBAction)updateLowThreshold:(id)sender
 {
-    odata.lowThreshold = [low intValue];
+    odata.lowThreshold = (dmx_value_t)[low intValue];
 }
 
 - (IBAction)updateSpeed:(id)sender

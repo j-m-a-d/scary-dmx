@@ -63,8 +63,8 @@ ch[0-9]{1,3}:                {
                                     item;
                                     item = strtok_r(NULL, tok, &brk)){
                                     // add error check
-                                    yylval.chan_list.channels[i] = strtol(item, NULL, 10);
-                                    yylval.chan_list.count = ++i;
+                                    yylval.chan_list.channels[i] = (unsigned char)strtol(item, NULL, 10);
+                                    yylval.chan_list.count = (unsigned char)++i;
                                 }
                                 free(cpy);
                                 return CHANNEL_LIST;

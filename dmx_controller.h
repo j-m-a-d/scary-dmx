@@ -14,7 +14,7 @@
 
 #define CHANNEL_RESET           0
 #define DMX_CHANNELS            513
- 
+
 
 enum { 
     DMX_INIT_OK,       

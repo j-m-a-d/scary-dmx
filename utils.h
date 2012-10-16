@@ -57,8 +57,8 @@ struct channel_list {
 
 typedef struct channel_list *channel_list_t;
 
-channel_list_t new_channel_list(const int);
-channel_list_t channel_list_from_data(const int, const int *);
+channel_list_t new_channel_list(const unsigned int);
+channel_list_t channel_list_from_data(const unsigned int, const unsigned int *);
 channel_list_t copy_channel_list(const channel_list_t);
 void delete_channel_list(const channel_list_t);
 #define DELETE_CHANNEL_LIST(in) \

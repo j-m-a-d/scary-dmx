@@ -8,6 +8,7 @@
  */
 
 #include "show_handler.h"
+#include "config_parser.h"
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -511,7 +512,6 @@ static void go_to_next_step()
 /*
  Load a show file.
  */
-int parse_show_file(const char *filename, dmx_show_t **show);
 int load_show_from_file(const char *show_file, dmx_show_t **out_show)
 {
     stop_show();

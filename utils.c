@@ -24,7 +24,7 @@ int cancel_join_pthread(const pthread_t *thread, const char* name)
     }
     
     if(ESRCH == pthread_cancel(*thread)) {
-        unsigned int *retval[1];
+        int *retval[1];
         int result = pthread_join(*thread, (void**)&(retval[0]));
         if(!result) {
             if(_THREAD_FINISHED != *retval[0]) {
@@ -55,7 +55,7 @@ int cancel_join_pthread(const pthread_t *thread, const char* name)
     return THREAD_FINISHED;
 }
 
- channel_list_t new_channel_list(const int length)
+ channel_list_t new_channel_list(const unsigned int length)
 {
     size_t __chan_length_init = sizeof(dmx_channel_t) * (length + 1);
     channel_list_t v = malloc(sizeof(v));
@@ -65,7 +65,7 @@ int cancel_join_pthread(const pthread_t *thread, const char* name)
     return v;
 }
 
- channel_list_t channel_list_from_data(const int length, const int *data)
+ channel_list_t channel_list_from_data(const unsigned int length, const unsigned int *data)
 {
     channel_list_t retval = new_channel_list(length);
     memcpy(retval->channels, data, sizeof(dmx_channel_t) * length);
