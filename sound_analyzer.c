@@ -169,9 +169,8 @@ void *monitor(void *data_in)
         
         if(_listenerFunction && _callback_ref)
             _listenerFunction(_callback_ref, _freqResults);
-        #ifdef _CLI_MAIN
-        MoviesTask(*movie, 0);
-        #endif
+
+        MoviesTask(*_movie, 0);
     }
     
 cleanup:

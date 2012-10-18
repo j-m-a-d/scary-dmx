@@ -91,7 +91,7 @@ void stop_timed_effects(timed_effect_data_t *timer)
         if(!handle) continue;
         cancel_join_pthread((handle->handle), "timer");
         handle->run_flag = 0;
-        update_channels(tmp->channels, 0);
+        update_channels(tmp->channels, CHANNEL_RESET);
         tmp = tmp->nextTimer;
     }
     pthread_mutex_unlock(&_wait_mutex);

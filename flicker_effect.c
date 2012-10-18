@@ -33,7 +33,7 @@ void stop_flicker()
 static void reset_dmx_state(void *data)
 {
     channel_list_t dmxChannels = (channel_list_t)data;
-    update_channels(dmxChannels, 0);
+    update_channels(dmxChannels, CHANNEL_RESET);
 }
 
 /*
