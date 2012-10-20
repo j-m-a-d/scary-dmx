@@ -38,7 +38,7 @@ inline void free_oscillator_data(oscillator_data_t *tdata)
 
 static void reset_dmx_state(void *data)
 {
-    channel_list_t dmxChannels = (channel_list_t)data;
+    channel_list_t dmxChannels = ((oscillator_data_t*)data)->dmxChannels ;
     update_channels(dmxChannels, CHANNEL_RESET);
 }
 
@@ -54,7 +54,7 @@ void *oscillate(void* data_in)
     
     oscillator_data_t *val = (oscillator_data_t*)data_in;
   
-    pthread_cleanup_push(reset_dmx_state, val->dmxChannels);
+    pthread_cleanup_push(reset_dmx_state, (void*)val);
     
     register dmx_value_t i=0;
     while(oscillating){
