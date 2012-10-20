@@ -9,7 +9,7 @@
 	<key>CFBundleIconFile</key>
 	<string>skull</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.inspirotech.Scary DMX</string>
+	<string>com.inspirotech.scarydmx</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
