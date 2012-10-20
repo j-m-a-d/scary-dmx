@@ -375,7 +375,7 @@ static void go_to_next_step();
 static void *next_step()
 {
     pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
-    pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, NULL);
+    pthread_setcanceltype(PTHREAD_CANCEL_DEFERRED, NULL);
     
     if(!SHOWING()){
         log_debug( "Show is not in progress, exiting.\n");

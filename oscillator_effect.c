@@ -50,7 +50,7 @@ void *oscillate(void* data_in)
 {
     
     pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
-    pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, NULL);
+    pthread_setcanceltype(PTHREAD_CANCEL_DEFERRED, NULL);
     
     oscillator_data_t *val = (oscillator_data_t*)data_in;
   

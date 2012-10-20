@@ -72,7 +72,7 @@ void destroy_dmx()
 void *write_buffer(){
     
     pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
-    pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, NULL);
+    pthread_setcanceltype(PTHREAD_CANCEL_DEFERRED, NULL);
     
     DWORD dwBytesWritten;
     FT_STATUS ftStatus;

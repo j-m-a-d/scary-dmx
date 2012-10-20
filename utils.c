@@ -27,7 +27,7 @@ int cancel_join_pthread(const pthread_t *thread, const char* name)
         int *retval[1];
         int result = pthread_join(*thread, (void**)&(retval[0]));
         if(!result) {
-            if(_THREAD_FINISHED != *retval[0]) {
+            if( PTHREAD_CANCELED != (void*)(retval[0]) && _THREAD_FINISHED != *retval[0]) {
                 log_warn("Cannot cancel '%s'.  Thread exited with unknown value: %d.\n", name, *retval[0]);
                 return *retval[0];
             }

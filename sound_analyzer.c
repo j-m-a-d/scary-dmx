@@ -103,7 +103,7 @@ void stop_analyze()
 void *do_callback(void *data_in)
 {
     pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
-    pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, NULL);
+    pthread_setcanceltype(PTHREAD_CANCEL_DEFERRED, NULL);
     
     void(*callback_function)();
     callback_function = data_in;
@@ -132,7 +132,7 @@ void *monitor(void *data_in)
 {
 
     pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
-    pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, NULL);
+    pthread_setcanceltype(PTHREAD_CANCEL_DEFERRED, NULL);
     
     EnterMoviesOnThread(0);
     

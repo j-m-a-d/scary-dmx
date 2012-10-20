@@ -43,7 +43,7 @@ static void reset_dmx_state(void *data)
 void *flicker(void *channels)
 {
     pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
-    pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, NULL);
+    pthread_setcanceltype(PTHREAD_CANCEL_DEFERRED, NULL);
     
     channel_list_t dmxChannels = (channel_list_t)channels;
 
