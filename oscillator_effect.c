@@ -54,7 +54,7 @@ void *oscillate(void* data_in)
     
     oscillator_data_t *val = (oscillator_data_t*)data_in;
   
-    pthread_cleanup_push(reset_dmx_state, (void*)val);
+    pthread_cleanup_push(reset_dmx_state, data_in);
     
     register dmx_value_t i=0;
     while(oscillating){

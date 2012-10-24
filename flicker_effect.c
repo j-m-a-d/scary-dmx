@@ -47,7 +47,7 @@ void *flicker(void *channels)
     
     channel_list_t dmxChannels = (channel_list_t)channels;
 
-    pthread_cleanup_push(reset_dmx_state, dmxChannels);
+    pthread_cleanup_push(reset_dmx_state, channels);
     
     /* Effect speed. */
 	useconds_t seconds = 10000;
