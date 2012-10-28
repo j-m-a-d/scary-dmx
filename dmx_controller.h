@@ -13,7 +13,6 @@
 #include "utils.h"
 
 #define CHANNEL_RESET           0
-#define DMX_CHANNELS            513
 
 
 enum { 
@@ -45,6 +44,7 @@ void update_channels(channel_list_t channelList, dmx_value_t val);
 /* update all channels at once */
 void bulk_update(unsigned char*);
 
+/* get a copy of the channel buffer for a universe */
 void get_channel_buffer(dmx_value_t *buf, int offset, int num_channels);
 
 #endif

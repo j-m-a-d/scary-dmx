@@ -17,7 +17,12 @@ enum {
     FLICKER_IN_PROGRESS,
     FLICKER_BAD_CHANNEL
 };
-    
+
+/*
+ Print a flicker value to a show file.
+ */
+void printFlickerChannels(channel_list_t, FILE *);
+
 /* Start the 'flicker' effect thread. */
 int start_flicker(channel_list_t);
 
@@ -25,3 +30,4 @@ int start_flicker(channel_list_t);
 void stop_flicker();
 
 #endif
+

@@ -46,6 +46,22 @@ typedef struct _monitor_data_t {
 
 static void(*analyzer_function)(monitor_data_t*, QTAudioFrequencyLevels*) = 0;
 
+/*
+ Print an analyzer setting to a show file.
+ */
+void printAnalyzer(analyzer_data_t *data, FILE *showFile)
+{
+    fprintf(showFile, "\tanalyzer {\n");
+    fprintf(showFile, "\t\t file:%s;\n", data->movieFile);
+    printChannelList(data->dmxChannelList, showFile);
+    fprintf(showFile, "\t\t threshold:%6.3f;\n", data->threshold);
+    fprintf(showFile, "\t\t threshold_value:%d;\n", data->dmxValue);
+    fprintf(showFile, "\t\t bands:%lu;\n", data->numberOfBandLevels);
+    fprintf(showFile, "\t\t freq:%d;\n", data->frequency);
+    fprintf(showFile, "\t\t type:%d;\n", data->flags);
+    fprintf(showFile, "\t}\n");
+}
+
 void free_monitor_data(monitor_data_t *mdata)
 {
     DELETE_CHANNEL_LIST(mdata->dmxChannelList);    
@@ -388,4 +404,3 @@ int start_analyze(analyzer_data_t *data_in, void(*callback)())
     
     return ANALYZE_OK;
 }
-

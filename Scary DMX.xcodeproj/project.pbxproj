@@ -331,7 +331,6 @@
 		96F63362162DE734006DC4D8 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				96F6B9C91629BEA50009FB9E /* utils.c */,
 				967B70B910DEBF6A00318111 /* chaser_handler.c */,
 				96AF8DE10F2B857300369C1E /* config_parser.y */,
 				96AF8E7F0F2B873800369C1E /* config_parser.tab.c */,
@@ -343,6 +342,7 @@
 				96AF8DEF0F2B857300369C1E /* show_handler.c */,
 				96AF8DF20F2B857300369C1E /* sound_analyzer.c */,
 				96AF8DF40F2B857300369C1E /* timed_effect.c */,
+				96F6B9C91629BEA50009FB9E /* utils.c */,
 			);
 			name = src;
 			sourceTree = "<group>";

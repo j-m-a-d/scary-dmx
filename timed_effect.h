@@ -33,12 +33,13 @@ enum {
     TIMED_EFFECT_IN_PROGRESS
 };
 
+/*
+ Print a timer setting to a show file.
+ */
+void printTimerData(timed_effect_data_t *, FILE *);
 int timed_effects_init();
-
 int create_timed_effect_handle(timed_effect_handle **handle);
-
 int cue_timed_effect(timed_effect_data_t *timer_data);
-
 int start_timed_effects();
 void stop_timed_effects();
 
@@ -47,6 +48,7 @@ if(data) { \
     free_timed_effects(data); \
     data = 0; \
 }
-#endif
 
 void free_timed_effects(timed_effect_data_t *);
+
+#endif

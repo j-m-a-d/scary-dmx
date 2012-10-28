@@ -14,6 +14,11 @@
 			<key>orderHint</key>
 			<integer>2</integer>
 		</dict>
+		<key>scarydmx-core copy.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
 		<key>scarydmx-core.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -33,6 +38,11 @@
 			<true/>
 		</dict>
 		<key>96151CB4162D3A5500A10709</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>96F5B24F163CA02C009012E3</key>
 		<dict>
 			<key>primary</key>
 			<true/>

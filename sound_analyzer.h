@@ -46,16 +46,15 @@ typedef struct _analyzer_data_t {
     malloc(sizeof(analyzer_data_t)); \
     memset(data, 0, sizeof(analyzer_data_t))
 
+/*
+ Print an analyzer setting to a show file.
+ */
+void printAnalyzer(analyzer_data_t *, FILE *);
 int open_movie_file(const unsigned char *fileName, Movie **newMovie, short *refId);
-
 int start_analyze(analyzer_data_t *data_in, void(*callback)());
-
 void stop_analyze();
-
 void skip_movie();
-
 void free_analyzer_data(analyzer_data_t *);
-
 void register_self_as_freq_listener(void *callbackRef, void(*listenerFunction)(void*, QTAudioFrequencyLevels*));
 void deregister_self_as_freqListner(void *callbackRef);
 

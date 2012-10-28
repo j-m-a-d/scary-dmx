@@ -26,6 +26,19 @@ typedef struct _timed_effect_t {
     volatile int run_flag;
 } timed_effect_t;
 
+/*
+ Print a timer setting to a show file.
+ */
+void printTimerData(timed_effect_data_t *data, FILE *showFile)
+{
+    fprintf(showFile, "\ttimer {\n");
+    printChannelList(data->channels, showFile);
+    fprintf(showFile, "\t\t dmx-value:%d;\n", data->value);
+    fprintf(showFile, "\t\t ontime:%ld;\n", data->on_time);
+    fprintf(showFile, "\t\t offtime:%ld;\n", data->off_time);
+    fprintf(showFile, "\t}\n");
+}
+
 static void free_timer_handle(timed_effect_t *in_timer)
 {
     timed_effect_t *timer = (timed_effect_t *)in_timer;

@@ -20,6 +20,19 @@ volatile static int oscillating = 0;
 static pthread_t _oscillator_thread = 0;
 static pthread_mutex_t oscillator_mutex = PTHREAD_MUTEX_INITIALIZER;
 
+/*
+ Print an oscillator setting to a show file.
+ */
+void printOscillatorData(oscillator_data_t *data, FILE *showFile)
+{
+    fprintf(showFile, "\toscillator {\n");
+    printChannelList(data->dmxChannels, showFile);
+    fprintf(showFile, "\t\t low:%d;\n", data->lowThreshold);
+    fprintf(showFile, "\t\t high:%d;\n", data->highThreshold);
+    fprintf(showFile, "\t\t speed:%d;\n", data->speed);
+    fprintf(showFile, "\t}\n");
+}
+
 inline void copy_oscillator_data(oscillator_data_t *to, const oscillator_data_t *from)
 {
     memset(to, 0, ODT_SIZE);
@@ -105,6 +118,4 @@ int start_oscillating(const oscillator_data_t *inData)
     pthread_mutex_unlock(&oscillator_mutex);
     
     return OSCILLATOR_OK;
-}    
-    
-    
+}

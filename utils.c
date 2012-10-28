@@ -8,6 +8,35 @@
 
 #include "utils.h"
 
+/*
+ Print a list of cue channels from a show to a file.
+ */
+void printCueChannels(unsigned char *channels, FILE *showFile)
+{
+    unsigned char *cv = channels;
+    register int i;
+    for(i=0; i< DMX_CHANNELS+1; i++){
+        if(*cv){
+            fprintf(showFile, "\tch%d:%d;\n", i, (int)(*cv));
+        }
+        cv++;
+    }
+}
+
+/*
+ Print a list of channels for any effect that supports channes lists.
+ */
+void printChannelList(channel_list_t channels, FILE *showFile)
+{
+    dmx_channel_t *tmp = channels->channels;
+    fprintf(showFile, "\t\t ch:%d", *tmp++);
+    while(*tmp){
+        fprintf(showFile, ",%d", *tmp);
+        tmp++;
+    }
+    fprintf(showFile, ";\n");
+}
+
 inline int spawn_joinable_pthread(pthread_t *thread, void*(*func)(void*), void *data)
 {
     pthread_attr_t attr;

@@ -17,6 +17,8 @@
 #include <errno.h>
 
 
+#define DMX_CHANNELS            513
+
 #ifdef _LOG
 #include <libgen.h>
 #define log_info(format, ...) \
@@ -56,6 +58,16 @@ struct channel_list {
 };
 
 typedef struct channel_list *channel_list_t;
+
+/*
+ Print a list of cue channels from a show to a file.
+ */
+void printCueChannels(unsigned char *, FILE *);
+
+/*
+ Print a list of channels for any effect that supports channes lists.
+ */
+void printChannelList(channel_list_t, FILE *);
 
 channel_list_t new_channel_list(const unsigned int);
 channel_list_t channel_list_from_data(const unsigned int, const unsigned int *);
