@@ -46,7 +46,7 @@ int main(int argc, char **argv)
     char *showFile;
     showFile = argv[1];
     if(!showFile){
-        log_debug("Usage: %s showfile\n", argv[0]);
+        log_debug("Usage: %s showfile.\n", argv[0]);
         return 2;
     }
     if(load_show_from_file(showFile, &newShow )){
@@ -62,7 +62,7 @@ int main(int argc, char **argv)
     start_dmx();
     log_error( "Starting show.\n");
     start_show();
-    log_error( "Running....\n");
+    log_error( "Running...\n");
     while(1){
         //usleep(100000);
         sleep(5);

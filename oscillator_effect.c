@@ -64,6 +64,7 @@ void *oscillate(void* data_in)
     
     pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
     pthread_setcanceltype(PTHREAD_CANCEL_DEFERRED, NULL);
+    PTHREAD_SETNAME("scarydmx.oscillator");
     
     oscillator_data_t *val = (oscillator_data_t*)data_in;
   
@@ -94,7 +95,7 @@ void stop_oscillating()
     pthread_mutex_lock(&oscillator_mutex);
         oscillating=0;    
     pthread_mutex_unlock(&oscillator_mutex);
-    cancel_join_pthread(&_oscillator_thread, "oscillator");
+    cancel_join_pthread(&_oscillator_thread);
 }
 
 /*

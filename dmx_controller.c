@@ -73,6 +73,7 @@ void *write_buffer(){
     
     pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
     pthread_setcanceltype(PTHREAD_CANCEL_DEFERRED, NULL);
+    PTHREAD_SETNAME("scarydmx.dmxwriter");
     
     DWORD dwBytesWritten;
     FT_STATUS ftStatus;

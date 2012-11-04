@@ -36,6 +36,7 @@ fprintf (stderr, format, ##__VA_ARGS__)
 #define log_error(format, ...) \
 fprintf (stderr, "[ERROR] [%s:%d] ", basename(__FILE__), __LINE__ ); \
 fprintf (stderr, format, ##__VA_ARGS__)
+
 #else
 #define log_info(format, ...)
 #define log_debug(format, ...)
@@ -88,7 +89,15 @@ static const unsigned int _THREAD_FINISHED = 11544216;
     pthread_exit((void*)&_THREAD_FINISHED); 
 
 int spawn_joinable_pthread(pthread_t *thread, void*(*func)(void*), void *data);
-int cancel_join_pthread(const pthread_t*, const char *name);
+int cancel_join_pthread(const pthread_t*);
+
+#ifndef __APPLE__
+#define PTHREAD_SETNAME(name) \
+    pthread_setname_np(pthread_self(), name) 
+#else
+#define PTHREAD_SETNAME(name) \
+    pthread_setname_np(name)
+#endif
 
 #endif
 

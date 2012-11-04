@@ -37,7 +37,7 @@ void stop_flicker()
     pthread_mutex_lock(&_flicker_mutex);
         flickering = 0;
     pthread_mutex_unlock(&_flicker_mutex);
-    cancel_join_pthread(&_flicker_thread, "flicker");
+    cancel_join_pthread(&_flicker_thread);
 }
 
 static void reset_dmx_state(void *data)
@@ -54,6 +54,7 @@ void *flicker(void *channels)
 {
     pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
     pthread_setcanceltype(PTHREAD_CANCEL_DEFERRED, NULL);
+    PTHREAD_SETNAME("scarydmx.flicker");
     
     channel_list_t dmxChannels = (channel_list_t)channels;
 

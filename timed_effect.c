@@ -102,7 +102,7 @@ void stop_timed_effects(timed_effect_data_t *timer)
     while(tmp){
         timed_effect_t* handle = ((timed_effect_t*)(tmp->timer_handle));
         if(!handle) continue;
-        cancel_join_pthread((handle->handle), "timer");
+        cancel_join_pthread((handle->handle));
         handle->run_flag = 0;
         update_channels(tmp->channels, CHANNEL_RESET);
         tmp = tmp->nextTimer;
@@ -114,6 +114,7 @@ void *do_timed_effect(void *data_in)
 {
     pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
     pthread_setcanceltype(PTHREAD_CANCEL_DEFERRED, NULL);
+    PTHREAD_SETNAME("scarydmx.timer");
 
     timed_effect_data_t *data = (timed_effect_data_t*)data_in;
     

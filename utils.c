@@ -43,14 +43,24 @@ inline int spawn_joinable_pthread(pthread_t *thread, void*(*func)(void*), void *
     pthread_attr_init(&attr);
     pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_JOINABLE);
     pthread_attr_setstacksize(&attr, 512);
-    return pthread_create(thread, &attr, func, (void*)data);
+    int result = pthread_create(thread, &attr, func, (void*)data);
+    pthread_attr_destroy(&attr);
+    return result;
 }
 
-int cancel_join_pthread(const pthread_t *thread, const char* name)
+int cancel_join_pthread(const pthread_t *thread)
 {
     if(!thread || !*thread) {
         return 0;
     }
+
+    char name[24];
+    /* Call beefore cancel or we could lose the thread and name. */
+    if(pthread_getname_np(*thread, name, sizeof(name) / sizeof(char))) {
+        strcpy(name,"undefined");
+    }
+
+    log_debug("Cancelling thread '%s'.\n", name);
     
     if(ESRCH == pthread_cancel(*thread)) {
         int *retval[1];
@@ -127,3 +137,4 @@ int cancel_join_pthread(const pthread_t *thread, const char* name)
     }
     return CHANNEL_LIST_OK;
 }
+

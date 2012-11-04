@@ -295,6 +295,7 @@ static void *next_step()
 {
     pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
     pthread_setcanceltype(PTHREAD_CANCEL_DEFERRED, NULL);
+    PTHREAD_SETNAME("scarydmx.showhandler");
     
     if(!SHOWING()){
         log_debug( "Show is not in progress, exiting.\n");
@@ -384,38 +385,38 @@ void stop_show()
  */
 static void go_to_next_step()
 {
-    log_debug("Callback: moving to next cue from: %s\n", _live_show->currentCue->cue->aData->movieFile);
+    log_debug("Callback: moving to next cue from: %s.\n", _live_show->currentCue->cue->aData->movieFile);
     
     int showOver = 0;
     
-    log_debug("Stopping effects\n");
+    log_debug("Stopping effects.\n");
     
     stop_oscillating();
-    log_debug("Stopped oscillator\n");
+    log_debug("Stopped oscillator.\n");
     
     stop_flicker();
-    log_debug("Stopped flicker\n");
+    log_debug("Stopped flicker.\n");
     
     if(_live_show->currentCue)
         stop_timed_effects(_live_show->currentCue->cue->timer);
-    log_debug("Stopped timed effects\n");
+    log_debug("Stopped timed effects.\n");
     
-    log_debug("showstate=%#x\n", _state);
+    log_debug("showstate=%#x.\n", _state);
     
     if(SHOWING()){
         /* Cue up the next scene. */
         showOver = advance_cue(_live_show);
-        log_debug("Advanced to next cue\n");
+        log_debug("Advanced to next cue.\n");
         if(!showOver){
-            log_debug( "Calling next step\n");
+            log_debug( "Calling next step.\n");
             spawn_joinable_pthread(&_show_pt, &next_step, NULL);
-            log_debug( "Returned from next step\n");
+            log_debug( "Returned from next step.\n");
             if(_call_show_next_step){
                 /* notify listeners */
                 _call_show_next_step(_show_next_step_obj, _live_show->currentCue);
             }
         } else {
-            log_debug( "Show is over\n");
+            log_debug( "Show is over.\n");
             stop_show();
             _rewind_show(_live_show);
             if(_call_show_end){
@@ -424,7 +425,7 @@ static void go_to_next_step()
             }
         }
     } else {
-        log_debug("Show is not in progess: showstate=%#x\n", _state);
+        log_debug("Show is not in progess: showstate=%#x\n.", _state);
     }
 }
 

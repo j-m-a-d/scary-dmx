@@ -120,6 +120,7 @@ void *do_callback(void *data_in)
 {
     pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
     pthread_setcanceltype(PTHREAD_CANCEL_DEFERRED, NULL);
+    PTHREAD_SETNAME("scarydmx.analyzer.callback");
     
     void(*callback_function)();
     callback_function = data_in;
@@ -149,6 +150,7 @@ void *monitor(void *data_in)
 
     pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
     pthread_setcanceltype(PTHREAD_CANCEL_DEFERRED, NULL);
+    PTHREAD_SETNAME("scarydmx.soundanalyzer");
     
     EnterMoviesOnThread(0);
     
@@ -162,7 +164,7 @@ void *monitor(void *data_in)
 
     StartMovie(*_movie);
     
-    log_debug("Playing movie: %s\n", data->file_name);
+    log_debug("Playing movie: %s.\n", data->file_name);
     
     /* Don't stop unless the movie has stopped or the frequency buffer has vanished or
      * the user told us to.
