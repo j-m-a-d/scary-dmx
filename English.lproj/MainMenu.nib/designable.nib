@@ -2,13 +2,13 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1080</int>
-		<string key="IBDocument.SystemVersion">12A269</string>
-		<string key="IBDocument.InterfaceBuilderVersion">2549</string>
-		<string key="IBDocument.AppKitVersion">1187</string>
-		<string key="IBDocument.HIToolboxVersion">624.00</string>
+		<string key="IBDocument.SystemVersion">12C60</string>
+		<string key="IBDocument.InterfaceBuilderVersion">2844</string>
+		<string key="IBDocument.AppKitVersion">1187.34</string>
+		<string key="IBDocument.HIToolboxVersion">625.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">2549</string>
+			<string key="NS.object.0">2844</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>NSBox</string>
@@ -84,7 +84,7 @@
 											<string key="NSFrameSize">{1138, 315}</string>
 											<reference key="NSSuperview" ref="938878773"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="533350620"/>
+											<reference key="NSNextKeyView" ref="156924892"/>
 											<bool key="NSEnabled">YES</bool>
 											<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 											<bool key="NSControlAllowsExpansionToolTips">YES</bool>
@@ -97,10 +97,12 @@
 												<reference key="NSNextKeyView" ref="260241097"/>
 												<reference key="NSTableView" ref="96663855"/>
 											</object>
-											<object class="_NSCornerView" key="NSCornerView">
-												<nil key="NSNextResponder"/>
+											<object class="_NSCornerView" key="NSCornerView" id="558387539">
+												<reference key="NSNextResponder" ref="979380474"/>
 												<int key="NSvFlags">-2147483392</int>
 												<string key="NSFrame">{{-22, 0}, {12, 17}}</string>
+												<reference key="NSSuperview" ref="979380474"/>
+												<reference key="NSWindow"/>
 											</object>
 											<array class="NSMutableArray" key="NSTableColumns">
 												<object class="NSTableColumn" id="953815582">
@@ -341,16 +343,18 @@
 									<reference key="NSBGColor" ref="70591080"/>
 									<int key="NScvFlags">4</int>
 								</object>
+								<reference ref="558387539"/>
 							</array>
 							<string key="NSFrame">{{20, 330}, {1140, 334}}</string>
 							<reference key="NSSuperview" ref="222571327"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="156924892"/>
+							<reference key="NSNextKeyView" ref="938878773"/>
 							<int key="NSsFlags">133681</int>
 							<reference key="NSVScroller" ref="260241097"/>
 							<reference key="NSHScroller" ref="156924892"/>
 							<reference key="NSContentView" ref="938878773"/>
 							<reference key="NSHeaderClipView" ref="104247639"/>
+							<reference key="NSCornerView" ref="558387539"/>
 							<bytes key="NSScrollAmts">QSAAAEEgAABBmAAAQZgAAA</bytes>
 							<double key="NSMinMagnification">0.25</double>
 							<double key="NSMaxMagnification">4</double>
@@ -2103,7 +2107,7 @@
 										<object class="NSButton" id="295195188">
 											<reference key="NSNextResponder" ref="181031777"/>
 											<int key="NSvFlags">256</int>
-											<string key="NSFrame">{{16, 111}, {28, 20}}</string>
+											<string key="NSFrame">{{17, 102}, {28, 26}}</string>
 											<reference key="NSSuperview" ref="181031777"/>
 											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="912971510"/>
@@ -2400,7 +2404,7 @@
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="979380474"/>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1440, 900}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
 				<string key="NSMinSize">{213, 129}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<int key="NSWindowCollectionBehavior">128</int>
@@ -3072,7 +3076,7 @@
 				<nil key="NSViewClass"/>
 				<nil key="NSUserInterfaceItemIdentifier"/>
 				<object class="NSView" key="NSWindowView" id="666637936">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<array class="NSMutableArray" key="NSSubviews">
 						<object class="NSOpenGLView" id="627925487">
@@ -3080,7 +3084,6 @@
 							<int key="NSvFlags">5388</int>
 							<string key="NSFrame">{{20, 23}, {415, 152}}</string>
 							<reference key="NSSuperview" ref="666637936"/>
-							<reference key="NSWindow"/>
 							<bool key="NSViewCanDrawConcurrently">YES</bool>
 							<object class="NSOpenGLPixelFormat" key="NSPixelFormat">
 								<object class="NSMutableData" key="NSPixelAttributes">
@@ -3090,12 +3093,10 @@
 						</object>
 					</array>
 					<string key="NSFrameSize">{455, 195}</string>
-					<reference key="NSSuperview"/>
-					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="627925487"/>
 					<bool key="NSViewCanDrawConcurrently">YES</bool>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1440, 900}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<bool key="NSWindowIsRestorable">YES</bool>
 			</object>
@@ -3109,7 +3110,7 @@
 				<nil key="NSViewClass"/>
 				<nil key="NSUserInterfaceItemIdentifier"/>
 				<object class="NSView" key="NSWindowView" id="385393307">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<array class="NSMutableArray" key="NSSubviews">
 						<object class="NSOpenGLView" id="965148056">
@@ -3117,7 +3118,6 @@
 							<int key="NSvFlags">5388</int>
 							<string key="NSFrame">{{20, 23}, {415, 152}}</string>
 							<reference key="NSSuperview" ref="385393307"/>
-							<reference key="NSWindow"/>
 							<bool key="NSViewCanDrawConcurrently">YES</bool>
 							<object class="NSOpenGLPixelFormat" key="NSPixelFormat">
 								<object class="NSMutableData" key="NSPixelAttributes">
@@ -3127,11 +3127,9 @@
 						</object>
 					</array>
 					<string key="NSFrameSize">{455, 195}</string>
-					<reference key="NSSuperview"/>
-					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="965148056"/>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1440, 900}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<bool key="NSWindowIsRestorable">YES</bool>
 			</object>
@@ -4277,12 +4275,12 @@
 							<reference ref="456079730"/>
 							<reference ref="662070265"/>
 							<reference ref="971937782"/>
-							<reference ref="295195188"/>
 							<reference ref="795187099"/>
 							<reference ref="635404688"/>
 							<reference ref="912971510"/>
 							<reference ref="729133852"/>
 							<reference ref="693887162"/>
+							<reference ref="295195188"/>
 						</array>
 						<reference key="parent" ref="222571327"/>
 					</object>
