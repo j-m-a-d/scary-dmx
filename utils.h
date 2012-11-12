@@ -9,6 +9,7 @@
 #ifndef UTILS_H
 #define UTILS_H
 
+#include <libkern/OSAtomic.h>
 #include <sys/types.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -16,26 +17,40 @@
 #include <pthread.h>
 #include <errno.h>
 
+#ifndef SPIN_LOCK_UNLOCKED
+#define SPIN_LOCK_UNLOCKED 0
+#endif
 
-#define DMX_CHANNELS            513
-
+/* Logging */
 #ifdef _LOG
+
 #include <libgen.h>
+
+OSSpinLock _loglock_;
+
 #define log_info(format, ...) \
+OSSpinLockLock(&_loglock_); \
 fprintf (stdout, "[INFO]  "); \
-fprintf (stdout, format, ##__VA_ARGS__)
+fprintf (stdout, format, ##__VA_ARGS__); \
+OSSpinLockUnlock(&_loglock_);
 
 #define log_debug(format, ...) \
+OSSpinLockLock(&_loglock_); \
 fprintf (stderr, "[DEBUG] [%s:%d] ", basename(__FILE__), __LINE__); \
-fprintf (stderr, format, ##__VA_ARGS__)
+fprintf (stderr, format, ##__VA_ARGS__); \
+OSSpinLockUnlock(&_loglock_);
 
 #define log_warn(format, ...) \
+OSSpinLockLock(&_loglock_); \
 fprintf (stderr, "[WARN]  " ); \
-fprintf (stderr, format, ##__VA_ARGS__)
+fprintf (stderr, format, ##__VA_ARGS__); \
+OSSpinLockUnlock(&_loglock_);
 
 #define log_error(format, ...) \
+OSSpinLockLock(&_loglock_); \
 fprintf (stderr, "[ERROR] [%s:%d] ", basename(__FILE__), __LINE__ ); \
-fprintf (stderr, format, ##__VA_ARGS__)
+fprintf (stderr, format, ##__VA_ARGS__); \
+OSSpinLockUnlock(&_loglock_);
 
 #else
 #define log_info(format, ...)
@@ -44,6 +59,10 @@ fprintf (stderr, format, ##__VA_ARGS__)
 #define log_error(format, ...)
 #endif
 
+
+/* DMX Utilities */
+
+#define DMX_CHANNELS            513
 
 typedef unsigned char dmx_value_t;
 typedef unsigned int dmx_channel_t;
@@ -82,6 +101,8 @@ void delete_channel_list(const channel_list_t);
 
 int validate_channel_list(const channel_list_t, const unsigned int);
 
+
+/* Thread Utilities */
 #define THREAD_FINISHED 0
 static const unsigned int _THREAD_FINISHED = 11544216;
 
