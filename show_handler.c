@@ -425,7 +425,7 @@ static void go_to_next_step()
             }
         }
     } else {
-        log_debug("Show is not in progess: showstate=%#x\n.", _state);
+        log_debug("Show is not in progess: showstate=%#x.\n", _state);
     }
 }
 
