@@ -94,7 +94,7 @@ static void display_prepare()
 {
     NSSize size = bounds.size;
     [[self openGLContext] makeCurrentContext];
-    display_setrect(size.width, size.height);
+    display_setrect((unsigned int)size.width, (unsigned int)size.height);
     draw_analyzer_graph(levelCount, levels);
 }
 

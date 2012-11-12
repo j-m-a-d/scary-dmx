@@ -45,7 +45,7 @@
 - (IBAction)updateSpeed:(id)sender
 {
     odata.speed = [speed intValue];
-    [speedLevel setIntValue:[speed maxValue] - [speed intValue]];
+    [speedLevel setDoubleValue:[speed maxValue] - [speed doubleValue]];
 }
 
 -(IBAction)updateChannel:(id)sender
