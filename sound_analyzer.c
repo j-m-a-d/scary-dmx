@@ -49,7 +49,7 @@ static void(*analyzer_function)(monitor_data_t*, QTAudioFrequencyLevels*) = 0;
 /*
  Print an analyzer setting to a show file.
  */
-void printAnalyzer(analyzer_data_t *data, FILE *showFile)
+void print_analyzer(analyzer_data_t *data, FILE *showFile)
 {
     fprintf(showFile, "\tanalyzer {\n");
     fprintf(showFile, "\t\t file:%s;\n", data->movieFile);

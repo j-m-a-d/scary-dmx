@@ -40,7 +40,7 @@ typedef struct _oscillator_data_t{
 /*
  Print an oscillator setting to a show file.
  */
-void printOscillatorData(oscillator_data_t *, FILE *);
+void print_oscillator_data(oscillator_data_t *, FILE *);
 
 void copy_oscillator_data(oscillator_data_t *, const oscillator_data_t *);
 void free_oscillator_data(oscillator_data_t *);

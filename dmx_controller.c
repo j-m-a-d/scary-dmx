@@ -25,7 +25,7 @@ static dmx_value_t outputBuffer[DMX_CHANNELS];
 static pthread_t dmx_writer_pt = 0;
 static pthread_mutex_t dmx_mutex = PTHREAD_MUTEX_INITIALIZER;
 
-static volatile int writing = 0;
+volatile static int writing = 0;
 
 /*
    Zero out the write buffer then stop the DMX write thread.

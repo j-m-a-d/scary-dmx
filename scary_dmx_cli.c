@@ -12,6 +12,10 @@
 #include <QuickTime/QuickTime.h>
 #include "show_handler.h"
 
+#ifndef _REENTRANT
+#error Compile with _REENTRANT defined for use with threads
+#endif
+
 void sig_all(int sig)
 {
     sigset_t mask_set;
@@ -31,14 +35,21 @@ void sig_all(int sig)
 
 int main(int argc, char **argv)
 {
+    char errbuf[128];
+
+    if(signal(SIGINT, &sig_all)== SIG_ERR){
+        strerror_r(errno, errbuf, 128);
+        log_error("Failed to install handler for SIGINT - %s\n", errbuf);
+    }
+    if(signal(SIGQUIT, &sig_all) == SIG_ERR){
+        strerror_r(errno, errbuf, 128);
+        log_error("Failed to install handler for SIGQUIT - %s\n", errbuf);
+    }
+    
     if(argc < 2) {
         log_error("No show file supplied\n");
         return 1;
     }
-    
-    (void)signal(SIGINT, &sig_all);
-    (void)signal(SIGQUIT, &sig_all);
-    (void)signal(SIGKILL, &sig_all);
     
     EnterMovies();
     
@@ -64,8 +75,8 @@ int main(int argc, char **argv)
     start_show();
     log_error( "Running...\n");
     while(1){
-        //usleep(100000);
-        sleep(5);
+        // TODO create keyboard shortcuts and handle them.
+        sleep(1);
     }
     
     return 0;

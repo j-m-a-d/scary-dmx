@@ -17,12 +17,12 @@
 static pthread_t _flicker_thread = 0;
 static pthread_mutex_t _flicker_mutex = PTHREAD_MUTEX_INITIALIZER;
 
-static int flickering = 0;
+volatile static int flickering = 0;
 
 /*
  Print a flicker value to a show file.
  */
-void printFlickerChannels(channel_list_t dmxChannels, FILE *showFile)
+void print_flicker_channels(channel_list_t dmxChannels, FILE *showFile)
 {
     fprintf(showFile, "\tflicker {\n");
     printChannelList(dmxChannels, showFile);

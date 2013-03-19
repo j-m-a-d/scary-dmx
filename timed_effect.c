@@ -29,7 +29,7 @@ typedef struct _timed_effect_t {
 /*
  Print a timer setting to a show file.
  */
-void printTimerData(timed_effect_data_t *data, FILE *showFile)
+void print_timer_data(timed_effect_data_t *data, FILE *showFile)
 {
     fprintf(showFile, "\ttimer {\n");
     printChannelList(data->channels, showFile);
@@ -41,7 +41,7 @@ void printTimerData(timed_effect_data_t *data, FILE *showFile)
 
 static void free_timer_handle(timed_effect_t *in_timer)
 {
-    timed_effect_t *timer = (timed_effect_t *)in_timer;
+    timed_effect_t *timer = in_timer;
     pthread_cancel( *timer->handle);
     pthread_join( *timer->handle, NULL);
     

@@ -23,7 +23,7 @@ static pthread_mutex_t oscillator_mutex = PTHREAD_MUTEX_INITIALIZER;
 /*
  Print an oscillator setting to a show file.
  */
-void printOscillatorData(oscillator_data_t *data, FILE *showFile)
+void print_oscillator_data(oscillator_data_t *data, FILE *showFile)
 {
     fprintf(showFile, "\toscillator {\n");
     printChannelList(data->dmxChannels, showFile);

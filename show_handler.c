@@ -206,11 +206,11 @@ void printShow(dmx_show_t *show, FILE *showFile)
         fprintf(showFile, "cue ");
         if(cue->stepDuration) fprintf(showFile, "(%d)", cue->stepDuration);
         fprintf(showFile, "{\n");        
-        printCueChannels(cue->channelValues, showFile);  
-        if(cue->flickerChannels) printFlickerChannels(cue->flickerChannels, showFile);
-        if(cue->aData) printAnalyzer(cue->aData, showFile);  
-        if(cue->oData) printOscillatorData(cue->oData, showFile);
-        if(cue->timer) printTimerData(cue->timer, showFile);
+        print_cue_channels(cue->channelValues, showFile);  
+        if(cue->flickerChannels) print_flicker_channels(cue->flickerChannels, showFile);
+        if(cue->aData) print_analyzer(cue->aData, showFile);  
+        if(cue->oData) print_oscillator_data(cue->oData, showFile);
+        if(cue->timer) print_timer_data(cue->timer, showFile);
         fprintf(showFile, "}\n");        
         node = node->nextCue;             
     }    

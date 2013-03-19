@@ -82,7 +82,7 @@ typedef struct channel_list *channel_list_t;
 /*
  Print a list of cue channels from a show to a file.
  */
-void printCueChannels(unsigned char *, FILE *);
+void print_cue_channels(unsigned char *, FILE *);
 
 /*
  Print a list of channels for any effect that supports channes lists.

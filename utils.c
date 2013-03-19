@@ -14,7 +14,7 @@ OSSpinLock _loglock = SPIN_LOCK_UNLOCKED;
 /*
  Print a list of cue channels from a show to a file.
  */
-void printCueChannels(unsigned char *channels, FILE *showFile)
+void print_cue_channels(unsigned char *channels, FILE *showFile)
 {
     unsigned char *cv = channels;
     register int i;
