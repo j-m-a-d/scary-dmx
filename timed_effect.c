@@ -16,7 +16,7 @@
 #include <errno.h>
 #include <stdio.h>
 
-volatile static int timed = 0;
+volatile static int _timed = 0;
 
 static pthread_mutex_t _wait_mutex = PTHREAD_MUTEX_INITIALIZER;
 static pthread_cond_t _wait_cond = PTHREAD_COND_INITIALIZER;
@@ -96,7 +96,7 @@ void stop_timed_effects(timed_effect_data_t *timer)
     if(!timer) return;
 
     pthread_mutex_lock(&_wait_mutex);
-    timed = 0;
+    _timed = 0;
     
     timed_effect_data_t *tmp = timer;
     while(tmp){
@@ -120,7 +120,7 @@ void *do_timed_effect(void *data_in)
     
     /* Wait here until the timers are told to start. */
     pthread_mutex_lock(&_wait_mutex);
-    while(!timed) {
+    while(!_timed) {
         pthread_cond_wait(&_wait_cond, &_wait_mutex);
     }
     pthread_mutex_unlock(&_wait_mutex);
@@ -166,7 +166,7 @@ int start_timed_effects()
 {
     int result = 0;
     if(0 == pthread_mutex_lock(&_wait_mutex)){
-        timed = 1;
+        _timed = 1;
         result = pthread_cond_broadcast(&_wait_cond);
         pthread_mutex_unlock(&_wait_mutex);
     }

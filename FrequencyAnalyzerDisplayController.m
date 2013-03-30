@@ -43,7 +43,7 @@ void freqCallback(void* objRef, QTAudioFrequencyLevels* freq_levels)
 
 - (void)updateAnalyzer:(int)count :(float*)levels
 {
-    [analyzer update:count : levels];
+    [analyzer update:(unsigned int)count : levels];
 }
 
 @end

@@ -15,10 +15,10 @@
 #include <string.h>
 
 /* Flag that indicates this thread is running. */
-volatile static int oscillating = 0;
+volatile static int _oscillating = 0;
 
 static pthread_t _oscillator_thread = 0;
-static pthread_mutex_t oscillator_mutex = PTHREAD_MUTEX_INITIALIZER;
+static pthread_mutex_t _oscillator_mutex = PTHREAD_MUTEX_INITIALIZER;
 
 /*
  Print an oscillator setting to a show file.
@@ -71,7 +71,7 @@ void *oscillate(void* data_in)
     pthread_cleanup_push(reset_dmx_state, data_in);
     
     register dmx_value_t i=0;
-    while(oscillating){
+    while(_oscillating){
         for(i=val->lowThreshold; i<val->highThreshold-1; i+=2){ 
             update_channels(val->dmxChannels, i);
             usleep(val->speed);
@@ -92,9 +92,9 @@ void *oscillate(void* data_in)
 */
 void stop_oscillating()
 {
-    pthread_mutex_lock(&oscillator_mutex);
-        oscillating=0;    
-    pthread_mutex_unlock(&oscillator_mutex);
+    pthread_mutex_lock(&_oscillator_mutex);
+        _oscillating=0;    
+    pthread_mutex_unlock(&_oscillator_mutex);
     cancel_join_pthread(&_oscillator_thread);
 }
 
@@ -109,14 +109,14 @@ int start_oscillating(const oscillator_data_t *inData)
     }*/
     
     /* signal we are ready to oscillate. */
-    pthread_mutex_lock(&oscillator_mutex);    
-        if(oscillating){
-            pthread_mutex_unlock(&oscillator_mutex);
+    pthread_mutex_lock(&_oscillator_mutex);    
+        if(_oscillating){
+            pthread_mutex_unlock(&_oscillator_mutex);
             return OSCILLATOR_IN_PROGRESS;
         }
-        oscillating = 1;
+        _oscillating = 1;
         spawn_joinable_pthread(&_oscillator_thread, oscillate, (void *)inData);
-    pthread_mutex_unlock(&oscillator_mutex);
+    pthread_mutex_unlock(&_oscillator_mutex);
     
     return OSCILLATOR_OK;
 }

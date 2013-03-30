@@ -22,7 +22,7 @@
     return NSTerminateNow;
 }
 
-static int _current_cue_index = 0;
+static unsigned int _current_cue_index = 0;
 
 - (NSURL*)chooseShowFile:(NSString*)fromDir :(NSArray*)fileTypes :(NSString*)action
 {
@@ -108,13 +108,13 @@ static int _current_cue_index = 0;
 - (void)setPlayingCueTableRow
 {
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-    if(_current_cue_index >= [ds numberOfRowsInTableView:showTable]) _current_cue_index=0;
+    if(_current_cue_index >= (unsigned int)[ds numberOfRowsInTableView:showTable]) _current_cue_index=0;
     NSIndexSet *row = [NSIndexSet indexSetWithIndex:_current_cue_index];
     [showTable selectRowIndexes:row byExtendingSelection:NO];
     [pool release];
 }
 
-- (void)doNextStep:(int)cue_id
+- (void)doNextStep:(unsigned int)cue_id
 {
     _current_cue_index = cue_id;
     [self setPlayingCueTableRow];
@@ -164,7 +164,7 @@ void show_next_step(void *objRef, cue_node_t *cueData)
 - (IBAction)updateChannel:(id)sender
 {
     NSSlider* curSlider = (NSSlider*)sender;
-    update_channel([curSlider tag], (dmx_value_t)[curSlider intValue]);
+    update_channel((dmx_channel_t)[curSlider tag], (dmx_value_t)[curSlider intValue]);
 }
 
 - (IBAction)setShowLoop:(id)sender

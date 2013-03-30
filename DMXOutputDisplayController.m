@@ -42,9 +42,9 @@
     get_channel_buffer(vdmx, 1, MONITORED_DMX_CHANNELS);
     register unsigned int i=0;
     for(i=0; i<MONITORED_DMX_CHANNELS; i++){
-        buffer[i] =  (float)(vdmx[i]/255.0f);
+        _buffer[i] =  (float)(vdmx[i]/255.0f);
     }
-    [analyzer update:MONITORED_DMX_CHANNELS :buffer];   
+    [analyzer update:MONITORED_DMX_CHANNELS :_buffer];   
 }
 
 - (void)windowWillClose:(NSNotification *)notification

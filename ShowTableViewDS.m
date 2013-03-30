@@ -26,8 +26,8 @@ NSString *formatDuration(long duration)
 
 -(NSInteger)numberOfRowsInTableView:(NSTableView *)aTableView
 {
-    if(showData){
-        return numberOfRows;
+    if(_showData){
+        return (int)_numberOfRows;
     } else {
         return 0;
     }
@@ -36,7 +36,7 @@ NSString *formatDuration(long duration)
 - (void)tableView:(NSTableView *)aTableView willDisplayCell:(id)aCell forTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex{
 	if ([aCell respondsToSelector:@selector(setTextColor:)]){
 		NSString *col = [aTableColumn identifier];
-		NSString *dur = [durations objectAtIndex:rowIndex];
+		NSString *dur = [durations objectAtIndex:(unsigned int)rowIndex];
 		if (![col compare:@"2"] && ![dur compare:NO_SOUND_FILE] ){
 			[aCell setTextColor:[NSColor redColor]];
 		}
@@ -56,22 +56,22 @@ NSString *formatDuration(long duration)
 
 -(id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex
 {
-    if(showData){
+    if(_showData){
         NSString *col = [aTableColumn identifier];
         if(![col compare:@"0"]){
             return [NSString stringWithFormat:@"%d", rowIndex ];
         }else if(![col compare:@"1"]){
             id ret = nil;
             @try{
-                ret = [durations objectAtIndex:rowIndex];
+                ret = [durations objectAtIndex:(unsigned int)rowIndex];
             } @catch (NSException *e) {
                 NSLog(@"ShowTableViewDS::objectValueForTableColumn: %@, because %@", [e name], [e reason]);
             }
             return ret;
         }else if(![col compare:@"2"]){
-            if(showDataIndex[rowIndex]->cue->aData){
-				NSString *rVal = [NSString stringWithCString:showDataIndex[rowIndex]->cue->aData->movieFile encoding:NSUTF8StringEncoding];
-				NSString *dur = [durations objectAtIndex:rowIndex];
+            if(_showDataIndex[rowIndex]->cue->aData){
+				NSString *rVal = [NSString stringWithCString:_showDataIndex[rowIndex]->cue->aData->movieFile encoding:NSUTF8StringEncoding];
+				NSString *dur = [durations objectAtIndex:(unsigned int)rowIndex];
 				if(![dur compare:NO_SOUND_FILE])
 					rVal = [rVal stringByAppendingString:@" (File Not Found!!)"];
 				return rVal;
@@ -117,17 +117,17 @@ NSString *formatDuration(long duration)
 
 -(void)setShow:(dmx_show_t *) newShow
 {
-    showData = newShow;
-    numberOfRows = newShow->cueCount;
-    if(showDataIndex){
-        free(showDataIndex);
+    _showData = newShow;
+    _numberOfRows = newShow->cueCount;
+    if(_showDataIndex){
+        free(_showDataIndex);
     }
-    showDataIndex = (cue_node_t**)calloc(numberOfRows, (sizeof (cue_node_t)));
-    if(!showDataIndex){
+    _showDataIndex = (cue_node_t**)calloc(_numberOfRows, (sizeof (cue_node_t)));
+    if(!_showDataIndex){
         NSLog(@"Memory allocation failure.  Cannot allocate memory for show listing.");
         return;
     }
-    cue_node_t *aCue = showData->currentCue;
+    cue_node_t *aCue = _showData->currentCue;
 
     short refId = 0;
     Movie *movie = 0;
@@ -139,9 +139,9 @@ NSString *formatDuration(long duration)
 	[durations retain];
 
     register unsigned int i =0;
-    for(i=0; i< numberOfRows; i++){
+    for(i=0; i< _numberOfRows; i++){
         /* map pointer array to each cue pointer */
-        showDataIndex[i] = aCue;
+        _showDataIndex[i] = aCue;
         /* get the movie duration for each movie in the list */
         analyzer_data_t *aData = aCue->cue->aData;
         TimeValue v = 0;
@@ -197,7 +197,7 @@ NSString *getHeaderNameForColumn(int index)
     register unsigned int i=0;
     for( i=0; i< count; i++){
         col = [columns objectAtIndex:i];
-        [[col headerCell] setStringValue: getHeaderNameForColumn(i)];
+        [[col headerCell] setStringValue: getHeaderNameForColumn((int)i)];
         [col setIdentifier:[NSString stringWithFormat:@"%d", i]];
         [col setEditable: COL_IS_EDITABLE(i) ]; 
         [col sizeToFit]; 
@@ -208,15 +208,15 @@ NSString *getHeaderNameForColumn(int index)
 
 - (void) dealloc 
 {
-    if(showDataIndex){
-        free(showDataIndex);
+    if(_showDataIndex){
+        free(_showDataIndex);
     }
     [super dealloc];
 }
 
 - (id) init
 {
-    showDataIndex = 0;
+    _showDataIndex = 0;
     return [super init];
 }
 

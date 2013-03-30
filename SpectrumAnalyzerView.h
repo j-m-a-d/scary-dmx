@@ -11,8 +11,8 @@
 #define MAX_ANALYZER_LEVELS 41
 
 @interface SpectrumAnalyzerView : NSOpenGLView {
-    float levels[MAX_ANALYZER_LEVELS];
-    unsigned int levelCount;
+    float _levels[MAX_ANALYZER_LEVELS];
+    unsigned int _levelCount;
     
     NSTimer *timer;
 }

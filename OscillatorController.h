@@ -18,7 +18,7 @@
     IBOutlet NSLevelIndicator *speedLevel;
     IBOutlet NSTextField *channelField;
     IBOutlet NSStepper *channelStepper;
-    oscillator_data_t odata;
+    oscillator_data_t _odata;
 }
 - (IBAction)toggleOscillator:(id)sender;
 - (IBAction)updateHighThreshold:(id)sender;

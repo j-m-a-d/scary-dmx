@@ -13,7 +13,7 @@
 
 @interface DMXOutputDisplayController : SpectrumAnalyzerController {
     NSTimer *timer;
-    float buffer[MONITORED_DMX_CHANNELS];
+    float _buffer[MONITORED_DMX_CHANNELS];
 }
 
 @end

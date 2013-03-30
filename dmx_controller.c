@@ -18,36 +18,36 @@
 #define MAX_DEVICES		1
 
 /* Globals */
-static FT_HANDLE    dmxDevice = 0;
+static FT_HANDLE    _dmxDevice = 0;
 
-static dmx_value_t outputBuffer[DMX_CHANNELS];
+static dmx_value_t _outputBuffer[DMX_CHANNELS];
 
-static pthread_t dmx_writer_pt = 0;
-static pthread_mutex_t dmx_mutex = PTHREAD_MUTEX_INITIALIZER;
+static pthread_t _dmx_writer_pt = 0;
+static pthread_mutex_t _dmx_mutex = PTHREAD_MUTEX_INITIALIZER;
 
-volatile static int writing = 0;
+volatile static int _writing = 0;
 
 /*
    Zero out the write buffer then stop the DMX write thread.
  */
 void stop_dmx()
 {
-    if( !writing || !outputBuffer ){
+    if( !_writing || !_outputBuffer ){
         return;
     }
 
     log_info("Stopping DMX transmission.\n");
 
-    pthread_mutex_lock(&dmx_mutex);
+    pthread_mutex_lock(&_dmx_mutex);
     
-    memset(outputBuffer, 0, DMX_CHANNELS * sizeof(dmx_value_t));
-    if(dmxDevice) {
+    memset(_outputBuffer, 0, DMX_CHANNELS * sizeof(dmx_value_t));
+    if(_dmxDevice) {
         usleep(500000);	
-        writing=0;	
-        pthread_join(dmx_writer_pt,NULL);
+        _writing=0;	
+        pthread_join(_dmx_writer_pt,NULL);
     }
 
-    pthread_mutex_unlock(&dmx_mutex);
+    pthread_mutex_unlock(&_dmx_mutex);
 }
 
 /*
@@ -57,9 +57,9 @@ void stop_dmx()
 void destroy_dmx()
 {
     stop_dmx();
-    if(dmxDevice){
-        FT_Close(dmxDevice);
-        dmxDevice = 0;
+    if(_dmxDevice){
+        FT_Close(_dmxDevice);
+        _dmxDevice = 0;
         log_info("Closed device.\n");
     }
 }
@@ -80,16 +80,16 @@ void *write_buffer(){
     useconds_t seconds;
     seconds=20000;
 
-	if(!outputBuffer) pthread_exit(NULL);
+	if(!_outputBuffer) pthread_exit(NULL);
 
     /* Write */
-    while(writing && dmxDevice){
-        FT_W32_SetCommBreak(dmxDevice);
-        FT_W32_ClearCommBreak(dmxDevice);
-        FT_Write(dmxDevice, 0, 1, &dwBytesWritten);
-        if((ftStatus = FT_Write(dmxDevice, outputBuffer, DMX_CHANNELS, &dwBytesWritten)) != FT_OK) {
+    while(_writing && _dmxDevice){
+        FT_W32_SetCommBreak(_dmxDevice);
+        FT_W32_ClearCommBreak(_dmxDevice);
+        FT_Write(_dmxDevice, 0, 1, &dwBytesWritten);
+        if((ftStatus = FT_Write(_dmxDevice, _outputBuffer, DMX_CHANNELS, &dwBytesWritten)) != FT_OK) {
             log_info("Error FT_Write(%d)\n", (int)ftStatus);
-            writing = 0;
+            _writing = 0;
             break;
         }
         usleep(seconds);	
@@ -102,7 +102,7 @@ void *write_buffer(){
  */
 void update_channel(dmx_channel_t ch, dmx_value_t val)
 {
-    pthread_mutex_lock(&dmx_mutex);
+    pthread_mutex_lock(&_dmx_mutex);
 
 #ifdef _DMX_TRACE_OUTPUT
     if(!allowWrite || ch >= DMX_CHANNELS ){
@@ -117,10 +117,10 @@ void update_channel(dmx_channel_t ch, dmx_value_t val)
 #endif
 
     //if(allowWrite){
-        outputBuffer[ch] = val;
+        _outputBuffer[ch] = val;
     //}
 
-    pthread_mutex_unlock(&dmx_mutex);
+    pthread_mutex_unlock(&_dmx_mutex);
 }
 
 /*
@@ -128,7 +128,7 @@ void update_channel(dmx_channel_t ch, dmx_value_t val)
  */
 void update_channels(channel_list_t channelList, dmx_value_t val)
 {
-    pthread_mutex_lock(&dmx_mutex);
+    pthread_mutex_lock(&_dmx_mutex);
 
     /*
     if(!allowWrite){
@@ -151,11 +151,11 @@ void update_channels(channel_list_t channelList, dmx_value_t val)
         }
         log_error( "Multichannel : %d\n", val);
 #endif
-        outputBuffer[*tmp] = val;
+        _outputBuffer[*tmp] = val;
         tmp++;
     }
 
-    pthread_mutex_unlock(&dmx_mutex);
+    pthread_mutex_unlock(&_dmx_mutex);
 }
 
 /*
@@ -163,19 +163,19 @@ void update_channels(channel_list_t channelList, dmx_value_t val)
  */
 void bulk_update(unsigned char* newVals)
 {
-    pthread_mutex_lock(&dmx_mutex);
+    pthread_mutex_lock(&_dmx_mutex);
 
     if(newVals)
-        memcpy(outputBuffer, newVals, DMX_CHANNELS);
+        memcpy(_outputBuffer, newVals, DMX_CHANNELS);
 
-    pthread_mutex_unlock(&dmx_mutex);
+    pthread_mutex_unlock(&_dmx_mutex);
 }
 
 /*
    Get the current value for the channel.
  */
 dmx_value_t get_channel_value(int ch){
-    return outputBuffer ? outputBuffer[ch] : 0;
+    return _outputBuffer ? _outputBuffer[ch] : 0;
 }
 
 /*
@@ -183,7 +183,7 @@ dmx_value_t get_channel_value(int ch){
  */
 void get_channel_buffer(dmx_value_t *buffer, int offset, int num_channels)
 {
-    memcpy(buffer, outputBuffer + offset, sizeof(dmx_value_t) * (unsigned int)num_channels);
+    memcpy(buffer, _outputBuffer + offset, sizeof(dmx_value_t) * (unsigned int)num_channels);
 }
 
 /*
@@ -204,7 +204,7 @@ int init_dmx()
         pcBufLD[i] = cBufLD[i];
     }
 
-    dmxDevice = 0;
+    _dmxDevice = 0;
     pcBufLD[MAX_DEVICES] = 0;
 
     ftStatus = FT_ListDevices(pcBufLD, &iNumDevs, FT_LIST_ALL | FT_OPEN_BY_SERIAL_NUMBER);
@@ -222,20 +222,20 @@ int init_dmx()
     i = 0;
 
     /* Setup */
-    if((ftStatus = FT_OpenEx(cBufLD[i], FT_OPEN_BY_SERIAL_NUMBER, &dmxDevice)) != FT_OK){
+    if((ftStatus = FT_OpenEx(cBufLD[i], FT_OPEN_BY_SERIAL_NUMBER, &_dmxDevice)) != FT_OK){
         log_error( "Error FT_Open(%d), device: %d\n", (int)ftStatus, i);
         return DMX_INIT_OPEN_FAIL;
     }
 
     log_info("Opened device %s\n", pcBufLD[0]);
 
-    if((ftStatus = FT_SetBaudRate(dmxDevice, 250000)) != FT_OK) {
+    if((ftStatus = FT_SetBaudRate(_dmxDevice, 250000)) != FT_OK) {
         log_error( "Error FT_SetBaudRate(%d), cBufLD[0] = %s\n", (int)ftStatus, cBufLD[0]);
         return DMX_INIT_SET_BAUD_FAIL;
     }
 
     FTDCB ftDCB;
-    if (FT_W32_GetCommState(dmxDevice,&ftDCB)) {
+    if (FT_W32_GetCommState(_dmxDevice,&ftDCB)) {
         // FT_W32_GetCommState ok, device state is in ftDCB
         ftDCB.BaudRate = 250000;
         ftDCB.Parity = FT_PARITY_NONE;
@@ -248,14 +248,14 @@ int init_dmx()
         ftDCB.fRtsControl = 0;
         ftDCB.fAbortOnError = 0;
 
-        if (!FT_W32_SetCommState(dmxDevice,&ftDCB)) {
+        if (!FT_W32_SetCommState(_dmxDevice,&ftDCB)) {
             return DMX_INIT_SET_DATA_FLOW_FAIL;
         }
     }	
 
-    FT_W32_PurgeComm(dmxDevice,FT_PURGE_TX | FT_PURGE_RX);
+    FT_W32_PurgeComm(_dmxDevice,FT_PURGE_TX | FT_PURGE_RX);
 
-    memset(outputBuffer, 0, (sizeof(char)) * DMX_CHANNELS);
+    memset(_outputBuffer, 0, (sizeof(char)) * DMX_CHANNELS);
 
     return DMX_INIT_OK;
 }
@@ -268,24 +268,24 @@ void start_dmx()
     /* If the DMX device is not initialized try
      *  initializing then try running.
      */
-    pthread_mutex_lock(&dmx_mutex);
+    pthread_mutex_lock(&_dmx_mutex);
         /* If the DMX device is initialized correctly see
          * if we are already started.
          */
-        if(writing || dmxDevice){
-            pthread_mutex_unlock(&dmx_mutex);
+        if(_writing || _dmxDevice){
+            pthread_mutex_unlock(&_dmx_mutex);
             return;
         }
         destroy_dmx();
         if(DMX_INIT_OK != init_dmx()){
-            pthread_mutex_unlock(&dmx_mutex);
+            pthread_mutex_unlock(&_dmx_mutex);
             return;
         }
-        spawn_joinable_pthread(&dmx_writer_pt, write_buffer, NULL);
+        spawn_joinable_pthread(&_dmx_writer_pt, write_buffer, NULL);
         /* TODO check result ^^ */
         log_error( "Starting DMX transmission.\n");
         /* We can now allow threads to write updates to the output buffer. */
-        writing = 1;
-    pthread_mutex_unlock(&dmx_mutex);
+        _writing = 1;
+    pthread_mutex_unlock(&_dmx_mutex);
 }
 

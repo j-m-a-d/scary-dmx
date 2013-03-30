@@ -227,7 +227,7 @@ int add_cue(dmx_show_t* show)
         lastCue = lastCue->nextCue;
     }
     cue_node_t *newCue;
-    int id = lastCue->cue_id +1;
+    unsigned int id = lastCue->cue_id +1;
     int i = create_cue_node(&newCue);
     if(i){
         /* TODO free newCue and it's children */

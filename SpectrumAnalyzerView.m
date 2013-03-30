@@ -70,9 +70,9 @@ static void draw_analyzer_graph (unsigned int num_levels, float levels[])
     glFlush();
 }
 
-static inline void display_setrect(unsigned int width, int height)
+static inline void display_setrect(float width, float height)
 {
-    glViewport(0, 0, width, height);
+    glViewport(0, 0, (int)width, (int)height);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     gluPerspective(45.0,(float)width / (float)height, 1.0f, 200.0f);
@@ -94,16 +94,16 @@ static void display_prepare()
 {
     NSSize size = bounds.size;
     [[self openGLContext] makeCurrentContext];
-    display_setrect((unsigned int)size.width, (unsigned int)size.height);
-    draw_analyzer_graph(levelCount, levels);
+    display_setrect(size.width, size.height);
+    draw_analyzer_graph(_levelCount, _levels);
 }
 
 -(void) prepareOpenGL
 {
     [super prepareOpenGL];
    
-    levelCount = MAX_ANALYZER_LEVELS;
-    memcpy(levels, LEVELS, MAX_ANALYZER_LEVELS * sizeof(float));
+    _levelCount = MAX_ANALYZER_LEVELS;
+    memcpy(_levels, LEVELS, MAX_ANALYZER_LEVELS * sizeof(float));
 
     [[self openGLContext] makeCurrentContext];
     display_prepare();
@@ -111,14 +111,14 @@ static void display_prepare()
 
 -(void)update:(unsigned int)count :(float*)newLevels
 {
-    levelCount = count;
+    _levelCount = count;
     /* TODO check against max levels */
-    memcpy(levels, newLevels, levelCount * sizeof(float));
+    memcpy(_levels, newLevels, _levelCount * sizeof(float));
 }
 
 -(void)reduce
 {
-    float *cur = levels;
+    float *cur = _levels;
     register unsigned int i= 0;
     for(i=0; i<MAX_ANALYZER_LEVELS; i++){
         float nv = *cur - .005f;
@@ -130,7 +130,7 @@ static void display_prepare()
 -(void)drawIt
 {
     [[self openGLContext] makeCurrentContext];
-    draw_analyzer_graph(levelCount, levels);
+    draw_analyzer_graph(_levelCount, _levels);
     [self reduce];
 }
 

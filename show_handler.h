@@ -41,12 +41,12 @@ typedef struct _cue_node_t{
     cue_t* cue;
     struct _cue_node_t* nextCue;
     struct _cue_node_t* previousCue;
-    int cue_id;
+    unsigned int cue_id;
 } cue_node_t;
 
 typedef struct _dmx_show_t{
     char* showName;
-    int   cueCount;
+    unsigned int cueCount;
     struct _cue_node_t* currentCue;
 } dmx_show_t;
 

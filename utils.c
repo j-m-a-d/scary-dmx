@@ -1,10 +1,11 @@
-//
-//  utils.c
-//  Scary DMX
-//
-//  Created by Jason Diprinzio on 10/13/12.
-//
-//
+/*
+*  utils.c
+*  Scary DMX
+*
+*  Created by Jason Diprinzio on 10/13/12.
+*  Copyright 2008 Inspirotech Inc. All rights reserved.
+*
+*/
 
 #include "utils.h"
 

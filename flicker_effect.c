@@ -17,7 +17,7 @@
 static pthread_t _flicker_thread = 0;
 static pthread_mutex_t _flicker_mutex = PTHREAD_MUTEX_INITIALIZER;
 
-volatile static int flickering = 0;
+volatile static int _flickering = 0;
 
 /*
  Print a flicker value to a show file.
@@ -35,7 +35,7 @@ void print_flicker_channels(channel_list_t dmxChannels, FILE *showFile)
 void stop_flicker()
 {
     pthread_mutex_lock(&_flicker_mutex);
-        flickering = 0;
+        _flickering = 0;
     pthread_mutex_unlock(&_flicker_mutex);
     cancel_join_pthread(&_flicker_thread);
 }
@@ -108,11 +108,11 @@ int start_flicker(channel_list_t dmxChannels){
 
     int status = FLICKER_OK;
     pthread_mutex_lock(&_flicker_mutex);
-    if(flickering){
+    if(_flickering){
         pthread_mutex_unlock(&_flicker_mutex);
         return FLICKER_IN_PROGRESS;
     }else{
-        flickering = 1;
+        _flickering = 1;
         if(validate_channel_list(dmxChannels, DMX_CHANNELS)) {
             //return -1;
         }
