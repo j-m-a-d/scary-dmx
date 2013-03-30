@@ -8,7 +8,7 @@ int _numberOfBands;
 {
     [levelViewLeft setFrameRotation:90.0F];
     [levelViewRight setFrameRotation:90.0F];
-    register int i;
+    register unsigned int i;
     for(i=0; i<7; i++){
         id li = [levelViewLeft viewWithTag:i];
         [li setEnabled:FALSE];

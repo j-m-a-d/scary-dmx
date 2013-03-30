@@ -138,7 +138,7 @@ NSString *formatDuration(long duration)
     durations = [[NSMutableArray alloc] init];
 	[durations retain];
 
-    register int i =0;
+    register unsigned int i =0;
     for(i=0; i< numberOfRows; i++){
         /* map pointer array to each cue pointer */
         showDataIndex[i] = aCue;
@@ -193,8 +193,8 @@ NSString *getHeaderNameForColumn(int index)
 -(void)setColumnHeaders:(NSArray *)columns
 {
     NSTableColumn *col;
-    int count = [columns count];
-    register int i=0;
+    int unsigned count = [columns count];
+    register unsigned int i=0;
     for( i=0; i< count; i++){
         col = [columns objectAtIndex:i];
         [[col headerCell] setStringValue: getHeaderNameForColumn(i)];

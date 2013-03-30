@@ -42,7 +42,7 @@ static void draw_analyzer_graph (unsigned int num_levels, float levels[])
 	
     float bar_width = (max_w / (float)num_levels) - spacing ;
     
-    unsigned register int i=0;
+    register unsigned int i=0;
     float *cur = levels;
     
     for(i=0; i<num_levels; i++, cur++){ 
@@ -109,7 +109,7 @@ static void display_prepare()
     display_prepare();
 }
 
--(void)update:(unsigned int)count: (float*)newLevels
+-(void)update:(unsigned int)count :(float*)newLevels
 {
     levelCount = count;
     /* TODO check against max levels */
@@ -119,7 +119,7 @@ static void display_prepare()
 -(void)reduce
 {
     float *cur = levels;
-    register int i= 0;
+    register unsigned int i= 0;
     for(i=0; i<MAX_ANALYZER_LEVELS; i++){
         float nv = *cur - .005f;
         *cur = (nv > 0.0f ? nv : 0.0f);

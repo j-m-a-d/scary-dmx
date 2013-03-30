@@ -24,7 +24,7 @@
 
 static int _current_cue_index = 0;
 
-- (NSURL*)chooseShowFile:(NSString*)fromDir:(NSArray*)fileTypes:(NSString*)action
+- (NSURL*)chooseShowFile:(NSString*)fromDir :(NSArray*)fileTypes :(NSString*)action
 {
     NSOpenPanel *oPanel = [NSOpenPanel openPanel];
     

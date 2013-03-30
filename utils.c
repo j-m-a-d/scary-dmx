@@ -17,7 +17,7 @@ OSSpinLock _loglock = SPIN_LOCK_UNLOCKED;
 void print_cue_channels(unsigned char *channels, FILE *showFile)
 {
     unsigned char *cv = channels;
-    register int i;
+    register unsigned int i;
     for(i=0; i< DMX_CHANNELS+1; i++){
         if(*cv){
             fprintf(showFile, "\tch%d:%d;\n", i, (int)(*cv));

@@ -13,6 +13,6 @@
 
 }
 
--(void)updateAnalyzer:(int)count: (float*)levels;
+-(void)updateAnalyzer:(int)count :(float*)levels;
 
 @end

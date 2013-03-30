@@ -13,7 +13,7 @@
 
 
 @interface ShowTableViewDS :NSObject <NSTableViewDelegate, NSTableViewDataSource> {
-    int numberOfRows;
+    unsigned int numberOfRows;
     dmx_show_t *showData;
     cue_node_t **showDataIndex;
     NSMutableArray *durations;
