@@ -62,7 +62,7 @@ void print_analyzer(analyzer_data_t *data, FILE *showFile)
     fprintf(showFile, "\t}\n");
 }
 
-void free_monitor_data(monitor_data_t *mdata)
+static void free_monitor_data(monitor_data_t *mdata)
 {
     DELETE_CHANNEL_LIST(mdata->dmxChannelList);    
     memset(mdata, 0, sizeof(monitor_data_t));
@@ -116,7 +116,7 @@ void stop_analyze()
 /*
     Thread function for performing callback when movie is finished.
 */
-void *do_callback(void *data_in)
+static void *do_callback(void *data_in)
 {
     pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
     pthread_setcanceltype(PTHREAD_CANCEL_DEFERRED, NULL);
@@ -145,7 +145,7 @@ void deregister_self_as_freqListner(void *callbackRef)
     channel(s) assigned to this effect.  This function trips the specified
     DMX channel when a peak threshold is reached.
 */
-void *monitor(void *data_in)
+static void *monitor(void *data_in)
 {
 
     pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
@@ -231,7 +231,7 @@ cleanup:
     EXIT_THREAD();
 }
 
-void peak_monitor(monitor_data_t *data, QTAudioFrequencyLevels *freqs)
+static void peak_monitor(monitor_data_t *data, QTAudioFrequencyLevels *freqs)
 {
     Float32 value = freqs->level[data->frequency];
     if(value >= data->threshold ){
@@ -243,7 +243,7 @@ void peak_monitor(monitor_data_t *data, QTAudioFrequencyLevels *freqs)
     }
 }
 
-void follow_monitor(monitor_data_t *data, QTAudioFrequencyLevels *freqs)
+static void follow_monitor(monitor_data_t *data, QTAudioFrequencyLevels *freqs)
 {
     Float32 value = freqs->level[data->frequency];
     /* update the channel to the percentage of max based on the freq level. */
@@ -252,7 +252,7 @@ void follow_monitor(monitor_data_t *data, QTAudioFrequencyLevels *freqs)
     usleep(SLEEP_INTERVAL);  
 }
 
-void chase_monitor(monitor_data_t *data, QTAudioFrequencyLevels *freqs)
+static void chase_monitor(monitor_data_t *data, QTAudioFrequencyLevels *freqs)
 {
     static unsigned int lastChannel = 0;
     static dmx_value_t lastValue = 0;
