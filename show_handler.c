@@ -25,9 +25,16 @@ enum show_state {
     SHOW_STATE_RUNNING    =1 << 3,
     SHOW_STATE_SKIPPING   =1 << 4
 };
+#define SHOWING() \
+(SHOW_STATE_RUNNING & _state)
+
+#define SHOW_STOPPED() \
+(SHOW_STATE_STOPPED & _state)
+
+#define SHOW_INTRANSIT() \
+( (SHOW_STATE_STOPPING | SHOW_STATE_STARTING | SHOW_STATE_SKIPPING)  & _state )
 
 static enum show_state _state;
-
 static pthread_mutex_t _control_mutex = PTHREAD_MUTEX_INITIALIZER;
 
 static void(*_call_show_end)(void*) = 0;
@@ -35,15 +42,6 @@ static void *_show_end_obj = 0;
 
 static void(*_call_show_next_step)(void*, cue_node_t *) = 0;
 static void *_show_next_step_obj = 0;
-
-#define SHOWING() \
-    (SHOW_STATE_RUNNING & _state)
-
-#define SHOW_STOPPED() \
-    (SHOW_STATE_STOPPED & _state)
-
-#define SHOW_INTRANSIT() \
-    ( 0x16 & _state )
 
 /*
     Advance the current cue in the show.

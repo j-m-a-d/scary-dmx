@@ -44,10 +44,10 @@ typedef struct _monitor_data_t {
     void *callback_data;
 } monitor_data_t;
 
-static void(*analyzer_function)(monitor_data_t*, QTAudioFrequencyLevels*) = 0;
+static void(*_analyzer_function)(monitor_data_t*, QTAudioFrequencyLevels*) = 0;
 
 /*
- Print an analyzer setting to a show file.
+ * Print an analyzer setting to a show file.
  */
 void print_analyzer(analyzer_data_t *data, FILE *showFile)
 {
@@ -177,9 +177,9 @@ static void *monitor(void *data_in)
             goto cleanup;
         }
         
-        if( analyzer_function ){
+        if( _analyzer_function ){
             pthread_mutex_lock(&_analyze_mutex);
-            if(_monitoring) analyzer_function(data, _freqResults);
+            if(_monitoring) _analyzer_function(data, _freqResults);
             pthread_mutex_unlock(&_analyze_mutex);
         }else{
             sleep(1);
@@ -369,10 +369,8 @@ int start_analyze(analyzer_data_t *data_in, void(*callback)())
     _freqResults->numFrequencyBands = numberOfBandLevels;
     
     /*
-     * Repackage our structure to send to the monitor thread so
-     * that our caller can cleanup their allocations immediately and we
-     * can cleanup this new allocation in the pthread once it makes
-     * a copy.
+     * Repackage our structure to send to the monitor thread with
+     * a few pieces of extra data.
      */
     monitor_data_t *data = malloc(sizeof(monitor_data_t));
     
@@ -388,13 +386,16 @@ int start_analyze(analyzer_data_t *data_in, void(*callback)())
    
     switch(data_in->flags){
         case analyzeMonitorFollow:
-            analyzer_function = follow_monitor;
+            _analyzer_function = follow_monitor;
             break;
         case analyzeMonitorPeak:
-            analyzer_function = peak_monitor;
+            _analyzer_function = peak_monitor;
             break;
         case analyzeMonitorChase:
-            analyzer_function = chase_monitor;
+            _analyzer_function = chase_monitor;
+            break;
+        default:
+            _analyzer_function = 0;
             break;
     }
     _monitoring = 1;
