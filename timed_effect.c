@@ -22,7 +22,7 @@ static pthread_mutex_t _wait_mutex = PTHREAD_MUTEX_INITIALIZER;
 static pthread_cond_t _wait_cond = PTHREAD_COND_INITIALIZER;
 
 typedef struct _timed_effect_t {
-    pthread_t *handle;
+    pthread_t *thread_handle;
     volatile int run_flag;
 } timed_effect_t;
 
@@ -42,11 +42,11 @@ void print_timer_data(timed_effect_data_t *data, FILE *showFile)
 static void free_timer_handle(timed_effect_t *in_timer)
 {
     timed_effect_t *timer = in_timer;
-    pthread_cancel( *timer->handle);
-    pthread_join( *timer->handle, NULL);
+    pthread_cancel( *timer->thread_handle);
+    pthread_join( *timer->thread_handle, NULL);
     
-    if(timer->handle) {
-        free(timer->handle);
+    if(timer->thread_handle) {
+        free(timer->thread_handle);
     }
     
     memset(timer, 0, sizeof(timed_effect_t));
@@ -102,7 +102,7 @@ void stop_timed_effects(timed_effect_data_t *timer)
     while(tmp){
         timed_effect_t* handle = ((timed_effect_t*)(tmp->timer_handle));
         if(!handle) continue;
-        cancel_join_pthread((handle->handle));
+        cancel_join_pthread((handle->thread_handle));
         handle->run_flag = 0;
         update_channels(tmp->channels, CHANNEL_RESET);
         tmp = tmp->nextTimer;
@@ -110,7 +110,7 @@ void stop_timed_effects(timed_effect_data_t *timer)
     pthread_mutex_unlock(&_wait_mutex);
 }
 
-void *do_timed_effect(void *data_in)
+static void *do_timed_effect(void *data_in)
 {
     pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
     pthread_setcanceltype(PTHREAD_CANCEL_DEFERRED, NULL);
@@ -141,8 +141,8 @@ int create_timed_effect_handle(timed_effect_handle **handle)
     timer = malloc(sizeof(timed_effect_t));
     if(!timer) return TIMED_EFFECT_FAIL; // combine
 
-    timer->handle = malloc(sizeof(pthread_t));
-    memset(timer->handle, 0, sizeof(pthread_t));
+    timer->thread_handle = malloc(sizeof(pthread_t));
+    memset(timer->thread_handle, 0, sizeof(pthread_t));
     timer->run_flag = 0;
     
     *handle = (timed_effect_handle*)timer;
@@ -154,7 +154,7 @@ int cue_timed_effect(timed_effect_data_t *data)
 {   
     timed_effect_t *te = (timed_effect_t*)data->timer_handle;
     te->run_flag = 1;
-    int result = spawn_joinable_pthread(te->handle, do_timed_effect, (void*)(data) );
+    int result = spawn_joinable_pthread(te->thread_handle, do_timed_effect, (void*)(data) );
     if(result){
         return result;
     }
