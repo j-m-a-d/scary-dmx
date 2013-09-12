@@ -1,25 +1,23 @@
 cue {
+    ch16:255;
+    ch23:255;
     analyzer {
         file:/Users/jason/Desktop/Halloween Tracks/Horror Intro.mp3;
-        ch:1,2,3,4,5,6,7,8,9,10,11,12;
+        ch:1,2,3,4,5,6,7,8,9,10,11,12,19,26;
         threshold:0.470;
         threshold_value:245;
         bands:7;
         freq:5;
         type:1;
     }
-    oscillator {
-        ch:13;
-        low:1;
-        high:255;
-        speed:50000;
-    }
 }
 
 cue {
+    ch16:255;
+    ch23:255;
     analyzer {
         file:/Users/jason/Desktop/Halloween Tracks/Toccata-ext.m4a;
-        ch:1,2,3,4,5,6,7,8,9,10,11,12;
+        ch:1,2,3,4,5,6,7,8,9,10,11,12,19,26;
         threshold:0.575;
         threshold_value:255;
         bands:7;
@@ -31,7 +29,7 @@ cue {
 cue {
     analyzer {
         file:/Users/jason/Desktop/Halloween Tracks/dungeon.m4a;
-        ch:13;
+        ch:13,19,20,26,27;
         threshold:0.300;
         threshold_value:225;
         bands:7;
@@ -52,6 +50,12 @@ cue {
     ch10:255;
     ch11:255;
     ch12:255; 
+    ch15:255;
+    ch16:255;
+    ch17:255;
+    ch22:255;
+    ch23:255;
+    ch24:255;
 }
 
 cue {
@@ -68,11 +72,15 @@ cue {
         ch:1,2,3,4,5,6,7,8,9,10,11,12;
     }
     timer {
-        ch:13;
+        ch:13,19,26;
         dmx-value:245;
         ontime:900000;
         offtime:250000; 
     }
+    ch15:32;
+    ch17:255;
+    ch22:32;
+    ch24:255;
 } 
 
 
@@ -87,16 +95,18 @@ cue {
         type:2;
     }
     oscillator {
-        ch:5,6,7,8,9,10,11,12;
+        ch:5,6,7,8,9,10,11,12,19,26;
         low:0;
         high:255;
         speed:100000;
     } 
+    ch16:255;
+    ch23:255;
 }
 cue {
     analyzer {
         file:/Users/jason/Desktop/Halloween Tracks/RiseOfTheDead.aif;
-        ch:13;
+        ch:13,19,20,26,27;
         threshold:0.525;
         threshold_value:195;
         bands:7;
@@ -114,13 +124,25 @@ cue {
     ch10:255;
     ch11:255;
     ch12:255;
+    ch15:255;
+    ch16:255;
+    ch17:255;
+    ch22:255;
+    ch23:255;
+    ch24:255;
 }
  
 cue {
+    ch15:255;
+    ch16:255;
+    ch17:255;
+    ch22:255;
+    ch23:255;
+    ch24:255;
     analyzer {
         file:/Users/jason/Desktop/Halloween Tracks/Thunder Symphony.aiff;
-        ch:13;
-        threshold:0.750;
+        ch:13,19,20,26,27;
+        threshold:0.740;
         threshold_value:225;
         bands:7;
         freq:3;
@@ -138,6 +160,8 @@ cue {
 }
 
 cue {
+    ch16:255;
+    ch23:255;
     analyzer {
         file:/Users/jason/Desktop/Halloween Tracks/The Lost Room.mp3;
         ch:1,2,3,4;
@@ -148,49 +172,13 @@ cue {
         type:2;
     }
     timer {
-        ch:5;
+        ch:5,6,7,8;
         dmx-value:200;
         ontime:200000;
         offtime:100000;
     }
     timer {
-        ch:6;
-        dmx-value:200;
-        ontime:200000;
-        offtime:100000;
-    }
-    timer {
-        ch:7;
-        dmx-value:200;
-        ontime:200000;
-        offtime:100000;
-    }
-    timer {
-        ch:8;
-        dmx-value:200;
-        ontime:200000;
-        offtime:100000;
-    }
-    timer {
-        ch:9;
-        dmx-value:200;
-        ontime:200000;
-        offtime:100000;
-    }
-    timer {
-        ch:10;
-        dmx-value:200;
-        ontime:200000;
-        offtime:100000;
-    }
-    timer {
-        ch:11;
-        dmx-value:200;
-        ontime:200000;
-        offtime:100000;
-    }
-    timer {
-        ch:12;
+        ch:9,10,11,12,19;
         dmx-value:200;
         ontime:200000;
         offtime:100000;
@@ -214,17 +202,23 @@ cue {
         speed:250000;
     }
     timer {
-        ch:13;
+        ch:13,19,20,26,27;
         dmx-value:200;
         ontime:2000000;
         offtime:10000000;
     }
+    ch15:255;
+    ch16:255;
+    ch17:255;
+    ch22:255;
+    ch23:255;
+    ch24:255;
 }
 
 cue {
     analyzer {
         file:/Users/jason/Desktop/Halloween Tracks/The Beast Lives.mp3;
-        ch:13;
+        ch:13,19,20,26,27;
         threshold:0.525;
         threshold_value:255;
         bands:7;
@@ -241,6 +235,12 @@ cue {
     ch2:75;
     ch3:75;
     ch4:75;
+    ch15:255;
+    ch16:255;
+    ch17:255;
+    ch22:255;
+    ch23:255;
+    ch24:255;
 }
 
 cue {
@@ -249,7 +249,7 @@ cue {
     }
     analyzer {
         file:/Users/jason/Desktop/Halloween Tracks/Fright Storm.m4a;
-        ch:13;
+        ch:13,19,20,26,27;
         threshold:0.625;
         threshold_value:245;
         bands:7;
@@ -262,6 +262,12 @@ cue {
         high:255;
         speed:100000;
     }
+    ch15:255;
+    ch16:255;
+    ch17:255;
+    ch22:255;
+    ch23:255;
+    ch24:255;
 }
 
 cue {
@@ -275,11 +281,13 @@ cue {
         type:2;
     }
     oscillator{
-        ch:5,6,7,8,9,10,11,12;
+        ch:5,6,7,8,9,10,11,12,19,26;
         low:10;
         high:225;
         speed:10000;
     }
+    ch16:255;
+    ch23:255;
 }
 
 cue {
@@ -306,4 +314,8 @@ cue {
     ch10:255;
     ch11:255;
     ch12:255; 
+    ch16:255;
+    ch19:255;
+    ch23:255;
+    ch26:255;
 } 
