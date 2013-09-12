@@ -25,28 +25,30 @@ static dmx_value_t _outputBuffer[DMX_CHANNELS];
 static pthread_t _dmx_writer_pt = 0;
 static pthread_mutex_t _dmx_mutex = PTHREAD_MUTEX_INITIALIZER;
 
-volatile static int _writing = 0;
+volatile static enum op_state _dmxstate = OP_STATE_INITIALIZING;
 
 /*
    Zero out the write buffer then stop the DMX write thread.
  */
 void stop_dmx()
 {
-    if( !_writing || !_outputBuffer ){
+    if( INTRANSIT(_dmxstate) || !_outputBuffer ){
         return;
     }
-
-    log_info("Stopping DMX transmission.\n");
-
     pthread_mutex_lock(&_dmx_mutex);
-    
-    memset(_outputBuffer, 0, DMX_CHANNELS * sizeof(dmx_value_t));
-    if(_dmxDevice) {
-        usleep(500000);	
-        _writing=0;	
-        pthread_join(_dmx_writer_pt,NULL);
-    }
+        if(!RUNNING(_dmxstate)){
+            pthread_mutex_unlock(&_dmx_mutex);
+            return;
+        }
+        _dmxstate = OP_STATE_STOPPING;
+        log_info("Stopping DMX transmission.\n");
 
+        memset(_outputBuffer, 0, DMX_CHANNELS * sizeof(dmx_value_t));
+        if(_dmxDevice) {
+            destroy_dmx();
+        }
+        pthread_join(_dmx_writer_pt,NULL);
+        _dmxstate = OP_STATE_STOPPED;
     pthread_mutex_unlock(&_dmx_mutex);
 }
 
@@ -70,7 +72,7 @@ void destroy_dmx()
    output device.
  */
 void *write_buffer(){
-    
+   
     pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
     pthread_setcanceltype(PTHREAD_CANCEL_DEFERRED, NULL);
     PTHREAD_SETNAME("scarydmx.dmxwriter");
@@ -83,17 +85,22 @@ void *write_buffer(){
 	if(!_outputBuffer) pthread_exit(NULL);
 
     /* Write */
-    while(_writing && _dmxDevice){
+    while(RUNNING(_dmxstate) && _dmxDevice){
         FT_W32_SetCommBreak(_dmxDevice);
         FT_W32_ClearCommBreak(_dmxDevice);
         FT_Write(_dmxDevice, 0, 1, &dwBytesWritten);
         if((ftStatus = FT_Write(_dmxDevice, _outputBuffer, DMX_CHANNELS, &dwBytesWritten)) != FT_OK) {
             log_info("Error FT_Write(%d)\n", (int)ftStatus);
-            _writing = 0;
+            pthread_mutex_lock(&_dmx_mutex);
+                if(OP_STATE_RUNNING == _dmxstate) {
+                    _dmxstate = OP_STATE_STOPPING;
+                }
+            pthread_mutex_unlock(&_dmx_mutex);
             break;
         }
         usleep(seconds);	
     }
+
     EXIT_THREAD();
 }
 
@@ -138,6 +145,8 @@ void update_channels(channel_list_t channelList, dmx_value_t val)
      */
 
     dmx_channel_t *tmp;
+    if( !channelList ) return;
+    
     tmp = channelList->channels;
     while(*tmp){
 #ifdef _DMX_TRACE_OUTPUT
@@ -265,27 +274,34 @@ int init_dmx()
  */
 void start_dmx()
 {
-    /* If the DMX device is not initialized try
-     *  initializing then try running.
+    /* 
+     * If the DMX device is not initialized try
+     * initializing then try running.
      */
     pthread_mutex_lock(&_dmx_mutex);
-        /* If the DMX device is initialized correctly see
+        /* 
+         * If the DMX device is initialized correctly see
          * if we are already started.
          */
-        if(_writing || _dmxDevice){
+        if(RUNNING(_dmxstate)) {
             pthread_mutex_unlock(&_dmx_mutex);
             return;
         }
-        destroy_dmx();
+        _dmxstate = OP_STATE_STARTING;
+    
+        if(_dmxDevice) destroy_dmx();
+    
         if(DMX_INIT_OK != init_dmx()){
             pthread_mutex_unlock(&_dmx_mutex);
             return;
         }
+    
         spawn_joinable_pthread(&_dmx_writer_pt, write_buffer, NULL);
         /* TODO check result ^^ */
-        log_error( "Starting DMX transmission.\n");
+
+        log_info( "Starting DMX transmission.\n");
         /* We can now allow threads to write updates to the output buffer. */
-        _writing = 1;
+        _dmxstate = OP_STATE_RUNNING;
     pthread_mutex_unlock(&_dmx_mutex);
 }
 

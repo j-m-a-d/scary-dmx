@@ -12,7 +12,7 @@
 #include <pthread.h>
 #include <string.h>
 
-#define SLEEP_INTERVAL 100000
+#define DEFAULT_SLEEP_INTERVAL 100000
 
 volatile static int _monitoring = 0;
 
@@ -236,10 +236,10 @@ static void peak_monitor(monitor_data_t *data, QTAudioFrequencyLevels *freqs)
     Float32 value = freqs->level[data->frequency];
     if(value >= data->threshold ){
         update_channels(data->dmxChannelList, data->dmxValue); 
-        usleep(SLEEP_INTERVAL);
+        usleep(DEFAULT_SLEEP_INTERVAL);
         update_channels(data->dmxChannelList, CHANNEL_RESET);
     }else{ 
-        usleep(SLEEP_INTERVAL); 
+        usleep(DEFAULT_SLEEP_INTERVAL); 
     }
 }
 
@@ -249,7 +249,7 @@ static void follow_monitor(monitor_data_t *data, QTAudioFrequencyLevels *freqs)
     /* update the channel to the percentage of max based on the freq level. */
     dmx_value_t i = (dmx_value_t)(255 * value);
     update_channels(data->dmxChannelList, i);
-    usleep(SLEEP_INTERVAL);  
+    usleep(DEFAULT_SLEEP_INTERVAL);  
 }
 
 static void chase_monitor(monitor_data_t *data, QTAudioFrequencyLevels *freqs)
@@ -277,7 +277,7 @@ static void chase_monitor(monitor_data_t *data, QTAudioFrequencyLevels *freqs)
         ch = data->dmxChannelList->channels[lastChannel];
         update_channel(ch, data->dmxValue);
         lastValue = data->dmxValue;
-        usleep(SLEEP_INTERVAL);
+        usleep(DEFAULT_SLEEP_INTERVAL);
     } else {
         if(lastValue > 0){
             lastValue = lastValue > 0 ? --lastValue : 0;

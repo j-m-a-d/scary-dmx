@@ -21,7 +21,7 @@
 #define SPIN_LOCK_UNLOCKED 0
 #endif
 
-/* Logging */
+/* Logging Utilities */
 #ifdef _LOG
 
 #include <libgen.h>
@@ -59,6 +59,24 @@ OSSpinLockUnlock(&_loglock_);
 #define log_error(format, ...)
 #endif
 
+/* General Utilities */
+enum op_state {
+    OP_STATE_INITIALIZING  =1 << 0,
+    OP_STATE_STOPPED       =1 << 1,
+    OP_STATE_STOPPING      =1 << 2,
+    OP_STATE_STARTING      =1 << 3,
+    OP_STATE_RUNNING       =1 << 4,
+    OP_STATE_SKIPPING      =1 << 5
+};
+
+#define RUNNING(state) \
+(OP_STATE_RUNNING & state)
+
+#define STOPPED(state) \
+(OP_STATE_STOPPED & state)
+
+#define INTRANSIT(state) \
+( (OP_STATE_STOPPING | OP_STATE_STARTING | OP_STATE_SKIPPING)  & state )
 
 /* DMX Utilities */
 

@@ -17,25 +17,8 @@
 static dmx_show_t *_live_show = 0;
 
 static pthread_t _show_pt = 0;
-
-enum show_state {
-    SHOW_STATE_STOPPED    =1 << 0,
-    SHOW_STATE_STOPPING   =1 << 1,
-    SHOW_STATE_STARTING   =1 << 2,
-    SHOW_STATE_RUNNING    =1 << 3,
-    SHOW_STATE_SKIPPING   =1 << 4
-};
-#define SHOWING() \
-(SHOW_STATE_RUNNING & _state)
-
-#define SHOW_STOPPED() \
-(SHOW_STATE_STOPPED & _state)
-
-#define SHOW_INTRANSIT() \
-( (SHOW_STATE_STOPPING | SHOW_STATE_STARTING | SHOW_STATE_SKIPPING)  & _state )
-
-static enum show_state _state;
 static pthread_mutex_t _control_mutex = PTHREAD_MUTEX_INITIALIZER;
+static volatile enum op_state _state;
 
 static void(*_call_show_end)(void*) = 0;
 static void *_show_end_obj = 0;
@@ -44,7 +27,7 @@ static void(*_call_show_next_step)(void*, cue_node_t *) = 0;
 static void *_show_next_step_obj = 0;
 
 /*
-    Advance the current cue in the show.
+ * Advance the current cue in the show.
  */
 static int advance_cue(dmx_show_t *show)
 {
@@ -295,7 +278,7 @@ static void *next_step()
     pthread_setcanceltype(PTHREAD_CANCEL_DEFERRED, NULL);
     PTHREAD_SETNAME("scarydmx.showhandler");
     
-    if(!SHOWING()){
+    if(!RUNNING(_state)){
         log_debug( "Show is not in progress, exiting.\n");
         goto die_now;
     }
@@ -366,15 +349,15 @@ static void _stop_show()
  */
 void stop_show()
 {
-    if(SHOW_STOPPED())
+    if(STOPPED(_state))
         return;
     
     pthread_mutex_lock(&_control_mutex);
-    _state = SHOW_STATE_STOPPING;
+    _state = OP_STATE_STOPPING;
     
     _stop_show();
     
-    _state = SHOW_STATE_STOPPED;
+    _state = OP_STATE_STOPPED;
     pthread_mutex_unlock(&_control_mutex);
 }
 
@@ -401,7 +384,7 @@ static void go_to_next_step()
     
     log_debug("showstate=%#x.\n", _state);
     
-    if(SHOWING()){
+    if(RUNNING(_state)){
         /* Cue up the next scene. */
         showOver = advance_cue(_live_show);
         log_debug("Advanced to next cue.\n");
@@ -450,7 +433,7 @@ int load_show_from_file(const char *show_file, dmx_show_t **out_show)
  */
 int setShow(dmx_show_t *show)
 {
-    if(SHOW_STOPPED())
+    if(STOPPED(_state))
         return 1;
     
     free_all_show();
@@ -472,14 +455,14 @@ static void _start_show()
 int start_show()
 {
     if(NULL == _live_show) return DMX_SHOW_NOT_LOADED;
-    if(SHOW_STATE_RUNNING==_state) return 0;
+    if(RUNNING(_state)) return 0;
     
     pthread_mutex_lock(&_control_mutex);
-    _state = SHOW_STATE_STARTING;
+    _state = OP_STATE_STARTING;
     
     _start_show();
     
-    _state = SHOW_STATE_RUNNING;
+    _state = OP_STATE_RUNNING;
     pthread_mutex_unlock(&_control_mutex);
     
     return DMX_SHOW_OK;
@@ -503,11 +486,11 @@ void _rewind_show(dmx_show_t *show)
 void rewind_show()
 {
     pthread_mutex_lock(&_control_mutex);
-    enum show_state lastState = _state;
-    _state = SHOW_STATE_SKIPPING;
+    enum op_state lastState = _state;
+    _state = OP_STATE_SKIPPING;
 
 
-    if(SHOW_STATE_RUNNING == lastState){
+    if(RUNNING(lastState)){
         _stop_show();
         _rewind_show(_live_show);
         _start_show();
@@ -524,15 +507,15 @@ void rewind_show()
  */
 int skip_cue()
 {
-    if(SHOW_INTRANSIT())
+    if(INTRANSIT(_state))
         return -1;
 
     pthread_mutex_lock(&_control_mutex);
-    enum show_state last_state = _state;
+    enum op_state last_state = _state;
 
-    _state = SHOW_STATE_SKIPPING;
+    _state = OP_STATE_SKIPPING;
 
-    if(SHOW_STATE_RUNNING & last_state) {
+    if(RUNNING(last_state)) {
         skip_movie();
     } else if(_live_show && _live_show->currentCue->nextCue){
         _live_show->currentCue = _live_show->currentCue->nextCue;
