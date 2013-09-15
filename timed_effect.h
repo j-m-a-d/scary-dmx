@@ -16,7 +16,8 @@ typedef struct timed_effect_t *timed_effect_handle;
 
 typedef struct _timed_effect_data_t {
     channel_list_t channels;
-    dmx_value_t value;
+    dmx_value_t on_value;
+    dmx_value_t off_value;
     unsigned long on_time;
     unsigned long off_time;
     timed_effect_handle *timer_handle;

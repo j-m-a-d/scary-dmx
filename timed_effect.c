@@ -33,9 +33,10 @@ void print_timer_data(timed_effect_data_t *data, FILE *showFile)
 {
     fprintf(showFile, "\ttimer {\n");
     printChannelList(data->channels, showFile);
-    fprintf(showFile, "\t\t dmx-value:%d;\n", data->value);
     fprintf(showFile, "\t\t ontime:%ld;\n", data->on_time);
     fprintf(showFile, "\t\t offtime:%ld;\n", data->off_time);
+    fprintf(showFile, "\t\t onvalue:%d;\n", data->on_value);
+    fprintf(showFile, "\t\t offvalue:%d;\n", data->off_value);
     fprintf(showFile, "\t}\n");
 }
 
@@ -117,7 +118,7 @@ static void *do_timed_effect(void *data_in)
     PTHREAD_SETNAME("scarydmx.timer");
 
     timed_effect_data_t *data = (timed_effect_data_t*)data_in;
-    
+
     /* Wait here until the timers are told to start. */
     pthread_mutex_lock(&_wait_mutex);
     while(!_timed) {
@@ -126,9 +127,9 @@ static void *do_timed_effect(void *data_in)
     pthread_mutex_unlock(&_wait_mutex);
 
     while(1){
-        update_channels(data->channels, data->value);
+        update_channels(data->channels, data->on_value);
         usleep(data->on_time);
-        update_channels(data->channels, 0 );
+        update_channels(data->channels, data->off_value);
         usleep(data->off_time);
     }
     

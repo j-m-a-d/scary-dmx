@@ -79,6 +79,8 @@ extern int parse_show_file(const char *filename, dmx_show_t **show)
 %type <val>         dmx_value
 %type <val>         ontime_value
 %type <val>         offtime_value
+%type <val>         on_value
+%type <val>         off_value
 
 %token <val>        VALUE
 %token <val>        CHANNEL
@@ -89,7 +91,7 @@ extern int parse_show_file(const char *filename, dmx_show_t **show)
 
 %token CUE CHAN FLICKER OSCILLATOR ANALYZER 
 %token TIMER SPEED LOW HIGH FILENAME TYPE FREQ THRESHOLD BANDS
-%token THRESHOLD_VALUE DMX_VALUE ONTIME OFFTIME 
+%token THRESHOLD_VALUE DMX_VALUE ONTIME OFFTIME ONVALUE OFFVALUE
 %token LPAREN RPAREN LBRACE RBRACE SEMICOLON DASH
 
 %token <text> UNKNOWN
@@ -284,26 +286,27 @@ OSCILLATOR LBRACE chan low_value high_value speed_value RBRACE
 ;
 
 timer_setting:
-TIMER LBRACE chan dmx_value ontime_value offtime_value RBRACE
+TIMER LBRACE chan ontime_value offtime_value on_value off_value RBRACE
 {
 #ifdef _TRACE_PARSER
-    log_debug("Timer setting channel-- %d, on-- %d, off-- %d\n",$3, $5, $6);
+    log_debug("Timer setting channel-- %d, ontime-- %d, offtime-- %d, onvalue-- %d, offvalue-- %d\n", $3, $4, $5, $6, $7);
 #endif
     timed_effect_data_t* timer = NEW_TIMED_EFFECT(timer);
     timer->channels = new_channel_list(1);
     timer->channels->channels[1] = 0;
     timer->channels->channels[0] = $3;
-    timer->value = $4;
-    timer->on_time = $5;
-    timer->off_time = $6;
+    timer->on_time = $4;
+    timer->off_time = $5;
+    timer->on_value = $6;
+    timer->off_value = $7;
     timer->timer_handle = 0;
     set_timer_data_for_current_cue(resultShow, timer);
 }
 |
-TIMER LBRACE channel_list dmx_value ontime_value offtime_value RBRACE
+TIMER LBRACE channel_list ontime_value offtime_value on_value off_value RBRACE
 {
 #ifdef _TRACE_PARSER
-    log_debug("Timer setting on-- %d, off-- %d\n", $5, $6);
+    log_debug("Timer setting ontime-- %d, offtime-- %d, on-value-- %d, off-value-- %d\n", $4, $5, $6, $7);
     log_debug(" %d channel(s)\n", $3.count);
     int i=0;
     for(i=0; i<$3.count; i++){
@@ -313,9 +316,10 @@ TIMER LBRACE channel_list dmx_value ontime_value offtime_value RBRACE
 #endif
     timed_effect_data_t* timer = NEW_TIMED_EFFECT(timer);
     timer->channels = channel_list_from_data($3.count, $3.channels);
-    timer->value = $4;
-    timer->on_time = $5;
-    timer->off_time = $6;
+    timer->on_time = $4;
+    timer->off_time = $5;
+    timer->on_value = $6;
+    timer->off_value = $7;
     timer->timer_handle = 0;
     set_timer_data_for_current_cue(resultShow, timer);
 }
@@ -394,6 +398,16 @@ offtime_value:  OFFTIME value
     $$ = $2;
 }
 ;
+
+on_value: ONVALUE value
+{
+    $$ = $2;
+}
+
+off_value: OFFVALUE value
+{
+    $$ = $2;
+}
 
 value:          VALUE SEMICOLON
 {

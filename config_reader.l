@@ -28,6 +28,8 @@ bands:                      return BANDS;
 dmx-value:                  return DMX_VALUE;
 ontime:                     return ONTIME;
 offtime:                    return OFFTIME;
+onvalue:                    return ONVALUE;
+offvalue:                   return OFFVALUE;
 "{"                         return LBRACE;
 "}"                         return RBRACE; 
 "("                         return LPAREN;
@@ -52,7 +54,7 @@ ch[0-9]{1,3}:                {
                             }
 
 [0-9]{1,3}(,[0-9]{1,3})+    {
-                                int length = sizeof(char) * (strlen(yytext) + 1);
+                                size_t length = sizeof(char) * strlen(yytext) + 1;
                                 char *cpy = malloc(length);
                                 memset(cpy,0,length);
                                 strcpy(cpy, yytext);
