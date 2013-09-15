@@ -6,8 +6,8 @@ cue {
         ch:1,2,3,4,5,6,7,8,9,10,11,12,19,26;
         threshold:0.470;
         threshold_value:245;
-        bands:7;
-        freq:5;
+        bands:10;
+        freq:4;
         type:1;
     }
 }
@@ -79,8 +79,10 @@ cue {
     }
     ch15:32;
     ch17:255;
+    ch20:240;
     ch22:32;
     ch24:255;
+    ch27:240;
 } 
 
 
@@ -136,14 +138,16 @@ cue {
     ch15:255;
     ch16:255;
     ch17:255;
+    ch20:225;
     ch22:255;
     ch23:255;
     ch24:255;
+    ch27:225;
     analyzer {
         file:/Users/jason/Desktop/Halloween Tracks/Thunder Symphony.aiff;
-        ch:13,19,20,26,27;
+        ch:13,19,26;
         threshold:0.740;
-        threshold_value:225;
+        threshold_value:255;
         bands:7;
         freq:3;
         type:0;
@@ -178,7 +182,7 @@ cue {
         offtime:100000;
     }
     timer {
-        ch:9,10,11,12,19;
+        ch:9,10,11,12,19,26;
         dmx-value:200;
         ontime:200000;
         offtime:100000;
@@ -249,11 +253,11 @@ cue {
     }
     analyzer {
         file:/Users/jason/Desktop/Halloween Tracks/Fright Storm.m4a;
-        ch:13,19,20,26,27;
-        threshold:0.625;
-        threshold_value:245;
-        bands:7;
-        freq:4;
+        ch:13,19,26;
+        threshold:0.550;
+        threshold_value:255;
+        bands:8;
+        freq:5;
         type:0;
     }
     oscillator {
@@ -265,9 +269,11 @@ cue {
     ch15:255;
     ch16:255;
     ch17:255;
+    ch20:225;
     ch22:255;
     ch23:255;
     ch24:255;
+    ch27:225;
 }
 
 cue {
@@ -283,12 +289,30 @@ cue {
     oscillator{
         ch:5,6,7,8,9,10,11,12,19,26;
         low:10;
-        high:225;
+        high:255;
         speed:10000;
     }
     ch16:255;
     ch23:255;
 }
+
+cue {
+    analyzer {
+        file:/Users/jason/Desktop/Halloween Tracks/Silent Hill Evil Lives.mp3;
+        ch:15,19,22,26;
+        threshold:0.125;
+        threshold_value:255;
+        bands:8;
+        freq:6;
+        type:0;
+    }
+    timer {
+        ch:1,2,3,4,5,6,7,8,9,10,11,12,16,19,23,26;
+        dmx-value:128;
+        ontime:36500000;
+        offtime:600000000;
+    }
+} 
 
 cue {
     analyzer {

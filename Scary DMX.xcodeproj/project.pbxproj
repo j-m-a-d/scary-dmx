@@ -28,7 +28,6 @@
 		96151CC4162D3B0100A10709 /* libscarydmx-core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9609581B162CE21100D35B65 /* libscarydmx-core.a */; };
 		962EA6E60F5B0BEA00DCC0C1 /* SoundController.m in Sources */ = {isa = PBXBuildFile; fileRef = 962EA6E50F5B0BEA00DCC0C1 /* SoundController.m */; };
 		9642140310B0783400F9F364 /* OscillatorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9642140210B0783400F9F364 /* OscillatorController.m */; };
-		967C953F17E00B48001FFF2D /* libftd2xx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 967C953E17E00B48001FFF2D /* libftd2xx.a */; };
 		967C954317E00CCD001FFF2D /* libftd2xx.0.1.7.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 967C954217E00CCD001FFF2D /* libftd2xx.0.1.7.dylib */; };
 		967C954417E00CEE001FFF2D /* libscarydmx-core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9609581B162CE21100D35B65 /* libscarydmx-core.a */; };
 		968800391471CF9200754002 /* DMXOutputDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 968800381471CF9200754002 /* DMXOutputDisplayController.m */; };
@@ -103,8 +102,6 @@
 		9642140210B0783400F9F364 /* OscillatorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OscillatorController.m; sourceTree = "<group>"; };
 		967B70B810DEBF6A00318111 /* chaser_handler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chaser_handler.h; sourceTree = "<group>"; };
 		967B70B910DEBF6A00318111 /* chaser_handler.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = chaser_handler.c; sourceTree = "<group>"; };
-		967C953E17E00B48001FFF2D /* libftd2xx.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libftd2xx.a; sourceTree = "<group>"; };
-		967C954017E00C32001FFF2D /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/IOKit.framework; sourceTree = DEVELOPER_DIR; };
 		967C954217E00CCD001FFF2D /* libftd2xx.0.1.7.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libftd2xx.0.1.7.dylib; sourceTree = "<group>"; };
 		968800371471CF9200754002 /* DMXOutputDisplayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMXOutputDisplayController.h; sourceTree = "<group>"; };
 		968800381471CF9200754002 /* DMXOutputDisplayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMXOutputDisplayController.m; sourceTree = "<group>"; };
@@ -153,7 +150,6 @@
 				96FE58061079A00900A92124 /* QuickTime.framework in Frameworks */,
 				96E0BD911478576A0050B8F7 /* OpenGL.framework in Frameworks */,
 				9605E24817E006FC00CFCCD9 /* config_parser.o in Frameworks */,
-				967C953F17E00B48001FFF2D /* libftd2xx.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -209,7 +205,7 @@
 		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				967C953E17E00B48001FFF2D /* libftd2xx.a */,
+				967C954217E00CCD001FFF2D /* libftd2xx.0.1.7.dylib */,
 				9605E24717E006FC00CFCCD9 /* config_parser.o */,
 				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
 				13E42FB307B3F0F600E4EEF1 /* CoreData.framework */,
@@ -231,8 +227,6 @@
 		29B97314FDCFA39411CA2CEA /* Scary DMX */ = {
 			isa = PBXGroup;
 			children = (
-				967C954217E00CCD001FFF2D /* libftd2xx.0.1.7.dylib */,
-				967C954017E00C32001FFF2D /* IOKit.framework */,
 				96151CB7162D3A5500A10709 /* scary-dmx */,
 				96F63361162DE711006DC4D8 /* scarydmx-core */,
 				96C217B410C0E3C200507543 /* Scary DMX */,
