@@ -105,6 +105,7 @@ void set_flicker_channel_for_current_cue(dmx_show_t*, channel_list_t);
 void set_oscillator_data_for_current_cue(dmx_show_t*, oscillator_data_t*);
 void set_analyzer_data_for_current_cue(dmx_show_t*, analyzer_data_t*);
 void set_timer_data_for_current_cue(dmx_show_t*, timed_effect_data_t*);
+void reset_channel_values_for_current_cue();
 void printShow(dmx_show_t*, FILE*);
 /* Call back registration functions */
 void register_show_ended(void *callRef, void(*showEnded)(void*));

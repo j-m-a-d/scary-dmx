@@ -267,6 +267,17 @@ void set_timer_data_for_current_cue(dmx_show_t *show, timed_effect_data_t *data)
     }
 }
 
+void reset_channel_values_for_current_cue()
+{
+    if(_live_show) {
+        if(_live_show->currentCue){
+            if(_live_show->currentCue->cue) {
+                bulk_update(_live_show->currentCue->cue->channelValues);
+            }
+        }
+    }
+}
+
 static void go_to_next_step();
 
 /*
@@ -293,8 +304,8 @@ static void *next_step()
 			goto die_now;
 		}
     }
-    
-    bulk_update(cue->channelValues);
+
+    reset_channel_values_for_current_cue();
      
     if(cue->flickerChannels){
         start_flicker(cue->flickerChannels);        

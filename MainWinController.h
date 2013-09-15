@@ -15,7 +15,7 @@
     IBOutlet NSMenuItem *loopShow;
     IBOutlet NSTableView *showTable;
     IBOutlet ShowTableViewDS *ds;
-    NSString *showFile;
+    NSURL *showFile;
 }
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)app;

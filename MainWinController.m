@@ -52,11 +52,11 @@ static unsigned int _current_cue_index = 0;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *lastShowDir = (NSString*)[defaults objectForKey:LAST_OPENED_SHOW_DIR];
     NSArray *fileTypes = [NSArray arrayWithObjects:@"shw", nil];
-    NSURL *path = [self chooseShowFile:lastShowDir:fileTypes: @"Open"];
+    showFile = [self chooseShowFile:lastShowDir:fileTypes: @"Open"];
             
-    if (nil != path) {
+    if (nil != showFile) {
         [self stopShow: self];
-        NSString *newFile = [path path];
+        NSString *newFile = [showFile path];
         [defaults setObject:[newFile stringByDeletingLastPathComponent] forKey:LAST_OPENED_SHOW_DIR];
         dmx_show_t *newShow = 0;
         if(!load_show_from_file([newFile cStringUsingEncoding:NSUTF8StringEncoding], &newShow )){
@@ -80,6 +80,7 @@ static unsigned int _current_cue_index = 0;
 {
     if( NSOnState == [dmxButton state] ){
         start_dmx();
+        reset_channel_values_for_current_cue();
     } else {
         stop_dmx();
     }
