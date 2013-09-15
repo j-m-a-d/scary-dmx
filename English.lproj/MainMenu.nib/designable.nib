@@ -2586,7 +2586,8 @@
 								<object class="NSMenuItem" id="879871135">
 									<reference key="NSMenu" ref="693474542"/>
 									<string key="NSTitle">Reload Show</string>
-									<string key="NSKeyEquiv"></string>
+									<string key="NSKeyEquiv">r</string>
+									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="95388488"/>
 									<reference key="NSMixedImage" ref="78229405"/>
@@ -3937,6 +3938,14 @@
 						<reference key="destination" ref="103636372"/>
 					</object>
 					<int key="connectionID">654</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">reloadShowFile:</string>
+						<reference key="source" ref="714071244"/>
+						<reference key="destination" ref="879871135"/>
+					</object>
+					<int key="connectionID">781</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -6059,7 +6068,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">780</int>
+			<int key="maxID">781</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

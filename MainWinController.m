@@ -46,32 +46,53 @@ static unsigned int _current_cue_index = 0;
     return nil;
 }
 
+- (int)loadShowFile:(id)sender :(NSString*)show
+{
+    dmx_show_t *newShow = 0;
+    [self stopShow:sender];
+    int result = load_show_from_file([show cStringUsingEncoding:NSUTF8StringEncoding], &newShow);
+    if(0 == result){
+        [statusText setStringValue:[show lastPathComponent]];
+        _current_cue_index = 0;
+        [ds setShow:newShow];
+        [showTable reloadData];
+    }
+    return result;
+}
+
+-(void) loadError
+{
+    NSAlert *alert = [[NSAlert alloc] init];
+    [alert addButtonWithTitle:@"OK"];
+    [alert setMessageText:@"Error loading show file."];
+    [alert setAlertStyle:NSWarningAlertStyle];
+    [alert runModal];
+    [alert release];
+}
+
+- (IBAction)reloadShowFile:(id) sender
+{
+    if([self loadShowFile:sender: showFile]) {
+        [self loadError];
+    }
+}
+
 - (IBAction)openShowFile:(id)sender
 {
     /* Go to the last opend directory if there was one. */
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *lastShowDir = (NSString*)[defaults objectForKey:LAST_OPENED_SHOW_DIR];
     NSArray *fileTypes = [NSArray arrayWithObjects:@"shw", nil];
-    showFile = [self chooseShowFile:lastShowDir:fileTypes: @"Open"];
-            
+    [showFile release];
+    showFile = [[self chooseShowFile:lastShowDir:fileTypes: @"Open"] path];
+    [showFile retain];
     if (nil != showFile) {
         [self stopShow: self];
-        NSString *newFile = [showFile path];
-        [defaults setObject:[newFile stringByDeletingLastPathComponent] forKey:LAST_OPENED_SHOW_DIR];
-        dmx_show_t *newShow = 0;
-        if(!load_show_from_file([newFile cStringUsingEncoding:NSUTF8StringEncoding], &newShow )){
-            [statusText setStringValue:[newFile lastPathComponent]];
-            [defaults setObject:newFile forKey:LAST_OPENED_SHOW];
-            _current_cue_index = 0;
-            [ds setShow:newShow];
-            [showTable reloadData];
-        }else{
-            NSAlert *alert = [[NSAlert alloc] init];
-            [alert addButtonWithTitle:@"OK"];
-            [alert setMessageText:@"Error loading show file."];
-            [alert setAlertStyle:NSWarningAlertStyle];
-            [alert runModal];
-			[alert release];
+        [defaults setObject:[showFile stringByDeletingLastPathComponent] forKey:LAST_OPENED_SHOW_DIR];
+        if([self loadShowFile:sender: showFile]){
+            [self loadError];            
+        }else {
+            [defaults setObject:showFile forKey:LAST_OPENED_SHOW];
         }
     }
 }
@@ -200,18 +221,14 @@ void show_next_step(void *objRef, cue_node_t *cueData)
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults retain];
     NSString *lastShow = (NSString*)[defaults objectForKey:LAST_OPENED_SHOW];
-    dmx_show_t *newShow;
     if(nil != lastShow){
-        result = load_show_from_file([lastShow cStringUsingEncoding:NSUTF8StringEncoding], &newShow);
-        if(!result){
-            [statusText setStringValue:[lastShow lastPathComponent]];
-            [ds setShow:newShow];
-            [showTable reloadData];
-        } else {
+        if([self loadShowFile:self: lastShow]) {
             [defaults removeObjectForKey:LAST_OPENED_SHOW];
         }
     }
     [defaults release];
+    showFile = lastShow;
+    [showFile retain];
     register_show_ended((void *)self, &show_has_ended);
     register_show_next_step((void *)self, &show_next_step);
 
