@@ -73,7 +73,7 @@ enum op_state {
 (OP_STATE_RUNNING & state)
 
 #define STOPPED(state) \
-(OP_STATE_STOPPED & state)
+( (OP_STATE_STOPPED | OP_STATE_INITIALIZING) & state)
 
 #define INTRANSIT(state) \
 ( (OP_STATE_STOPPING | OP_STATE_STARTING | OP_STATE_SKIPPING)  & state )

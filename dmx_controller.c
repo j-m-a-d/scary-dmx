@@ -24,6 +24,7 @@ static dmx_value_t _outputBuffer[DMX_CHANNELS];
 
 static pthread_t _dmx_writer_pt = 0;
 static pthread_mutex_t _dmx_mutex = PTHREAD_MUTEX_INITIALIZER;
+static pthread_cond_t _wait_cond = PTHREAD_COND_INITIALIZER;
 
 volatile static enum op_state _dmxstate = OP_STATE_INITIALIZING;
 
@@ -44,9 +45,7 @@ void stop_dmx()
         log_info("Stopping DMX transmission.\n");
 
         memset(_outputBuffer, 0, DMX_CHANNELS * sizeof(dmx_value_t));
-        if(_dmxDevice) {
-            destroy_dmx();
-        }
+
         pthread_join(_dmx_writer_pt,NULL);
         _dmxstate = OP_STATE_STOPPED;
     pthread_mutex_unlock(&_dmx_mutex);
@@ -84,6 +83,13 @@ void *write_buffer(){
 
 	if(!_outputBuffer) pthread_exit(NULL);
 
+    /* Wait until synced */
+    while(OP_STATE_STARTING == _dmxstate) {
+        pthread_mutex_lock(&_dmx_mutex);
+        pthread_cond_wait(&_wait_cond, &_dmx_mutex);
+        pthread_mutex_unlock(&_dmx_mutex);
+    }
+    
     /* Write */
     while(RUNNING(_dmxstate) && _dmxDevice){
         FT_W32_SetCommBreak(_dmxDevice);
@@ -93,7 +99,7 @@ void *write_buffer(){
             log_info("Error FT_Write(%d)\n", (int)ftStatus);
             pthread_mutex_lock(&_dmx_mutex);
                 if(OP_STATE_RUNNING == _dmxstate) {
-                    _dmxstate = OP_STATE_STOPPING;
+                    _dmxstate = OP_STATE_STOPPED;
                 }
             pthread_mutex_unlock(&_dmx_mutex);
             break;
@@ -283,25 +289,23 @@ void start_dmx()
          * If the DMX device is initialized correctly see
          * if we are already started.
          */
-        if(RUNNING(_dmxstate)) {
+        if(!STOPPED(_dmxstate)) {
             pthread_mutex_unlock(&_dmx_mutex);
             return;
         }
         _dmxstate = OP_STATE_STARTING;
     
-        if(_dmxDevice) destroy_dmx();
-    
-        if(DMX_INIT_OK != init_dmx()){
-            pthread_mutex_unlock(&_dmx_mutex);
-            return;
-        }
-    
-        spawn_joinable_pthread(&_dmx_writer_pt, write_buffer, NULL);
-        /* TODO check result ^^ */
-
         log_info( "Starting DMX transmission.\n");
-        /* We can now allow threads to write updates to the output buffer. */
-        _dmxstate = OP_STATE_RUNNING;
+        int result;
+        if( (result = spawn_joinable_pthread(&_dmx_writer_pt, write_buffer, NULL)) ) {
+            log_warn("Failed to spawn thread for dmx writer [%d]\n", result);
+            _dmxstate = OP_STATE_STOPPED;
+        } else {
+            /* We can now allow threads to write updates to the output buffer. */
+            _dmxstate = OP_STATE_RUNNING;
+        }
+        pthread_cond_broadcast(&_wait_cond);
+
     pthread_mutex_unlock(&_dmx_mutex);
 }
 
