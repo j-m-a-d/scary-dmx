@@ -14,8 +14,10 @@
 
 @implementation SpectrumAnalyzerView
 
-float LEVELS[MAX_ANALYZER_LEVELS] = {0.0f,0.1f,0.2f,0.3f,0.4f,0.5f,0.6f,0.7f,0.8f,0.9f,1.0f,0.9f,0.8f,0.7f,0.6f,0.5f,0.4f,0.3f,0.2f,0.1f,0.0f,
-    0.1f,0.2f,0.3f,0.4f,0.5f,0.6f,0.7f,0.8f,0.9f,1.0f,0.9f,0.8f,0.7f,0.6f,0.5f,0.4f,0.3f,0.2f,0.1f,0.0f};
+float LEVELS[MAX_ANALYZER_LEVELS] = {0.0f,0.1f,0.2f,0.3f,0.4f,0.5f,0.6f,0.7f,0.8f,0.9f,1.0f,
+                                     0.9f,0.8f,0.7f,0.6f,0.5f,0.4f,0.3f,0.2f,0.1f,0.0f,0.1f,
+                                     0.2f,0.3f,0.4f,0.5f,0.6f,0.7f,0.8f,0.9f,1.0f,0.9f,0.8f,
+                                     0.7f,0.6f,0.5f,0.4f,0.3f,0.2f,0.1f,0.0f};
 
 
 static void draw_analyzer_graph (unsigned int num_levels, float levels[])
@@ -102,8 +104,8 @@ static void display_prepare()
 {
     [super prepareOpenGL];
    
-    _levelCount = MAX_ANALYZER_LEVELS;
-    memcpy(_levels, LEVELS, MAX_ANALYZER_LEVELS * sizeof(float));
+    _levelCount = INITIAL_LEVEL_COUNT;
+    memcpy(_levels, LEVELS, INITIAL_LEVEL_COUNT * sizeof(float));
 
     [[self openGLContext] makeCurrentContext];
     display_prepare();
