@@ -94,8 +94,9 @@ void *write_buffer(){
     while(RUNNING(_dmxstate) && _dmxDevice){
         FT_W32_SetCommBreak(_dmxDevice);
         FT_W32_ClearCommBreak(_dmxDevice);
-        FT_Write(_dmxDevice, 0, 1, &dwBytesWritten);
-        if((ftStatus = FT_Write(_dmxDevice, _outputBuffer, DMX_CHANNELS, &dwBytesWritten)) != FT_OK) {
+        //ftStatus = FT_Write(_dmxDevice, 0, 1, &dwBytesWritten);
+
+        if( (ftStatus = FT_Write(_dmxDevice, _outputBuffer, DMX_CHANNELS, &dwBytesWritten)) != FT_OK) {
             log_info("Error FT_Write(%d)\n", (int)ftStatus);
             pthread_mutex_lock(&_dmx_mutex);
                 if(OP_STATE_RUNNING == _dmxstate) {
@@ -104,9 +105,9 @@ void *write_buffer(){
             pthread_mutex_unlock(&_dmx_mutex);
             break;
         }
-        usleep(seconds);	
+        usleep(seconds);
     }
-
+    log_info("DMX writer thread exiting.\n");
     EXIT_THREAD();
 }
 
