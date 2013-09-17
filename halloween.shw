@@ -7,7 +7,7 @@ cue {
         threshold:0.470;
         threshold_value:245;
         bands:10;
-        freq:4;
+        freq:2;
         type:1;
     }
 }
@@ -73,9 +73,10 @@ cue {
     }
     timer {
         ch:13,19,26;
-        dmx-value:245;
         ontime:900000;
         offtime:250000; 
+        onvalue:245;
+        offvalue:0;
     }
     ch15:32;
     ch17:255;
@@ -177,15 +178,17 @@ cue {
     }
     timer {
         ch:5,6,7,8;
-        dmx-value:200;
         ontime:200000;
         offtime:100000;
+        onvalue:250;
+        offvalue:0;
     }
     timer {
         ch:9,10,11,12,19,26;
-        dmx-value:200;
         ontime:200000;
         offtime:100000;
+        onvalue:250;
+        offvalue:0;
     }
 } 
 
@@ -206,17 +209,20 @@ cue {
         speed:250000;
     }
     timer {
-        ch:13,19,20,26,27;
-        dmx-value:200;
+        ch:13,20,27;
         ontime:2000000;
         offtime:10000000;
+        onvalue:200;
+        offvalue:0;
     }
     ch15:255;
     ch16:255;
     ch17:255;
+    ch19:255;
     ch22:255;
     ch23:255;
     ch24:255;
+    ch26:255;
 }
 
 cue {
@@ -224,7 +230,7 @@ cue {
         file:/Users/jason/Desktop/Halloween Tracks/The Beast Lives.mp3;
         ch:13,19,20,26,27;
         threshold:0.525;
-        threshold_value:255;
+        threshold_value:250;
         bands:7;
         freq:4;
         type:0;
@@ -255,7 +261,7 @@ cue {
         file:/Users/jason/Desktop/Halloween Tracks/Fright Storm.m4a;
         ch:13,19,26;
         threshold:0.550;
-        threshold_value:255;
+        threshold_value:250;
         bands:8;
         freq:5;
         type:0;
@@ -264,7 +270,7 @@ cue {
         ch:5,6,7,8,9,10,11,12;
         low:0;
         high:255;
-        speed:100000;
+        speed:200000;
     }
     ch15:255;
     ch16:255;
@@ -299,18 +305,26 @@ cue {
 cue {
     analyzer {
         file:/Users/jason/Desktop/Halloween Tracks/Silent Hill Evil Lives.mp3;
-        ch:15,19,22,26;
-        threshold:0.125;
-        threshold_value:255;
+        ch:20,27;
+        threshold:0.255;
+        threshold_value:250;
         bands:8;
         freq:6;
         type:0;
     }
     timer {
-        ch:1,2,3,4,5,6,7,8,9,10,11,12,16,19,23,26;
-        dmx-value:128;
+        ch:5,6,7,8,9,10,11,12,16,19,23,26;
         ontime:36500000;
         offtime:600000000;
+        onvalue:128;
+        offvalue:0;
+    }
+    timer {
+        ch:15,19,22,26;
+        ontime:36550000;
+        offtime:600000000;
+        onvalue:0;
+        offvalue:255;
     }
 } 
 
@@ -326,9 +340,10 @@ cue {
     }
     timer{
         ch:13;
-        dmx-value:245;
         ontime:900000;
         offtime:9000000; 
+        onvalue:245;
+        offvalue:0;
     }
     ch5:255;
     ch6:255;

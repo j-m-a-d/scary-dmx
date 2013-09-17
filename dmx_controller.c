@@ -94,7 +94,6 @@ void *write_buffer(){
     while(RUNNING(_dmxstate) && _dmxDevice){
         FT_W32_SetCommBreak(_dmxDevice);
         FT_W32_ClearCommBreak(_dmxDevice);
-        //ftStatus = FT_Write(_dmxDevice, 0, 1, &dwBytesWritten);
 
         if( (ftStatus = FT_Write(_dmxDevice, _outputBuffer, DMX_CHANNELS, &dwBytesWritten)) != FT_OK) {
             log_info("Error FT_Write(%d)\n", (int)ftStatus);
