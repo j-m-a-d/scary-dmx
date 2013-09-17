@@ -76,23 +76,22 @@ extern int parse_show_file(const char *filename, dmx_show_t **show)
 %type <val>         low_value
 %type <val>         high_value
 %type <val>         speed_value
-%type <val>         dmx_value
 %type <val>         ontime_value
 %type <val>         offtime_value
 %type <val>         on_value
 %type <val>         off_value
+%type <text>        ERROR
 
 %token <val>        VALUE
 %token <val>        CHANNEL
 %token <chan_list>  CHANNEL_LIST
 %token <dval>       FLOAT_VALUE
 %token <text>       FILE_SPEC
-%token <text>       ERROR
 
 %token CUE CHAN FLICKER OSCILLATOR ANALYZER 
 %token TIMER SPEED LOW HIGH FILENAME TYPE FREQ THRESHOLD BANDS
-%token THRESHOLD_VALUE DMX_VALUE ONTIME OFFTIME ONVALUE OFFVALUE
-%token LPAREN RPAREN LBRACE RBRACE SEMICOLON DASH
+%token THRESHOLD_VALUE ONTIME OFFTIME ONVALUE OFFVALUE
+%token LPAREN RPAREN LBRACE RBRACE SEMICOLON DASH ERROR
 
 %token <text> UNKNOWN
 
@@ -158,7 +157,16 @@ analyzer_setting
 oscillator_setting
 |
 timer_setting
+|
+syntax_error
 ;
+
+syntax_error:
+ERROR
+{
+    flog_debug(stderr, "%s not recognized.\n", $1);
+    free($1);
+}
 
 channel_setting: 
 CHANNEL  value 
@@ -363,12 +371,6 @@ bands:          BANDS value
 }
 ;
 
-dmx_value:      DMX_VALUE value
-{
-    $$ = $2;
-}
-;
-
 low_value:      LOW value
 {
     $$ = $2;
@@ -430,13 +432,6 @@ file_spec:      FILENAME FILE_SPEC SEMICOLON
 channel_list:   CHAN CHANNEL_LIST SEMICOLON
 {
     $$ = $2;
-}
-;
-
-err : ERROR
-{
-    flog_debug(stderr, "%s not recognized.\n", $1);
-    free($1);
 }
 ;
 

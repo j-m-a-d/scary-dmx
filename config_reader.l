@@ -25,7 +25,6 @@ freq:                       return FREQ;
 threshold:                  return THRESHOLD;
 threshold_value:            return THRESHOLD_VALUE;
 bands:                      return BANDS;
-dmx-value:                  return DMX_VALUE;
 ontime:                     return ONTIME;
 offtime:                    return OFFTIME;
 onvalue:                    return ONVALUE;
@@ -81,7 +80,7 @@ ch[0-9]{1,3}:                {
 [\r\n ]                    lines++;
 [\t]                       ;
 .                           {
-                                printf("Warning: unknown character '%s' (line: %d)\n", yytext, lines);
+                                //printf("Warning: unknown character '%s' (line: %d)\n", yytext, lines);
                                 yylval.text = strdup(yytext);
                                 return ERROR;                              
                             }

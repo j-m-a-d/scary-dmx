@@ -1,9 +1,10 @@
-OPTIONS=-D_TRACE_PARSER -D_LOG -m32 -Wall
-
 CC=clang
+CC_OPTS=-D_TRACE_PARSER -D_LOG -m32 -Wall
+
 LINK=ld
 FLEX=flex
 BISON=yacc
+BISON_OPTS=-Wall -d
 
 INCLUDES=-I.
 LIBS=
@@ -13,7 +14,7 @@ LIBS=
 all:	parser
 
 bison: 
-	$(BISON) -d -b config_parser config_parser.y
+	$(BISON) $(BISON_OPTS) -b config_parser config_parser.y
 
 flex: bison
 	$(FLEX) -oconfig_reader.yy.c config_reader.l
