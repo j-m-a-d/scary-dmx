@@ -192,17 +192,6 @@ FLICKER LBRACE channel_list RBRACE
     channel_list_t chs = channel_list_from_data($3.count, $3.channels);
     set_flicker_channel_for_current_cue(resultShow, chs);
 }
-|
-FLICKER LBRACE CHAN value RBRACE
-{
-#ifdef _TRACE_PARSER
-    log_debug("flicker setting: %d\n", $4);
-#endif
-    channel_list_t chs = new_channel_list(1);
-    chs->channels[1] = 0;
-    chs->channels[0] = $4;
-    set_flicker_channel_for_current_cue(resultShow, chs);
-}
 ;
 
 analyzer_setting:
@@ -230,31 +219,7 @@ bands freq analyzer_type RBRACE
     aData->frequency = $8;
     aData->flags = $9;
     set_analyzer_data_for_current_cue(resultShow, aData);
-}
-|
-ANALYZER LBRACE file_spec chan threshold threshold_value 
-bands freq analyzer_type RBRACE
-{
-#ifdef _TRACE_PARSER
-    log_debug("analyzer setting: %s\n", $3);
-    log_debug("channel value: %d\n", $4);
-    log_debug("freq value: %d\n", $8);
-    log_debug("threshold: %5.3f\n", $5);
-    log_debug("threshold value: %d\n", $6);
-    log_debug("bands: %d\n", $7);
-#endif
-    analyzer_data_t *aData = NEW_ANALYZER_DATA_T(aData);
-    aData->movieFile = $3;
-    aData->dmxChannelList = new_channel_list(1);
-    aData->dmxChannelList->channels[1] = 0;
-    aData->dmxChannelList->channels[0] = $4;
-    aData->threshold = $5;
-    aData->dmxValue = $6;
-    aData->numberOfBandLevels = $7;
-    aData->frequency = $8;
-    aData->flags = $9;
-    set_analyzer_data_for_current_cue(resultShow, aData);
-}           
+}          
 ;
 
 oscillator_setting:
@@ -276,41 +241,9 @@ OSCILLATOR LBRACE channel_list low_value high_value speed_value RBRACE
     oData->speed = $6;
     set_oscillator_data_for_current_cue(resultShow, oData);
 }
-|
-OSCILLATOR LBRACE chan low_value high_value speed_value RBRACE
-{
-#ifdef _TRACE_PARSER
-    log_debug("Oscillator setting: ch-- %d, low-- %d, high-- %d, speed-- %d\n", $3, $4, $5, $6 );
-#endif
-    oscillator_data_t* oData = NEW_OSCILLATOR_DATA_T(oData);
-    oData->dmxChannels = new_channel_list(1);
-    oData->dmxChannels->channels[1] = 0;
-    oData->dmxChannels->channels[0] = $3;
-    oData->lowThreshold = $4;
-    oData->highThreshold = $5;
-    oData->speed = $6;
-    set_oscillator_data_for_current_cue(resultShow, oData);
-}
 ;
 
 timer_setting:
-TIMER LBRACE chan ontime_value offtime_value on_value off_value RBRACE
-{
-#ifdef _TRACE_PARSER
-    log_debug("Timer setting channel-- %d, ontime-- %d, offtime-- %d, onvalue-- %d, offvalue-- %d\n", $3, $4, $5, $6, $7);
-#endif
-    timed_effect_data_t* timer = NEW_TIMED_EFFECT(timer);
-    timer->channels = new_channel_list(1);
-    timer->channels->channels[1] = 0;
-    timer->channels->channels[0] = $3;
-    timer->on_time = $4;
-    timer->off_time = $5;
-    timer->on_value = $6;
-    timer->off_value = $7;
-    timer->timer_handle = 0;
-    set_timer_data_for_current_cue(resultShow, timer);
-}
-|
 TIMER LBRACE channel_list ontime_value offtime_value on_value off_value RBRACE
 {
 #ifdef _TRACE_PARSER
@@ -429,9 +362,17 @@ file_spec:      FILENAME FILE_SPEC SEMICOLON
 }
 ;
 
-channel_list:   CHAN CHANNEL_LIST SEMICOLON
+channel_list: 
+CHAN CHANNEL_LIST SEMICOLON
 {
     $$ = $2;
+}
+|
+CHAN value
+{
+    yylval.chan_list.count = 1;
+    yylval.chan_list.channels[0] = $2;
+    $$ = yylval.chan_list;
 }
 ;
 
