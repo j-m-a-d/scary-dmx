@@ -164,7 +164,7 @@ syntax_error
 syntax_error:
 ERROR
 {
-    flog_debug(stderr, "%s not recognized.\n", $1);
+    log_debug(stderr, "%s not recognized.\n", $1);
     free($1);
 }
 
