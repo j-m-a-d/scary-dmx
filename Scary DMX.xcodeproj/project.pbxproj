@@ -28,8 +28,9 @@
 		96151CC4162D3B0100A10709 /* libscarydmx-core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9609581B162CE21100D35B65 /* libscarydmx-core.a */; };
 		962EA6E60F5B0BEA00DCC0C1 /* SoundController.m in Sources */ = {isa = PBXBuildFile; fileRef = 962EA6E50F5B0BEA00DCC0C1 /* SoundController.m */; };
 		9642140310B0783400F9F364 /* OscillatorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9642140210B0783400F9F364 /* OscillatorController.m */; };
-		9643127B17E639C70039C6A8 /* libftd2xx.0.1.7.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9643127A17E639C70039C6A8 /* libftd2xx.0.1.7.dylib */; };
 		967C954417E00CEE001FFF2D /* libscarydmx-core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9609581B162CE21100D35B65 /* libscarydmx-core.a */; };
+		968480B717EE23C300C5BB5E /* libftd2xx.1.2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 968480B617EE23C300C5BB5E /* libftd2xx.1.2.2.dylib */; };
+		968480B817EE23C300C5BB5E /* libftd2xx.1.2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 968480B617EE23C300C5BB5E /* libftd2xx.1.2.2.dylib */; };
 		968800391471CF9200754002 /* DMXOutputDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 968800381471CF9200754002 /* DMXOutputDisplayController.m */; };
 		9691C16114784EBD001C6297 /* SpectrumAnalyzerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9691C16014784EBD001C6297 /* SpectrumAnalyzerController.m */; };
 		96AF8E020F2B857300369C1E /* skull.icns in Resources */ = {isa = PBXBuildFile; fileRef = 96AF8DF10F2B857300369C1E /* skull.icns */; };
@@ -100,9 +101,9 @@
 		962EA6E50F5B0BEA00DCC0C1 /* SoundController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = SoundController.m; sourceTree = "<group>"; };
 		9642140110B0783400F9F364 /* OscillatorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OscillatorController.h; sourceTree = "<group>"; };
 		9642140210B0783400F9F364 /* OscillatorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OscillatorController.m; sourceTree = "<group>"; };
-		9643127A17E639C70039C6A8 /* libftd2xx.0.1.7.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libftd2xx.0.1.7.dylib; sourceTree = "<group>"; };
 		967B70B810DEBF6A00318111 /* chaser_handler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chaser_handler.h; sourceTree = "<group>"; };
 		967B70B910DEBF6A00318111 /* chaser_handler.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = chaser_handler.c; sourceTree = "<group>"; };
+		968480B617EE23C300C5BB5E /* libftd2xx.1.2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libftd2xx.1.2.2.dylib; sourceTree = "<group>"; };
 		968800371471CF9200754002 /* DMXOutputDisplayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMXOutputDisplayController.h; sourceTree = "<group>"; };
 		968800381471CF9200754002 /* DMXOutputDisplayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMXOutputDisplayController.m; sourceTree = "<group>"; };
 		9691C15F14784EBD001C6297 /* SpectrumAnalyzerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpectrumAnalyzerController.h; sourceTree = "<group>"; };
@@ -145,11 +146,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				967C954417E00CEE001FFF2D /* libscarydmx-core.a in Frameworks */,
+				968480B717EE23C300C5BB5E /* libftd2xx.1.2.2.dylib in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				96FE58061079A00900A92124 /* QuickTime.framework in Frameworks */,
 				96E0BD911478576A0050B8F7 /* OpenGL.framework in Frameworks */,
 				9605E24817E006FC00CFCCD9 /* config_parser.o in Frameworks */,
-				9643127B17E639C70039C6A8 /* libftd2xx.0.1.7.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,6 +159,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				96F63353162DD351006DC4D8 /* CoreServices.framework in Frameworks */,
+				968480B817EE23C300C5BB5E /* libftd2xx.1.2.2.dylib in Frameworks */,
 				96F6334B162DB8EF006DC4D8 /* QuickTime.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -205,7 +207,7 @@
 		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				9643127A17E639C70039C6A8 /* libftd2xx.0.1.7.dylib */,
+				968480B617EE23C300C5BB5E /* libftd2xx.1.2.2.dylib */,
 				9605E24717E006FC00CFCCD9 /* config_parser.o */,
 				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
 				13E42FB307B3F0F600E4EEF1 /* CoreData.framework */,
@@ -600,7 +602,8 @@
 				KEEP_PRIVATE_EXTERNS = NO;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
+					"/Users/jason/Projects/Scary\\ DMX",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				ONLY_ACTIVE_ARCH = YES;
@@ -631,7 +634,8 @@
 				KEEP_PRIVATE_EXTERNS = NO;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
+					"/Users/jason/Projects/Scary\\ DMX",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				ONLY_ACTIVE_ARCH = YES;
@@ -741,7 +745,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
+					"/Users/jason/Projects/Scary\\ DMX",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)\"";
 				ONLY_ACTIVE_ARCH = YES;
@@ -788,7 +793,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
+					"/Users/jason/Projects/Scary\\ DMX",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)\"";
 				ONLY_ACTIVE_ARCH = YES;
