@@ -1,4 +1,4 @@
-OPTIONS=-D_TRACE_PARSER -D_LOG -m32 -Wall
+OPTIONS=-D_TRACE_PARSER -D_LOG -D_REENTRANT -m32 -Wall
 
 CC=clang
 LINK=ld
@@ -9,17 +9,18 @@ INCLUDES=-I.
 LIBS=
 
 
+all:	config_parser.o
 
-all:	parser
-
-bison: 
+config_parser.tab.c:	config_parser.y
 	$(BISON) -d -b config_parser config_parser.y
 
-flex: bison
+config_reader.yy.c: config_parser.tab.c
 	$(FLEX) -oconfig_reader.yy.c config_reader.l
 
-parser: flex
-	$(CC) $(OPTIONS) $(INCLUDES) -c config_reader.yy.c 
+config_reader.yy.o: config_reader.yy.c
+	$(CC) $(OPTIONS) $(INCLUDES) -c config_reader.yy.c
+
+config_parser.o: config_reader.yy.o config_parser.tab.c
 	$(CC) $(OPTIONS) $(INCLUDES) -c -o config_parser.o config_reader.yy.o config_parser.tab.c
 
 clean:
@@ -28,3 +29,4 @@ clean:
 	-rm -rf config_parser.tab.c
 	-rm -rf config_parser.tab.y
 	-rm -rf config_parser.tab.h
+
