@@ -81,36 +81,3 @@ int main(int argc, char **argv)
     
     return 0;
 }
-
-#ifdef _EXT_PARSER
-int main(int argc, char **argv)
-{
-    extern FILE *yyin;
-    yyin = fopen(argv[1], "r");
-    
-    dmx_show_t *resultShow;
-    
-    int i = init_show(&resultShow);
-    if(i){
-        log_error("Failed to initialize show.\n");
-    }
-    i = yyparse();
-    if(i){
-        log_error("Parse error.\n");
-        return i;
-    }
-    _rewind_show(resultShow);
-    
-    FILE *outFile = fopen("./outshow.shw", "w+");
-    if(!outFile){
-        log_error("Could not open out file for show output.\n");
-    }
-    printShow(resultShow, outFile);
-    fclose(outFile);
-    
-    FREE_SHOW (resultShow);
-    return i;
-}
-#endif
-
-
