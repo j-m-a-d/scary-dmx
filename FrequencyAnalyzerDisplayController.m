@@ -41,9 +41,9 @@ void freqCallback(void* objRef, QTAudioFrequencyLevels* freq_levels)
     deregister_self_as_freqListner((void*)self);
 }
 
-- (void)updateAnalyzer:(int)count :(float*)levels
+- (void)updateAnalyzer:(unsigned int)count :(float*)levels
 {
-    [analyzer update:(unsigned int)count : levels];
+    [analyzer update:count : levels];
 }
 
 @end
