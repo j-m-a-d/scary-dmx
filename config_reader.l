@@ -30,7 +30,7 @@ offtime:                    return OFFTIME;
 onvalue:                    return ONVALUE;
 offvalue:                   return OFFVALUE;
 "{"                         return LBRACE;
-"}"                         return RBRACE; 
+"}"                         return RBRACE;
 "("                         return LPAREN;
 ")"                         return RPAREN;
 
@@ -42,9 +42,18 @@ ch[0-9]{1,3}:                {
                                 return CHANNEL;
                             }
 
-[0-9]+                      { 
-                                yylval.val = atoi(yytext);
-                                return VALUE;
+[0-9]+                      {
+                                /* grab endptr on error parsing */
+                                long val = strtol(yytext, NULL, 10);
+                                if( val > 255) {
+                                    yylval.time_val = (unsigned long)val;
+                                    return LONGVAL;
+                                } else if(val >= 0) {
+                                    yylval.val = (unsigned char)val;
+                                    return VALUE;
+                                }  else {
+                                    return ERROR;
+                                }
                             }
 
 [0-9]+?\.[0-9]+             { 
@@ -64,8 +73,8 @@ ch[0-9]{1,3}:                {
                                     item;
                                     item = strtok_r(NULL, tok, &brk)){
                                     // add error check
-                                    yylval.chan_list.channels[i] = (unsigned char)strtol(item, NULL, 10);
-                                    yylval.chan_list.count = (unsigned char)++i;
+                                    yylval.array.channels[i] = (unsigned char)strtol(item, NULL, 10);
+                                    yylval.array.count = (unsigned char)++i;
                                 }
                                 free(cpy);
                                 return CHANNEL_LIST;
@@ -79,8 +88,9 @@ ch[0-9]{1,3}:                {
 [;]                        return SEMICOLON; 
 [\r\n ]                    lines++;
 [\t]                       ;
+ "//".*$                   printf("%s\n", yytext);// line comments echo'd
 .                           {
-                                //printf("Warning: unknown character '%s' (line: %d)\n", yytext, lines);
+                                printf("Warning: unknown character '%s' (line: %d)\n", yytext, lines);
                                 yylval.text = strdup(yytext);
                                 return ERROR;                              
                             }

@@ -54,39 +54,41 @@ extern int parse_show_file(const char *filename, dmx_show_t **show)
 %}
 
 %union {
-    unsigned int val;
-    double  dval;
-    char    *text;
+    uint8_t       val;
+    uint64_t time_val;
+    double       dval;
+    char        *text;
     struct {
         unsigned int count;
         unsigned int channels[512];
-    } chan_list;
+    } array;
 }
 
-%type <val>         value
+%type <val>               value
+%type <time_val>     time_value
 %type <dval>        float_value
-%type <chan_list>   channel_list
-%type <text>        file_spec
-%type <val>         analyzer_type
-%type <dval>        threshold
-%type <val>         threshold_value
-%type <val>         bands
-%type <val>         freq
-%type <val>         chan
-%type <val>         low_value
-%type <val>         high_value
-%type <val>         speed_value
-%type <val>         ontime_value
-%type <val>         offtime_value
-%type <val>         on_value
-%type <val>         off_value
-%type <text>        ERROR
+%type <array>      channel_list
+%type <text>          file_spec
+%type <val>       analyzer_type
+%type <dval>          threshold
+%type <val>     threshold_value
+%type <val>               bands
+%type <val>                freq
+%type <val>           low_value
+%type <val>          high_value
+%type <time_val>    speed_value
+%type <time_val>   ontime_value
+%type <time_val>  offtime_value
+%type <val>            on_value
+%type <val>           off_value
+%type <text>              ERROR
 
-%token <val>        VALUE
-%token <val>        CHANNEL
-%token <chan_list>  CHANNEL_LIST
+%token <val>              VALUE
+%token <time_val>       LONGVAL
+%token <val>            CHANNEL
+%token <array>     CHANNEL_LIST
 %token <dval>       FLOAT_VALUE
-%token <text>       FILE_SPEC
+%token <text>         FILE_SPEC
 
 %token CUE CHAN FLICKER OSCILLATOR ANALYZER 
 %token TIMER SPEED LOW HIGH FILENAME TYPE FREQ THRESHOLD BANDS
@@ -183,7 +185,7 @@ FLICKER LBRACE channel_list RBRACE
 {
 #ifdef _TRACE_PARSER
     log_debug("flicker setting: %d channel(s)\n", $3.count);
-    int i=0;
+    unsigned int i=0;
     for(i=0; i<$3.count; i++){
         log_debug(" %d \n", $3.channels[i]);
     }
@@ -201,7 +203,7 @@ bands freq analyzer_type RBRACE
 #ifdef _TRACE_PARSER
     log_debug("analyzer setting: %s \n", $3);
     log_debug("channel value: %d channel(s)\n", $4.count);
-    int i=0;
+    unsigned int i=0;
     for(i=0; i<$4.count; i++){
         log_debug("%d \n", $4.channels[i]);
     }
@@ -226,9 +228,9 @@ oscillator_setting:
 OSCILLATOR LBRACE channel_list low_value high_value speed_value RBRACE
 {
 #ifdef _TRACE_PARSER
-    log_debug("Oscillator setting: low-- %d, high-- %d, speed-- %d\n", $4, $5, $6 );
+    log_debug("Oscillator setting: low-- %d, high-- %d, speed-- %lld\n", $4, $5, $6 );
     log_debug(" %d channel(s)\n", $3.count);
-    int i=0;
+    unsigned int i=0;
     for(i=0; i<$3.count; i++){
         log_debug(" %d\n", $3.channels[i]);
     }
@@ -247,9 +249,9 @@ timer_setting:
 TIMER LBRACE channel_list ontime_value offtime_value on_value off_value RBRACE
 {
 #ifdef _TRACE_PARSER
-    log_debug("Timer setting ontime-- %d, offtime-- %d, on-value-- %d, off-value-- %d\n", $4, $5, $6, $7);
+    log_debug("Timer setting ontime-- %lld, offtime-- %lld, on-value-- %d, off-value-- %d\n", $4, $5, $6, $7);
     log_debug(" %d channel(s)\n", $3.count);
-    int i=0;
+    unsigned int i=0;
     for(i=0; i<$3.count; i++){
     log_debug(" %d\n", $3.channels[i]);
     }
@@ -275,12 +277,6 @@ TYPE value
 
 freq:
 FREQ value
-{
-    $$ = $2;
-}
-;
-
-chan:           CHAN value
 {
     $$ = $2;
 }
@@ -316,19 +312,19 @@ high_value:     HIGH value
 }
 ;
 
-speed_value:    SPEED value
+speed_value:    SPEED time_value
 {
     $$ = $2;
 }
 ;
 
-ontime_value:   ONTIME value
+ontime_value:   ONTIME time_value
 {
     $$ = $2;
 }
 ;
 
-offtime_value:  OFFTIME value
+offtime_value:  OFFTIME time_value
 {
     $$ = $2;
 }
@@ -338,15 +334,23 @@ on_value: ONVALUE value
 {
     $$ = $2;
 }
+;
 
 off_value: OFFVALUE value
 {
     $$ = $2;
 }
+;
 
 value:          VALUE SEMICOLON
 {
     $$ = $1;
+}
+;
+
+time_value:  LONGVAL SEMICOLON
+{
+  $$ = $1;
 }
 ;
 
@@ -370,9 +374,9 @@ CHAN CHANNEL_LIST SEMICOLON
 |
 CHAN value
 {
-    yylval.chan_list.count = 1;
-    yylval.chan_list.channels[0] = $2;
-    $$ = yylval.chan_list;
+    yylval.array.count = 1;
+    yylval.array.channels[0] = $2;
+    $$ = yylval.array;
 }
 ;
 
