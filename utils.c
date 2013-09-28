@@ -9,11 +9,8 @@
 
 #include "utils.h"
 
-/* Redefine and initialize */
-OSSpinLock _loglock = SPIN_LOCK_UNLOCKED;
-
 /*
- Print a list of cue channels from a show to a file.
+ * Print a list of cue channels from a show to a file.
  */
 void print_cue_channels(unsigned char *channels, FILE *showFile)
 {
@@ -28,7 +25,7 @@ void print_cue_channels(unsigned char *channels, FILE *showFile)
 }
 
 /*
- Print a list of channels for any effect that supports channes lists.
+ * Print a list of channels for any effect that supports channes lists.
  */
 void printChannelList(channel_list_t channels, FILE *showFile)
 {
@@ -51,21 +48,21 @@ channel_list_t new_channel_list(const unsigned int length)
     return v;
 }
 
- channel_list_t channel_list_from_data(const unsigned int length, const unsigned int *data)
+channel_list_t channel_list_from_data(const unsigned int length, const unsigned int *data)
 {
     channel_list_t retval = new_channel_list(length);
     memcpy(retval->channels, data, sizeof(dmx_channel_t) * length);
     return retval;
 }
 
- channel_list_t copy_channel_list(const channel_list_t in)
+channel_list_t copy_channel_list(const channel_list_t in)
 {
     channel_list_t retval = new_channel_list(in->length);
     memcpy(retval->channels, in->channels, (sizeof(dmx_channel_t) * in->length) );
     return retval;
 }
 
- void delete_channel_list(const channel_list_t in)
+void delete_channel_list(const channel_list_t in)
 {
     memset(in->channels, 0, sizeof(dmx_channel_t) * in->length);
     free(in->channels);
@@ -74,7 +71,7 @@ channel_list_t new_channel_list(const unsigned int length)
     free(in);
 }
 
- int validate_channel_list(const channel_list_t in, const unsigned int max)
+int validate_channel_list(const channel_list_t in, const unsigned int max)
 {
     dmx_channel_t *tmp = in->channels;
     while(*tmp++){
