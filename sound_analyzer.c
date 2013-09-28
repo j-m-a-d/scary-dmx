@@ -64,7 +64,8 @@ void print_analyzer(analyzer_data_t *data, FILE *showFile)
 
 static void free_monitor_data(monitor_data_t *mdata)
 {
-    DELETE_CHANNEL_LIST(mdata->dmxChannelList);    
+    /* don't free the file_name pointer... he's just borrowed */
+    DELETE_CHANNEL_LIST(mdata->dmxChannelList);
     memset(mdata, 0, sizeof(monitor_data_t));
     free(mdata);
 }
