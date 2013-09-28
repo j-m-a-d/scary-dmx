@@ -33,7 +33,7 @@ typedef struct _cue_t{
     timed_effect_data_t* timer;
     oscillator_data_t* oData;
     analyzer_data_t* aData;
-    int stepDuration;              
+    unsigned int stepDuration;
     dmx_value_t *channelValues;
 } cue_t;
 
@@ -89,7 +89,7 @@ int free_show(dmx_show_t*);
    Free up any allocations related to loading shows.
    Useful for during application shutdown.
 */
-int free_all_show();
+int free_loaded_show();
 
 /*
    Add a cue to this show at the
@@ -100,7 +100,7 @@ int skip_cue();
 
 /* Show creation functions */
 void set_channel_value_for_current_cue(dmx_show_t*, dmx_channel_t, dmx_value_t);
-void set_step_duration_for_current_cue(dmx_show_t*, int);
+void set_step_duration_for_current_cue(dmx_show_t*, unsigned int);
 void set_flicker_channel_for_current_cue(dmx_show_t*, channel_list_t);
 void set_oscillator_data_for_current_cue(dmx_show_t*, oscillator_data_t*);
 void set_analyzer_data_for_current_cue(dmx_show_t*, analyzer_data_t*);

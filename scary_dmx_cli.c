@@ -26,7 +26,7 @@ void sig_all(int sig)
     sigprocmask(SIG_SETMASK, &mask_set, &old_set);
     
 	stop_show();
-	free_all_show();
+	free_loaded_show();
 	destroy_dmx();
 	ExitMovies();
 	log_info("Shutdown finished.\n");

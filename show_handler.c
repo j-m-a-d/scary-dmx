@@ -104,7 +104,7 @@ int free_show(dmx_show_t *show)
     return 0;
 }
 
-int free_all_show()
+int free_loaded_show()
 {
     FREE_SHOW(_live_show);
     return 0;
@@ -230,7 +230,7 @@ inline void set_channel_value_for_current_cue(dmx_show_t *show, dmx_channel_t ch
     show->currentCue->cue->channelValues[ch] = val;
 }
 
-inline void set_step_duration_for_current_cue(dmx_show_t *show, int duration)
+inline void set_step_duration_for_current_cue(dmx_show_t *show, unsigned int duration)
 {
     show->currentCue->cue->empty = 0;
     show->currentCue->cue->stepDuration = duration;
@@ -447,7 +447,7 @@ int setShow(dmx_show_t *show)
     if(STOPPED(_state))
         return 1;
     
-    free_all_show();
+    free_loaded_show();
     _live_show = show;
     return 0;
 }

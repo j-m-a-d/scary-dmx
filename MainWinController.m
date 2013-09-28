@@ -11,7 +11,7 @@
 - (void)terminate
 {
     stop_show();
-    free_all_show();
+    free_loaded_show();
     destroy_dmx();
     ExitMovies();
 }
