@@ -34,9 +34,11 @@
 		968800391471CF9200754002 /* DMXOutputDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 968800381471CF9200754002 /* DMXOutputDisplayController.m */; };
 		9691C16114784EBD001C6297 /* SpectrumAnalyzerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9691C16014784EBD001C6297 /* SpectrumAnalyzerController.m */; };
 		96AF8E020F2B857300369C1E /* skull.icns in Resources */ = {isa = PBXBuildFile; fileRef = 96AF8DF10F2B857300369C1E /* skull.icns */; };
+		96DF338F17F765910000D0F3 /* libftd2xx.1.2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 968480B617EE23C300C5BB5E /* libftd2xx.1.2.2.dylib */; };
 		96E0BD11147852180050B8F7 /* FrequencyAnalyzerDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E0BD0F147852180050B8F7 /* FrequencyAnalyzerDisplayController.m */; };
 		96E0BD911478576A0050B8F7 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96E0BD901478576A0050B8F7 /* OpenGL.framework */; };
 		96E23BED146A1BC1009FC276 /* SpectrumAnalyzerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E23BEC146A1BC1009FC276 /* SpectrumAnalyzerView.m */; };
+		96F4CB3B17F766AD0079FE25 /* config_parser.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 9605E24717E006FC00CFCCD9 /* config_parser.o */; };
 		96F6334B162DB8EF006DC4D8 /* QuickTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96151CC2162D3AF100A10709 /* QuickTime.framework */; };
 		96F63353162DD351006DC4D8 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96151CC9162D3B8D00A10709 /* CoreServices.framework */; };
 		96F63354162DD6C8006DC4D8 /* QuickTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96151CC2162D3AF100A10709 /* QuickTime.framework */; };
@@ -168,6 +170,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96F4CB3B17F766AD0079FE25 /* config_parser.o in Frameworks */,
+				96DF338F17F765910000D0F3 /* libftd2xx.1.2.2.dylib in Frameworks */,
 				96F63356162DD6E7006DC4D8 /* CoreServices.framework in Frameworks */,
 				96F63354162DD6C8006DC4D8 /* QuickTime.framework in Frameworks */,
 				96151CC4162D3B0100A10709 /* libscarydmx-core.a in Frameworks */,
@@ -669,7 +673,8 @@
 				KEEP_PRIVATE_EXTERNS = NO;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
+					"/Users/jason/Projects/Scary\\ DMX",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				ONLY_ACTIVE_ARCH = YES;
@@ -696,7 +701,8 @@
 				KEEP_PRIVATE_EXTERNS = NO;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
+					"/Users/jason/Projects/Scary\\ DMX",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				ONLY_ACTIVE_ARCH = YES;

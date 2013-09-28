@@ -14,7 +14,7 @@ all:	config_parser.o
 config_parser.tab.c:	config_parser.y
 	$(BISON) -d -b config_parser config_parser.y
 
-config_reader.yy.c: config_parser.tab.c
+config_reader.yy.c: config_parser.tab.c config_reader.l
 	$(FLEX) -oconfig_reader.yy.c config_reader.l
 
 config_reader.yy.o: config_reader.yy.c
