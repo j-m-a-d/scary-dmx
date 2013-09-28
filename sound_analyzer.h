@@ -14,10 +14,6 @@
 
 #define MAX_ANALYZE_CHANNELS 2
 
-#define FREE_ANALYZER_DATA(data) \
-    free_analyzer_data(data); \
-    data = 0;
-
 enum  {
     ANALYZE_OK                  =0 << 0,
     ANALYZE_IN_PROGRESS         =1 << 0,
@@ -57,5 +53,9 @@ void skip_movie();
 void free_analyzer_data(analyzer_data_t *);
 void register_self_as_freq_listener(void *callbackRef, void(*listenerFunction)(void*, QTAudioFrequencyLevels*));
 void deregister_self_as_freqListner(void *callbackRef);
+
+#define FREE_ANALYZER_DATA(data) \
+free_analyzer_data(data); \
+data = 0;
 
 #endif
