@@ -102,12 +102,7 @@ void stop_oscillating()
     Start the oscillator effect with the specified options.
 */
 int start_oscillating(const oscillator_data_t *inData)
-{   
-    /*
-     if(inData->channel > DMX_CHANNELS ){
-        return OSCILLATOR_BAD_CHANNEL;
-    }*/
-    
+{
     /* signal we are ready to oscillate. */
     pthread_mutex_lock(&_oscillator_mutex);    
         if(_oscillating){
