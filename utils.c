@@ -41,7 +41,7 @@ void printChannelList(channel_list_t channels, FILE *showFile)
 channel_list_t new_channel_list(const unsigned int length)
 {
     size_t __chan_length_init = sizeof(dmx_channel_t) * (length + 1);
-    channel_list_t v = malloc(sizeof(v));
+    channel_list_t v = malloc(sizeof(struct channel_list));
     v->channels = malloc(__chan_length_init);
     memset(v->channels, 0, __chan_length_init);
     v->length = length;
