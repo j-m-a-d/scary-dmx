@@ -54,9 +54,10 @@ extern int parse_show_file(const char *filename, dmx_show_t **show)
 %}
 
 %union {
-    uint8_t       val;
-    uint64_t time_val;
-    double       dval;
+    uint8_t       val;// dmx values
+    uint32_t  channel;// channel numbers
+    uint64_t time_val;// time based values
+    double       dval;// threshold type values
     char        *text;
     struct {
         unsigned int count;
@@ -85,7 +86,7 @@ extern int parse_show_file(const char *filename, dmx_show_t **show)
 
 %token <val>              VALUE
 %token <time_val>       LONGVAL
-%token <val>            CHANNEL
+%token <channel>            CHANNEL
 %token <array>     CHANNEL_LIST
 %token <dval>       FLOAT_VALUE
 %token <text>         FILE_SPEC
@@ -166,7 +167,7 @@ syntax_error
 syntax_error:
 ERROR
 {
-    log_debug("%s not recognized.\n", $1);
+    log_error("%s\n", $1);
     free($1);
 }
 

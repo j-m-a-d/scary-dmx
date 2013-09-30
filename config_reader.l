@@ -1,5 +1,6 @@
 %{
 #include "config_parser.tab.h"
+#include "utils.c"
 #include <string.h>
 #include <stdlib.h>
 
@@ -38,8 +39,14 @@ ch[0-9]{1,3}:                {
                                 char v[4];
                                 strncpy(v, &yytext[2], 3);
                                 v[3] = '\0';
-                                yylval.val = atoi(v);
-                                return CHANNEL;
+                                int channel = atoi(v);
+                                if( channel < DMX_CHANNELS ) {
+                                    yylval.channel = (unsigned int)channel;
+                                    return CHANNEL;
+                                } else {
+                                    yylval.text = strdup("DMX channel out of range");
+                                    return ERROR;
+                                }
                             }
 
 [0-9]+                      {
@@ -52,6 +59,7 @@ ch[0-9]{1,3}:                {
                                     yylval.val = (unsigned char)val;
                                     return VALUE;
                                 }  else {
+                                    yylval.text = strdup("Invalid dmx value");
                                     return ERROR;
                                 }
                             }
