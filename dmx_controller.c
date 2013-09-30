@@ -227,10 +227,17 @@ int init_dmx()
     }
 
     FT_DEVICE_LIST_INFO_NODE device_info[num_devices];
+    memset(device_info, 0, sizeof(FT_DEVICE_LIST_INFO_NODE) * (unsigned long)num_devices);
     describe_devices(device_info);
+    
+    if( device_info[0].LocId ) {
+        log_error("Error describe_devices failed to read dmx device(s)\n");
+        destroy_dmx();
+        return DMX_INIT_OPEN_FAIL;
+    }
 
     /* Setup */
-    if((ftStatus = FT_OpenEx((void*)device_info[0].LocId, FT_OPEN_BY_LOCATION, &_dmx_device)) != FT_OK) {
+    if( (ftStatus = FT_OpenEx((void*)device_info[0].LocId, FT_OPEN_BY_LOCATION, &_dmx_device)) != FT_OK) {
         log_error( "Error FT_Open(%d), device: %d\n", (int)ftStatus, 1);
         destroy_dmx();
         return DMX_INIT_OPEN_FAIL;
