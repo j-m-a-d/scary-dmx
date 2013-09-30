@@ -199,6 +199,9 @@
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
+				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
+				13E42FB307B3F0F600E4EEF1 /* CoreData.framework */,
 				96151CC9162D3B8D00A10709 /* CoreServices.framework */,
 				96151CC2162D3AF100A10709 /* QuickTime.framework */,
 				96FE58051079A00900A92124 /* QuickTime.framework */,
@@ -213,9 +216,6 @@
 			children = (
 				968480B617EE23C300C5BB5E /* libftd2xx.1.2.2.dylib */,
 				9605E24717E006FC00CFCCD9 /* config_parser.o */,
-				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
-				13E42FB307B3F0F600E4EEF1 /* CoreData.framework */,
-				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
 			);
 			name = "Other Frameworks";
 			sourceTree = "<group>";
