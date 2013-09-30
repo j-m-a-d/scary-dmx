@@ -7,8 +7,8 @@
  *
  */
 
-#ifndef _CHASE_HANDLER_H
-#define _CHASE_HANDLER_H
+#ifndef Scary_DMX_CHASE_HANDLER_H
+#define Scary_DMX_CHASE_HANDLER_H
 
 #include "utils.h"
 

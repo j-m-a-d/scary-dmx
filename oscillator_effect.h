@@ -7,8 +7,8 @@
  *
  */
 
-#ifndef _OSCILLATOR_EFFECT_H
-#define _OSCILLATOR_EFFECT_H
+#ifndef Scary_DMX_OSCILLATOR_EFFECT_H
+#define Scary_DMX_OSCILLATOR_EFFECT_H
 
 #include "utils.h"
 

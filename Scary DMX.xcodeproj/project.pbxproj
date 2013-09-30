@@ -39,6 +39,7 @@
 		96E0BD911478576A0050B8F7 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96E0BD901478576A0050B8F7 /* OpenGL.framework */; };
 		96E23BED146A1BC1009FC276 /* SpectrumAnalyzerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E23BEC146A1BC1009FC276 /* SpectrumAnalyzerView.m */; };
 		96F4CB3B17F766AD0079FE25 /* config_parser.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 9605E24717E006FC00CFCCD9 /* config_parser.o */; };
+		96F4CB3D17F927360079FE25 /* fade_effect.c in Sources */ = {isa = PBXBuildFile; fileRef = 96F4CB3C17F927360079FE25 /* fade_effect.c */; };
 		96F6334B162DB8EF006DC4D8 /* QuickTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96151CC2162D3AF100A10709 /* QuickTime.framework */; };
 		96F63353162DD351006DC4D8 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96151CC9162D3B8D00A10709 /* CoreServices.framework */; };
 		96F63354162DD6C8006DC4D8 /* QuickTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96151CC2162D3AF100A10709 /* QuickTime.framework */; };
@@ -137,6 +138,8 @@
 		96E0BD901478576A0050B8F7 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
 		96E23BEB146A1BC1009FC276 /* SpectrumAnalyzerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpectrumAnalyzerView.h; sourceTree = "<group>"; };
 		96E23BEC146A1BC1009FC276 /* SpectrumAnalyzerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpectrumAnalyzerView.m; sourceTree = "<group>"; };
+		96F4CB3C17F927360079FE25 /* fade_effect.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fade_effect.c; sourceTree = "<group>"; };
+		96F4CB3E17F9276F0079FE25 /* fade_effect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fade_effect.h; sourceTree = "<group>"; };
 		96F63350162DBE2B006DC4D8 /* config_parser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = config_parser.h; sourceTree = "<group>"; };
 		96F6B9C91629BEA50009FB9E /* utils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = utils.c; sourceTree = "<group>"; };
 		96FE58051079A00900A92124 /* QuickTime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickTime.framework; path = /System/Library/Frameworks/QuickTime.framework; sourceTree = "<absolute>"; };
@@ -335,6 +338,7 @@
 				96AF8DE20F2B857300369C1E /* config_reader.l */,
 				96AF8E810F2B873800369C1E /* config_reader.yy.c */,
 				96AF8DE30F2B857300369C1E /* dmx_controller.c */,
+				96F4CB3C17F927360079FE25 /* fade_effect.c */,
 				96AF8DE50F2B857300369C1E /* flicker_effect.c */,
 				96AF8DEC0F2B857300369C1E /* oscillator_effect.c */,
 				96AF8DEF0F2B857300369C1E /* show_handler.c */,
@@ -352,6 +356,7 @@
 				96F63350162DBE2B006DC4D8 /* config_parser.h */,
 				96AF8E800F2B873800369C1E /* config_parser.tab.h */,
 				96AF8DE40F2B857300369C1E /* dmx_controller.h */,
+				96F4CB3E17F9276F0079FE25 /* fade_effect.h */,
 				96AF8DE60F2B857300369C1E /* flicker_effect.h */,
 				96AF8DE70F2B857300369C1E /* ftd2xx.h */,
 				96AF8DED0F2B857300369C1E /* oscillator_effect.h */,
@@ -528,6 +533,7 @@
 				96095822162CE2DD00D35B65 /* dmx_controller.c in Sources */,
 				96095823162CE2DD00D35B65 /* flicker_effect.c in Sources */,
 				96095824162CE2DD00D35B65 /* oscillator_effect.c in Sources */,
+				96F4CB3D17F927360079FE25 /* fade_effect.c in Sources */,
 				96095825162CE2DD00D35B65 /* show_handler.c in Sources */,
 				96095826162CE2DD00D35B65 /* sound_analyzer.c in Sources */,
 				96095827162CE2DD00D35B65 /* timed_effect.c in Sources */,

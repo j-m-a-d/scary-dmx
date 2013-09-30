@@ -6,8 +6,8 @@
  *  Copyright 2008 Inspirotech Inc. All rights reserved.
  *
  */
-#ifndef _SOUND_ANALYZER_H
-#define _SOUND_ANALYZER_H
+#ifndef Scary_DMX_SOUND_ANALYZER_H
+#define Scary_DMX_SOUND_ANALYZER_H
 
 #include <QuickTime/QuickTime.h>
 #include "utils.h"

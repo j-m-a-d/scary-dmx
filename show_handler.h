@@ -6,8 +6,8 @@
  *  Copyright 2008 Inspirotech Inc. All rights reserved.
  *
  */
-#ifndef _SHOW_HANDLER_H
-#define _SHOW_HANDLER_H
+#ifndef Scary_DMX_SHOW_HANDLER_H
+#define Scary_DMX_SHOW_HANDLER_H
 
 #include "oscillator_effect.h"
 #include "flicker_effect.h"

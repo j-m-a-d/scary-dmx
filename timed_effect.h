@@ -7,8 +7,8 @@
  *
  */
 
-#ifndef _TIMED_EFFECT_H
-#define _TIMED_EFFECT_H
+#ifndef Scary_DMX__TIMED_EFFECT_H
+#define Scary_DMX__TIMED_EFFECT_H
 
 #include "utils.h"
 

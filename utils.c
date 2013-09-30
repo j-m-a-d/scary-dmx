@@ -38,7 +38,7 @@ void printChannelList(channel_list_t channels, FILE *showFile)
     fprintf(showFile, ";\n");
 }
 
-channel_list_t new_channel_list(const unsigned int length)
+channel_list_t new_channel_list(const uint32_t length)
 {
     size_t __chan_length_init = sizeof(dmx_channel_t) * (length + 1);
     channel_list_t v = malloc(sizeof(struct channel_list));
@@ -48,7 +48,7 @@ channel_list_t new_channel_list(const unsigned int length)
     return v;
 }
 
-channel_list_t channel_list_from_data(const unsigned int length, const unsigned int *data)
+channel_list_t channel_list_from_data(const uint32_t length, const uint32_t *data)
 {
     channel_list_t retval = new_channel_list(length);
     memcpy(retval->channels, data, sizeof(dmx_channel_t) * length);
@@ -71,7 +71,7 @@ void delete_channel_list(const channel_list_t in)
     free(in);
 }
 
-int validate_channel_list(const channel_list_t in, const unsigned int max)
+int validate_channel_list(const channel_list_t in, const uint32_t max)
 {
     dmx_channel_t *tmp = in->channels;
     while(*tmp++){

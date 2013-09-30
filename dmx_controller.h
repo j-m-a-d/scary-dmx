@@ -7,8 +7,8 @@
  *
  */
 
-#ifndef _DMX_CONTROLLER_H
-#define _DMX_CONTROLLER_H
+#ifndef Scary_DMX_DMX_CONTROLLER_H
+#define Scary_DMX_DMX_CONTROLLER_H
 
 #include "utils.h"
 

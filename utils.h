@@ -6,11 +6,12 @@
  *  Copyright 2009 Inspirotech Inc. All rights reserved.
  *
  */
-#ifndef UTILS_H
-#define UTILS_H
+#ifndef Scary_DMX_UTILS_H
+#define Scary_DMX_UTILS_H
 
 #include <libkern/OSAtomic.h>
 #include <sys/types.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -82,8 +83,8 @@ enum op_state {
 
 #define DMX_CHANNELS            513
 
-typedef unsigned char dmx_value_t;
-typedef unsigned int dmx_channel_t;
+typedef uint8_t dmx_value_t;
+typedef uint32_t dmx_channel_t;
 
 enum channel_ret {
     CHANNEL_LIST_OK,
@@ -92,7 +93,7 @@ enum channel_ret {
 
 struct channel_list {
     dmx_channel_t *channels;
-    unsigned int length;
+    uint32_t length;
 };
 
 typedef struct channel_list *channel_list_t;
@@ -107,8 +108,8 @@ void print_cue_channels(unsigned char *, FILE *);
  */
 void printChannelList(channel_list_t, FILE *);
 
-channel_list_t new_channel_list(const unsigned int);
-channel_list_t channel_list_from_data(const unsigned int, const unsigned int *);
+channel_list_t new_channel_list(const uint32_t);
+channel_list_t channel_list_from_data(const uint32_t, const uint32_t*);
 channel_list_t copy_channel_list(const channel_list_t);
 void delete_channel_list(const channel_list_t);
 #define DELETE_CHANNEL_LIST(in) \
@@ -117,7 +118,7 @@ void delete_channel_list(const channel_list_t);
     } \
     in = 0;
 
-int validate_channel_list(const channel_list_t, const unsigned int);
+int validate_channel_list(const channel_list_t, const uint32_t);
 
 
 /* Thread Utilities */
