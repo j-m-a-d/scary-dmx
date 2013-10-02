@@ -11,18 +11,9 @@
 extern void yyrestart(FILE*);
 extern int yyparse();
 extern int yylex();
+extern int yyerror();
 
 dmx_show_t *resultShow;
-
-extern void yyerror(const char *str)
-{
-    log_error("error: %s\n",str);
-}
-
-extern int yywrap()
-{
-    return 1;
-}
 
 extern int parse_show_file(const char *filename, dmx_show_t **show)
 {
@@ -82,19 +73,23 @@ extern int parse_show_file(const char *filename, dmx_show_t **show)
 %type <time_val>  offtime_value
 %type <val>            on_value
 %type <val>           off_value
+%type <val>          from_value
+%type <val>            to_value
 %type <text>              ERROR
 
 %token <val>              VALUE
 %token <time_val>       LONGVAL
-%token <channel>            CHANNEL
+%token <channel>        CHANNEL
 %token <array>     CHANNEL_LIST
 %token <dval>       FLOAT_VALUE
 %token <text>         FILE_SPEC
 
-%token CUE CHAN FLICKER OSCILLATOR ANALYZER 
-%token TIMER SPEED LOW HIGH FILENAME TYPE FREQ THRESHOLD BANDS
-%token THRESHOLD_VALUE ONTIME OFFTIME ONVALUE OFFVALUE
-%token LPAREN RPAREN LBRACE RBRACE SEMICOLON DASH ERROR
+
+%token ANALYZER BANDS CHAN CUE DASH ERROR
+%token FADER FILENAME FLICKER FREQ FROM TO
+%token HIGH LBRACE LOW LPAREN OFFTIME OFFVALUE ONTIME ONVALUE
+%token OSCILLATOR RBRACE RPAREN SEMICOLON SPEED
+%token THRESHOLD THRESHOLD_VALUE TIMER TYPE
 
 %token <text> UNKNOWN
 
@@ -160,6 +155,8 @@ analyzer_setting
 oscillator_setting
 |
 timer_setting
+|
+fader_setting
 |
 syntax_error
 ;
@@ -269,6 +266,13 @@ TIMER LBRACE channel_list ontime_value offtime_value on_value off_value RBRACE
 }
 ;
 
+fader_setting:
+FADER LBRACE channel_list from_value to_value speed_value RBRACE
+{
+    log_debug("from: %d, to: %d, speed: %lld\n", $4, $5, $6);
+}
+;
+
 analyzer_type:
 TYPE value
 {
@@ -312,6 +316,16 @@ high_value:     HIGH value
     $$ = $2;
 }
 ;
+
+from_value:     FROM value
+{
+    $$ = $2;
+}
+
+to_value:       TO value
+{
+    $$ = $2;
+}
 
 speed_value:    SPEED time_value
 {

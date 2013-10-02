@@ -4,32 +4,35 @@
 #include <string.h>
 #include <stdlib.h>
 
-int lines = 0;
+char linebuf[1024];
 
 %}
 
 
 %%
 
-cue                         return CUE;
-ch:                         return CHAN;
-flicker                     return FLICKER; 
-oscillator                  return OSCILLATOR; 
 analyzer                    return ANALYZER; 
-timer                       return TIMER; 
-speed:                      return SPEED;
-low:                        return LOW;
-high:                       return HIGH;
+bands:                      return BANDS;
+ch:                         return CHAN;
+cue                         return CUE;
+fader                       return FADER;
 file:                       return FILENAME;
-type:                       return TYPE;
+flicker                     return FLICKER; 
 freq:                       return FREQ;
+from:                       return FROM;
+to:                         return TO;
+high:                       return HIGH;
+low:                        return LOW;
+offtime:                    return OFFTIME;
+offvalue:                   return OFFVALUE;
+ontime:                     return ONTIME;
+onvalue:                    return ONVALUE;
+oscillator                  return OSCILLATOR; 
+speed:                      return SPEED;
 threshold:                  return THRESHOLD;
 threshold_value:            return THRESHOLD_VALUE;
-bands:                      return BANDS;
-ontime:                     return ONTIME;
-offtime:                    return OFFTIME;
-onvalue:                    return ONVALUE;
-offvalue:                   return OFFVALUE;
+timer                       return TIMER; 
+type:                       return TYPE;
 "{"                         return LBRACE;
 "}"                         return RBRACE;
 "("                         return LPAREN;
@@ -93,14 +96,27 @@ ch[0-9]{1,3}:                {
                                 return FILE_SPEC;
                             }
 
-[;]                        return SEMICOLON; 
-[\r\n ]                    lines++;
+[;]                        return SEMICOLON;
+[\r\n ]                    ;
+\n.*                        {
+                                strncpy(linebuf, yytext+1, sizeof(linebuf));
+                                yyless(1);
+                            }
 [\t]                       ;
  "//".*$                   printf("%s\n", yytext);// line comments echo'd
 .                           {
-                                printf("Warning: unknown character '%s' (line: %d)\n", yytext, lines);
+                                printf("Warning: unknown character '%s' (line: %d)\n", linebuf, yylineno);
                                 yylval.text = strdup(yytext);
                                 return ERROR;                              
                             }
 %%
 
+extern void yyerror(const char *str)
+{
+    log_error("%s on line %d - unexpected: \"%s\" in source: \"%s\"\n", str, yylineno, yytext, linebuf);
+}
+
+extern int yywrap()
+{
+    return 1;
+}
