@@ -65,7 +65,7 @@ void print_analyzer(analyzer_data_t *data, FILE *showFile)
 static void free_monitor_data(monitor_data_t *mdata)
 {
     /* don't free the file_name pointer... he's just borrowed */
-    DELETE_CHANNEL_LIST(mdata->dmxChannelList);
+    FREE_CHANNEL_LIST(mdata->dmxChannelList);
     memset(mdata, 0, sizeof(monitor_data_t));
     free(mdata);
 }
@@ -77,7 +77,7 @@ void free_analyzer_data(analyzer_data_t * adata)
 {
     if(adata){
         free(adata->movieFile);
-        DELETE_CHANNEL_LIST(adata->dmxChannelList);
+        FREE_CHANNEL_LIST(adata->dmxChannelList);
         memset(adata, 0, sizeof(analyzer_data_t));
         free(adata);
         adata = 0;

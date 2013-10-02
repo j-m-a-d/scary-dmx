@@ -62,7 +62,7 @@ channel_list_t copy_channel_list(const channel_list_t in)
     return retval;
 }
 
-void delete_channel_list(const channel_list_t in)
+void free_channel_list(const channel_list_t in)
 {
     memset(in->channels, 0, sizeof(dmx_channel_t) * in->length);
     free(in->channels);

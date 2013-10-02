@@ -42,7 +42,7 @@ inline void copy_oscillator_data(oscillator_data_t *to, const oscillator_data_t 
 inline void free_oscillator_data(oscillator_data_t *tdata)
 {
     if(tdata){
-        DELETE_CHANNEL_LIST(tdata->dmxChannels);
+        FREE_CHANNEL_LIST(tdata->dmxChannels);
         memset(tdata, 0, ODT_SIZE);
         free(tdata);
         tdata = 0;

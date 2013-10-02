@@ -64,7 +64,7 @@ static void free_timed_effect(timed_effect_data_t *data)
         
         data->timer_handle = 0;
         
-        delete_channel_list(data->channels);
+        FREE_CHANNEL_LIST(data->channels);
         data->channels = 0;
         
         memset(data, 0, sizeof(timed_effect_data_t));

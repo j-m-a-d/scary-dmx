@@ -113,10 +113,10 @@ void printChannelList(channel_list_t, FILE *);
 channel_list_t new_channel_list(const uint32_t);
 channel_list_t channel_list_from_data(const uint32_t, const uint32_t*);
 channel_list_t copy_channel_list(const channel_list_t);
-void delete_channel_list(const channel_list_t);
-#define DELETE_CHANNEL_LIST(in) \
+void free_channel_list(const channel_list_t);
+#define FREE_CHANNEL_LIST(in) \
     if(in){ \
-        delete_channel_list(in); \
+        free_channel_list(in); \
     } \
     in = 0;
 

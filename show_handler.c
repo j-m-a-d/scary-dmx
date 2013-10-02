@@ -54,7 +54,7 @@ static void free_cue(cue_t *cue)
     FREE_ANALYZER_DATA (cue->aData);
     FREE_OSCILLATOR_DATA (cue->oData);
     FREE_TIMED_EFFECTS(cue->timer);
-    DELETE_CHANNEL_LIST (cue->flickerChannels);//<--- TODO make flicker destructor
+    FREE_CHANNEL_LIST (cue->flickerChannels);//<--- TODO make flicker destructor
     
     memset(cue, 0, sizeof(cue_t));
     free(cue);
