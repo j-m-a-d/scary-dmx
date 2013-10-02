@@ -85,6 +85,8 @@ enum op_state {
 
 typedef uint8_t dmx_value_t;
 typedef uint32_t dmx_channel_t;
+typedef useconds_t dmx_time_t;
+typedef dmx_time_t dmx_speed_t;
 
 enum channel_ret {
     CHANNEL_LIST_OK,

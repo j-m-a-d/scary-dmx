@@ -34,7 +34,7 @@ typedef struct _oscillator_data_t{
     channel_list_t dmxChannels;
     dmx_value_t lowThreshold;
     dmx_value_t highThreshold;
-    unsigned int speed;
+    dmx_speed_t speed;
 } oscillator_data_t;
 
 /*

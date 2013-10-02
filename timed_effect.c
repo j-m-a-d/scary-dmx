@@ -33,8 +33,8 @@ void print_timer_data(timed_effect_data_t *data, FILE *showFile)
 {
     fprintf(showFile, "\ttimer {\n");
     printChannelList(data->channels, showFile);
-    fprintf(showFile, "\t\t ontime:%ld;\n", data->on_time);
-    fprintf(showFile, "\t\t offtime:%ld;\n", data->off_time);
+    fprintf(showFile, "\t\t ontime:%d;\n", data->on_time);
+    fprintf(showFile, "\t\t offtime:%d;\n", data->off_time);
     fprintf(showFile, "\t\t onvalue:%d;\n", data->on_value);
     fprintf(showFile, "\t\t offvalue:%d;\n", data->off_value);
     fprintf(showFile, "\t}\n");

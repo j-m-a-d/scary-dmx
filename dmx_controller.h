@@ -47,4 +47,7 @@ void bulk_update(unsigned char*);
 /* get a copy of the channel buffer for a universe */
 void get_channel_buffer(dmx_value_t *buf, int offset, int num_channels);
 
+/* get the value for a given channel */
+dmx_value_t get_channel_value(dmx_channel_t ch);
+
 #endif

@@ -158,7 +158,7 @@ void bulk_update(unsigned char* newVals)
 /*
    Get the current value for the channel.
  */
-dmx_value_t get_channel_value(int ch){
+dmx_value_t get_channel_value(dmx_channel_t ch){
     return _output_buffer ? _output_buffer[ch] : 0;
 }
 
@@ -230,7 +230,7 @@ int init_dmx()
     memset(device_info, 0, sizeof(FT_DEVICE_LIST_INFO_NODE) * (unsigned long)num_devices);
     describe_devices(device_info);
     
-    if( device_info[0].LocId ) {
+    if( !device_info[0].LocId ) {
         log_error("Error describe_devices failed to read dmx device(s)\n");
         destroy_dmx();
         return DMX_INIT_OPEN_FAIL;
