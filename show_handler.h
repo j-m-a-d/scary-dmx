@@ -13,6 +13,7 @@
 #include "flicker_effect.h"
 #include "sound_analyzer.h"
 #include "timed_effect.h"
+#include "fade_effect.h"
 #include "dmx_controller.h"
 #include "utils.h"
 
@@ -29,7 +30,7 @@ enum {
 
 typedef struct _cue_t{
     int empty;
-    channel_list_t flickerChannels;
+    flicker_data_t *flickerChannels;
     timed_effect_data_t* timer;
     oscillator_data_t* oData;
     analyzer_data_t* aData;
@@ -101,7 +102,7 @@ int skip_cue();
 /* Show creation functions */
 void set_channel_value_for_current_cue(dmx_show_t*, dmx_channel_t, dmx_value_t);
 void set_step_duration_for_current_cue(dmx_show_t*, unsigned int);
-void set_flicker_channel_for_current_cue(dmx_show_t*, channel_list_t);
+void set_flicker_for_current_cue(dmx_show_t*, flicker_data_t*);
 void set_oscillator_data_for_current_cue(dmx_show_t*, oscillator_data_t*);
 void set_analyzer_data_for_current_cue(dmx_show_t*, analyzer_data_t*);
 void set_timer_data_for_current_cue(dmx_show_t*, timed_effect_data_t*);

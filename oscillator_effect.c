@@ -23,7 +23,7 @@ static pthread_mutex_t _oscillator_mutex = PTHREAD_MUTEX_INITIALIZER;
 /*
  Print an oscillator setting to a show file.
  */
-void print_oscillator_data(oscillator_data_t *data, FILE *showFile)
+void print_oscillator_data(const oscillator_data_t *data, FILE *showFile)
 {
     fprintf(showFile, "\toscillator {\n");
     printChannelList(data->dmxChannels, showFile);
@@ -56,10 +56,29 @@ static void reset_dmx_state(void *data)
 }
 
 /*
+ * Oscillate a channel.
+ */
+void oscillate(const oscillator_data_t *odata)
+{
+    register dmx_value_t i=0;
+    while(_oscillating){
+        for(i=odata->lowThreshold; i<odata->highThreshold-1; i+=2){
+            update_channels(odata->dmxChannels, i);
+            usleep(odata->speed);
+        }
+        
+        for(i=odata->highThreshold; i>odata->lowThreshold+1; i-=2){
+            update_channels(odata->dmxChannels, i);
+            usleep(odata->speed);
+        }
+    }
+}
+
+/*
  *  This thread will update channels like a chaser that
  *  oscillates from a low threshold to a high threshold.
  */
-void *oscillate(void* data_in)
+static void *_oscillate(void* data_in)
 {
     
     pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
@@ -70,18 +89,8 @@ void *oscillate(void* data_in)
   
     pthread_cleanup_push(reset_dmx_state, data_in);
     
-    register dmx_value_t i=0;
-    while(_oscillating){
-        for(i=val->lowThreshold; i<val->highThreshold-1; i+=2){ 
-            update_channels(val->dmxChannels, i);
-            usleep(val->speed);
-        }
-
-        for(i=val->highThreshold; i>val->lowThreshold+1; i-=2){ 
-            update_channels(val->dmxChannels, i);
-            usleep(val->speed);
-        }        
-    }
+    while(1)
+        oscillate(val);
     
     pthread_cleanup_pop(1);
     EXIT_THREAD();
@@ -110,7 +119,7 @@ int start_oscillating(const oscillator_data_t *inData)
             return OSCILLATOR_IN_PROGRESS;
         }
         _oscillating = 1;
-        spawn_joinable_pthread(&_oscillator_thread, oscillate, (void *)inData);
+        spawn_joinable_pthread(&_oscillator_thread, _oscillate, (void *)inData);
     pthread_mutex_unlock(&_oscillator_mutex);
     
     return OSCILLATOR_OK;

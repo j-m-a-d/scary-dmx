@@ -37,17 +37,19 @@ typedef struct _oscillator_data_t{
     dmx_speed_t speed;
 } oscillator_data_t;
 
-/*
- Print an oscillator setting to a show file.
- */
-void print_oscillator_data(oscillator_data_t *, FILE *);
 
 void copy_oscillator_data(oscillator_data_t *, const oscillator_data_t *);
 void free_oscillator_data(oscillator_data_t *);
 
+/*
+ Print an oscillator setting to a show file.
+ */
+void print_oscillator_data(const oscillator_data_t *, FILE *);
+
+/* Oscillate a channel */
+void oscillate(const oscillator_data_t *);
 /* Start the oscillating effect thread on a channel. */
 int start_oscillating(const oscillator_data_t *);
-
 /* Stop the oscillating effect thread. */
 void stop_oscillating();
 

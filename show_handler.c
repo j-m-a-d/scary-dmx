@@ -54,7 +54,7 @@ static void free_cue(cue_t *cue)
     FREE_ANALYZER_DATA (cue->aData);
     FREE_OSCILLATOR_DATA (cue->oData);
     FREE_TIMED_EFFECTS(cue->timer);
-    FREE_CHANNEL_LIST (cue->flickerChannels);//<--- TODO make flicker destructor
+    FREE_FLICKER_DATA(cue->flickerChannels);
     
     memset(cue, 0, sizeof(cue_t));
     free(cue);
@@ -236,10 +236,10 @@ inline void set_step_duration_for_current_cue(dmx_show_t *show, unsigned int dur
     show->currentCue->cue->stepDuration = duration;
 }
 
-inline void set_flicker_channel_for_current_cue(dmx_show_t *show, channel_list_t ch)
+inline void set_flicker_for_current_cue(dmx_show_t *show, flicker_data_t *flicker_data)
 {
     show->currentCue->cue->empty = 0;
-    show->currentCue->cue->flickerChannels = ch;
+    show->currentCue->cue->flickerChannels = flicker_data;
 }
 
 inline void set_oscillator_data_for_current_cue(dmx_show_t *show, oscillator_data_t *oData)

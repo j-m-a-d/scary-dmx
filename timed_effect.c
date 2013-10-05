@@ -29,7 +29,7 @@ typedef struct _timed_effect_t {
 /*
  Print a timer setting to a show file.
  */
-void print_timer_data(timed_effect_data_t *data, FILE *showFile)
+void print_timer_data(const timed_effect_data_t *data, FILE *showFile)
 {
     fprintf(showFile, "\ttimer {\n");
     printChannelList(data->channels, showFile);

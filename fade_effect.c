@@ -11,9 +11,9 @@
 #include "dmx_controller.h"
 #include "unistd.h"
 
-typedef struct _fader_t {
+typedef struct _fader_handle_t {
     pthread_t *handle;
-} fader_t;
+} fader_handle_t;
 
 void free_fader(fader_data_t *fader)
 {
@@ -22,6 +22,15 @@ void free_fader(fader_data_t *fader)
     free(fader);
 }
 
+void print_fader_data(const fader_data_t *fader, FILE *out)
+{
+    fprintf(out, "fader {\n");
+    printChannelList(fader->channels, out);
+    fprintf(out, "\t\t from:%d;\n", fader->from_value);
+    fprintf(out, "\t\t to:%d;\n", fader->to_value);
+    fprintf(out, "\t\t speed:%u\n", fader->speed);
+    fprintf(out, "\t}\n");
+}
 /*
  * from current value to desired value
  * completes when all channels reach target value
@@ -80,7 +89,7 @@ fid start_fader_for_channels(const fader_data_t *fader)
     return 0;
 }
 
-int cancel_fader(fid fader_t)
+int cancel_fader(fid fader_handle_t)
 {
     return 0;
 }

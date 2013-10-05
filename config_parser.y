@@ -6,7 +6,6 @@
 #include "config_parser.h"
 #include "config_parser.tab.h"
 
-
 /* DECS */
 extern void yyrestart(FILE*);
 extern int yyparse();
@@ -41,7 +40,6 @@ extern int parse_show_file(const char *filename, dmx_show_t **show)
     return 0;
 }
 
-
 %}
 
 %union {
@@ -54,6 +52,9 @@ extern int parse_show_file(const char *filename, dmx_show_t **show)
         unsigned int count;
         unsigned int channels[512];
     } array;
+
+    // complex data
+    void *fader;
 }
 
 %type <val>               value
@@ -76,6 +77,7 @@ extern int parse_show_file(const char *filename, dmx_show_t **show)
 %type <val>          from_value
 %type <val>            to_value
 %type <text>              ERROR
+%type <fader>  fader_setting
 
 %token <val>              VALUE
 %token <time_val>       LONGVAL
@@ -190,7 +192,9 @@ FLICKER LBRACE channel_list RBRACE
     log_debug("\n");
 #endif
     channel_list_t chs = channel_list_from_data($3.count, $3.channels);
-    set_flicker_channel_for_current_cue(resultShow, chs);
+    flicker_data_t *flicker = NEW_FLICKER_DATA(flicker);
+    flicker->flicker_channels = chs;
+    set_flicker_for_current_cue(resultShow, flicker);
 }
 ;
 
@@ -269,7 +273,18 @@ TIMER LBRACE channel_list ontime_value offtime_value on_value off_value RBRACE
 fader_setting:
 FADER LBRACE channel_list from_value to_value speed_value RBRACE
 {
+#ifdef _TRACE_PARSER
     log_debug("from: %d, to: %d, speed: %lld\n", $4, $5, $6);
+#endif
+
+    fader_data_t *fader = NEW_FADER_DATA(fader);
+    fader->channels = channel_list_from_data($3.count, $3.channels);
+    fader->from_value = $4;
+    fader->to_value = $5;
+    fader->speed = $6;
+
+  yylval.fader = fader;
+  $$ = (void*)yylval.fader;
 }
 ;
 

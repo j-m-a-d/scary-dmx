@@ -44,6 +44,8 @@
 		96F63353162DD351006DC4D8 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96151CC9162D3B8D00A10709 /* CoreServices.framework */; };
 		96F63354162DD6C8006DC4D8 /* QuickTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96151CC2162D3AF100A10709 /* QuickTime.framework */; };
 		96F63356162DD6E7006DC4D8 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96151CC9162D3B8D00A10709 /* CoreServices.framework */; };
+		96FE471017FE56EE0093735C /* effects_handle.h in Headers */ = {isa = PBXBuildFile; fileRef = 96FE470F17FE56EE0093735C /* effects_handle.h */; };
+		96FE471217FE59030093735C /* effects_handle.c in Sources */ = {isa = PBXBuildFile; fileRef = 96FE471117FE59030093735C /* effects_handle.c */; };
 		96FE58061079A00900A92124 /* QuickTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96FE58051079A00900A92124 /* QuickTime.framework */; };
 /* End PBXBuildFile section */
 
@@ -112,7 +114,7 @@
 		9691C15F14784EBD001C6297 /* SpectrumAnalyzerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpectrumAnalyzerController.h; sourceTree = "<group>"; };
 		9691C16014784EBD001C6297 /* SpectrumAnalyzerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpectrumAnalyzerController.m; sourceTree = "<group>"; };
 		96AE8B2510E813DC00210B82 /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
-		96AF8DE10F2B857300369C1E /* config_parser.y */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.yacc; lineEnding = 0; path = config_parser.y; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = "<none>"; };
+		96AF8DE10F2B857300369C1E /* config_parser.y */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.yacc; lineEnding = 0; path = config_parser.y; sourceTree = "<group>"; };
 		96AF8DE20F2B857300369C1E /* config_reader.l */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.lex; lineEnding = 0; path = config_reader.l; sourceTree = "<group>"; };
 		96AF8DE30F2B857300369C1E /* dmx_controller.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; lineEnding = 0; path = dmx_controller.c; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.c; };
 		96AF8DE40F2B857300369C1E /* dmx_controller.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = dmx_controller.h; sourceTree = "<group>"; };
@@ -142,6 +144,8 @@
 		96F4CB3E17F9276F0079FE25 /* fade_effect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fade_effect.h; sourceTree = "<group>"; };
 		96F63350162DBE2B006DC4D8 /* config_parser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = config_parser.h; sourceTree = "<group>"; };
 		96F6B9C91629BEA50009FB9E /* utils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = utils.c; sourceTree = "<group>"; };
+		96FE470F17FE56EE0093735C /* effects_handle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = effects_handle.h; sourceTree = "<group>"; };
+		96FE471117FE59030093735C /* effects_handle.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = effects_handle.c; sourceTree = "<group>"; };
 		96FE58051079A00900A92124 /* QuickTime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickTime.framework; path = /System/Library/Frameworks/QuickTime.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -338,6 +342,7 @@
 				96AF8DE20F2B857300369C1E /* config_reader.l */,
 				96AF8E810F2B873800369C1E /* config_reader.yy.c */,
 				96AF8DE30F2B857300369C1E /* dmx_controller.c */,
+				96FE471117FE59030093735C /* effects_handle.c */,
 				96F4CB3C17F927360079FE25 /* fade_effect.c */,
 				96AF8DE50F2B857300369C1E /* flicker_effect.c */,
 				96AF8DEC0F2B857300369C1E /* oscillator_effect.c */,
@@ -356,6 +361,7 @@
 				96F63350162DBE2B006DC4D8 /* config_parser.h */,
 				96AF8E800F2B873800369C1E /* config_parser.tab.h */,
 				96AF8DE40F2B857300369C1E /* dmx_controller.h */,
+				96FE470F17FE56EE0093735C /* effects_handle.h */,
 				96F4CB3E17F9276F0079FE25 /* fade_effect.h */,
 				96AF8DE60F2B857300369C1E /* flicker_effect.h */,
 				96AF8DE70F2B857300369C1E /* ftd2xx.h */,
@@ -375,6 +381,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96FE471017FE56EE0093735C /* effects_handle.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -531,6 +538,7 @@
 			files = (
 				96095821162CE2DD00D35B65 /* config_reader.yy.c in Sources */,
 				96095822162CE2DD00D35B65 /* dmx_controller.c in Sources */,
+				96FE471217FE59030093735C /* effects_handle.c in Sources */,
 				96095823162CE2DD00D35B65 /* flicker_effect.c in Sources */,
 				96095824162CE2DD00D35B65 /* oscillator_effect.c in Sources */,
 				96F4CB3D17F927360079FE25 /* fade_effect.c in Sources */,

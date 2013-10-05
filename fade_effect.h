@@ -13,6 +13,7 @@
 
 /* function type for fader callbacks */
 typedef int(*fader_complete_callback)(void*);
+
 /* identifier for fader processes */
 typedef struct fader_t *fid;
 
@@ -25,14 +26,21 @@ typedef struct _fader_data_t {
     void *callback_data;
 } fader_data_t;
 
-#define NEW_FADER(fader) \
+typedef fader_data_t *fader_t;
+
+#define NEW_FADER_DATA(fader) \
     malloc(sizeof(fader_data_t)); \
-    memset(fader, 0 sizeof(fader_data_t);
+    memset(fader, 0, sizeof(fader_data_t));
 
 void free_fader(fader_data_t *);
-#define FREE_FADER(fader) \
+#define FREE_FADER_DATA(fader) \
     free_fader(fader); \
     fader = 0;
+
+/*
+ * print a fader data structure to a stream
+ */
+void print_fader_data(const fader_data_t *, FILE*);
 
 /*
  * fade channel(s) from a specified value to a target specified value

@@ -37,7 +37,7 @@ enum {
 /*
  Print a timer setting to a show file.
  */
-void print_timer_data(timed_effect_data_t *, FILE *);
+void print_timer_data(const timed_effect_data_t *, FILE *);
 int timed_effects_init();
 int create_timed_effect_handle(timed_effect_handle **handle);
 int cue_timed_effect(timed_effect_data_t *timer_data);

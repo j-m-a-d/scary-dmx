@@ -45,7 +45,7 @@ typedef struct _analyzer_data_t {
 /*
  Print an analyzer setting to a show file.
  */
-void print_analyzer(analyzer_data_t *, FILE *);
+void print_analyzer(const analyzer_data_t *, FILE *);
 int open_movie_file(const unsigned char *fileName, Movie **newMovie, short *refId);
 int start_analyze(analyzer_data_t *data_in, void(*callback)());
 void stop_analyze();
