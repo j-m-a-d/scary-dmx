@@ -37,17 +37,17 @@ void destroy_dmx();
 void start_dmx();
 
 /* update one channel with a new value */
-void update_channel(dmx_channel_t, dmx_value_t);
+void update_channel(const dmx_channel_t, const dmx_value_t);
 
-void update_channels(channel_list_t channelList, dmx_value_t val);
+void update_channels(const channel_list_t channelList, const dmx_value_t val);
 
 /* update all channels at once */
-void bulk_update(unsigned char*);
+void bulk_update(const unsigned char*);
 
 /* get a copy of the channel buffer for a universe */
-void get_channel_buffer(dmx_value_t *buf, int offset, int num_channels);
+void get_channel_buffer(const dmx_value_t *buf, const int offset, const int num_channels);
 
 /* get the value for a given channel */
-dmx_value_t get_channel_value(dmx_channel_t ch);
+dmx_value_t get_channel_value(const dmx_channel_t ch);
 
 #endif

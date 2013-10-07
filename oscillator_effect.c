@@ -23,14 +23,14 @@ static pthread_mutex_t _oscillator_mutex = PTHREAD_MUTEX_INITIALIZER;
 /*
  Print an oscillator setting to a show file.
  */
-void print_oscillator_data(const oscillator_data_t *data, FILE *showFile)
+void print_oscillator_data(const oscillator_data_t *data, FILE *out)
 {
-    fprintf(showFile, "\toscillator {\n");
-    printChannelList(data->dmxChannels, showFile);
-    fprintf(showFile, "\t\t low:%d;\n", data->lowThreshold);
-    fprintf(showFile, "\t\t high:%d;\n", data->highThreshold);
-    fprintf(showFile, "\t\t speed:%d;\n", data->speed);
-    fprintf(showFile, "\t}\n");
+    fprintf(out, "\toscillator {\n");
+    printChannelList(data->channels, out);
+    fprintf(out, "\t\t low:%d;\n", data->lowThreshold);
+    fprintf(out, "\t\t high:%d;\n", data->highThreshold);
+    fprintf(out, "\t\t speed:%d;\n", data->speed);
+    fprintf(out, "\t}\n");
 }
 
 inline void copy_oscillator_data(oscillator_data_t *to, const oscillator_data_t *from)
@@ -39,19 +39,19 @@ inline void copy_oscillator_data(oscillator_data_t *to, const oscillator_data_t 
     memcpy(to, from, ODT_SIZE);
 }
 
-inline void free_oscillator_data(oscillator_data_t *tdata)
+inline void free_oscillator_data(oscillator_data_t *odata)
 {
-    if(tdata){
-        FREE_CHANNEL_LIST(tdata->dmxChannels);
-        memset(tdata, 0, ODT_SIZE);
-        free(tdata);
-        tdata = 0;
+    if(odata){
+        FREE_CHANNEL_LIST(odata->channels);
+        memset(odata, 0, ODT_SIZE);
+        free(odata);
+        odata = 0;
     }
 }
 
 static void reset_dmx_state(void *data)
 {
-    channel_list_t dmxChannels = ((oscillator_data_t*)data)->dmxChannels ;
+    channel_list_t dmxChannels = ((oscillator_data_t*)data)->channels ;
     update_channels(dmxChannels, CHANNEL_RESET);
 }
 
@@ -61,17 +61,16 @@ static void reset_dmx_state(void *data)
 void oscillate(const oscillator_data_t *odata)
 {
     register dmx_value_t i=0;
-    while(_oscillating){
-        for(i=odata->lowThreshold; i<odata->highThreshold-1; i+=2){
-            update_channels(odata->dmxChannels, i);
-            usleep(odata->speed);
-        }
-        
-        for(i=odata->highThreshold; i>odata->lowThreshold+1; i-=2){
-            update_channels(odata->dmxChannels, i);
-            usleep(odata->speed);
-        }
+    for(i=odata->lowThreshold; i< odata->highThreshold-1; i+=2){
+        update_channels(odata->channels, i);
+        usleep(odata->speed);
     }
+    
+    for(i=odata->highThreshold; i> odata->lowThreshold+1; i-=2){
+        update_channels(odata->channels, i);
+        usleep(odata->speed);
+    }
+
 }
 
 /*
@@ -89,7 +88,7 @@ static void *_oscillate(void* data_in)
   
     pthread_cleanup_push(reset_dmx_state, data_in);
     
-    while(1)
+    while(_oscillating)
         oscillate(val);
     
     pthread_cleanup_pop(1);

@@ -72,11 +72,13 @@ cue {
         ch:1,2,3,4,5,6,7,8,9,10,11,12;
     }
     timer {
-        ch:13,19,26;
         ontime:900000;
         offtime:250000;
-        onvalue:245;
-        offvalue:0;
+        onoff {
+            ch:13,19,26;
+            onvalue:245;
+            offvalue:0;
+        }
     }
     ch15:32;
     ch17:255;
@@ -177,18 +179,22 @@ cue {
         type:2;
     }
     timer {
-        ch:5,6,7,8;
         ontime:200000;
         offtime:100000;
-        onvalue:250;
-        offvalue:0;
+        onoff {
+            ch:5,6,7,8;
+            onvalue:250;
+            offvalue:0;
+        }
     }
     timer {
-        ch:9,10,11,12,19,26;
         ontime:200000;
         offtime:100000;
-        onvalue:250;
-        offvalue:0;
+        onoff {
+            ch:9,10,11,12,19,26;
+            onvalue:250;
+            offvalue:0;
+        }
     }
 }
 
@@ -209,11 +215,13 @@ cue {
         speed:250000;
     }
     timer {
-        ch:13,19,20,26,27;
         ontime:2000000;
         offtime:10000000;
-        onvalue:200;
-        offvalue:0;
+        onoff {
+            ch:13,19,20,26,27;
+            onvalue:200;
+            offvalue:0;
+        }
     }
     ch15:255;
     ch16:255;
@@ -302,7 +310,45 @@ cue {
 
 cue {
     analyzer {
-        file:/Users/jason/Desktop/Halloween Tracks/Silent Hill Evil Lives.mp3;
+        file:/Users/jason/Desktop/Halloween Tracks/SilentHill-Siren.wav;
+        ch:14;
+        threshold:0.255;
+        threshold_value:250;
+        bands:8;
+        freq:6;
+        type:0;
+    }
+    timer {
+        ontime:600000000;
+        offtime:600000000;
+        fader {
+            ch:1,2,3,4,5,6,7,8,9,10,11,12,16,19,23,26;
+            from:255;
+            to:0;
+            speed:50000;
+        }
+    }
+    ch1:255;
+    ch2:255;
+    ch3:255;
+    ch4:255;
+    ch5:255;
+    ch6:255;
+    ch7:255;
+    ch8:255;
+    ch9:255;
+    ch10:255;
+    ch11:255;
+    ch12:255;
+    ch16:255;
+    ch19:255;
+    ch23:255;
+    ch26:255;
+}
+
+cue {
+    analyzer {
+        file:/Users/jason/Desktop/Halloween Tracks/Silent Hill Evil Lives.wav;
         ch:20,27;
         threshold:0.255;
         threshold_value:250;
@@ -311,23 +357,24 @@ cue {
         type:0;
     }
     timer {
-        ch:1,2,3,4,5,6,7,8,9,10,11,12,16,19,23,26;
-        ontime:36500000;
-        offtime:600000000;
-        onvalue:128;
-        offvalue:0;
+        ontime:36550000;
+        offtime:9000000;
+        oscillator {
+            ch:1,2,3,4,5,6,7,8,9,10,11,12;
+            low:10;
+            high:45;
+            speed:10000;
+        }
     }
     timer {
-        ch:15,19,22,26;
         ontime:36550000;
         offtime:600000000;
-        onvalue:0;
-        offvalue:255;
+        onoff {
+            ch:15,19,22,26;
+            onvalue:0;
+            offvalue:255;
+        }
     }
-    ch16:255;
-    ch19:128;
-    ch23:255;
-    ch26:128;
 }
 
 cue {
@@ -340,12 +387,14 @@ cue {
         freq:4;
         type:1;
     }
-    timer{
-        ch:13;
+    timer {
         ontime:900000;
         offtime:9000000;
-        onvalue:245;
-        offvalue:0;
+        onoff {
+            ch:13;
+            onvalue:245;
+            offvalue:0;
+        }
     }
     ch5:255;
     ch6:255;

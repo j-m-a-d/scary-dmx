@@ -40,12 +40,13 @@ extern int parse_show_file(const char *filename, dmx_show_t **show)
     return 0;
 }
 
+
 %}
 
 %union {
     uint8_t       val;// dmx values
     uint32_t  channel;// channel numbers
-    uint64_t time_val;// time based values
+    uint32_t time_val;// time based values
     double       dval;// threshold type values
     char        *text;
     struct {
@@ -54,9 +55,14 @@ extern int parse_show_file(const char *filename, dmx_show_t **show)
     } array;
 
     // complex data
-    void *fader;
+    struct _effects_handle_t      *effect;
+    struct _fader_data_t          *fader;
+    struct _onoff_effect_t        *onoff;
+    struct _flicker_data_t        *flicker;
+    struct _oscillator_data_t     *oscillator;
 }
 
+/* types */
 %type <val>               value
 %type <time_val>     time_value
 %type <dval>        float_value
@@ -77,8 +83,15 @@ extern int parse_show_file(const char *filename, dmx_show_t **show)
 %type <val>          from_value
 %type <val>            to_value
 %type <text>              ERROR
-%type <fader>  fader_setting
 
+/* effects */
+%type <effect>       effect
+%type <fader>        fader_effect
+%type <onoff>        onoff_effect
+%type <flicker>      flicker_effect
+%type <oscillator>   oscillator_effect
+
+/* token types */
 %token <val>              VALUE
 %token <time_val>       LONGVAL
 %token <channel>        CHANNEL
@@ -89,7 +102,7 @@ extern int parse_show_file(const char *filename, dmx_show_t **show)
 
 %token ANALYZER BANDS CHAN CUE DASH ERROR
 %token FADER FILENAME FLICKER FREQ FROM TO
-%token HIGH LBRACE LOW LPAREN OFFTIME OFFVALUE ONTIME ONVALUE
+%token HIGH LBRACE LOW LPAREN ON_OFF OFFTIME OFFVALUE ONTIME ONVALUE
 %token OSCILLATOR RBRACE RPAREN SEMICOLON SPEED
 %token THRESHOLD THRESHOLD_VALUE TIMER TYPE
 
@@ -125,7 +138,7 @@ CUE LBRACE settings RBRACE
 #ifdef _TRACE_PARSER
     log_debug("Cue def.\n");
 #endif
-//
+
     set_step_duration_for_current_cue(resultShow, 0);
     add_cue(resultShow);
 }
@@ -135,7 +148,7 @@ CUE LPAREN VALUE RPAREN LBRACE settings RBRACE
 #ifdef _TRACE_PARSER
     log_debug("Cue def with duration time: %d\n", $3);
 #endif
-//
+
     set_step_duration_for_current_cue(resultShow, $3);
     add_cue(resultShow);
 }
@@ -150,15 +163,19 @@ settings setting
 setting:
 channel_setting 
 |
-flicker_setting
-|
 analyzer_setting
-|
-oscillator_setting
 |
 timer_setting
 |
-fader_setting
+flicker_effect
+{
+    set_flicker_for_current_cue(resultShow, $1);
+}
+|
+oscillator_effect
+{
+    set_oscillator_data_for_current_cue(resultShow, $1);
+}
 |
 syntax_error
 ;
@@ -180,24 +197,8 @@ CHANNEL  value
 }
 ;
 
-flicker_setting:
-FLICKER LBRACE channel_list RBRACE
-{
-#ifdef _TRACE_PARSER
-    log_debug("flicker setting: %d channel(s)\n", $3.count);
-    unsigned int i=0;
-    for(i=0; i<$3.count; i++){
-        log_debug(" %d \n", $3.channels[i]);
-    }
-    log_debug("\n");
-#endif
-    channel_list_t chs = channel_list_from_data($3.count, $3.channels);
-    flicker_data_t *flicker = NEW_FLICKER_DATA(flicker);
-    flicker->flicker_channels = chs;
-    set_flicker_for_current_cue(resultShow, flicker);
-}
-;
 
+/*** Handlers ***/
 analyzer_setting:
 ANALYZER LBRACE file_spec channel_list threshold threshold_value 
 bands freq analyzer_type RBRACE
@@ -226,55 +227,77 @@ bands freq analyzer_type RBRACE
 }          
 ;
 
-oscillator_setting:
-OSCILLATOR LBRACE channel_list low_value high_value speed_value RBRACE
-{
-#ifdef _TRACE_PARSER
-    log_debug("Oscillator setting: low-- %d, high-- %d, speed-- %lld\n", $4, $5, $6 );
-    log_debug(" %d channel(s)\n", $3.count);
-    unsigned int i=0;
-    for(i=0; i<$3.count; i++){
-        log_debug(" %d\n", $3.channels[i]);
-    }
-    log_debug("\n");
-#endif
-    oscillator_data_t* oData = NEW_OSCILLATOR_DATA_T(oData);
-    oData->dmxChannels = channel_list_from_data($3.count, $3.channels);
-    oData->lowThreshold = $4;
-    oData->highThreshold = $5;
-    oData->speed = $6;
-    set_oscillator_data_for_current_cue(resultShow, oData);
-}
-;
-
 timer_setting:
-TIMER LBRACE channel_list ontime_value offtime_value on_value off_value RBRACE
+TIMER LBRACE ontime_value offtime_value effect RBRACE
 {
 #ifdef _TRACE_PARSER
-    log_debug("Timer setting ontime-- %lld, offtime-- %lld, on-value-- %d, off-value-- %d\n", $4, $5, $6, $7);
-    log_debug(" %d channel(s)\n", $3.count);
-    unsigned int i=0;
-    for(i=0; i<$3.count; i++){
-    log_debug(" %d\n", $3.channels[i]);
-    }
-    log_debug("\n");
+    log_debug("Timer setting ontime: %d, offtime: %d, \n", $3, $4);
 #endif
-    timed_effect_data_t* timer = NEW_TIMED_EFFECT(timer);
-    timer->channels = channel_list_from_data($3.count, $3.channels);
-    timer->on_time = $4;
-    timer->off_time = $5;
-    timer->on_value = $6;
-    timer->off_value = $7;
+    timer_data_t* timer = NEW_TIMER(timer);
+    timer->on_time = $3;
+    timer->off_time = $4;
+    timer->effect = $5;
     timer->timer_handle = 0;
     set_timer_data_for_current_cue(resultShow, timer);
 }
 ;
+/*** ***/
 
-fader_setting:
+/*** EFFECTS ***/
+effects:
+effect
+|
+effects | effect
+;
+
+effect:
+fader_effect
+{
+    effects_handle_t *effect = NEW_EFFECTS_HANDLE(effect);
+    effect->type = effect_type_fader;
+    effect->effect.fader = $1;
+    yylval.effect = effect;
+    $$ = yylval.effect;
+}
+|
+onoff_effect
+{
+    effects_handle_t *effect = NEW_EFFECTS_HANDLE(effect);
+    effect->type = effect_type_onoff;
+    effect->effect.onoff = $1;
+    yylval.effect = effect;
+    $$ = yylval.effect;
+}
+|
+flicker_effect
+{
+    effects_handle_t *effect = NEW_EFFECTS_HANDLE(effect);
+    effect->type = effect_type_flicker;
+    effect->effect.flicker = $1;
+    yylval.effect = effect;
+    $$ = yylval.effect;
+}
+|
+oscillator_effect
+{
+    effects_handle_t *effect = NEW_EFFECTS_HANDLE(effect);
+    effect->type = effect_type_oscillator;
+    effect->effect.oscillator = $1;
+    yylval.effect = effect;
+    $$ = yylval.effect;
+}
+;
+
+fader_effect:
 FADER LBRACE channel_list from_value to_value speed_value RBRACE
 {
 #ifdef _TRACE_PARSER
-    log_debug("from: %d, to: %d, speed: %lld\n", $4, $5, $6);
+    log_debug("fader effect -- from: %d, to: %d, speed: %d\n", $4, $5, $6);
+    log_debug(" %d channel(s)\n", $3.count);
+    unsigned int i=0;
+    for(i=0; i<$3.count; i++){
+        log_debug("%d \n", $3.channels[i]);
+    }
 #endif
 
     fader_data_t *fader = NEW_FADER_DATA(fader);
@@ -283,11 +306,75 @@ FADER LBRACE channel_list from_value to_value speed_value RBRACE
     fader->to_value = $5;
     fader->speed = $6;
 
-  yylval.fader = fader;
-  $$ = (void*)yylval.fader;
+    yylval.fader = fader;
+    $$ = yylval.fader;
 }
 ;
 
+onoff_effect:
+ON_OFF LBRACE channel_list on_value off_value RBRACE
+{
+#ifdef _TRACE_PARSER
+    log_debug("on/off effect -- onvalue: %d, offvalue: %d\n", $4, $5);
+    log_debug(" %d channel(s)\n", $3.count);
+    unsigned int i=0;
+    for(i=0; i<$3.count; i++){
+        log_debug("%d \n", $3.channels[i]);
+    }
+#endif
+    onoff_effect_t *onoff = NEW_ONOFF_EFFECT(onoff);
+    onoff->channels = channel_list_from_data($3.count, $3.channels);
+    onoff->on_value = $4;
+    onoff->off_value = $5;
+
+    yylval.onoff = onoff;
+    $$ = yylval.onoff;
+}
+;
+
+oscillator_effect:
+OSCILLATOR LBRACE channel_list low_value high_value speed_value RBRACE
+{
+#ifdef _TRACE_PARSER
+    log_debug("oscillator effect: low-- %d, high-- %d, speed-- %d\n", $4, $5, $6 );
+    log_debug(" %d channel(s)\n", $3.count);
+    unsigned int i=0;
+    for(i=0; i<$3.count; i++){
+        log_debug(" %d\n", $3.channels[i]);
+    }
+    log_debug("\n");
+#endif
+    oscillator_data_t* oscillator = NEW_OSCILLATOR_DATA_T(oscillator);
+    oscillator->channels = channel_list_from_data($3.count, $3.channels);
+    oscillator->lowThreshold = $4;
+    oscillator->highThreshold = $5;
+    oscillator->speed = $6;
+    yylval.oscillator = oscillator;
+    $$ = yylval.oscillator;
+}
+;
+
+flicker_effect:
+FLICKER LBRACE channel_list RBRACE
+{
+#ifdef _TRACE_PARSER
+    log_debug("flicker effect: %d channel(s)\n", $3.count);
+    unsigned int i=0;
+    for(i=0; i<$3.count; i++){
+        log_debug(" %d \n", $3.channels[i]);
+    }
+    log_debug("\n");
+#endif
+    channel_list_t chs = channel_list_from_data($3.count, $3.channels);
+    flicker_data_t *flicker = NEW_FLICKER_DATA(flicker);
+    flicker->channels = chs;
+    yylval.flicker = flicker;
+    $$ = yylval.flicker;
+}
+;
+/**** ****/
+
+/*** TYPES ***/
 analyzer_type:
 TYPE value
 {

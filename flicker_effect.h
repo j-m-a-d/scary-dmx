@@ -19,7 +19,7 @@ enum {
 };
 
 typedef struct _flicker_data_t {
-    channel_list_t flicker_channels;
+    channel_list_t channels;
 } flicker_data_t;
 
 #define NEW_FLICKER_DATA(flicker_data) \

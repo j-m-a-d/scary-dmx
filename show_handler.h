@@ -9,11 +9,9 @@
 #ifndef Scary_DMX_SHOW_HANDLER_H
 #define Scary_DMX_SHOW_HANDLER_H
 
-#include "oscillator_effect.h"
-#include "flicker_effect.h"
+#include "effects_handle.h"
 #include "sound_analyzer.h"
-#include "timed_effect.h"
-#include "fade_effect.h"
+#include "timer_handler.h"
 #include "dmx_controller.h"
 #include "utils.h"
 
@@ -31,7 +29,7 @@ enum {
 typedef struct _cue_t{
     int empty;
     flicker_data_t *flickerChannels;
-    timed_effect_data_t* timer;
+    timer_data_t* timer;
     oscillator_data_t* oData;
     analyzer_data_t* aData;
     unsigned int stepDuration;
@@ -105,7 +103,7 @@ void set_step_duration_for_current_cue(dmx_show_t*, unsigned int);
 void set_flicker_for_current_cue(dmx_show_t*, flicker_data_t*);
 void set_oscillator_data_for_current_cue(dmx_show_t*, oscillator_data_t*);
 void set_analyzer_data_for_current_cue(dmx_show_t*, analyzer_data_t*);
-void set_timer_data_for_current_cue(dmx_show_t*, timed_effect_data_t*);
+void set_timer_data_for_current_cue(dmx_show_t*, timer_data_t*);
 void reset_channel_values_for_current_cue();
 void printShow(dmx_show_t*, FILE*);
 /* Call back registration functions */

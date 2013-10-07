@@ -12,13 +12,13 @@
 /*
  * Print a list of cue channels from a show to a file.
  */
-void print_cue_channels(unsigned char *channels, FILE *showFile)
+void print_cue_channels(unsigned char *channels, FILE *out)
 {
     unsigned char *cv = channels;
     register unsigned int i;
     for(i=0; i< DMX_CHANNELS+1; i++){
         if(*cv){
-            fprintf(showFile, "\tch%d:%d;\n", i, (int)(*cv));
+            fprintf(out, "\tch%d:%d;\n", i, (int)(*cv));
         }
         cv++;
     }
@@ -27,7 +27,7 @@ void print_cue_channels(unsigned char *channels, FILE *showFile)
 /*
  * Print a list of channels for any effect that supports channes lists.
  */
-void printChannelList(channel_list_t channels, FILE *showFile)
+void printChannelList(const channel_list_t channels, FILE *showFile)
 {
     dmx_channel_t *tmp = channels->channels;
     fprintf(showFile, "\t\t ch:%d", *tmp++);
@@ -38,7 +38,7 @@ void printChannelList(channel_list_t channels, FILE *showFile)
     fprintf(showFile, ";\n");
 }
 
-channel_list_t new_channel_list(const uint32_t length)
+inline channel_list_t new_channel_list(const uint32_t length)
 {
     size_t __chan_length_init = sizeof(dmx_channel_t) * (length + 1);
     channel_list_t v = malloc(sizeof(struct channel_list));
@@ -48,21 +48,21 @@ channel_list_t new_channel_list(const uint32_t length)
     return v;
 }
 
-channel_list_t channel_list_from_data(const uint32_t length, const uint32_t *data)
+inline channel_list_t channel_list_from_data(const uint32_t length, const uint32_t *data)
 {
     channel_list_t retval = new_channel_list(length);
     memcpy(retval->channels, data, sizeof(dmx_channel_t) * length);
     return retval;
 }
 
-channel_list_t copy_channel_list(const channel_list_t in)
+inline channel_list_t copy_channel_list(const channel_list_t in)
 {
     channel_list_t retval = new_channel_list(in->length);
     memcpy(retval->channels, in->channels, (sizeof(dmx_channel_t) * in->length) );
     return retval;
 }
 
-void free_channel_list(const channel_list_t in)
+inline void free_channel_list(const channel_list_t in)
 {
     memset(in->channels, 0, sizeof(dmx_channel_t) * in->length);
     free(in->channels);

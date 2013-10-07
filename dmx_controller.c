@@ -129,7 +129,7 @@ void update_channel(dmx_channel_t ch, dmx_value_t val)
 /*
     Update multiple channels with a new value.
  */
-void update_channels(channel_list_t channelList, dmx_value_t val)
+void update_channels(const channel_list_t channelList, dmx_value_t val)
 {
     if( !channelList ) return;
     pthread_mutex_lock(&_dmx_mutex);
@@ -145,7 +145,7 @@ void update_channels(channel_list_t channelList, dmx_value_t val)
 /*
     Update all channels at once.
  */
-void bulk_update(unsigned char* newVals)
+void bulk_update(const unsigned char* newVals)
 {
     pthread_mutex_lock(&_dmx_mutex);
 
@@ -165,9 +165,9 @@ dmx_value_t get_channel_value(dmx_channel_t ch){
 /*
    Get a copy of a portion of the DMX output buffer
  */
-void get_channel_buffer(dmx_value_t *buffer, int offset, int num_channels)
+void get_channel_buffer(const dmx_value_t *buffer, const int offset, const int num_channels)
 {
-    memcpy(buffer, _output_buffer + offset, sizeof(dmx_value_t) * (unsigned int)num_channels);
+    memcpy((void*)buffer, _output_buffer + offset, sizeof(dmx_value_t) * (unsigned int)num_channels);
 }
 
 static void describe_devices(FT_DEVICE_LIST_INFO_NODE *device_info)

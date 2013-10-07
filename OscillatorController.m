@@ -17,7 +17,7 @@
     _odata.lowThreshold = (dmx_value_t)[low intValue];
     _odata.speed = (unsigned int)[speed intValue];
     dmx_channel_t chs[] = {(dmx_channel_t)[channelStepper intValue],0};
-    _odata.dmxChannels = channel_list_from_data(1, chs);
+    _odata.channels = channel_list_from_data(1, chs);
     [speedLevel setIntValue:[speed intValue]];
     
     [speedLevel setFrameRotation:90.0F];
@@ -50,7 +50,7 @@
 
 -(IBAction)updateChannel:(id)sender
 {
-    _odata.dmxChannels->channels[0] = (dmx_channel_t)[channelStepper intValue];
+    _odata.channels->channels[0] = (dmx_channel_t)[channelStepper intValue];
     [channelField setIntValue:[channelStepper intValue]];
 }
 

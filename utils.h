@@ -108,7 +108,7 @@ void print_cue_channels(unsigned char *, FILE *);
 /*
  Print a list of channels for any effect that supports channes lists.
  */
-void printChannelList(channel_list_t, FILE *);
+void printChannelList(const channel_list_t, FILE *);
 
 channel_list_t new_channel_list(const uint32_t);
 channel_list_t channel_list_from_data(const uint32_t, const uint32_t*);

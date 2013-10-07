@@ -49,20 +49,20 @@ static void(*_analyzer_function)(monitor_data_t*, QTAudioFrequencyLevels*) = 0;
 /*
  * Print an analyzer setting to a show file.
  */
-void print_analyzer(const analyzer_data_t *data, FILE *showFile)
+void print_analyzer(const analyzer_data_t *data, FILE *out)
 {
-    fprintf(showFile, "\tanalyzer {\n");
-    fprintf(showFile, "\t\t file:%s;\n", data->movieFile);
-    printChannelList(data->dmxChannelList, showFile);
-    fprintf(showFile, "\t\t threshold:%6.3f;\n", data->threshold);
-    fprintf(showFile, "\t\t threshold_value:%d;\n", data->dmxValue);
-    fprintf(showFile, "\t\t bands:%lu;\n", data->numberOfBandLevels);
-    fprintf(showFile, "\t\t freq:%d;\n", data->frequency);
-    fprintf(showFile, "\t\t type:%d;\n", data->flags);
-    fprintf(showFile, "\t}\n");
+    fprintf(out, "\tanalyzer {\n");
+    fprintf(out, "\t\t file:%s;\n", data->movieFile);
+    printChannelList(data->dmxChannelList, out);
+    fprintf(out, "\t\t threshold:%6.3f;\n", data->threshold);
+    fprintf(out, "\t\t threshold_value:%d;\n", data->dmxValue);
+    fprintf(out, "\t\t bands:%lu;\n", data->numberOfBandLevels);
+    fprintf(out, "\t\t freq:%d;\n", data->frequency);
+    fprintf(out, "\t\t type:%d;\n", data->flags);
+    fprintf(out, "\t}\n");
 }
 
-static void free_monitor_data(monitor_data_t *mdata)
+inline static void free_monitor_data(monitor_data_t *mdata)
 {
     /* don't free the file_name pointer... he's just borrowed */
     FREE_CHANNEL_LIST(mdata->dmxChannelList);
@@ -332,7 +332,7 @@ int open_movie_file(const unsigned char *fileName, Movie **newMovie, short *refI
 /*
     Initialize and start the audio thread.
 */
-int start_analyze(analyzer_data_t *data_in, void(*callback)())
+int start_analyze(const analyzer_data_t *data_in, void(*callback)())
 {
     pthread_mutex_lock(&_analyze_mutex);
     if(_monitoring){

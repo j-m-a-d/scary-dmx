@@ -254,14 +254,14 @@ inline void set_analyzer_data_for_current_cue(dmx_show_t *show, analyzer_data_t 
     show->currentCue->cue->aData = aData;
 }
 
-void set_timer_data_for_current_cue(dmx_show_t *show, timed_effect_data_t *data)
+void set_timer_data_for_current_cue(dmx_show_t *show, timer_data_t *data)
 {
     if(NULL == show->currentCue->cue->timer){
         show->currentCue->cue->timer = data;
         show->currentCue->cue->timer->nextTimer = 0;
     } else {
         show->currentCue->cue->empty = 0;
-        timed_effect_data_t *tmp = show->currentCue->cue->timer;
+        timer_data_t *tmp = show->currentCue->cue->timer;
         show->currentCue->cue->timer = data;
         show->currentCue->cue->timer->nextTimer = tmp;
     }
@@ -315,20 +315,20 @@ static void *next_step()
         start_oscillating(cue->oData);
     }
     
-    timed_effects_init();
+    timers_init();
     
     if(cue->timer){
         /* do each timer */
-        timed_effect_data_t *tdata = cue->timer;
+        timer_data_t *tdata = cue->timer;
         while(NULL != tdata){
             if(!tdata->timer_handle){
-                create_timed_effect_handle(&(tdata->timer_handle));
+                create_timer_handle(&(tdata->timer_handle));
             }
-            cue_timed_effect(tdata);
+            cue_timer(tdata);
             tdata = tdata->nextTimer;
         }
         /* now start them all at once */
-        start_timed_effects();
+        start_timers();
     }
 
 die_now:
@@ -352,7 +352,7 @@ static void _stop_show()
     stop_oscillating();
     stop_flicker();
     if(_live_show)
-        stop_timed_effects(_live_show->currentCue->cue->timer);
+        stop_timers(_live_show->currentCue->cue->timer);
 }
 
 /*
@@ -390,7 +390,7 @@ static void go_to_next_step()
     log_debug("Stopped flicker.\n");
     
     if(_live_show->currentCue)
-        stop_timed_effects(_live_show->currentCue->cue->timer);
+        stop_timers(_live_show->currentCue->cue->timer);
     log_debug("Stopped timed effects.\n");
     
     log_debug("showstate=%#x.\n", _state);

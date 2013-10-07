@@ -23,6 +23,7 @@ from:                       return FROM;
 to:                         return TO;
 high:                       return HIGH;
 low:                        return LOW;
+onoff                       return ON_OFF;
 offtime:                    return OFFTIME;
 offvalue:                   return OFFVALUE;
 ontime:                     return ONTIME;
@@ -105,7 +106,6 @@ ch[0-9]{1,3}:                {
 [\t]                       ;
  "//".*$                   printf("%s\n", yytext);// line comments echo'd
 .                           {
-                                printf("Warning: unknown character '%s' (line: %d)\n", linebuf, yylineno);
                                 yylval.text = strdup(yytext);
                                 return ERROR;                              
                             }

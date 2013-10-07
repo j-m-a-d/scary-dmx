@@ -1,5 +1,5 @@
 /*
- *  timed_effect.c
+ *  timer.c
  *  Scary DMX
  *
  *  Created by Jason DiPrinzio on 10/11/08.
@@ -7,42 +7,42 @@
  *
  */
 
-#include "timed_effect.h"
+#include "timer_handler.h"
 #include "dmx_controller.h"
+#include "effects_handle.h"
 #include <unistd.h>
 #include <pthread.h>
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
 #include <stdio.h>
+#include <sys/time.h>
 
 volatile static int _timed = 0;
 
 static pthread_mutex_t _wait_mutex = PTHREAD_MUTEX_INITIALIZER;
 static pthread_cond_t _wait_cond = PTHREAD_COND_INITIALIZER;
 
-typedef struct _timed_effect_t {
+typedef struct _timer_t {
     pthread_t *thread_handle;
     volatile int run_flag;
-} timed_effect_t;
+} timer_t;
 
 /*
  Print a timer setting to a show file.
  */
-void print_timer_data(const timed_effect_data_t *data, FILE *showFile)
+void print_timer_data(const timer_data_t *data, FILE *out)
 {
-    fprintf(showFile, "\ttimer {\n");
-    printChannelList(data->channels, showFile);
-    fprintf(showFile, "\t\t ontime:%d;\n", data->on_time);
-    fprintf(showFile, "\t\t offtime:%d;\n", data->off_time);
-    fprintf(showFile, "\t\t onvalue:%d;\n", data->on_value);
-    fprintf(showFile, "\t\t offvalue:%d;\n", data->off_value);
-    fprintf(showFile, "\t}\n");
+    fprintf(out, "\ttimer {\n");
+    fprintf(out, "\t\t ontime:%d;\n", data->on_time);
+    fprintf(out, "\t\t offtime:%d;\n", data->off_time);
+    print_effects_handle(data->effect, out);
+    fprintf(out, "\t}\n");
 }
 
-static void free_timer_handle(timed_effect_t *in_timer)
+static void free_timer_handle(timer_t *in_timer)
 {
-    timed_effect_t *timer = in_timer;
+    timer_t *timer = in_timer;
     pthread_cancel( *timer->thread_handle);
     pthread_join( *timer->thread_handle, NULL);
     
@@ -50,37 +50,35 @@ static void free_timer_handle(timed_effect_t *in_timer)
         free(timer->thread_handle);
     }
     
-    memset(timer, 0, sizeof(timed_effect_t));
+    memset(timer, 0, sizeof(timer_t));
     free(in_timer);
 }
 
-static void free_timed_effect(timed_effect_data_t *data)
+static void free_timer(timer_data_t *data)
 {
     if(data){
         /* If the show was never cued up, we'll have no allocations */
         if(data->timer_handle){
-            free_timer_handle((timed_effect_t*)data->timer_handle);
+            free_timer_handle((timer_t*)data->timer_handle);
         }
         
         data->timer_handle = 0;
         
-        FREE_CHANNEL_LIST(data->channels);
-        data->channels = 0;
-        
-        memset(data, 0, sizeof(timed_effect_data_t));
+        FREE_EFFECTS_HANDLE(data->effect);
+        memset(data, 0, sizeof(timer_data_t));
         free(data);
     }
 }
 
-void free_timed_effects(timed_effect_data_t *timer)
+void free_timers(timer_data_t *timer)
 {
     if(timer) {
-        free_timed_effects(timer->nextTimer);
-        free_timed_effect(timer);
+        free_timers(timer->nextTimer);
+        free_timer(timer);
     }
 }
 
-int timed_effects_init()
+int timers_init()
 {    
     int result = 0;
     
@@ -91,7 +89,7 @@ int timed_effects_init()
     return result;
 }
 
-void stop_timed_effects(timed_effect_data_t *timer)
+void stop_timers(timer_data_t *timer)
 {
     
     if(!timer) return;
@@ -99,25 +97,40 @@ void stop_timed_effects(timed_effect_data_t *timer)
     pthread_mutex_lock(&_wait_mutex);
     _timed = 0;
     
-    timed_effect_data_t *tmp = timer;
+    timer_data_t *tmp = timer;
     while(tmp){
-        timed_effect_t* handle = ((timed_effect_t*)(tmp->timer_handle));
+        timer_t* handle = ((timer_t*)(tmp->timer_handle));
         if(!handle) continue;
         cancel_join_pthread((handle->thread_handle));
         handle->run_flag = 0;
-        update_channels(tmp->channels, CHANNEL_RESET);
+        reset_effects_channels(tmp->effect);
         tmp = tmp->nextTimer;
     }
     pthread_mutex_unlock(&_wait_mutex);
 }
 
-static void *do_timed_effect(void *data_in)
+
+
+static inline uint64_t get_timestamp()
+{
+    struct timeval tv;
+    gettimeofday(&tv, NULL);
+    return 1000000 * (unsigned long)tv.tv_sec + (unsigned long)tv.tv_usec;
+}
+
+static inline uint8_t time_compare(const uint64_t then, dmx_speed_t limit)
+{
+    const uint64_t now = get_timestamp();
+    return ((now - then) < limit ? 1 : 0);
+}
+
+static void *do_timer(void *data_in)
 {
     pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
     pthread_setcanceltype(PTHREAD_CANCEL_DEFERRED, NULL);
     PTHREAD_SETNAME("scarydmx.timer");
 
-    timed_effect_data_t *data = (timed_effect_data_t*)data_in;
+    timer_data_t *data = (timer_data_t*)data_in;
 
     /* Wait here until the timers are told to start. */
     pthread_mutex_lock(&_wait_mutex);
@@ -127,35 +140,40 @@ static void *do_timed_effect(void *data_in)
     pthread_mutex_unlock(&_wait_mutex);
 
     while(1){
-        update_channels(data->channels, data->on_value);
-        usleep(data->on_time);
-        update_channels(data->channels, data->off_value);
+        
+        uint64_t check = get_timestamp();
+        while( time_compare(check, data->on_time)) {
+            do_effect(data->effect);
+            usleep(1);
+        }
+        
+        reset_effects_channels(data->effect);
         usleep(data->off_time);
     }
     
     EXIT_THREAD();
 }
 
-int create_timed_effect_handle(timed_effect_handle **handle)
+int create_timer_handle(timer_handle **handle)
 {
-    timed_effect_t *timer = 0;
-    timer = malloc(sizeof(timed_effect_t));
+    timer_t *timer = 0;
+    timer = malloc(sizeof(timer_t));
     if(!timer) return TIMED_EFFECT_FAIL; // combine
 
     timer->thread_handle = malloc(sizeof(pthread_t));
     memset(timer->thread_handle, 0, sizeof(pthread_t));
     timer->run_flag = 0;
     
-    *handle = (timed_effect_handle*)timer;
+    *handle = (timer_handle*)timer;
     
     return TIMED_EFFECT_OK;
 }
 
-int cue_timed_effect(timed_effect_data_t *data)
+int cue_timer(const timer_data_t *data)
 {   
-    timed_effect_t *te = (timed_effect_t*)data->timer_handle;
+    timer_t *te = (timer_t*)data->timer_handle;
     te->run_flag = 1;
-    int result = spawn_joinable_pthread(te->thread_handle, do_timed_effect, (void*)(data) );
+    int result = spawn_joinable_pthread(te->thread_handle, do_timer, (void*)(data) );
     if(result){
         return result;
     }
@@ -163,7 +181,7 @@ int cue_timed_effect(timed_effect_data_t *data)
     return TIMED_EFFECT_OK;
 }
 
-int start_timed_effects()
+int start_timers()
 {
     int result = 0;
     if(0 == pthread_mutex_lock(&_wait_mutex)){

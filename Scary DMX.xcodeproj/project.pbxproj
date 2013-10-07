@@ -15,13 +15,12 @@
 		960887640F3CD61D005D8118 /* MainWinController.m in Sources */ = {isa = PBXBuildFile; fileRef = 960887630F3CD61D005D8118 /* MainWinController.m */; };
 		9609581F162CE2D200D35B65 /* utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 96F6B9C91629BEA50009FB9E /* utils.c */; };
 		96095820162CE2D200D35B65 /* chaser_handler.c in Sources */ = {isa = PBXBuildFile; fileRef = 967B70B910DEBF6A00318111 /* chaser_handler.c */; };
-		96095821162CE2DD00D35B65 /* config_reader.yy.c in Sources */ = {isa = PBXBuildFile; fileRef = 96AF8E810F2B873800369C1E /* config_reader.yy.c */; };
 		96095822162CE2DD00D35B65 /* dmx_controller.c in Sources */ = {isa = PBXBuildFile; fileRef = 96AF8DE30F2B857300369C1E /* dmx_controller.c */; };
 		96095823162CE2DD00D35B65 /* flicker_effect.c in Sources */ = {isa = PBXBuildFile; fileRef = 96AF8DE50F2B857300369C1E /* flicker_effect.c */; };
 		96095824162CE2DD00D35B65 /* oscillator_effect.c in Sources */ = {isa = PBXBuildFile; fileRef = 96AF8DEC0F2B857300369C1E /* oscillator_effect.c */; };
 		96095825162CE2DD00D35B65 /* show_handler.c in Sources */ = {isa = PBXBuildFile; fileRef = 96AF8DEF0F2B857300369C1E /* show_handler.c */; };
 		96095826162CE2DD00D35B65 /* sound_analyzer.c in Sources */ = {isa = PBXBuildFile; fileRef = 96AF8DF20F2B857300369C1E /* sound_analyzer.c */; };
-		96095827162CE2DD00D35B65 /* timed_effect.c in Sources */ = {isa = PBXBuildFile; fileRef = 96AF8DF40F2B857300369C1E /* timed_effect.c */; };
+		96095827162CE2DD00D35B65 /* timer_handler.c in Sources */ = {isa = PBXBuildFile; fileRef = 96AF8DF40F2B857300369C1E /* timer_handler.c */; };
 		96138FFC1080CEFD00147788 /* ShowTableViewDS.m in Sources */ = {isa = PBXBuildFile; fileRef = 96138FFB1080CEFD00147788 /* ShowTableViewDS.m */; };
 		96151CBB162D3A5500A10709 /* scary_dmx.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 96151CBA162D3A5500A10709 /* scary_dmx.1 */; };
 		96151CBF162D3A6E00A10709 /* scary_dmx_cli.c in Sources */ = {isa = PBXBuildFile; fileRef = 96151CB0162D3A1D00A10709 /* scary_dmx_cli.c */; };
@@ -44,7 +43,9 @@
 		96F63353162DD351006DC4D8 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96151CC9162D3B8D00A10709 /* CoreServices.framework */; };
 		96F63354162DD6C8006DC4D8 /* QuickTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96151CC2162D3AF100A10709 /* QuickTime.framework */; };
 		96F63356162DD6E7006DC4D8 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96151CC9162D3B8D00A10709 /* CoreServices.framework */; };
-		96FE471017FE56EE0093735C /* effects_handle.h in Headers */ = {isa = PBXBuildFile; fileRef = 96FE470F17FE56EE0093735C /* effects_handle.h */; };
+		96FD453A180063810027437B /* config_parser.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 9605E24717E006FC00CFCCD9 /* config_parser.o */; };
+		96FD453D180081860027437B /* config_parser.tab.c in Sources */ = {isa = PBXBuildFile; fileRef = 96AF8E7F0F2B873800369C1E /* config_parser.tab.c */; };
+		96FD453E180081930027437B /* config_reader.yy.c in Sources */ = {isa = PBXBuildFile; fileRef = 96AF8E810F2B873800369C1E /* config_reader.yy.c */; };
 		96FE471217FE59030093735C /* effects_handle.c in Sources */ = {isa = PBXBuildFile; fileRef = 96FE471117FE59030093735C /* effects_handle.c */; };
 		96FE58061079A00900A92124 /* QuickTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96FE58051079A00900A92124 /* QuickTime.framework */; };
 /* End PBXBuildFile section */
@@ -129,8 +130,8 @@
 		96AF8DF10F2B857300369C1E /* skull.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = skull.icns; sourceTree = "<group>"; };
 		96AF8DF20F2B857300369C1E /* sound_analyzer.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = sound_analyzer.c; sourceTree = "<group>"; };
 		96AF8DF30F2B857300369C1E /* sound_analyzer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = sound_analyzer.h; sourceTree = "<group>"; };
-		96AF8DF40F2B857300369C1E /* timed_effect.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = timed_effect.c; sourceTree = "<group>"; };
-		96AF8DF50F2B857300369C1E /* timed_effect.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = timed_effect.h; sourceTree = "<group>"; };
+		96AF8DF40F2B857300369C1E /* timer_handler.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = timer_handler.c; sourceTree = "<group>"; };
+		96AF8DF50F2B857300369C1E /* timer_handler.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = timer_handler.h; sourceTree = "<group>"; };
 		96AF8DF60F2B857300369C1E /* WinTypes.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = WinTypes.h; sourceTree = "<group>"; };
 		96AF8E7F0F2B873800369C1E /* config_parser.tab.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; lineEnding = 0; path = config_parser.tab.c; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.c; };
 		96AF8E800F2B873800369C1E /* config_parser.tab.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = config_parser.tab.h; sourceTree = "<group>"; };
@@ -154,12 +155,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9605E24817E006FC00CFCCD9 /* config_parser.o in Frameworks */,
 				967C954417E00CEE001FFF2D /* libscarydmx-core.a in Frameworks */,
 				968480B717EE23C300C5BB5E /* libftd2xx.1.2.2.dylib in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				96FE58061079A00900A92124 /* QuickTime.framework in Frameworks */,
 				96E0BD911478576A0050B8F7 /* OpenGL.framework in Frameworks */,
-				9605E24817E006FC00CFCCD9 /* config_parser.o in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,6 +168,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96FD453A180063810027437B /* config_parser.o in Frameworks */,
 				96F63353162DD351006DC4D8 /* CoreServices.framework in Frameworks */,
 				968480B817EE23C300C5BB5E /* libftd2xx.1.2.2.dylib in Frameworks */,
 				96F6334B162DB8EF006DC4D8 /* QuickTime.framework in Frameworks */,
@@ -348,7 +350,7 @@
 				96AF8DEC0F2B857300369C1E /* oscillator_effect.c */,
 				96AF8DEF0F2B857300369C1E /* show_handler.c */,
 				96AF8DF20F2B857300369C1E /* sound_analyzer.c */,
-				96AF8DF40F2B857300369C1E /* timed_effect.c */,
+				96AF8DF40F2B857300369C1E /* timer_handler.c */,
 				96F6B9C91629BEA50009FB9E /* utils.c */,
 			);
 			name = src;
@@ -368,7 +370,7 @@
 				96AF8DED0F2B857300369C1E /* oscillator_effect.h */,
 				96AF8DF00F2B857300369C1E /* show_handler.h */,
 				96AF8DF30F2B857300369C1E /* sound_analyzer.h */,
-				96AF8DF50F2B857300369C1E /* timed_effect.h */,
+				96AF8DF50F2B857300369C1E /* timer_handler.h */,
 				96AE8B2510E813DC00210B82 /* utils.h */,
 			);
 			name = headers;
@@ -381,7 +383,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96FE471017FE56EE0093735C /* effects_handle.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -493,8 +494,12 @@
 			files = (
 			);
 			inputPaths = (
+				"$(SRCROOT)/config_parser.y",
+				"$(SRCROOT)/config_reader.l",
 			);
 			outputPaths = (
+				"$(SRCROOT)/config_parser.tab.c",
+				"$(SRCROOT)/config_reader.yy.c",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -536,17 +541,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96095821162CE2DD00D35B65 /* config_reader.yy.c in Sources */,
+				96FD453E180081930027437B /* config_reader.yy.c in Sources */,
+				96FD453D180081860027437B /* config_parser.tab.c in Sources */,
+				96095820162CE2D200D35B65 /* chaser_handler.c in Sources */,
 				96095822162CE2DD00D35B65 /* dmx_controller.c in Sources */,
 				96FE471217FE59030093735C /* effects_handle.c in Sources */,
 				96095823162CE2DD00D35B65 /* flicker_effect.c in Sources */,
-				96095824162CE2DD00D35B65 /* oscillator_effect.c in Sources */,
 				96F4CB3D17F927360079FE25 /* fade_effect.c in Sources */,
+				96095824162CE2DD00D35B65 /* oscillator_effect.c in Sources */,
 				96095825162CE2DD00D35B65 /* show_handler.c in Sources */,
 				96095826162CE2DD00D35B65 /* sound_analyzer.c in Sources */,
-				96095827162CE2DD00D35B65 /* timed_effect.c in Sources */,
+				96095827162CE2DD00D35B65 /* timer_handler.c in Sources */,
 				9609581F162CE2D200D35B65 /* utils.c in Sources */,
-				96095820162CE2D200D35B65 /* chaser_handler.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
