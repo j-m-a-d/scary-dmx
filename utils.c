@@ -99,10 +99,10 @@ int cancel_join_pthread(const pthread_t *thread)
         return 0;
     }
     
-    char name[24];
+    char name[64];
     /* Call beefore cancel or we could lose the thread and name. */
     if(pthread_getname_np(*thread, name, sizeof(name) / sizeof(char))) {
-        strcpy(name,"undefined");
+        strncpy(name,"undefined", 64);
     }
     
     log_debug("Cancelling thread '%s'.\n", name);
