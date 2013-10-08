@@ -144,7 +144,7 @@ static void *do_timer(void *data_in)
         uint64_t check = get_timestamp();
         while( time_compare(check, data->on_time)) {
             do_effect(data->effect);
-            usleep(1);
+            usleep(100);
         }
         
         reset_effects_channels(data->effect);
