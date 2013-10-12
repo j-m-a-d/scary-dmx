@@ -122,20 +122,19 @@ void free_channel_list(const channel_list_t);
 
 int validate_channel_list(const channel_list_t, const uint32_t);
 
-
 /* Thread Utilities */
 #define THREAD_FINISHED 0
 static const unsigned int _THREAD_FINISHED = 11544216;
 
 #define EXIT_THREAD() \
-    pthread_exit((void*)&_THREAD_FINISHED); 
+    pthread_exit((void*)&_THREAD_FINISHED);
 
 int spawn_joinable_pthread(pthread_t *thread, void*(*func)(void*), void *data);
 int cancel_join_pthread(const pthread_t*);
 
 #ifndef __APPLE__
 #define PTHREAD_SETNAME(name) \
-    pthread_setname_np(pthread_self(), name) 
+    pthread_setname_np(pthread_self(), name)
 #else
 #define PTHREAD_SETNAME(name) \
     pthread_setname_np(name)

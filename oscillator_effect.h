@@ -29,14 +29,12 @@ enum {
     OSCILLATOR_BAD_CHANNEL
 };
 
-
 typedef struct _oscillator_data_t{
     channel_list_t channels;
     dmx_value_t lowThreshold;
     dmx_value_t highThreshold;
     dmx_speed_t speed;
 } oscillator_data_t;
-
 
 void copy_oscillator_data(oscillator_data_t *, const oscillator_data_t *);
 void free_oscillator_data(oscillator_data_t *);

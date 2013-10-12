@@ -13,7 +13,6 @@
 #include <unistd.h>
 #include <pthread.h>
 
-
 static pthread_t _flicker_thread = 0;
 static pthread_mutex_t _flicker_mutex = PTHREAD_MUTEX_INITIALIZER;
 
@@ -56,46 +55,46 @@ static void reset_dmx_state(void *data)
 
 void flicker(const flicker_data_t *flicker)
 {
-    
+
     /* Effect speed. */
-	useconds_t seconds = 10000;
+    useconds_t seconds = 10000;
     channel_list_t dmxChannels = flicker->channels;
-    
+
     register dmx_value_t i=0;
-    
+
     /* Hardcoded sequence of values for this effect on a dimmer pack. */
     for(i=65; i<155; i+=2){
         update_channels(dmxChannels, i);
         usleep(seconds);
     }
-    
+
     for(i=155; i>100; i-=2){
         update_channels(dmxChannels, i);
         usleep(seconds);
     }
-    
+
     for(i=100; i<125; i+=2){
         update_channels(dmxChannels, i);
         usleep(seconds);
     }
-    
+
     for(i=125; i>75; i-=2){
         update_channels(dmxChannels, i);
         usleep(seconds);
     }
-    
+
     for(i=75; i<125; i+=2){
         update_channels(dmxChannels, i);
         usleep(seconds);
     }
-    
+
     for(i=125; i>65; i-=2){
         update_channels(dmxChannels, i);
         usleep(seconds);
     }
 }
 /*
-	This thread will update channels like a chaser that
+    This thread will update channels like a chaser that
     creates a flicker effect.
 */
 static void *_flicker(void *fdata)
@@ -103,7 +102,7 @@ static void *_flicker(void *fdata)
     pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
     pthread_setcanceltype(PTHREAD_CANCEL_DEFERRED, NULL);
     PTHREAD_SETNAME("scarydmx.flicker");
-    
+
     flicker_data_t *flicker_data = (flicker_data_t*)fdata;
 
     pthread_cleanup_push(reset_dmx_state, flicker_data->channels);
@@ -113,7 +112,7 @@ static void *_flicker(void *fdata)
     }
 
     pthread_cleanup_pop(1);
-	EXIT_THREAD();
+    EXIT_THREAD();
 }
 
 /*

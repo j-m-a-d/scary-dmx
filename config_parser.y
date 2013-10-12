@@ -7,11 +7,6 @@
 #include "config_parser.tab.h"
 
 /* DECS */
-extern void yyrestart(FILE*);
-extern int yyparse();
-extern int yylex();
-extern int yyerror();
-
 dmx_show_t *resultShow;
 
 extern int parse_show_file(const char *filename, dmx_show_t **show)

@@ -32,7 +32,7 @@ static void *_show_next_step_obj = 0;
 static int advance_cue(dmx_show_t *show)
 {
     if(!show->currentCue) return 0;
-    
+
     show->currentCue = show->currentCue->nextCue;
     return (NULL == show->currentCue || NULL == show->currentCue->cue ||
             show->currentCue->cue->empty);
@@ -45,17 +45,17 @@ static int advance_cue(dmx_show_t *show)
 static void free_cue(cue_t *cue)
 {
     if(!cue) return;
-    
+
     if(cue->channelValues)
         free(cue->channelValues);
-    
+
     cue->channelValues = 0;
-    
+
     FREE_ANALYZER_DATA (cue->aData);
     FREE_OSCILLATOR_DATA (cue->oData);
     FREE_TIMED_EFFECTS(cue->timer);
     FREE_FLICKER_DATA(cue->flickerChannels);
-    
+
     memset(cue, 0, sizeof(cue_t));
     free(cue);
 }
@@ -84,11 +84,11 @@ int free_show(dmx_show_t *show)
     while(show->currentCue->nextCue){
         show->currentCue = show->currentCue->nextCue;
     }
-    
+
     while(show->currentCue){
         cue_node_t *tmp = show->currentCue;
         show->currentCue = tmp->previousCue;
-        
+
         if(tmp->cue){
             FREE_CUE(tmp->cue);
         }
@@ -97,7 +97,7 @@ int free_show(dmx_show_t *show)
         free(tmp);
         tmp = 0;
     }
-    
+
     memset(show, 0, sizeof(dmx_show_t));
     free(show);
     show = 0;
@@ -120,7 +120,7 @@ int create_cue_node(cue_node_t **cueNode)
         fprintf( stderr, "Cannot create cue node.  Supplied value is zero.\n");
         return 1;
     }
-    
+
     if(NULL == *cueNode){
         log_error( "Could not allocate memory for cue.\n");
         *cueNode = 0;
@@ -150,7 +150,7 @@ int create_cue_node(cue_node_t **cueNode)
     return 0;
 }
 
-/* 
+/*
     Allocate memory and initialize a show
     with its first cue.
  */
@@ -171,7 +171,7 @@ int init_show(dmx_show_t **show)
         return 1;
     }
     (*show)->currentCue->cue_id = 0;
-    
+
     return 0;
 }
 
@@ -181,24 +181,24 @@ int init_show(dmx_show_t **show)
 void printShow(dmx_show_t *show, FILE *showFile)
 {
     cue_node_t *node = show->currentCue;
-    cue_t *cue;        
+    cue_t *cue;
     while(node){
         cue = node->cue;
         fprintf(showFile, "cue ");
         if(cue->stepDuration) fprintf(showFile, "(%d)", cue->stepDuration);
-        fprintf(showFile, "{\n");        
-        print_cue_channels(cue->channelValues, showFile);  
+        fprintf(showFile, "{\n");
+        print_cue_channels(cue->channelValues, showFile);
         if(cue->flickerChannels) print_flicker_channels(cue->flickerChannels, showFile);
-        if(cue->aData) print_analyzer(cue->aData, showFile);  
+        if(cue->aData) print_analyzer(cue->aData, showFile);
         if(cue->oData) print_oscillator_data(cue->oData, showFile);
         if(cue->timer) print_timer_data(cue->timer, showFile);
-        fprintf(showFile, "}\n");        
-        node = node->nextCue;             
-    }    
+        fprintf(showFile, "}\n");
+        node = node->nextCue;
+    }
 }
 
 /*
-    Add a cue to this show at the 
+    Add a cue to this show at the
     end of the cue list.
  */
 int add_cue(dmx_show_t* show)
@@ -288,35 +288,35 @@ static void *next_step()
     pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
     pthread_setcanceltype(PTHREAD_CANCEL_DEFERRED, NULL);
     PTHREAD_SETNAME("scarydmx.showhandler");
-    
+
     if(!RUNNING(_state)){
         log_debug( "Show is not in progress, exiting.\n");
         goto die_now;
     }
-        
+
     cue_node_t *cueNode = _live_show->currentCue;
     cue_t *cue = cueNode->cue;
-     
+
     if(cue->aData && !cue->stepDuration){
         int err = start_analyze(cue->aData, &go_to_next_step);
         if(err){
             log_error( "Cannot start sound analyzer: %d\n", err);
-			goto die_now;
-		}
+            goto die_now;
+        }
     }
 
     reset_channel_values_for_current_cue();
-     
+
     if(cue->flickerChannels){
-        start_flicker(cue->flickerChannels);        
+        start_flicker(cue->flickerChannels);
     }
-    
+
     if(cue->oData){
         start_oscillating(cue->oData);
     }
-    
+
     timers_init();
-    
+
     if(cue->timer){
         /* do each timer */
         timer_data_t *tdata = cue->timer;
@@ -332,7 +332,7 @@ static void *next_step()
     }
 
 die_now:
-	EXIT_THREAD();
+    EXIT_THREAD();
 }
 
 static void _stop_show()
@@ -362,12 +362,12 @@ void stop_show()
 {
     if(STOPPED(_state))
         return;
-    
+
     pthread_mutex_lock(&_control_mutex);
     _state = OP_STATE_STOPPING;
-    
+
     _stop_show();
-    
+
     _state = OP_STATE_STOPPED;
     pthread_mutex_unlock(&_control_mutex);
 }
@@ -378,23 +378,23 @@ void stop_show()
 static void go_to_next_step()
 {
     log_debug("Callback: moving to next cue from: %s.\n", _live_show->currentCue->cue->aData->movieFile);
-    
+
     int showOver = 0;
-    
+
     log_debug("Stopping effects.\n");
-    
+
     stop_oscillating();
     log_debug("Stopped oscillator.\n");
-    
+
     stop_flicker();
     log_debug("Stopped flicker.\n");
-    
+
     if(_live_show->currentCue)
         stop_timers(_live_show->currentCue->cue->timer);
     log_debug("Stopped timed effects.\n");
-    
+
     log_debug("showstate=%#x.\n", _state);
-    
+
     if(RUNNING(_state)){
         /* Cue up the next scene. */
         showOver = advance_cue(_live_show);
@@ -446,7 +446,7 @@ int setShow(dmx_show_t *show)
 {
     if(STOPPED(_state))
         return 1;
-    
+
     free_loaded_show();
     _live_show = show;
     return 0;
@@ -467,15 +467,15 @@ int start_show()
 {
     if(NULL == _live_show) return DMX_SHOW_NOT_LOADED;
     if(RUNNING(_state)) return 0;
-    
+
     pthread_mutex_lock(&_control_mutex);
     _state = OP_STATE_STARTING;
-    
+
     _start_show();
-    
+
     _state = OP_STATE_RUNNING;
     pthread_mutex_unlock(&_control_mutex);
-    
+
     return DMX_SHOW_OK;
 }
 
@@ -499,7 +499,6 @@ void rewind_show()
     pthread_mutex_lock(&_control_mutex);
     enum op_state lastState = _state;
     _state = OP_STATE_SKIPPING;
-
 
     if(RUNNING(lastState)){
         _stop_show();
@@ -534,7 +533,7 @@ int skip_cue()
     }
 
     _state = last_state;
-    
+
     pthread_mutex_unlock(&_control_mutex);
 
     return 0;
@@ -548,7 +547,7 @@ void register_show_ended(void *callRef, void(*showEnded)(void*))
     _call_show_end = showEnded;
     _show_end_obj = callRef;
  }
- 
+
 void register_show_next_step(void *callRef, void(*show_next_step)(void*, cue_node_t*))
 {
     _call_show_next_step = show_next_step;

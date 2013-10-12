@@ -56,7 +56,7 @@ void print_onoff_effect(onoff_effect_t *effect, FILE *out)
     fprintf(out, "\t\t %d\n;", effect->on_value);
     fprintf(out, "\t\t %d\n;", effect->off_value);
     fprintf(out, "}");
-    
+
 }
 
 void print_effects_handle(const effects_handle_t *effect, FILE *out)

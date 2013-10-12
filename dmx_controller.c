@@ -15,7 +15,7 @@
 #include "ftd2xx.h"
 #include "dmx_controller.h"
 
-#define MAX_DEVICES		1
+#define MAX_DEVICES     1
 
 /* Globals */
 static FT_HANDLE _dmx_device = 0;
@@ -86,7 +86,7 @@ void *write_buffer(){
     useconds_t seconds;
     seconds=20000;
 
-	if(!_output_buffer) pthread_exit(NULL);
+    if(!_output_buffer) pthread_exit(NULL);
 
     /* Wait until synced */
     while(OP_STATE_STARTING == _dmxstate) {
@@ -199,13 +199,13 @@ static void describe_devices(FT_DEVICE_LIST_INFO_NODE *device_info)
  */
 int init_dmx()
 {
-    char * 	pcBufLD[MAX_DEVICES + 1];
+    char *  pcBufLD[MAX_DEVICES + 1];
     memset(pcBufLD, 0, (sizeof(char) * MAX_DEVICES) + 1);
 
-    char 	cBufLD[MAX_DEVICES][64];
+    char    cBufLD[MAX_DEVICES][64];
     memset(cBufLD, 0, sizeof(cBufLD));
 
-    FT_STATUS	ftStatus;
+    FT_STATUS   ftStatus;
 
     int num_devices = 0;
 
@@ -229,7 +229,7 @@ int init_dmx()
     FT_DEVICE_LIST_INFO_NODE device_info[num_devices];
     memset(device_info, 0, sizeof(FT_DEVICE_LIST_INFO_NODE) * (unsigned long)num_devices);
     describe_devices(device_info);
-    
+
     if( !device_info[0].LocId ) {
         log_error("Error describe_devices failed to read dmx device(s)\n");
         destroy_dmx();

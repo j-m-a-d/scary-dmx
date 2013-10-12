@@ -7,7 +7,7 @@ cue {
         threshold:0.470;
         threshold_value:245;
         bands:10;
-        freq:2;
+        freq:4;
         type:1;
     }
 }

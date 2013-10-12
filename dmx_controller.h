@@ -14,14 +14,13 @@
 
 #define CHANNEL_RESET           0
 
-
-enum { 
-    DMX_INIT_OK,       
+enum {
+    DMX_INIT_OK,
     DMX_INIT_FAIL,
     DMX_INIT_NO_DEVICES,
     DMX_INIT_OPEN_FAIL,
     DMX_INIT_SET_BAUD_FAIL,
-    DMX_INIT_SET_DATA_FLOW_FAIL    
+    DMX_INIT_SET_DATA_FLOW_FAIL
 };
 
 /*initialize dmx output*/

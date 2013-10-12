@@ -65,7 +65,7 @@ void oscillate(const oscillator_data_t *odata)
         update_channels(odata->channels, i);
         usleep(odata->speed);
     }
-    
+
     for(i=odata->highThreshold; i> odata->lowThreshold+1; i-=2){
         update_channels(odata->channels, i);
         usleep(odata->speed);
@@ -79,18 +79,18 @@ void oscillate(const oscillator_data_t *odata)
  */
 static void *_oscillate(void* data_in)
 {
-    
+
     pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
     pthread_setcanceltype(PTHREAD_CANCEL_DEFERRED, NULL);
     PTHREAD_SETNAME("scarydmx.oscillator");
-    
+
     oscillator_data_t *val = (oscillator_data_t*)data_in;
-  
+
     pthread_cleanup_push(reset_dmx_state, data_in);
-    
+
     while(_oscillating)
         oscillate(val);
-    
+
     pthread_cleanup_pop(1);
     EXIT_THREAD();
 }
@@ -101,7 +101,7 @@ static void *_oscillate(void* data_in)
 void stop_oscillating()
 {
     pthread_mutex_lock(&_oscillator_mutex);
-        _oscillating=0;    
+        _oscillating=0;
     pthread_mutex_unlock(&_oscillator_mutex);
     cancel_join_pthread(&_oscillator_thread);
 }
@@ -112,7 +112,7 @@ void stop_oscillating()
 int start_oscillating(const oscillator_data_t *inData)
 {
     /* signal we are ready to oscillate. */
-    pthread_mutex_lock(&_oscillator_mutex);    
+    pthread_mutex_lock(&_oscillator_mutex);
         if(_oscillating){
             pthread_mutex_unlock(&_oscillator_mutex);
             return OSCILLATOR_IN_PROGRESS;
@@ -120,6 +120,6 @@ int start_oscillating(const oscillator_data_t *inData)
         _oscillating = 1;
         spawn_joinable_pthread(&_oscillator_thread, _oscillate, (void *)inData);
     pthread_mutex_unlock(&_oscillator_mutex);
-    
+
     return OSCILLATOR_OK;
 }

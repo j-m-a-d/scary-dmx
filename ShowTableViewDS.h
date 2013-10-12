@@ -11,7 +11,6 @@
 #include "show_handler.h"
 #endif
 
-
 @interface ShowTableViewDS :NSObject <NSTableViewDelegate, NSTableViewDataSource> {
     unsigned int _numberOfRows;
     dmx_show_t *_showData;
@@ -34,6 +33,5 @@
 
 /* NSTableViewDelegate */
 -(void)tableView:(NSTableView *)aTableView willDisplayCell:(id)aCell forTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex;
-
 
 @end

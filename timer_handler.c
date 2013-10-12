@@ -45,11 +45,11 @@ static void free_timer_handle(timer_t *in_timer)
     timer_t *timer = in_timer;
     pthread_cancel( *timer->thread_handle);
     pthread_join( *timer->thread_handle, NULL);
-    
+
     if(timer->thread_handle) {
         free(timer->thread_handle);
     }
-    
+
     memset(timer, 0, sizeof(timer_t));
     free(in_timer);
 }
@@ -61,9 +61,9 @@ static void free_timer(timer_data_t *data)
         if(data->timer_handle){
             free_timer_handle((timer_t*)data->timer_handle);
         }
-        
+
         data->timer_handle = 0;
-        
+
         FREE_EFFECTS_HANDLE(data->effect);
         memset(data, 0, sizeof(timer_data_t));
         free(data);
@@ -79,24 +79,24 @@ void free_timers(timer_data_t *timer)
 }
 
 int timers_init()
-{    
+{
     int result = 0;
-    
+
     pthread_mutex_lock(&_wait_mutex);
     result = pthread_cond_init(&_wait_cond, NULL);
     pthread_mutex_unlock(&_wait_mutex);
-    
+
     return result;
 }
 
 void stop_timers(timer_data_t *timer)
 {
-    
+
     if(!timer) return;
 
     pthread_mutex_lock(&_wait_mutex);
     _timed = 0;
-    
+
     timer_data_t *tmp = timer;
     while(tmp){
         timer_t* handle = ((timer_t*)(tmp->timer_handle));
@@ -108,8 +108,6 @@ void stop_timers(timer_data_t *timer)
     }
     pthread_mutex_unlock(&_wait_mutex);
 }
-
-
 
 static inline uint64_t get_timestamp()
 {
@@ -140,17 +138,17 @@ static void *do_timer(void *data_in)
     pthread_mutex_unlock(&_wait_mutex);
 
     while(1){
-        
+
         uint64_t check = get_timestamp();
         while( time_compare(check, data->on_time)) {
             do_effect(data->effect);
             usleep(100);
         }
-        
+
         reset_effects_channels(data->effect);
         usleep(data->off_time);
     }
-    
+
     EXIT_THREAD();
 }
 
@@ -163,21 +161,21 @@ int create_timer_handle(timer_handle **handle)
     timer->thread_handle = malloc(sizeof(pthread_t));
     memset(timer->thread_handle, 0, sizeof(pthread_t));
     timer->run_flag = 0;
-    
+
     *handle = (timer_handle*)timer;
-    
+
     return TIMED_EFFECT_OK;
 }
 
 int cue_timer(const timer_data_t *data)
-{   
+{
     timer_t *te = (timer_t*)data->timer_handle;
     te->run_flag = 1;
     int result = spawn_joinable_pthread(te->thread_handle, do_timer, (void*)(data) );
     if(result){
         return result;
     }
-    
+
     return TIMED_EFFECT_OK;
 }
 

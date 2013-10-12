@@ -98,15 +98,15 @@ int cancel_join_pthread(const pthread_t *thread)
     if(!thread || !*thread) {
         return 0;
     }
-    
+
     char name[64];
     /* Call beefore cancel or we could lose the thread and name. */
     if(pthread_getname_np(*thread, name, sizeof(name) / sizeof(char))) {
         strncpy(name,"undefined", 64);
     }
-    
+
     log_debug("Cancelling thread '%s'.\n", name);
-    
+
     if(ESRCH == pthread_cancel(*thread)) {
         int *retval[1];
         int result = pthread_join(*thread, (void**)&(retval[0]));
