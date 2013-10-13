@@ -33,11 +33,14 @@ typedef struct _timer_t {
  */
 void print_timer_data(const timer_data_t *data, FILE *out)
 {
-    fprintf(out, "\ttimer {\n");
+    fprintf(out, "\t timer {\n");
     fprintf(out, "\t\t ontime:%d;\n", data->on_time);
     fprintf(out, "\t\t offtime:%d;\n", data->off_time);
     print_effects_handle(data->effect, out);
-    fprintf(out, "\t}\n");
+    fprintf(out, "\t }\n");
+    if(data->nextTimer) {
+        print_timer_data(data->nextTimer, out);
+    }
 }
 
 static void free_timer_handle(timer_t *in_timer)

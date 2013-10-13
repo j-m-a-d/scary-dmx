@@ -5,7 +5,7 @@
 #include <stdlib.h>
 
 char linebuf[1024];
-
+int lines = 0;
 %}
 
 
@@ -102,6 +102,7 @@ ch[0-9]{1,3}:                {
 \n.*                        {
                                 strncpy(linebuf, yytext+1, sizeof(linebuf));
                                 yyless(1);
+                                lines++;
                             }
 [\t]                       ;
  "//".*$                   printf("%s\n", yytext);// line comments echo'd
@@ -113,7 +114,7 @@ ch[0-9]{1,3}:                {
 
 extern void yyerror(const char *str)
 {
-    log_error("%s on line %d - unexpected: \"%s\" in source: \"%s\"\n", str, yylineno, yytext, linebuf);
+    log_error("%s on line %d - unexpected: \"%s\" in source: \"%s\"\n", str, lines, yytext, linebuf);
 }
 
 extern int yywrap()

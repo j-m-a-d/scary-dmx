@@ -1,20 +1,9 @@
 #include <stdio.h>
 #include "show_handler.h"
 
-extern void yyrestart(FILE*);
-extern int yyparse();
-extern int yylex();
-
-int parse_show_file(const char *filename, dmx_show_t **show)
-{
-    return 0;
-}
 
 int main(int argc, char **argv)
 {
-    extern FILE *yyin;
-    yyin = fopen(argv[1], "r");
-
     dmx_show_t *resultShow;
 
     int i = init_show(&resultShow);
@@ -23,22 +12,15 @@ int main(int argc, char **argv)
         return i;
     }
 
-    yyrestart(yyin);
-    i = yyparse();
-    fclose(yyin);
-
-    if(i){
-        log_error("Parse error.\n");
-        return i;
+    if( (i =load_show_from_file(argv[1], &resultShow )) ){
+        log_debug("Show not found or invalid show.\n");
+        goto quit;
     }
 
-    FILE *outFile = fopen("./outshow.shw", "w+");
-    if(!outFile){
-        log_error("Could not open out file for show output.\n");
-    }
-    printShow(resultShow, outFile);
-    fclose(outFile);
+    i =0;
+    printShow(resultShow, stdout);
 
+quit:
     FREE_SHOW (resultShow);
     return i;
 }

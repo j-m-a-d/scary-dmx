@@ -52,10 +52,10 @@ void print_onoff_effect(onoff_effect_t *effect, FILE *out)
 {
     fprintf(out, "onoff {\n");
     printChannelList(effect->channels, out);
-    fprintf(out, "\t\t %d\n;", effect->flag);
-    fprintf(out, "\t\t %d\n;", effect->on_value);
-    fprintf(out, "\t\t %d\n;", effect->off_value);
-    fprintf(out, "}");
+    //fprintf(out, "\t\t flag:%d;\n", effect->flag);
+    fprintf(out, "\t\t onvalue:%d;\n", effect->on_value);
+    fprintf(out, "\t\t offvalue:%d;\n", effect->off_value);
+    fprintf(out, "}\n");
 
 }
 
@@ -69,10 +69,10 @@ void print_effects_handle(const effects_handle_t *effect, FILE *out)
             print_fader_data(effect->effect.fader, out);
             break;
         case effect_type_flicker:
-            flicker(effect->effect.flicker);
+            print_flicker_channels(effect->effect.flicker, out);
             break;
         case effect_type_oscillator:
-            oscillate(effect->effect.oscillator);
+            print_oscillator_data(effect->effect.oscillator, out);
             break;
         default:
             break;

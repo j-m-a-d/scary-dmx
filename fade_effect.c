@@ -28,7 +28,7 @@ void print_fader_data(const fader_data_t *fader, FILE *out)
     printChannelList(fader->channels, out);
     fprintf(out, "\t\t from:%d;\n", fader->from_value);
     fprintf(out, "\t\t to:%d;\n", fader->to_value);
-    fprintf(out, "\t\t speed:%u\n", fader->speed);
+    fprintf(out, "\t\t speed:%u;\n", fader->speed);
     fprintf(out, "\t}\n");
 }
 
