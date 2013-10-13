@@ -14,7 +14,7 @@
 		9605E24817E006FC00CFCCD9 /* config_parser.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 9605E24717E006FC00CFCCD9 /* config_parser.o */; };
 		960887640F3CD61D005D8118 /* MainWinController.m in Sources */ = {isa = PBXBuildFile; fileRef = 960887630F3CD61D005D8118 /* MainWinController.m */; };
 		9609581F162CE2D200D35B65 /* utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 96F6B9C91629BEA50009FB9E /* utils.c */; };
-		96095820162CE2D200D35B65 /* chaser_handler.c in Sources */ = {isa = PBXBuildFile; fileRef = 967B70B910DEBF6A00318111 /* chaser_handler.c */; };
+		96095820162CE2D200D35B65 /* chaser_effect.c in Sources */ = {isa = PBXBuildFile; fileRef = 967B70B910DEBF6A00318111 /* chaser_effect.c */; };
 		96095822162CE2DD00D35B65 /* dmx_controller.c in Sources */ = {isa = PBXBuildFile; fileRef = 96AF8DE30F2B857300369C1E /* dmx_controller.c */; };
 		96095823162CE2DD00D35B65 /* flicker_effect.c in Sources */ = {isa = PBXBuildFile; fileRef = 96AF8DE50F2B857300369C1E /* flicker_effect.c */; };
 		96095824162CE2DD00D35B65 /* oscillator_effect.c in Sources */ = {isa = PBXBuildFile; fileRef = 96AF8DEC0F2B857300369C1E /* oscillator_effect.c */; };
@@ -107,8 +107,8 @@
 		962EA6E50F5B0BEA00DCC0C1 /* SoundController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = SoundController.m; sourceTree = "<group>"; };
 		9642140110B0783400F9F364 /* OscillatorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OscillatorController.h; sourceTree = "<group>"; };
 		9642140210B0783400F9F364 /* OscillatorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OscillatorController.m; sourceTree = "<group>"; };
-		967B70B810DEBF6A00318111 /* chaser_handler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chaser_handler.h; sourceTree = "<group>"; };
-		967B70B910DEBF6A00318111 /* chaser_handler.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = chaser_handler.c; sourceTree = "<group>"; };
+		967B70B810DEBF6A00318111 /* chaser_effect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chaser_effect.h; sourceTree = "<group>"; };
+		967B70B910DEBF6A00318111 /* chaser_effect.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = chaser_effect.c; sourceTree = "<group>"; };
 		968480B617EE23C300C5BB5E /* libftd2xx.1.2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libftd2xx.1.2.2.dylib; sourceTree = "<group>"; };
 		968800371471CF9200754002 /* DMXOutputDisplayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMXOutputDisplayController.h; sourceTree = "<group>"; };
 		968800381471CF9200754002 /* DMXOutputDisplayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMXOutputDisplayController.m; sourceTree = "<group>"; };
@@ -338,7 +338,7 @@
 		96F63362162DE734006DC4D8 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				967B70B910DEBF6A00318111 /* chaser_handler.c */,
+				967B70B910DEBF6A00318111 /* chaser_effect.c */,
 				96AF8DE10F2B857300369C1E /* config_parser.y */,
 				96AF8E7F0F2B873800369C1E /* config_parser.tab.c */,
 				96AF8DE20F2B857300369C1E /* config_reader.l */,
@@ -359,7 +359,7 @@
 		96F63363162DE746006DC4D8 /* headers */ = {
 			isa = PBXGroup;
 			children = (
-				967B70B810DEBF6A00318111 /* chaser_handler.h */,
+				967B70B810DEBF6A00318111 /* chaser_effect.h */,
 				96F63350162DBE2B006DC4D8 /* config_parser.h */,
 				96AF8E800F2B873800369C1E /* config_parser.tab.h */,
 				96AF8DE40F2B857300369C1E /* dmx_controller.h */,
@@ -543,7 +543,7 @@
 			files = (
 				96FD453E180081930027437B /* config_reader.yy.c in Sources */,
 				96FD453D180081860027437B /* config_parser.tab.c in Sources */,
-				96095820162CE2D200D35B65 /* chaser_handler.c in Sources */,
+				96095820162CE2D200D35B65 /* chaser_effect.c in Sources */,
 				96095822162CE2DD00D35B65 /* dmx_controller.c in Sources */,
 				96FE471217FE59030093735C /* effects_handle.c in Sources */,
 				96095823162CE2DD00D35B65 /* flicker_effect.c in Sources */,

@@ -1,5 +1,5 @@
 /*
- *  chaser_handler.h
+ *  chaser_effect.h
  *  Scary DMX
  *
  *  Created by Jason DiPrinzio on 12/20/09.
@@ -7,15 +7,15 @@
  *
  */
 
-#ifndef Scary_DMX_CHASE_HANDLER_H
-#define Scary_DMX_CHASE_HANDLER_H
+#ifndef Scary_DMX_CHASE_EFFECT_H
+#define Scary_DMX_CHASE_EFFECT_H
 
 #include "utils.h"
 
 typedef struct _chaser_step_t {
-    unsigned short channel;
+    channel_list_t channel;
     dmx_value_t value;
-    dmx_value_t _pad;
+    dmx_speed_t speed;
     long pre_delay;
     long post_delay;
 } chaser_step_t;

@@ -1,5 +1,5 @@
 /*
- *  chaser_handler.c
+ *  chaser_effect.c
  *  Scary DMX
  *
  *  Created by Jason DiPrinzio on 12/20/09.
@@ -7,5 +7,5 @@
  *
  */
 
-#include "chaser_handler.h"
+#include "chaser_effect.h"
 
