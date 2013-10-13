@@ -180,10 +180,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				96F4CB3B17F766AD0079FE25 /* config_parser.o in Frameworks */,
+				96151CC4162D3B0100A10709 /* libscarydmx-core.a in Frameworks */,
 				96DF338F17F765910000D0F3 /* libftd2xx.1.2.2.dylib in Frameworks */,
 				96F63356162DD6E7006DC4D8 /* CoreServices.framework in Frameworks */,
 				96F63354162DD6C8006DC4D8 /* QuickTime.framework in Frameworks */,
-				96151CC4162D3B0100A10709 /* libscarydmx-core.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

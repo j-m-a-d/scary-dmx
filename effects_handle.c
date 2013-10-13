@@ -12,12 +12,6 @@
 #include "oscillator_effect.h"
 #include "dmx_controller.h"
 
-void new_effects_handle()
-{
-    effects_handle_t *effect;
-    effect = malloc(sizeof(effects_handle_t));
-}
-
 inline void free_onoff_effect(onoff_effect_t *effect)
 {
     FREE_CHANNEL_LIST(effect->channels);

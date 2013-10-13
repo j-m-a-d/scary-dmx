@@ -37,18 +37,21 @@
 - (void)updateBuffer
 {
     dmx_value_t vdmx[MONITORED_DMX_CHANNELS];
+    memset(vdmx, 0, MONITORED_DMX_CHANNELS);
     get_channel_buffer(vdmx, 1, MONITORED_DMX_CHANNELS);
+
     register unsigned int i=0;
     for(i=0; i<MONITORED_DMX_CHANNELS; i++){
-        _buffer[i] =  (float)(vdmx[i]/255.0f);
+        _buffer[i] = (float)(vdmx[i]/255.0f);
     }
+
     [analyzer update:MONITORED_DMX_CHANNELS :_buffer];   
 }
 
 - (void)windowWillClose:(NSNotification *)notification
 {
     [super windowWillClose:notification];
-    //[timer invalidate];
+    [timer invalidate];
     [timer release];
 }
 

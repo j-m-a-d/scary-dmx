@@ -157,7 +157,7 @@ int create_cue_node(cue_node_t **cueNode)
 int init_show(dmx_show_t **show)
 {
     *show = (dmx_show_t*)malloc(sizeof(dmx_show_t));
-    if(NULL == show){
+    if(NULL == *show){
         log_error( "Could not allocate memory for show.\n");
         *show = 0;
         return 1;
@@ -427,7 +427,7 @@ static void go_to_next_step()
 int load_show_from_file(const char *show_file, dmx_show_t **out_show)
 {
     stop_show();
-    dmx_show_t *newShow;
+    dmx_show_t *newShow = 0;
     int result = parse_show_file(show_file, &newShow);
     if(!result && NULL != newShow){
         if(_live_show != NULL) {
