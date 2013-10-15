@@ -17,7 +17,6 @@
     return [[NSTimer scheduledTimerWithTimeInterval:0.01
              target:self selector:@selector(updateBuffer)
              userInfo:nil repeats:YES] retain];
-
 }
 
 - (void)awakeFromNib
