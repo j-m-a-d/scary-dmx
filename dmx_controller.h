@@ -29,7 +29,7 @@ int init_dmx();
 /* stop threads */
 void stop_dmx();
 
-/*kill everything */
+/* kill everything */
 void destroy_dmx();
 
 /* start threads */
