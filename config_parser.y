@@ -7,10 +7,11 @@
 #include "config_parser.tab.h"
 
 /* DECS */
-dmx_show_t *resultShow;
+static dmx_show_t *resultShow;
+
 #define MAX_STEPS 128
-chaser_step_t *step_buffer[MAX_STEPS];
-uint8_t stepcount = 0;
+static chaser_step_t *step_buffer[MAX_STEPS];
+static uint8_t stepcount = 0;
 
 int parse_show_file(const char *filename, dmx_show_t **show)
 {

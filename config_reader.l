@@ -5,7 +5,7 @@
 #include <stdlib.h>
 
 char linebuf[1024];
-int lines = 0;
+int lines = 1;
 %}
 
 
