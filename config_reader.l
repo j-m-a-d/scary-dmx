@@ -1,6 +1,6 @@
 %{
 #include "config_parser.tab.h"
-#include "utils.c"
+#include "utils.h"
 #include <string.h>
 #include <stdlib.h>
 
