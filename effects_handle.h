@@ -12,12 +12,14 @@
 #include "oscillator_effect.h"
 #include "flicker_effect.h"
 #include "fade_effect.h"
+#include "chaser_effect.h"
 
 typedef enum {
     effect_type_onoff,
     effect_type_oscillator,
     effect_type_flicker,
     effect_type_fader,
+    effect_type_chaser,
 } effect_type;
 
 typedef struct _onoff_effect_t {
@@ -44,6 +46,7 @@ typedef struct _effects_handle_t {
         oscillator_data_t *oscillator;
         flicker_data_t *flicker;
         fader_data_t *fader;
+        chaser_t *chaser;
     } effect;
 } effects_handle_t;
 

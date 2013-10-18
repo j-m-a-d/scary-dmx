@@ -6,7 +6,11 @@ FLEX=flex
 BISON=yacc
 
 INCLUDES=-I.
-LIBS=
+LIBS=-L. -lftd2xx
+FRAMEWORKS=-framework CoreServices -framework QuickTime 
+
+# TODO fix path
+CORE_DIR=-L /Users/jason/Library/Developer/Xcode/DerivedData/Scary_DMX-guwojqbpiucwrgdzlxnicqsgdmrg/Build/Products/Debug/ -lscarydmx-core
 
 
 all:	config_parser.o
@@ -23,13 +27,16 @@ config_reader.yy.o: config_reader.yy.c
 config_parser.o: config_reader.yy.o config_parser.tab.c
 	$(CC) $(OPTIONS) $(INCLUDES) -c -o config_parser.o config_reader.yy.o config_parser.tab.c
 
-# TODO fix path
-parser:	config_parser.o parser_test.c
-	$(CC) $(OPTIONS) $(INCLUDE) -o parser parser_test.c -L /Users/jason/Library/Developer/Xcode/DerivedData/Scary_DMX-guwojqbpiucwrgdzlxnicqsgdmrg/Build/Products/Debug/ -lscarydmx-core -L. -lftd2xx -framework CoreServices -framework QuickTime
+parser_test:	parser_test.c
+	$(CC) $(OPTIONS) $(INCLUDE) -o parser_test $< $(CORE_DIR) $(LIBS) $(FRAMEWORKS)
+
+chaser_test:	chaser_test.c
+	$(CC) $(OPTIONS) $(INCLUDE) -o chaser_test $< $(CORE_DIR) $(LIBS) $(FRAMEWORKS)
 
 clean:
 	-rm -rf *.o 2>/dev/null
-	-rm -rf parser
+	-rm -rf parser_test
+	-rm -rf chaser_test
 	-rm -rf config_reader.yy.c
 	-rm -rf config_parser.tab.c
 	-rm -rf config_parser.tab.y

@@ -34,6 +34,9 @@ void free_effects_handle(effects_handle_t *effect)
             case effect_type_oscillator:
                 FREE_OSCILLATOR_DATA(effect->effect.oscillator);
                 break;
+            case effect_type_chaser:
+                FREE_CHASER(effect->effect.chaser);
+                break;
             default:
                 break;
         }
@@ -68,6 +71,9 @@ void print_effects_handle(const effects_handle_t *effect, FILE *out)
         case effect_type_oscillator:
             print_oscillator_data(effect->effect.oscillator, out);
             break;
+        case effect_type_chaser:
+            print_chaser_data(effect->effect.chaser, out);
+            break;
         default:
             break;
     }
@@ -97,6 +103,9 @@ inline void do_effect(const effects_handle_t *effect)
         case effect_type_oscillator:
             oscillate(effect->effect.oscillator);
             break;
+        case effect_type_chaser:
+            chase(effect->effect.chaser);
+            break;
         default:
             break;
     }
@@ -113,6 +122,9 @@ inline static channel_list_t get_effects_channels(const effects_handle_t *effect
             return effect->effect.flicker->channels;
         case effect_type_oscillator:
             return effect->effect.oscillator->channels;
+        case effect_type_chaser:
+            /* not exactly appropriate here */
+            return effect->effect.chaser->step->channels;
         default:
             break;
     }

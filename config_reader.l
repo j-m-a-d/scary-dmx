@@ -14,6 +14,8 @@ int lines = 0;
 analyzer                    return ANALYZER; 
 bands:                      return BANDS;
 ch:                         return CHAN;
+chaser                      return CHASER;
+chase_value:                return CHASE_VALUE;
 cue                         return CUE;
 fader                       return FADER;
 file:                       return FILENAME;
@@ -28,8 +30,12 @@ offtime:                    return OFFTIME;
 offvalue:                   return OFFVALUE;
 ontime:                     return ONTIME;
 onvalue:                    return ONVALUE;
-oscillator                  return OSCILLATOR; 
+oscillator                  return OSCILLATOR;
+pre_delay:                  return PRE_DELAY;
+post_delay:                 return POST_DELAY;
+repeat:                     return REPEAT;
 speed:                      return SPEED;
+step                        return STEP;
 threshold:                  return THRESHOLD;
 threshold_value:            return THRESHOLD_VALUE;
 timer                       return TIMER; 
@@ -63,7 +69,7 @@ ch[0-9]{1,3}:                {
                                     yylval.val = (unsigned char)val;
                                     return VALUE;
                                 }  else {
-                                    yylval.text = strdup("Invalid dmx value");
+                                    yylval.text = strdup("value must be positive");
                                     return ERROR;
                                 }
                             }

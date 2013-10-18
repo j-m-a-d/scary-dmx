@@ -8,15 +8,16 @@
 
 /* DECS */
 dmx_show_t *resultShow;
+#define MAX_STEPS 128
+chaser_step_t *step_buffer[MAX_STEPS];
+uint8_t stepcount = 0;
 
-extern int parse_show_file(const char *filename, dmx_show_t **show)
+int parse_show_file(const char *filename, dmx_show_t **show)
 {
     FILE *showFile = fopen(filename, "r");
-    if(!showFile){
-    return -1;
-    }
+    if(!showFile) return -1;
 
-    extern FILE *yyin;
+    FILE *yyin;
     yyin = showFile;
 
     int i = init_show(&resultShow);
@@ -34,7 +35,6 @@ extern int parse_show_file(const char *filename, dmx_show_t **show)
 
     return 0;
 }
-
 
 %}
 
@@ -55,6 +55,8 @@ extern int parse_show_file(const char *filename, dmx_show_t **show)
     struct _onoff_effect_t        *onoff;
     struct _flicker_data_t        *flicker;
     struct _oscillator_data_t     *oscillator;
+    struct _chaser_step_t         *chaser_step;
+    struct _chaser_t              *chaser;
 }
 
 /* types */
@@ -77,6 +79,10 @@ extern int parse_show_file(const char *filename, dmx_show_t **show)
 %type <val>           off_value
 %type <val>          from_value
 %type <val>            to_value
+%type <val>             chase_value
+%type <val>             repeat_value
+%type <time_val>    predelay_value
+%type <time_val>    postdelay_value
 %type <text>              ERROR
 
 /* effects */
@@ -85,6 +91,9 @@ extern int parse_show_file(const char *filename, dmx_show_t **show)
 %type <onoff>        onoff_effect
 %type <flicker>      flicker_effect
 %type <oscillator>   oscillator_effect
+%type <chaser_step>  chaser_step
+%type <chaser_step>  chaser_steps
+%type <chaser>       chaser_effect
 
 /* token types */
 %token <val>              VALUE
@@ -94,11 +103,10 @@ extern int parse_show_file(const char *filename, dmx_show_t **show)
 %token <dval>       FLOAT_VALUE
 %token <text>         FILE_SPEC
 
-
-%token ANALYZER BANDS CHAN CUE DASH ERROR
+%token ANALYZER BANDS CHAN CHASER CHASE_VALUE CUE DASH ERROR
 %token FADER FILENAME FLICKER FREQ FROM TO
 %token HIGH LBRACE LOW LPAREN ON_OFF OFFTIME OFFVALUE ONTIME ONVALUE
-%token OSCILLATOR RBRACE RPAREN SEMICOLON SPEED
+%token OSCILLATOR PRE_DELAY POST_DELAY REPEAT RBRACE RPAREN SEMICOLON SPEED STEP
 %token THRESHOLD THRESHOLD_VALUE TIMER TYPE
 
 %token <text> UNKNOWN
@@ -281,6 +289,15 @@ oscillator_effect
     yylval.effect = effect;
     $$ = yylval.effect;
 }
+|
+chaser_effect
+{
+    effects_handle_t *effect = NEW_EFFECTS_HANDLE(effect);
+    effect->type = effect_type_chaser;
+    effect->effect.chaser = $1;
+    yylval.effect = effect;
+    $$ = yylval.effect;
+}
 ;
 
 fader_effect:
@@ -360,13 +377,66 @@ FLICKER LBRACE channel_list RBRACE
     }
     log_debug("\n");
 #endif
-    channel_list_t chs = channel_list_from_data($3.count, $3.channels);
     flicker_data_t *flicker = NEW_FLICKER_DATA(flicker);
-    flicker->channels = chs;
+    flicker->channels = channel_list_from_data($3.count, $3.channels);
     yylval.flicker = flicker;
     $$ = yylval.flicker;
 }
 ;
+
+chaser_steps:
+chaser_step
+|
+chaser_steps chaser_step
+;
+
+chaser_step:
+STEP LBRACE channel_list chase_value repeat_value speed_value predelay_value postdelay_value RBRACE
+{
+#ifdef _TRACE_PARSER
+    log_debug("chaser step: chase value-- %d, repeat--%d, speed--%d, pre--%d, post--%d\n",
+        $4, $5, $6, $7, $8);
+    log_debug("%d channel(s)\n", $3.count);
+    unsigned int i=0;
+    for(i=0; i<$3.count; i++){
+        log_debug(" %d \n", $3.channels[i]);
+    }
+#endif
+    if(stepcount < MAX_STEPS) {
+        chaser_step_t *step = NEW_CHASER_STEP(step);
+        step->channels = channel_list_from_data($3.count, $3.channels);
+        step->value = $4;
+        step->repeat = $5;
+        step->speed = $6;
+        step->pre_delay = $7;
+        step->post_delay = $8;
+        step_buffer[stepcount++] = step;
+
+        yylval.chaser_step = step;
+        $$ = yylval.chaser_step;
+    } else {
+        log_warn("chaser step count exceeded... ignoring remaining steps for chaser\n");
+    }
+}
+;
+
+chaser_effect:
+CHASER LBRACE chaser_steps RBRACE
+{
+#ifdef _TRACE_PARSER
+    log_debug("chaser effect: %d steps\n", stepcount);
+#endif
+    chaser_t *chaser = NEW_CHASER(chaser);
+    for(int i=0; i< stepcount; i++) {
+        add_chaser_step(chaser, step_buffer[i]);
+    }
+    /* flush buffer */
+    memset(step_buffer, 0, MAX_STEPS);
+    yylval.chaser = chaser;
+    $$ = yylval.chaser;
+}
+;
+
 /**** ****/
 
 /*** TYPES ***/
@@ -454,15 +524,41 @@ off_value: OFFVALUE value
 }
 ;
 
+chase_value: CHASE_VALUE value
+{
+    $$ = $2;
+}
+
+repeat_value: REPEAT value
+{
+    $$ = $2;
+}
+
+predelay_value: PRE_DELAY time_value
+{
+    $$ = $2;
+}
+
+postdelay_value: POST_DELAY time_value
+{
+    $$ = $2;
+}
+
 value:          VALUE SEMICOLON
 {
     $$ = $1;
 }
 ;
 
-time_value:  LONGVAL SEMICOLON
+time_value:
+LONGVAL SEMICOLON
 {
-  $$ = $1;
+    $$ = $1;
+}
+|
+VALUE SEMICOLON
+{
+    $$ = $1;
 }
 ;
 
