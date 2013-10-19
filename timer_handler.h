@@ -41,7 +41,7 @@ int timers_init();
 int create_timer_handle(timer_handle **handle);
 int cue_timer(const timer_data_t *timer_data);
 int start_timers();
-void stop_timers();
+void stop_timers(timer_data_t*);
 
 #define FREE_TIMED_EFFECTS(data) \
 if(data) { \

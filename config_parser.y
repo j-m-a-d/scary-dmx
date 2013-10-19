@@ -18,7 +18,7 @@ int parse_show_file(const char *filename, dmx_show_t **show)
     FILE *showFile = fopen(filename, "r");
     if(!showFile) return -1;
 
-    FILE *yyin;
+    extern FILE *yyin;
     yyin = showFile;
 
     int i = init_show(&resultShow);

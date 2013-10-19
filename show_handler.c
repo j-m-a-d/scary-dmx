@@ -138,7 +138,7 @@ int create_cue_node(cue_node_t **cueNode)
     (*cueNode)->previousCue = 0;
     (*cueNode)->nextCue = 0;
     /* Allocate the channel values */
-    (*cueNode)->cue->channelValues = calloc(sizeof(dmx_value_t), DMX_CHANNELS);
+    (*cueNode)->cue->channelValues = (dmx_value_t*)calloc(sizeof(dmx_value_t), DMX_CHANNELS);
     if( NULL == (*cueNode)->cue->channelValues){
         log_error( "Could not allocate memory for channel settings.\n");
         free( (*cueNode)->cue );
@@ -375,7 +375,7 @@ void stop_show()
 /*
  Callback from movie thread to know when to move to the next scene.
  */
-static void go_to_next_step()
+static void go_to_next_step(void *data_in) /* use arg */
 {
     log_debug("Callback: moving to next cue from: %s.\n", _live_show->currentCue->cue->aData->movieFile);
 
