@@ -375,7 +375,7 @@ void stop_show()
 /*
  Callback from movie thread to know when to move to the next scene.
  */
-static void go_to_next_step(void *data_in) /* use arg */
+static void go_to_next_step()
 {
     log_debug("Callback: moving to next cue from: %s.\n", _live_show->currentCue->cue->aData->movieFile);
 
