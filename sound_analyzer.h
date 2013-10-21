@@ -46,13 +46,13 @@ typedef struct _analyzer_data_t {
  Print an analyzer setting to a show file.
  */
 void print_analyzer(const analyzer_data_t *, FILE *);
-int open_movie_file(const unsigned char *fileName, Movie **newMovie, short *refId);
-int start_analyze(const analyzer_data_t *data_in, void(*callback)());
+int open_movie_file(const unsigned char *, Movie **, short *);
+int start_analyze(const analyzer_data_t *, void(*)());
 void stop_analyze();
 void skip_movie();
 void free_analyzer_data(analyzer_data_t *);
-void register_self_as_freq_listener(void *callbackRef, void(*listenerFunction)(void*, QTAudioFrequencyLevels*));
-void deregister_self_as_freqListner(void *callbackRef);
+void register_self_as_freq_listener(void *, void(*)(void*, QTAudioFrequencyLevels*));
+void deregister_self_as_freqListner(void *);
 
 #define FREE_ANALYZER_DATA(data) \
 free_analyzer_data(data); \

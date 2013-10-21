@@ -56,12 +56,12 @@ void print_effects_handle(const effects_handle_t*, FILE*);
     malloc(sizeof(effects_handle_t)); \
     memset(handle, 0, sizeof(effects_handle_t));
 
-void free_effects_handle(effects_handle_t *effect);
+void free_effects_handle(effects_handle_t*);
 #define FREE_EFFECTS_HANDLE(handle) \
     free_effects_handle(handle); \
     handle = 0;
 
-void do_effect(const effects_handle_t *effect);
-void reset_effects_channels(const effects_handle_t *effect);
+void do_effect(const effects_handle_t*);
+void reset_effects_channels(const effects_handle_t*);
 
 #endif

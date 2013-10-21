@@ -38,8 +38,8 @@ enum {
  */
 void print_timer_data(const timer_data_t *, FILE *);
 int timers_init();
-int create_timer_handle(timer_handle **handle);
-int cue_timer(const timer_data_t *timer_data);
+int create_timer_handle(timer_handle**);
+int cue_timer(const timer_data_t*);
 int start_timers();
 void stop_timers(timer_data_t*);
 
