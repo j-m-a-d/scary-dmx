@@ -27,15 +27,15 @@ void print_cue_channels(unsigned char *channels, FILE *out)
 /*
  * Print a list of channels for any effect that supports channes lists.
  */
-void printChannelList(const channel_list_t channels, FILE *showFile)
+void print_channel_list(const channel_list_t channels, FILE *out)
 {
     dmx_channel_t *tmp = channels->channels;
-    fprintf(showFile, "\t\t ch:%d", *tmp++);
+    fprintf(out, "\t\t ch:%d", *tmp++);
     while(*tmp){
-        fprintf(showFile, ",%d", *tmp);
+        fprintf(out, ",%d", *tmp);
         tmp++;
     }
-    fprintf(showFile, ";\n");
+    fprintf(out, ";\n");
 }
 
 inline channel_list_t new_channel_list(const uint32_t length)

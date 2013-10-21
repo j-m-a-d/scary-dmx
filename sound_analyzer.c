@@ -21,10 +21,10 @@ static pthread_t _monitor_thread = 0;
 static pthread_t _callback_thread = 0;
 static pthread_mutex_t _analyze_mutex = PTHREAD_MUTEX_INITIALIZER;
 
-static void(*_listenerFunction)(void*, QTAudioFrequencyLevels*) = 0;
+static void(*_listener_function)(void*, QTAudioFrequencyLevels*) = 0;
 static void *_callback_ref = 0;
 
-static QTAudioFrequencyLevels *_freqResults;
+static QTAudioFrequencyLevels *_freq_results;
 
 /*
  *   Structure for thread creation.
@@ -36,7 +36,7 @@ typedef struct _monitor_data_t {
     const char *file_name;
     short refId;
     short frequency;
-    channel_list_t dmxChannelList;
+    channel_list_t channels;
     dmx_value_t dmxValue; // fix alignment
     double threshold;
     int flags;
@@ -53,7 +53,7 @@ void print_analyzer(const analyzer_data_t *data, FILE *out)
 {
     fprintf(out, "\tanalyzer {\n");
     fprintf(out, "\t\t file:%s;\n", data->movieFile);
-    printChannelList(data->dmxChannelList, out);
+    print_channel_list(data->dmxChannelList, out);
     fprintf(out, "\t\t threshold:%6.3f;\n", data->threshold);
     fprintf(out, "\t\t threshold_value:%d;\n", data->dmxValue);
     fprintf(out, "\t\t bands:%lu;\n", data->numberOfBandLevels);
@@ -65,7 +65,7 @@ void print_analyzer(const analyzer_data_t *data, FILE *out)
 inline static void free_monitor_data(monitor_data_t *mdata)
 {
     /* don't free the file_name pointer... he's just borrowed */
-    FREE_CHANNEL_LIST(mdata->dmxChannelList);
+    FREE_CHANNEL_LIST(mdata->channels);
     memset(mdata, 0, sizeof(monitor_data_t));
     free(mdata);
 }
@@ -129,15 +129,15 @@ static void *do_callback(void *data_in)
     EXIT_THREAD();
 }
 
-void register_self_as_freq_listener(void *callbackRef, void(*listenerFunction)(void*, QTAudioFrequencyLevels*))
+void register_self_as_freq_listener(void *callback_ref, void(*listenerFunction)(void*, QTAudioFrequencyLevels*))
 {
-    _listenerFunction = listenerFunction;
-    _callback_ref = callbackRef;
+    _listener_function = listenerFunction;
+    _callback_ref = callback_ref;
 }
 
-void deregister_self_as_freqListner(void *callbackRef)
+void deregister_self_as_freqListner(void *callback_ref)
 {
-    _listenerFunction = 0;
+    _listener_function = 0;
     _callback_ref = 0;
 }
 
@@ -161,7 +161,7 @@ static void *monitor(void *data_in)
     void(*callback)() = data->callback;
 
     /* start the channels at reset level. */
-    update_channels(data->dmxChannelList, CHANNEL_RESET);
+    update_channels(data->channels, CHANNEL_RESET);
 
     StartMovie(*_movie);
 
@@ -170,9 +170,9 @@ static void *monitor(void *data_in)
     /* Don't stop unless the movie has stopped or the frequency buffer has vanished or
      * the user told us to.
      */
-    while (_monitoring && !IsMovieDone(*_movie) && _freqResults) {
+    while (_monitoring && !IsMovieDone(*_movie) && _freq_results) {
 
-        OSStatus err = GetMovieAudioFrequencyLevels(*_movie, kQTAudioMeter_StereoMix, _freqResults);
+        OSStatus err = GetMovieAudioFrequencyLevels(*_movie, kQTAudioMeter_StereoMix, _freq_results);
         if(err){
             log_error( "Failed to produce frequency levels.  Cleaning up now.\n");
             goto cleanup;
@@ -180,14 +180,14 @@ static void *monitor(void *data_in)
 
         if( _analyzer_function ){
             pthread_mutex_lock(&_analyze_mutex);
-            if(_monitoring) _analyzer_function(data, _freqResults);
+            if(_monitoring) _analyzer_function(data, _freq_results);
             pthread_mutex_unlock(&_analyze_mutex);
         }else{
             sleep(1);
         }
 
-        if(_listenerFunction && _callback_ref)
-            _listenerFunction(_callback_ref, _freqResults);
+        if(_listener_function && _callback_ref)
+            _listener_function(_callback_ref, _freq_results);
 
         MoviesTask(*_movie, 0);
     }
@@ -204,10 +204,10 @@ cleanup:
         log_debug( "Cleaning up analyzer...\n");
 
         /* Reset the DMX channel. */
-        update_channels(data->dmxChannelList, CHANNEL_RESET);
+        update_channels(data->channels, CHANNEL_RESET);
         FREE_MONITOR_DATA(data);
-        free(_freqResults);
-        _freqResults = 0;
+        free(_freq_results);
+        _freq_results = 0;
         CloseMovieFile(movieId);
         DisposeMovie(*_movie);
         free(_movie);
@@ -236,9 +236,9 @@ static void peak_monitor(monitor_data_t *data, QTAudioFrequencyLevels *freqs)
 {
     Float32 value = freqs->level[data->frequency];
     if(value >= data->threshold ){
-        update_channels(data->dmxChannelList, data->dmxValue);
+        update_channels(data->channels, data->dmxValue);
         usleep(DEFAULT_SLEEP_INTERVAL);
-        update_channels(data->dmxChannelList, CHANNEL_RESET);
+        update_channels(data->channels, CHANNEL_RESET);
     }else{
         usleep(DEFAULT_SLEEP_INTERVAL);
     }
@@ -249,7 +249,7 @@ static void follow_monitor(monitor_data_t *data, QTAudioFrequencyLevels *freqs)
     Float32 value = freqs->level[data->frequency];
     /* update the channel to the percentage of max based on the freq level. */
     dmx_value_t i = (dmx_value_t)(255 * value);
-    update_channels(data->dmxChannelList, i);
+    update_channels(data->channels, i);
     usleep(DEFAULT_SLEEP_INTERVAL);
 }
 
@@ -263,9 +263,9 @@ static void chase_monitor(monitor_data_t *data, QTAudioFrequencyLevels *freqs)
         lastChannel = 0;
         return;
     }
-    unsigned int length = data->dmxChannelList->length;
+    unsigned int length = data->channels->length;
     if(lastChannel >= length) lastChannel = 0;
-    dmx_channel_t ch = data->dmxChannelList->channels[lastChannel];
+    dmx_channel_t ch = data->channels->channels[lastChannel];
     Float32 value = 0.0F;
     if(freqs) {
         value = freqs->level[data->frequency];
@@ -275,7 +275,7 @@ static void chase_monitor(monitor_data_t *data, QTAudioFrequencyLevels *freqs)
         update_channel(ch, 0);
         ++lastChannel;
         if(lastChannel >= length) lastChannel = 0;
-        ch = data->dmxChannelList->channels[lastChannel];
+        ch = data->channels->channels[lastChannel];
         update_channel(ch, data->dmxValue);
         lastValue = data->dmxValue;
         usleep(DEFAULT_SLEEP_INTERVAL);
@@ -345,7 +345,7 @@ int start_analyze(const analyzer_data_t *data_in, void(*callback)())
 
     numberOfBandLevels = data_in->numberOfBandLevels;
 
-    _freqResults = 0;
+    _freq_results = 0;
     OSStatus err;
 
     const unsigned char* file_name = (unsigned char *) data_in->movieFile;
@@ -357,17 +357,17 @@ int start_analyze(const analyzer_data_t *data_in, void(*callback)())
 
     SetMovieAudioFrequencyMeteringNumBands(*_movie, kQTAudioMeter_StereoMix, &numberOfBandLevels);
 
-    _freqResults = malloc(offsetof(QTAudioFrequencyLevels,
+    _freq_results = malloc(offsetof(QTAudioFrequencyLevels,
                                   level[numberOfBandLevels * numberOfChannels]));
-    if (!_freqResults) {
+    if (!_freq_results) {
         /* TODO clean up */
         err = memFullErr;
         pthread_mutex_unlock(&_analyze_mutex);
         return err;
     }
 
-    _freqResults->numChannels = numberOfChannels;
-    _freqResults->numFrequencyBands = numberOfBandLevels;
+    _freq_results->numChannels = numberOfChannels;
+    _freq_results->numFrequencyBands = numberOfBandLevels;
 
     /*
      * Repackage our structure to send to the monitor thread with
@@ -375,7 +375,7 @@ int start_analyze(const analyzer_data_t *data_in, void(*callback)())
      */
     monitor_data_t *data = malloc(sizeof(monitor_data_t));
 
-    data->dmxChannelList = copy_channel_list(data_in->dmxChannelList);
+    data->channels = copy_channel_list(data_in->dmxChannelList);
 
     data->flags = data_in->flags;
     data->frequency = data_in->frequency;

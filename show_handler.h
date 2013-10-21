@@ -28,25 +28,25 @@ enum {
 
 typedef struct _cue_t{
     int empty;
-    flicker_data_t *flickerChannels;
+    flicker_data_t *fdata;
     timer_data_t* timer;
     oscillator_data_t* oData;
     analyzer_data_t* aData;
-    unsigned int stepDuration;
-    dmx_value_t *channelValues;
+    unsigned int step_duration;
+    dmx_value_t *channel_values;
 } cue_t;
 
 typedef struct _cue_node_t{
     cue_t* cue;
-    struct _cue_node_t* nextCue;
-    struct _cue_node_t* previousCue;
+    struct _cue_node_t* next_cue;
+    struct _cue_node_t* previous_cue;
     unsigned int cue_id;
 } cue_node_t;
 
 typedef struct _dmx_show_t{
-    char* showName;
-    unsigned int cueCount;
-    struct _cue_node_t* currentCue;
+    char* show_name;
+    unsigned int cue_count;
+    struct _cue_node_t* current_cue;
 } dmx_show_t;
 
 int load_show_from_file(const char *show_file, dmx_show_t **out_show);
@@ -105,10 +105,10 @@ void set_oscillator_data_for_current_cue(dmx_show_t*, oscillator_data_t*);
 void set_analyzer_data_for_current_cue(dmx_show_t*, analyzer_data_t*);
 void set_timer_data_for_current_cue(dmx_show_t*, timer_data_t*);
 void reset_channel_values_for_current_cue();
-void printShow(dmx_show_t*, FILE*);
+void print_show(dmx_show_t*, FILE*);
 /* Call back registration functions */
-void register_show_ended(void *callRef, void(*showEnded)(void*));
-void register_show_next_step(void *callRef, void(*show_nex_step)(void*, cue_node_t*));
+void register_show_ended(void*, void(*)(void*));
+void register_show_next_step(void*, void(*)(void*, cue_node_t*));
 
 #endif
 

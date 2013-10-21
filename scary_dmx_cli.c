@@ -16,6 +16,8 @@
 #error Compile with _REENTRANT defined for use with threads
 #endif
 
+volatile uint8_t done = 0;
+
 void sig_all(int sig)
 {
     sigset_t mask_set;
@@ -31,6 +33,11 @@ void sig_all(int sig)
     ExitMovies();
     log_info("Shutdown finished.\n");
     exit(0);
+}
+
+void show_ended(void *nop)
+{
+    done = 1;
 }
 
 int main(int argc, char **argv)
@@ -74,7 +81,10 @@ int main(int argc, char **argv)
     log_error( "Starting show.\n");
     start_show();
     log_error( "Running...\n");
-    while(1){
+    
+    register_show_ended(NULL, &show_ended);
+    
+    while(!done){
         // TODO create keyboard shortcuts and handle them.
         sleep(1);
     }

@@ -38,8 +38,8 @@ void print_timer_data(const timer_data_t *data, FILE *out)
     fprintf(out, "\t\t offtime:%d;\n", data->off_time);
     print_effects_handle(data->effect, out);
     fprintf(out, "\t }\n");
-    if(data->nextTimer) {
-        print_timer_data(data->nextTimer, out);
+    if(data->next_timer) {
+        print_timer_data(data->next_timer, out);
     }
 }
 
@@ -76,7 +76,7 @@ static void free_timer(timer_data_t *data)
 void free_timers(timer_data_t *timer)
 {
     if(timer) {
-        free_timers(timer->nextTimer);
+        free_timers(timer->next_timer);
         free_timer(timer);
     }
 }
@@ -107,7 +107,7 @@ void stop_timers(timer_data_t *timer)
         cancel_join_pthread((handle->thread_handle));
         handle->run_flag = 0;
         reset_effects_channels(tmp->effect);
-        tmp = tmp->nextTimer;
+        tmp = tmp->next_timer;
     }
     pthread_mutex_unlock(&_wait_mutex);
 }

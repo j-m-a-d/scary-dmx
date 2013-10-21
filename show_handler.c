@@ -31,11 +31,11 @@ static void *_show_next_step_obj = 0;
  */
 static int advance_cue(dmx_show_t *show)
 {
-    if(!show->currentCue) return 0;
+    if(!show->current_cue) return 0;
 
-    show->currentCue = show->currentCue->nextCue;
-    return (NULL == show->currentCue || NULL == show->currentCue->cue ||
-            show->currentCue->cue->empty);
+    show->current_cue = show->current_cue->next_cue;
+    return (NULL == show->current_cue || NULL == show->current_cue->cue ||
+            show->current_cue->cue->empty);
 }
 
 #define FREE_CUE(cue) \
@@ -46,15 +46,15 @@ static void free_cue(cue_t *cue)
 {
     if(!cue) return;
 
-    if(cue->channelValues)
-        free(cue->channelValues);
+    if(cue->channel_values)
+        free(cue->channel_values);
 
-    cue->channelValues = 0;
+    cue->channel_values = 0;
 
     FREE_ANALYZER_DATA (cue->aData);
     FREE_OSCILLATOR_DATA (cue->oData);
     FREE_TIMED_EFFECTS(cue->timer);
-    FREE_FLICKER_DATA(cue->flickerChannels);
+    FREE_FLICKER_DATA(cue->fdata);
 
     memset(cue, 0, sizeof(cue_t));
     free(cue);
@@ -77,17 +77,17 @@ int free_show(dmx_show_t *show)
     if(!show){
         return 0;
     }
-    if(!(show->currentCue)){
+    if(!(show->current_cue)){
         return 0;
     }
     /* Skip to the end and work backwards. */
-    while(show->currentCue->nextCue){
-        show->currentCue = show->currentCue->nextCue;
+    while(show->current_cue->next_cue){
+        show->current_cue = show->current_cue->next_cue;
     }
 
-    while(show->currentCue){
-        cue_node_t *tmp = show->currentCue;
-        show->currentCue = tmp->previousCue;
+    while(show->current_cue){
+        cue_node_t *tmp = show->current_cue;
+        show->current_cue = tmp->previous_cue;
 
         if(tmp->cue){
             FREE_CUE(tmp->cue);
@@ -130,23 +130,23 @@ int create_cue_node(cue_node_t **cueNode)
     (*cueNode)->cue = (cue_t*)malloc(sizeof(cue_t));
     memset( (*cueNode)->cue, 0, sizeof(cue_t));
     (*cueNode)->cue->empty = 1;
-    (*cueNode)->cue->flickerChannels=0;
-    (*cueNode)->cue->stepDuration=0;
+    (*cueNode)->cue->fdata=0;
+    (*cueNode)->cue->step_duration=0;
     (*cueNode)->cue->aData=0;
     (*cueNode)->cue->oData=0;
     (*cueNode)->cue->timer=0;
-    (*cueNode)->previousCue = 0;
-    (*cueNode)->nextCue = 0;
+    (*cueNode)->previous_cue = 0;
+    (*cueNode)->next_cue = 0;
     /* Allocate the channel values */
-    (*cueNode)->cue->channelValues = (dmx_value_t*)calloc(sizeof(dmx_value_t), DMX_CHANNELS);
-    if( NULL == (*cueNode)->cue->channelValues){
+    (*cueNode)->cue->channel_values = (dmx_value_t*)calloc(sizeof(dmx_value_t), DMX_CHANNELS);
+    if( NULL == (*cueNode)->cue->channel_values){
         log_error( "Could not allocate memory for channel settings.\n");
         free( (*cueNode)->cue );
         (*cueNode)->cue = 0;
         //(*cueNode)->cue->channelValues = 0;
         return 1;
     }
-    memset((*cueNode)->cue->channelValues, 0, DMX_CHANNELS);
+    memset((*cueNode)->cue->channel_values, 0, DMX_CHANNELS);
     return 0;
 }
 
@@ -162,15 +162,15 @@ int init_show(dmx_show_t **show)
         *show = 0;
         return 1;
     }
-    (*show)->showName = "Default Show";
-    (*show)->cueCount = 0;
-    (*show)->currentCue = 0;
-    if(create_cue_node(&((*show)->currentCue))){
+    (*show)->show_name = "Default Show";
+    (*show)->cue_count = 0;
+    (*show)->current_cue = 0;
+    if(create_cue_node(&((*show)->current_cue))){
         free( *show );
         *show = 0;
         return 1;
     }
-    (*show)->currentCue->cue_id = 0;
+    (*show)->current_cue->cue_id = 0;
 
     return 0;
 }
@@ -178,22 +178,22 @@ int init_show(dmx_show_t **show)
 /*
     Print a show to a file.
  */
-void printShow(dmx_show_t *show, FILE *showFile)
+void print_show(dmx_show_t *show, FILE *showFile)
 {
-    cue_node_t *node = show->currentCue;
+    cue_node_t *node = show->current_cue;
     cue_t *cue;
     while(node){
         cue = node->cue;
         fprintf(showFile, "cue ");
-        if(cue->stepDuration) fprintf(showFile, "(%d)", cue->stepDuration);
+        if(cue->step_duration) fprintf(showFile, "(%d)", cue->step_duration);
         fprintf(showFile, "{\n");
-        print_cue_channels(cue->channelValues, showFile);
-        if(cue->flickerChannels) print_flicker_channels(cue->flickerChannels, showFile);
+        print_cue_channels(cue->channel_values, showFile);
+        if(cue->fdata) print_flicker_channels(cue->fdata, showFile);
         if(cue->aData) print_analyzer(cue->aData, showFile);
         if(cue->oData) print_oscillator_data(cue->oData, showFile);
         if(cue->timer) print_timer_data(cue->timer, showFile);
         fprintf(showFile, "}\n");
-        node = node->nextCue;
+        node = node->next_cue;
     }
 }
 
@@ -203,9 +203,9 @@ void printShow(dmx_show_t *show, FILE *showFile)
  */
 int add_cue(dmx_show_t* show)
 {
-    cue_node_t *lastCue = show->currentCue;
-    while(lastCue->nextCue){
-        lastCue = lastCue->nextCue;
+    cue_node_t *lastCue = show->current_cue;
+    while(lastCue->next_cue){
+        lastCue = lastCue->next_cue;
     }
     cue_node_t *newCue;
     unsigned int id = lastCue->cue_id +1;
@@ -216,63 +216,63 @@ int add_cue(dmx_show_t* show)
         return i;
     }
     newCue->cue_id = id;
-    lastCue->nextCue = newCue;
-    newCue->previousCue = lastCue;
-    newCue->nextCue = 0;
-    show->currentCue = newCue;
-    show->cueCount++;
+    lastCue->next_cue = newCue;
+    newCue->previous_cue = lastCue;
+    newCue->next_cue = 0;
+    show->current_cue = newCue;
+    show->cue_count++;
     return 0;
 }
 
 inline void set_channel_value_for_current_cue(dmx_show_t *show, dmx_channel_t ch, dmx_value_t val)
 {
-    show->currentCue->cue->empty = 0;
-    show->currentCue->cue->channelValues[ch] = val;
+    show->current_cue->cue->empty = 0;
+    show->current_cue->cue->channel_values[ch] = val;
 }
 
 inline void set_step_duration_for_current_cue(dmx_show_t *show, unsigned int duration)
 {
-    show->currentCue->cue->empty = 0;
-    show->currentCue->cue->stepDuration = duration;
+    show->current_cue->cue->empty = 0;
+    show->current_cue->cue->step_duration = duration;
 }
 
 inline void set_flicker_for_current_cue(dmx_show_t *show, flicker_data_t *flicker_data)
 {
-    show->currentCue->cue->empty = 0;
-    show->currentCue->cue->flickerChannels = flicker_data;
+    show->current_cue->cue->empty = 0;
+    show->current_cue->cue->fdata = flicker_data;
 }
 
 inline void set_oscillator_data_for_current_cue(dmx_show_t *show, oscillator_data_t *oData)
 {
-    show->currentCue->cue->empty = 0;
-    show->currentCue->cue->oData = oData;
+    show->current_cue->cue->empty = 0;
+    show->current_cue->cue->oData = oData;
 }
 
 inline void set_analyzer_data_for_current_cue(dmx_show_t *show, analyzer_data_t *aData)
 {
-    show->currentCue->cue->empty = 0;
-    show->currentCue->cue->aData = aData;
+    show->current_cue->cue->empty = 0;
+    show->current_cue->cue->aData = aData;
 }
 
 void set_timer_data_for_current_cue(dmx_show_t *show, timer_data_t *data)
 {
-    if(NULL == show->currentCue->cue->timer){
-        show->currentCue->cue->timer = data;
-        show->currentCue->cue->timer->nextTimer = 0;
+    if(NULL == show->current_cue->cue->timer){
+        show->current_cue->cue->timer = data;
+        show->current_cue->cue->timer->next_timer = 0;
     } else {
-        show->currentCue->cue->empty = 0;
-        timer_data_t *tmp = show->currentCue->cue->timer;
-        show->currentCue->cue->timer = data;
-        show->currentCue->cue->timer->nextTimer = tmp;
+        show->current_cue->cue->empty = 0;
+        timer_data_t *tmp = show->current_cue->cue->timer;
+        show->current_cue->cue->timer = data;
+        show->current_cue->cue->timer->next_timer = tmp;
     }
 }
 
 void reset_channel_values_for_current_cue()
 {
     if(_live_show) {
-        if(_live_show->currentCue){
-            if(_live_show->currentCue->cue) {
-                bulk_update(_live_show->currentCue->cue->channelValues);
+        if(_live_show->current_cue){
+            if(_live_show->current_cue->cue) {
+                bulk_update(_live_show->current_cue->cue->channel_values);
             }
         }
     }
@@ -294,10 +294,10 @@ static void *next_step()
         goto die_now;
     }
 
-    cue_node_t *cueNode = _live_show->currentCue;
+    cue_node_t *cueNode = _live_show->current_cue;
     cue_t *cue = cueNode->cue;
 
-    if(cue->aData && !cue->stepDuration){
+    if(cue->aData && !cue->step_duration){
         int err = start_analyze(cue->aData, &go_to_next_step);
         if(err){
             log_error( "Cannot start sound analyzer: %d\n", err);
@@ -307,8 +307,8 @@ static void *next_step()
 
     reset_channel_values_for_current_cue();
 
-    if(cue->flickerChannels){
-        start_flicker(cue->flickerChannels);
+    if(cue->fdata){
+        start_flicker(cue->fdata);
     }
 
     if(cue->oData){
@@ -325,7 +325,7 @@ static void *next_step()
                 create_timer_handle(&(tdata->timer_handle));
             }
             cue_timer(tdata);
-            tdata = tdata->nextTimer;
+            tdata = tdata->next_timer;
         }
         /* now start them all at once */
         start_timers();
@@ -352,7 +352,7 @@ static void _stop_show()
     stop_oscillating();
     stop_flicker();
     if(_live_show)
-        stop_timers(_live_show->currentCue->cue->timer);
+        stop_timers(_live_show->current_cue->cue->timer);
 }
 
 /*
@@ -377,7 +377,7 @@ void stop_show()
  */
 static void go_to_next_step()
 {
-    log_debug("Callback: moving to next cue from: %s.\n", _live_show->currentCue->cue->aData->movieFile);
+    log_debug("Callback: moving to next cue from: %s.\n", _live_show->current_cue->cue->aData->movieFile);
 
     int showOver = 0;
 
@@ -389,8 +389,8 @@ static void go_to_next_step()
     stop_flicker();
     log_debug("Stopped flicker.\n");
 
-    if(_live_show->currentCue)
-        stop_timers(_live_show->currentCue->cue->timer);
+    if(_live_show->current_cue)
+        stop_timers(_live_show->current_cue->cue->timer);
     log_debug("Stopped timed effects.\n");
 
     log_debug("showstate=%#x.\n", _state);
@@ -405,7 +405,7 @@ static void go_to_next_step()
             log_debug( "Returned from next step.\n");
             if(_call_show_next_step){
                 /* notify listeners */
-                _call_show_next_step(_show_next_step_obj, _live_show->currentCue);
+                _call_show_next_step(_show_next_step_obj, _live_show->current_cue);
             }
         } else {
             log_debug( "Show is over.\n");
@@ -442,7 +442,7 @@ int load_show_from_file(const char *show_file, dmx_show_t **out_show)
 /*
  Set a pre-built show to be played.
  */
-int setShow(dmx_show_t *show)
+int set_show(dmx_show_t *show)
 {
     if(STOPPED(_state))
         return 1;
@@ -486,8 +486,8 @@ int start_show()
 void _rewind_show(dmx_show_t *show)
 {
     if(show == 0) return;
-    while((show->currentCue->previousCue)){
-        show->currentCue = show->currentCue->previousCue;
+    while((show->current_cue->previous_cue)){
+        show->current_cue = show->current_cue->previous_cue;
     }
 }
 
@@ -497,10 +497,10 @@ void _rewind_show(dmx_show_t *show)
 void rewind_show()
 {
     pthread_mutex_lock(&_control_mutex);
-    enum op_state lastState = _state;
+    enum op_state last_state = _state;
     _state = OP_STATE_SKIPPING;
 
-    if(RUNNING(lastState)){
+    if(RUNNING(last_state)){
         _stop_show();
         _rewind_show(_live_show);
         _start_show();
@@ -508,7 +508,7 @@ void rewind_show()
         _rewind_show(_live_show);
     }
 
-    _state = lastState;
+    _state = last_state;
     pthread_mutex_unlock(&_control_mutex);
 }
 
@@ -527,9 +527,9 @@ int skip_cue()
 
     if(RUNNING(last_state)) {
         skip_movie();
-    } else if(_live_show && _live_show->currentCue->nextCue){
-        _live_show->currentCue = _live_show->currentCue->nextCue;
-        _call_show_next_step(_show_next_step_obj, _live_show->currentCue);
+    } else if(_live_show && _live_show->current_cue->next_cue){
+        _live_show->current_cue = _live_show->current_cue->next_cue;
+        _call_show_next_step(_show_next_step_obj, _live_show->current_cue);
     }
 
     _state = last_state;
@@ -542,14 +542,14 @@ int skip_cue()
 /*
  Register show events
  */
-void register_show_ended(void *callRef, void(*showEnded)(void*))
+void register_show_ended(void *call_ref, void(*show_ended)(void*))
 {
-    _call_show_end = showEnded;
-    _show_end_obj = callRef;
+    _call_show_end = show_ended;
+    _show_end_obj = call_ref;
  }
 
-void register_show_next_step(void *callRef, void(*show_next_step)(void*, cue_node_t*))
+void register_show_next_step(void *call_ref, void(*show_next_step)(void*, cue_node_t*))
 {
     _call_show_next_step = show_next_step;
-    _show_next_step_obj = callRef;
+    _show_next_step_obj = call_ref;
 }

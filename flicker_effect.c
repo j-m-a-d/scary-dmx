@@ -32,7 +32,7 @@ inline void free_flicker_data(flicker_data_t *flicker_data)
 void print_flicker_channels(const flicker_data_t *flicker_data, FILE *out)
 {
     fprintf(out, "\tflicker {\n");
-    printChannelList(flicker_data->channels, out);
+    print_channel_list(flicker_data->channels, out);
     fprintf(out, "\t}\n");
 }
 
@@ -58,38 +58,38 @@ void flicker(const flicker_data_t *flicker)
 
     /* Effect speed. */
     useconds_t seconds = 10000;
-    channel_list_t dmxChannels = flicker->channels;
+    channel_list_t dmx_channels = flicker->channels;
 
     register dmx_value_t i=0;
 
     /* Hardcoded sequence of values for this effect on a dimmer pack. */
     for(i=65; i<155; i+=2){
-        update_channels(dmxChannels, i);
+        update_channels(dmx_channels, i);
         usleep(seconds);
     }
 
     for(i=155; i>100; i-=2){
-        update_channels(dmxChannels, i);
+        update_channels(dmx_channels, i);
         usleep(seconds);
     }
 
     for(i=100; i<125; i+=2){
-        update_channels(dmxChannels, i);
+        update_channels(dmx_channels, i);
         usleep(seconds);
     }
 
     for(i=125; i>75; i-=2){
-        update_channels(dmxChannels, i);
+        update_channels(dmx_channels, i);
         usleep(seconds);
     }
 
     for(i=75; i<125; i+=2){
-        update_channels(dmxChannels, i);
+        update_channels(dmx_channels, i);
         usleep(seconds);
     }
 
     for(i=125; i>65; i-=2){
-        update_channels(dmxChannels, i);
+        update_channels(dmx_channels, i);
         usleep(seconds);
     }
 }

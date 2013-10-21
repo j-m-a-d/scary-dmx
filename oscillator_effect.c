@@ -26,7 +26,7 @@ static pthread_mutex_t _oscillator_mutex = PTHREAD_MUTEX_INITIALIZER;
 void print_oscillator_data(const oscillator_data_t *data, FILE *out)
 {
     fprintf(out, "\toscillator {\n");
-    printChannelList(data->channels, out);
+    print_channel_list(data->channels, out);
     fprintf(out, "\t\t low:%d;\n", data->lowThreshold);
     fprintf(out, "\t\t high:%d;\n", data->highThreshold);
     fprintf(out, "\t\t speed:%d;\n", data->speed);
@@ -51,8 +51,8 @@ inline void free_oscillator_data(oscillator_data_t *odata)
 
 static void reset_dmx_state(void *data)
 {
-    channel_list_t dmxChannels = ((oscillator_data_t*)data)->channels ;
-    update_channels(dmxChannels, CHANNEL_RESET);
+    channel_list_t dmx_channels = ((oscillator_data_t*)data)->channels ;
+    update_channels(dmx_channels, CHANNEL_RESET);
 }
 
 /*

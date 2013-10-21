@@ -48,7 +48,7 @@ void free_effects_handle(effects_handle_t *effect)
 void print_onoff_effect(onoff_effect_t *effect, FILE *out)
 {
     fprintf(out, "onoff {\n");
-    printChannelList(effect->channels, out);
+    print_channel_list(effect->channels, out);
     //fprintf(out, "\t\t flag:%d;\n", effect->flag);
     fprintf(out, "\t\t onvalue:%d;\n", effect->on_value);
     fprintf(out, "\t\t offvalue:%d;\n", effect->off_value);

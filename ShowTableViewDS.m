@@ -118,7 +118,7 @@ NSString *formatDuration(long duration)
 -(void)setShow:(dmx_show_t *) newShow
 {
     _showData = newShow;
-    _numberOfRows = newShow->cueCount;
+    _numberOfRows = newShow->cue_count;
     if(_showDataIndex){
         free(_showDataIndex);
     }
@@ -127,7 +127,7 @@ NSString *formatDuration(long duration)
         NSLog(@"Memory allocation failure.  Cannot allocate memory for show listing.");
         return;
     }
-    cue_node_t *aCue = _showData->currentCue;
+    cue_node_t *aCue = _showData->current_cue;
 
     short refId = 0;
     Movie *movie = 0;
@@ -166,7 +166,7 @@ NSString *formatDuration(long duration)
         if(length)
             [durations addObject:length];        
         /* move to the next node in the list */
-        aCue = aCue->nextCue;
+        aCue = aCue->next_cue;
     }
     if(movie){
         free(movie);

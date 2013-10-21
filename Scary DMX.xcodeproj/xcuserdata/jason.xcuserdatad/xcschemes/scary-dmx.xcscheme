@@ -59,7 +59,7 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "/Users/jason/Projects/Scary\ DMX/halloween.shw"
+            argument = "/Users/jason/Projects/Scary\ DMX/short.shw"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

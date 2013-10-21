@@ -20,7 +20,7 @@ typedef struct _timer_data_t {
     dmx_time_t on_time;
     dmx_time_t off_time;
     timer_handle *timer_handle;
-    struct _timer_data_t *nextTimer;
+    struct _timer_data_t *next_timer;
 } timer_data_t;
 
 #define NEW_TIMER(timer) \

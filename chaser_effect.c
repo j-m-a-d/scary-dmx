@@ -14,7 +14,7 @@
 static void print_chaser_step(chaser_step_t *step, FILE *out)
 {
     fprintf(out, "\t step {\n");
-    printChannelList(step->channels, out);
+    print_channel_list(step->channels, out);
     fprintf(out, "\t\t chase_value: %d;\n", step->value);
     fprintf(out, "\t\t repeat: %d;\n", step->repeat);
     fprintf(out, "\t\t speed: %u;\n", step->speed);

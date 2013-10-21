@@ -145,12 +145,12 @@ void update_channels(const channel_list_t channelList, dmx_value_t val)
 /*
     Update all channels at once.
  */
-void bulk_update(const unsigned char* newVals)
+void bulk_update(const unsigned char* new_vals)
 {
     pthread_mutex_lock(&_dmx_mutex);
 
-    if(newVals)
-        memcpy(_output_buffer, newVals, DMX_CHANNELS);
+    if(new_vals)
+        memcpy(_output_buffer, new_vals, DMX_CHANNELS);
 
     pthread_mutex_unlock(&_dmx_mutex);
 }
